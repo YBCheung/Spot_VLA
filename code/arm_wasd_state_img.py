@@ -17,6 +17,14 @@ import time
 from scipy.spatial.transform import Rotation
 import numpy as np
 
+# for image
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import CompressedImage
+from cv_bridge import CvBridge
+import cv2
+
+
 import bosdyn.api.power_pb2 as PowerServiceProto
 import bosdyn.api.robot_state_pb2 as robot_state_proto
 import bosdyn.client.util
@@ -98,7 +106,7 @@ class AsyncRobotState(AsyncPeriodicQuery):
         return self._client.get_robot_state_async()
 
 
-class ArmWasdInterface(object):
+class ArmWasdInterface(Node):
     """A curses interface for driving the robot's arm."""
 
     def __init__(self, robot):

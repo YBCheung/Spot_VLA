@@ -48,11 +48,11 @@ class SpotLoop(Node):
     def __init__(self):
         super().__init__('SpotLoop')
         print('spot')
-        self.tf_broadcaster = TransformBroadcaster(self)
-        self.tf_static_broadcaster = StaticTransformBroadcaster(self)
-        self.tf_buffer = Buffer()
-        self.tf_listener = TransformListener(self.tf_buffer, self)
-        self.spot_commands = queue.Queue(maxsize=1)
+        # self.tf_broadcaster = TransformBroadcaster(self)
+        # self.tf_static_broadcaster = StaticTransformBroadcaster(self)
+        # self.tf_buffer = Buffer()
+        # self.tf_listener = TransformListener(self.tf_buffer, self)
+        # self.spot_commands = queue.Queue(maxsize=1)
         
         self.arm_pose = [0,0,0,0,0,0]
         
@@ -135,29 +135,18 @@ class SpotLoop(Node):
 
     def timer_callback(self):
         self.get_arm_pose()
-        self.print_6d_pose(self.arm_pose)
+        # self.print_6d_pose(self.arm_pose)
 
     def print_6d_pose(self, pose):
         if isinstance(pose, np.ndarray):
             print(f"arm pose_1: x: {pose[0]:.3f}, y: {pose[1]:.3f}, z: {pose[2]:.3f}, rx: {pose[3]:.3f}, ry: {pose[4]:.3f}, rz: {pose[5]:.3f}")
     
         elif isinstance(pose, bosdyn.client.math_helpers.SE3Pose): 
-            position_array = np.array([
-                pose.position.x,
-                pose.position.y,
-                pose.position.z
-            ])
-            quat_array = np.array([
-                pose.rotation.x,
-                pose.rotation.y,
-                pose.rotation.z,
-                pose.rotation.w
-            ])
             pose = self.quat_2_euler(pose)
             print(f"arm pose_2: x: {pose[0]:.3f}, y: {pose[1]:.3f}, z: {pose[2]:.3f}, rx: {pose[3]:.3f}, ry: {pose[4]:.3f}, rz: {pose[5]:.3f}")
         return pose
     
-    def get_arm_pose(self, pose_6d=False):
+    def get_arm_pose(self, data='hand_6d'):
         # return odom_T_flat_body quat, and update odom_hand self.arm_pose 6d pose. 
 
         robot_state = self.robot_state_client.get_robot_state()
@@ -166,15 +155,17 @@ class SpotLoop(Node):
                                         ODOM_FRAME_NAME, GRAV_ALIGNED_BODY_FRAME_NAME)
         flat_body_T_hand = get_a_tform_b(robot_state.kinematic_state.transforms_snapshot,
                                         GRAV_ALIGNED_BODY_FRAME_NAME, HAND_FRAME_NAME)
-        
+        # type bosdyn.client.math_helpers.Quat, can use normalize()
         self.arm_pose = self.quat_2_euler(flat_body_T_hand)
-        if pose_6d == True:
+        if data == 'hand_6d':
             return self.arm_pose
-        else:
+        if data == 'hand':
+            return flat_body_T_hand
+        if data == 'body':
             return odom_T_flat_body
 
     def quat_2_euler(self, pose_7d):
-        # Convert (x, y, z, rx, ry, rz, w) to Euler angles (in degrees)
+        # Convert SE3pose (x, y, z, rx, ry, rz, w) to np.array Euler angles (in degrees)
 
         pos = np.array([
             pose_7d.position.x,
@@ -182,21 +173,20 @@ class SpotLoop(Node):
             pose_7d.position.z
         ])
         quat = np.array([
-            pose_7d.rotation.w,
             pose_7d.rotation.x,
             pose_7d.rotation.y,
-            pose_7d.rotation.z
+            pose_7d.rotation.z,
+            pose_7d.rotation.w,
         ])
         euler = Rotation.from_quat(quat).as_euler('xyz', degrees=True)
         pose_6d = np.concatenate((pos, euler))
         return pose_6d
     
     def euler_2_quat(self, pose_6d):
-        # Convert Euler angles (in degrees) to (x,y,z,w)
-        pos = pose_6d[:3]
+        # Convert Euler angles (in degrees) to (x,y,z,w), return SE3Pose. 
         quat = Rotation.from_euler('xyz', pose_6d[3:], degrees=True).as_quat()
-        pose_7d = np.concatenate((pos, quat))
-        return pose_7d
+        return math_helpers.SE3Pose(x=pose_6d[0], y=pose_6d[1], z=pose_6d[2],
+                                    rot=math_helpers.Quat(x=quat[0], y=quat[1], z=quat[2], w=quat[3]))
 
     def safety_function(self, target_point):
         # This function checks wheter the given cordinates are safe to give to the spot. 
@@ -236,35 +226,41 @@ class SpotLoop(Node):
         # All are relevant difference. 
         safe = True
 
+        pose_command_quat = self.euler_2_quat(pose_command)
+
         if offset==True:
-            try:
-                pose_command = pose_command + self.get_arm_pose(pose_6d=True) 
-            except:
-                # print(type(pose_command), type(self.get_arm_pose(pose_6d=True)))
-                pass
+            # q.pos = q1.pos + q2.pos
+            # q.rot = q1.rot * q2.rot.
+            # unknown reason, q != q1 * q2, leading to incorrect z value when rx continuously changes. 
+            flat_body_T_hand_rot = self.get_arm_pose('hand').rotation * pose_command_quat.rotation
+            flat_body_T_hand_pos = self.arm_pose[:3] + pose_command[:3]
+            flat_body_T_hand = math_helpers.SE3Pose(x=flat_body_T_hand_pos[0], y=flat_body_T_hand_pos[1], z=flat_body_T_hand_pos[2], 
+                                                     rot=flat_body_T_hand_rot)
+            # flat_body_T_hand = self.get_arm_pose('hand') * pose_command_quat # have precision problems
+            # print('rot', flat_body_T_hand_pos, flat_body_T_hand_rot, flat_body_T_hand, flat_body_T_hand_)
+            odom_T_hand = self.get_arm_pose('body') * flat_body_T_hand
+        else:
+            flat_body_T_hand = pose_command_quat
+            odom_T_hand = self.get_arm_pose('body') * flat_body_T_hand
 
-        # TODO: modify range. 
-        hand_ewrt_flat_body, safe = self.safety_function(pose_command[:3])
-        if safe == False:
-            return safe
-                  
-        quat_command = self.euler_2_quat(pose_command)[3:]
-        flat_body_Q_hand = geometry_pb2.Quaternion(x=quat_command[0], y=quat_command[1], z=quat_command[2], w=quat_command[3])
-        flat_body_T_hand = geometry_pb2.SE3Pose(position=hand_ewrt_flat_body,
-                                                rotation=flat_body_Q_hand)
-
-        odom_T_hand = self.get_arm_pose() * math_helpers.SE3Pose.from_proto(flat_body_T_hand)
-        flat_body_T_hand = math_helpers.SE3Pose.from_proto(flat_body_T_hand)
-       
+        # # TODO: modify range. 
+        # try:
+        #     hand_ewrt_flat_body, safe = self.safety_function(pose_target_quat.position)
+        # except:
+        #     print('not work safe')
+        # if safe == False:
+        #     return safe
+                         
         arm_command = RobotCommandBuilder.arm_pose_command(
             odom_T_hand.x, odom_T_hand.y, odom_T_hand.z, odom_T_hand.rot.w, odom_T_hand.rot.x,
             odom_T_hand.rot.y, odom_T_hand.rot.z, ODOM_FRAME_NAME, seconds)
-        # self.robot.logger.info(f'Moving arm to pos from {self.arm_pose} to {odom_T_hand}')
         print('From', end=' ')
         self.print_6d_pose(self.arm_pose)
         print('  To', end=' ')
-        self.print_6d_pose(pose_command)
-        # print('from ', , 'to   ', self.print_6d_pose(odom_T_hand))
+        self.print_6d_pose(flat_body_T_hand)
+        print(self.get_arm_pose(data='hand'))
+        print(flat_body_T_hand)
+        print(pose_command_quat)
 
         # Make the open gripper RobotCommand
         gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
@@ -282,12 +278,9 @@ class SpotLoop(Node):
     def loop(self):
         print("Loop start")
         while True:
-            print(1, self.move_spot_arm([0.95, 0, 0.25, 15,45,0]))
-            print(2, self.move_spot_arm([0.95, 0, 0.25, 0,0,0])) 
-            print(3, self.move_spot_arm([0, 0, 0, 0, 0, 0], offset=True))
-            print(4, self.move_spot_arm([0, 0, 0, 0, 0, 0], offset=True)) 
-
-
+            print(3, self.move_spot_arm([0.95, 0, 0.25, 0,0,0]))  
+            print(4, self.move_spot_arm([0.1, 0.2, 0, -30, 0, 0], offset=True))
+            print(5, self.move_spot_arm([-0.1, -0.2, 0, -30, 0, 0], offset=True)) 
 
     def __exit__(self):
         # Power the robot off. By specifying "cut_immediately=False", a safe power off command
@@ -302,12 +295,7 @@ class SpotLoop(Node):
             try:
                 self.lease.return_lease()
             except:
-                # self.lease.__exit__(None, None, None)
                 pass
-
-        # Destroy node and shutdown
-        # self.destroy_node()
-        # rclpy.shutdown()
 
 
 def main(args=None):
