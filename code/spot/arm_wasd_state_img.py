@@ -16,6 +16,7 @@ import threading
 import time
 from scipy.spatial.transform import Rotation
 import numpy as np
+import traceback
 
 import pyrealsense2 as rs
 import numpy as np
@@ -156,10 +157,15 @@ class ArmWasdInterface(object):
         self._lease_keepalive = None
 
         self.sample_period_timer = 0.5  # Timer period in seconds
-        self.timer = None
         self.img_start()
         self.control_init()
-        # self.start_timer()
+        self.timer = None
+        self.start_timer()
+
+    '''
+    robot control core (*)
+    '''
+
     
     def control_init(self):
         # state: img
@@ -222,7 +228,7 @@ class ArmWasdInterface(object):
         print(f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}")
 
         # Restart the timer for the next iteration
-        self.start_timer()
+        # self.start_timer()
 
     def stop_timer(self):
         """ Stop the timer when necessary. """
@@ -257,11 +263,12 @@ class ArmWasdInterface(object):
         bottom_l = (0.750, 0.140)
         top_r = (1.000, -0.300)
         bottom_r = (0.750, -0.140)
-        z_range = (0.070, 0.230)
+        z_range = (0.035, 0.230)
         x = pose.x
         y = pose.y
         z = pose.z
         safe = True
+        safe_info = 'safe'
 
         if z < z_range[0]:
             safe_info = 'z to low'
@@ -349,6 +356,9 @@ class ArmWasdInterface(object):
         return math_helpers.SE3Pose(x=pose_6d[0], y=pose_6d[1], z=pose_6d[2],
                                     rot=math_helpers.Quat(x=quat[0], y=quat[1], z=quat[2], w=quat[3]))
 
+    '''
+    robot control core
+    '''
 
     def flush_and_estop_buffer(self, stdscr):
         """Manually flush the curses input buffer but trigger any estop requests (space)"""
@@ -393,6 +403,7 @@ class ArmWasdInterface(object):
                     self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(self.get_arm_pose('hand'))
                     self.show_frame()
                     self._drive_draw(stdscr, self._lease_keepalive)
+                    print(self.safe_info)
 
                     try:
                         cmd = stdscr.getch()

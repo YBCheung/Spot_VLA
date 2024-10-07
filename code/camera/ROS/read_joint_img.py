@@ -16,7 +16,7 @@ class ImgSubscriber(Node):
         qos_profile = QoSProfile(depth=10)
         qos_profile.reliability = ReliabilityPolicy.BEST_EFFORT
 
-        joint_sub = self.create_subscription(JointState, '/spot/joint_states', self.joint_callback, qos_profile)
+        # joint_sub = self.create_subscription(JointState, '/spot/joint_states', self.joint_callback, qos_profile)
         color_sub = self.create_subscription(CompressedImage, '/realsense/color_image/compressed', self.img_callback, qos_profile)
 
 
