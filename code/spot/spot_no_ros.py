@@ -1,13 +1,6 @@
 from bosdyn.client.robot_state import RobotStateClient
 from bosdyn.client.frame_helpers import (HAND_FRAME_NAME, get_a_tform_b)
 
-import time
-import threading
-
-import pyrealsense2 as rs
-import numpy as np
-import cv2
-
 import bosdyn.api.gripper_command_pb2
 import bosdyn.client
 import bosdyn.client.lease
@@ -88,9 +81,7 @@ class SpotLoop():
         blocking_stand(self.command_client, timeout_sec=10)
         self.robot.logger.info('Robot standing.')
 
-        self.img_init()
         self.control_init()
-        self.thread_init()
 
         # Unstow the arm
         unstow = RobotCommandBuilder.arm_ready_command()
@@ -108,47 +99,6 @@ class SpotLoop():
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
-    
-    def img_init(self):
-        # Initialize RealSense pipeline
-        self.pipeline = rs.pipeline()
-
-        # Configure the pipeline to stream the color data
-        config = rs.config()
-        config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-
-        # Start streaming
-        self.pipeline.start(config)
-        print('img_start')
-
-    def get_frame(self):
-        # Wait for a coherent pair of frames: depth and color
-        frames = self.pipeline.wait_for_frames()
-        color_frame = frames.get_color_frame()
-
-        # Check if we got frames, just in case
-        if not color_frame:
-            print('wait_for_frame')
-            return None
-
-        # Convert images to numpy arrays
-        color_image = np.asanyarray(color_frame.get_data())
-
-        return color_image
-
-    def show_frame(self):
-        # Get the current frame
-        frame = self.get_frame()
-
-        # Show the frame if it's not None
-        if frame is not None:
-            cv2.imshow('RealSense Color Frame', frame)
-            cv2.waitKey(1)  # This is necessary for OpenCV to process window events
-
-    def img_stop(self):
-        # Stop the pipeline and clean up
-        self.pipeline.stop()
-        cv2.destroyAllWindows()
 
     def print_6d_pose(self, pose):
         if isinstance(pose, np.ndarray):
@@ -233,11 +183,11 @@ class SpotLoop():
                 
         y_l = ((bottom_l[1] - top_l[1]) / (bottom_l[0] - top_l[0])) * (x - top_l[0]) + top_l[1]
         y_r = ((bottom_r[1] - top_r[1]) / (bottom_r[0] - top_r[0])) * (x - top_r[0]) + top_r[1]
-        if y >= y_l:
+        if y > y_l:
             safe_info = 'y too_left'
             y = y_l
             safe = False
-        if y <= y_r:
+        if y < y_r:
             safe_info = 'y too right!'
             y = y_r
             safe = False
@@ -274,7 +224,7 @@ class SpotLoop():
         else:
             flat_body_T_hand = pose_command_quat
 
-        self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(flat_body_T_hand)
+        self.safe_pose_command, safe, safe_info = self.safe_boundary(flat_body_T_hand)
 
         odom_T_hand = self.get_arm_pose('body') * self.safe_pose_command
                          
@@ -285,10 +235,7 @@ class SpotLoop():
         self.print_6d_pose(self.arm_pose)
         print('  To', end=' ')
         self.print_6d_pose(flat_body_T_hand)
-        print(self.get_arm_pose(data='hand'))
-        print(flat_body_T_hand)
-        print(pose_command_quat)
-
+        print(safe_info)
         # Make the open gripper RobotCommand
         gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
 
@@ -303,55 +250,14 @@ class SpotLoop():
         return safe
     
 
-    def thread_init(self):
-        self.stop_event = threading.Event()
-        self.control_period_timer = 7
-        self.state_period_timer = 0.5  # Timer period in seconds
-        # Start moving the arm in a separate thread
-        self.control_thread = threading.Thread(target=self.contril_loop, daemon=True)
-        self.control_thread.start()
-        # Start the info print loop in another thread
-        self.state_thread = threading.Thread(target=self.state_loop, daemon=True)
-        self.state_thread.start()
-
-        # Keep threads running until stop_event is set
-        # control_thread.join()
-        # state_thread.join()
-
-    def contril_loop(self):
-        print("Control loop start")
-        while True:
-            start_time = time.time()
-            print(0, self.move_spot_arm([0.95, 0, 0.230, 0,90,0]), self.safe_info) # start pose
-            # output_pose = agent.policy(img, prompt)
-            print(4, self.move_spot_arm([0.1, 0.4, -0.16, 0, 0, 0], offset=True), self.safe_info)
-            # print(5, self.move_spot_arm([-0.6, 0.1, 0, 0, 0, 0], offset=True), self.safe_info)
-
-            time_to_sleep = self.control_period_timer - (time.time() - start_time)
-            if time_to_sleep > 0:
-                time.sleep(time_to_sleep)
-
-    def state_loop(self):
-        print("State loop start")
-        while True:
-            start_time = time.time()
-            
-            _, self.safe, self.safe_info = self.safe_boundary(self.get_arm_pose('hand'))
-            print(self.safe_info, f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}")
-            self.show_frame()
-            time_to_sleep = self.state_period_timer - (time.time() - start_time)
-            if time_to_sleep > 0:
-                time.sleep(time_to_sleep)
 
     def __exit__(self):
         print('stop')
-        self.stop_event.set()
         # Power the robot off. By specifying "cut_immediately=False", a safe power off command
         # is issued to the robot. This will attempt to sit the robot before powering off.
         self.robot.power_off(cut_immediately=False, timeout_sec=20)
         assert not self.robot.is_powered_on(), 'Robot power off failed.'
         self.robot.logger.info('Robot safely powered off.')
-        self.img_stop()
 
         # Release the lease when forcely take lease        
         if self.lease is not None:
@@ -360,22 +266,3 @@ class SpotLoop():
             except Exception as e:
                 print('release lease fail', e)
 
-
-def main(args=None):
-    spot = SpotLoop()
-    try: 
-        while spot.control_thread.is_alive() and spot.state_thread.is_alive():
-            time.sleep(0.5)
-            
-    except KeyboardInterrupt:
-        spot.__exit__()
-
-if __name__ == '__main__':
-    main()
-
-
-
-# # Print the predicted action
-# #   
-# # [ 0.00650144  0.0235341   0.00651421  0.00688566 -0.02422586  0.03216925  0.        ]
-# print(action)   
