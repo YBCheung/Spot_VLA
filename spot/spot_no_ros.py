@@ -65,11 +65,16 @@ class SpotLoop():
             self.lease = self.lease_client.take()
             self.robot.logger.info("Lease forcely taken successfully.")
 
+        print(f'battery: {self.robot_state_client.get_robot_state().battery_states[0].charge_percentage.value}%')
+        
         # Now, we are ready to power on the robot. This call will block until the power
         # is on. Commands would fail if this did not happen. We can also check that the robot is
         # powered at any point.
         self.robot.logger.info('Powering on robot... This may take a several seconds.')
-        self.robot.power_on(timeout_sec=20)
+        try:
+            self.robot.power_on(timeout_sec=20)
+        except Exception:
+            print(Exception)
         assert self.robot.is_powered_on(), 'Robot power on failed.'
         self.robot.logger.info('Robot powered on.')
     
@@ -81,8 +86,6 @@ class SpotLoop():
         blocking_stand(self.command_client, timeout_sec=10)
         self.robot.logger.info('Robot standing.')
 
-        self.control_init()
-
         # Unstow the arm
         unstow = RobotCommandBuilder.arm_ready_command()
 
@@ -90,6 +93,8 @@ class SpotLoop():
         unstow_command_id = self.command_client.robot_command(unstow)
         self.robot.logger.info('Unstow command issued.')
         block_until_arm_arrives(self.command_client, unstow_command_id, 3.0)
+
+        self.control_init()
 
     def control_init(self):
         # state: img
@@ -99,6 +104,7 @@ class SpotLoop():
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
+        self.move_spot_arm([0.95, 0, 0.230, 0,90,0, 0]) # start pose
 
     def print_6d_pose(self, pose):
         if isinstance(pose, np.ndarray):
@@ -198,7 +204,7 @@ class SpotLoop():
             pose.z = z
         return pose, safe, safe_info
 
-    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 2, offset=False): 
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0., 0.], seconds = 2, offset=False): 
         '''
         pos_command: delta [x,y,z] in m
         euler_command: delta [x,y,z] in degree
@@ -206,9 +212,8 @@ class SpotLoop():
         '''
         # Build a position to move the arm to (in meters, relative to and expressed in the gravity aligned body frame).
         # All are relevant difference. 
-        safe = True
 
-        pose_command_quat = self.euler_2_quat(pose_command)
+        pose_command_quat = self.euler_2_quat(pose_command[:6])
 
         if offset==True:
             # q.pos = q1.pos + q2.pos
@@ -224,7 +229,7 @@ class SpotLoop():
         else:
             flat_body_T_hand = pose_command_quat
 
-        self.safe_pose_command, safe, safe_info = self.safe_boundary(flat_body_T_hand)
+        self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(flat_body_T_hand)
 
         odom_T_hand = self.get_arm_pose('body') * self.safe_pose_command
                          
@@ -235,24 +240,32 @@ class SpotLoop():
         self.print_6d_pose(self.arm_pose)
         print('  To', end=' ')
         self.print_6d_pose(flat_body_T_hand)
-        print(safe_info)
+        print(self.safe_info)
+
         # Make the open gripper RobotCommand
-        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
+        print(f'gripper: {pose_command[6]}')
+        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(pose_command[6])
 
         # # Combine the arm and gripper commands into one RobotCommand
-        # command = RobotCommandBuilder.build_synchro_command(gripper_command, arm_command)
+        command = RobotCommandBuilder.build_synchro_command(gripper_command, arm_command)
 
         # Send the request
-        cmd_id = self.command_client.robot_command(arm_command)
+        cmd_id = self.command_client.robot_command(command)
 
         # Wait until the arm arrives at the goal.
         block_until_arm_arrives(self.command_client, cmd_id)
-        return safe
+        return self.safe
     
-
-
     def __exit__(self):
         print('stop')
+
+        stow = RobotCommandBuilder.arm_stow_command()
+        # Issue the command via the RobotCommandClient
+        stow_command_id = self.command_client.robot_command(stow)
+        self.robot.logger.info('Stow command issued.')
+        block_until_arm_arrives(self.command_client, stow_command_id, 3.0)
+
+        
         # Power the robot off. By specifying "cut_immediately=False", a safe power off command
         # is issued to the robot. This will attempt to sit the robot before powering off.
         self.robot.power_off(cut_immediately=False, timeout_sec=20)
@@ -262,7 +275,7 @@ class SpotLoop():
         # Release the lease when forcely take lease        
         if self.lease is not None:
             try:
-                self.lease.return_lease()
+                self.lease.shutdown()
             except Exception as e:
                 print('release lease fail', e)
 

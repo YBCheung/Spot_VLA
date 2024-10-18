@@ -18,6 +18,8 @@ from scipy.spatial.transform import Rotation
 import numpy as np
 import traceback
 
+from spot_no_ros import SpotLoop
+
 import pyrealsense2 as rs
 import numpy as np
 import cv2
@@ -175,6 +177,7 @@ class ArmWasdInterface(object):
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
+        
 
     def img_start(self):
         # Initialize RealSense pipeline
@@ -258,6 +261,57 @@ class ArmWasdInterface(object):
         if self._lease_keepalive:
             self._lease_keepalive.shutdown()
             
+    
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 2, offset=False): 
+        '''
+        pos_command: delta [x,y,z] in m
+        euler_command: delta [x,y,z] in degree
+        seconds: duration in seconds>
+        '''
+        # Build a position to move the arm to (in meters, relative to and expressed in the gravity aligned body frame).
+        # All are relevant difference. 
+
+        pose_command_quat = self.euler_2_quat(pose_command)
+
+        if offset==True:
+            # q.pos = q1.pos + q2.pos
+            # q.rot = q1.rot * q2.rot.
+            # unknown reason, q != q1 * q2, leading to incorrect z value when rx continuously changes. 
+            flat_body_T_hand_rot = self.get_arm_pose('hand').rotation * pose_command_quat.rotation
+            flat_body_T_hand_pos = self.arm_pose[:3] + pose_command[:3]
+            flat_body_T_hand = math_helpers.SE3Pose(x=flat_body_T_hand_pos[0], y=flat_body_T_hand_pos[1], z=flat_body_T_hand_pos[2], 
+                                                     rot=flat_body_T_hand_rot)
+            # flat_body_T_hand = self.get_arm_pose('hand') * pose_command_quat # have precision problems
+            # print('rot', flat_body_T_hand_pos, flat_body_T_hand_rot, flat_body_T_hand, flat_body_T_hand_)
+            
+        else:
+            flat_body_T_hand = pose_command_quat
+
+        self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(flat_body_T_hand)
+
+        odom_T_hand = self.get_arm_pose('body') * self.safe_pose_command
+                         
+        arm_command = RobotCommandBuilder.arm_pose_command(
+            odom_T_hand.x, odom_T_hand.y, odom_T_hand.z, odom_T_hand.rot.w, odom_T_hand.rot.x,
+            odom_T_hand.rot.y, odom_T_hand.rot.z, ODOM_FRAME_NAME, seconds)
+        print('From', end=' ')
+        self.print_6d_pose(self.arm_pose)
+        print('  To', end=' ')
+        self.print_6d_pose(flat_body_T_hand)
+        print(self.safe_info)
+        # Make the open gripper RobotCommand
+        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
+
+        # # Combine the arm and gripper commands into one RobotCommand
+        # command = RobotCommandBuilder.build_synchro_command(gripper_command, arm_command)
+
+        # Send the request
+        cmd_id = self._robot_command_client.robot_command(arm_command)
+
+        # Wait until the arm arrives at the goal.
+        block_until_arm_arrives(self._robot_command_client, cmd_id)
+        return self.safe
+    
     def safe_boundary(self, pose):
         top_l = (1.000, 0.300)
         bottom_l = (0.750, 0.140)
@@ -499,7 +553,7 @@ class ArmWasdInterface(object):
                 self._estop_keepalive = EstopKeepAlive(self._estop_endpoint)
             else:
                 self._try_grpc('stopping estop', self._estop_keepalive.stop)
-                self._estop_keepalive.shutdown()
+                self._estop_keepalive.stop()
                 self._estop_keepalive = None
 
     def _toggle_lease(self):
@@ -633,7 +687,9 @@ class ArmWasdInterface(object):
         self._start_robot_command('stow', RobotCommandBuilder.arm_stow_command())
 
     def _unstow(self):
-        self._start_robot_command('stow', RobotCommandBuilder.arm_ready_command())
+        # self._start_robot_command('stow', RobotCommandBuilder.arm_ready_command())
+
+        self.move_spot_arm([0.95, 0, 0.230, 0,90,0]) # start pose
 
     def _toggle_power(self):
         power_state = self._power_state()

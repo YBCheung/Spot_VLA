@@ -1,4 +1,4 @@
-import pyrealsense2 as rs
+import pyrealsense2 as rs  # try to read image via ssh, 
 import numpy as np
 import cv2
 
