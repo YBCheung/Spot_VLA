@@ -204,7 +204,7 @@ class SpotLoop():
             pose.z = z
         return pose, safe, safe_info
 
-    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0., 0.], seconds = 2, offset=False): 
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0., 0.], seconds = 0.0, offset=False): 
         '''
         pos_command: delta [x,y,z] in m
         euler_command: delta [x,y,z] in degree

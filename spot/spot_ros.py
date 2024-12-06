@@ -207,7 +207,7 @@ class SpotLoop(Node):
                                                 z=target_vector[2])
         return target_point_safe, safe
 
-    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 2, offset=False): 
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 0.0, offset=False): 
         '''
         pos_command: delta [x,y,z] in m
         euler_command: delta [x,y,z] in degree
@@ -302,57 +302,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-# '''
-# spot
-# '''
-
-# # robot_state = robot_state_client.get_robot_state()
-# # odom_T_flat_body = get_a_tform_b(robot_state.kinematic_state.transforms_snapshot,
-# #                                     BODY_FRAME_NAME, HAND_FRAME_NAME)
-
-# # odom_T_hand = odom_T_flat_body * math_helpers.SE3Pose.from_proto(flat_body_T_hand)
-
-# # flat_body_Q_hand = geometry_pb2.Quaternion(w=r[3], x=r[0], y=r[1], z=r[2])
-# # flat_body_T_hand = geometry_pb2.SE3Pose(position=hand_ewrt_flat_body,
-# #                                         rotation=flat_body_Q_hand)
-
-# '''
-# openvla
-# '''
-# # Set up 4-bit quantization config
-# bnb_config = BitsAndBytesConfig(
-#     load_in_4bit=True,
-#     bnb_4bit_quant_type="nf4",  # Optional: you can change to other quantization types
-#     bnb_4bit_use_double_quant=True,  # Double quantization improves memory savings
-#     bnb_4bit_compute_dtype=torch.bfloat16  # Ensure FlashAttention compatibility
-# )
-
-# # Load Processor
-# processor = AutoProcessor.from_pretrained("openvla/openvla-7b", trust_remote_code=True)
-
-# # Load VLA Model with 4-bit quantization
-# vla = AutoModelForVision2Seq.from_pretrained(
-#     "openvla/openvla-7b", 
-#     torch_dtype=torch.bfloat16, 
-#     low_cpu_mem_usage=True, 
-#     quantization_config=bnb_config,  # Use BitsAndBytesConfig for 4-bit loading
-#     trust_remote_code=True
-# )
-
-# # Grab image input & format prompt
-# img_path = "/home/spot/openvla/openvla_lib/code/hold_stick.jpg"
-# image = Image.open(img_path)
-# prompt = "In: Aim the center of Field of view to the blue pepper container {<INSTRUCTION>}?\nOut:"
-
-# # Process the input and move to the appropriate device
-# inputs = processor(prompt, image).to("cuda:0", dtype=torch.bfloat16)
-
-# # Predict Action (7-DoF; un-normalize for BridgeData V2)
-# action = vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
-
-
-# # Print the predicted action
-# #   
-# # [ 0.00650144  0.0235341   0.00651421  0.00688566 -0.02422586  0.03216925  0.        ]
-# print(action)   

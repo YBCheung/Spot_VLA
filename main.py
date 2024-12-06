@@ -1,7 +1,7 @@
 from spot.spot_no_ros import SpotLoop
 from camera.read_img import RealSenseCapture
 from openvla.openvla import openvla
-from ssh_tunnel.server import send_data_to_server
+# from ssh_tunnel.server import send_data_to_server
 
 import time
 import threading
@@ -13,7 +13,7 @@ class Mission():
         self.agent = openvla()
         self.spot = SpotLoop()
         self.thread_init()
-        self.prompt = 'open the gripper, hold the blue stick, then lift it up, then put it back'
+        self.prompt = 'lift the blue cube'
         print(f'prompt: {self.prompt}')
 
     def thread_init(self):
@@ -35,12 +35,13 @@ class Mission():
             start_time = time.time()
             img_np = self.camera.get_frame() # np img
             img_PIL = Image.fromarray(img_np)
+            time1 = time.time()
             output_pose = self.agent.policy(self.prompt, img_PIL)
+            time2 = time.time() 
             # print('out: ', output_pose)
             print(self.spot.move_spot_arm(output_pose, offset=True))
 
-            freq = 1 / (time.time() - start_time)
-            print(f'Frequency: {freq:.3f}Hz')
+            print(f'Time: {time1 - start_time:.3f}s, {time2 - start_time:.3f}s, {time.time() - start_time:.3f}')
             # time_to_sleep = self.control_period_timer - (time.time() - start_time)
             # if time_to_sleep > 0:
             #     time.sleep(time_to_sleep)

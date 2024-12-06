@@ -17,8 +17,9 @@ import time
 from scipy.spatial.transform import Rotation
 import numpy as np
 import traceback
+import json
 
-from spot_no_ros import SpotLoop
+import tensorflow as tf
 
 import pyrealsense2 as rs
 import numpy as np
@@ -49,7 +50,7 @@ from bosdyn.client.robot_state import RobotStateClient
 LOGGER = logging.getLogger()
 
 VELOCITY_CMD_DURATION = 0.05  # seconds
-COMMAND_INPUT_RATE = 0.05
+COMMAND_INPUT_RATE = 0.05  # if greater than duration, it will tremble greatly
 VELOCITY_HAND_NORMALIZED = 0.2  # normalized hand velocity [0,1]
 VELOCITY_ANGULAR_HAND = 0.5  # rad/sec
 
@@ -124,6 +125,7 @@ class ArmWasdInterface(object):
         self._robot_command_client = robot.ensure_client(RobotCommandClient.default_service_name)
         self._robot_state_task = AsyncRobotState(self.robot_state_client)
         self._lock = threading.Lock()
+        self.record = TrajectoryRecorder('Put the green brick off the white pad')
         self._command_dictionary = {
             27: self._stop,  # ESC key
             ord('\t'): self._quit_program,
@@ -148,17 +150,22 @@ class ArmWasdInterface(object):
             ord('m'): self._toggle_gripper_closed,
             ord('y'): self._unstow,
             ord('h'): self._stow,
-            ord('x'): self._toggle_lease
+            ord('x'): self._toggle_lease,
+
+            ord('z'): self.record.start_recording,
+            ord('q'): self.record.end_recording, 
+            ord('e'): self.record.task_done
         }
         self._locked_messages = ['', '', '']  # string: displayed message for user
         self._estop_keepalive = None
         self._exit_check = None
 
+
         # Stuff that is set in start()
         self._robot_id = None
         self._lease_keepalive = None
 
-        self.sample_period_timer = 0.5  # Timer period in seconds
+        self.sample_period_timer = 0.2  # Timer period in seconds
         self.img_start()
         self.control_init()
         self.timer = None
@@ -173,7 +180,7 @@ class ArmWasdInterface(object):
         # state: img
         # action[t] = arm_pose[t+T] - arm_pose[t], 6d pose difference. 
         # manually regulate range. But no angular boundary for current task. Attention to ry range!
-        self.arm_pose = [0.,0.,0.,0.,0.,0.]
+        self.arm_pose = [0.,0.,0.,0.,0.,0., 0]
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
@@ -206,12 +213,32 @@ class ArmWasdInterface(object):
 
     def show_frame(self):
         # Get the current frame
-        frame = self.get_frame()
+        image = self.get_frame()
 
         # Show the frame if it's not None
-        if frame is not None:
-            cv2.imshow('RealSense Color Frame', frame)
-            cv2.waitKey(1)  # This is necessary for OpenCV to process window events
+        if image is None:
+            return
+
+        # Get the original dimensions
+        height, width = image.shape[:2]
+
+        # Determine the center of the image
+        center_x, center_y = width // 2, height // 2
+
+        # Calculate the crop dimensions
+        if width > height:  # Image is wider than tall
+            crop_width = height  # make width equal to height
+            crop_x1 = center_x - crop_width // 2
+            crop_x2 = center_x + crop_width // 2
+            cropped_image = image[0:height, crop_x1:crop_x2]  # crop height and centered width
+        else:  # Image is taller than or square
+            cropped_image = image  # no cropping needed
+
+        cv2.imshow('RealSense Color Frame', cropped_image)
+        cv2.waitKey(1)  # This is necessary for OpenCV to process window events
+        # Resize to 224x224
+        resized_image = cv2.resize(cropped_image, (224, 224))
+        return resized_image
 
     def img_stop(self):
         # Stop the pipeline and clean up
@@ -249,19 +276,18 @@ class ArmWasdInterface(object):
         if self._estop_endpoint is not None:
             self._estop_endpoint.force_simple_setup()  # Set this endpoint as the robot's sole estop.
 
-
-
     def shutdown(self):
         """Release control of robot as gracefully as possible."""
         LOGGER.info('Shutting down ArmWasdInterface.')
+        self.record.__del__()
         self.img_stop()
         if self._estop_keepalive:
             # This stops the check-in thread but does not stop the robot.
             self._estop_keepalive.shutdown()
         if self._lease_keepalive:
             self._lease_keepalive.shutdown()
-            
-    
+
+
     def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 2, offset=False): 
         '''
         pos_command: delta [x,y,z] in m
@@ -294,11 +320,7 @@ class ArmWasdInterface(object):
         arm_command = RobotCommandBuilder.arm_pose_command(
             odom_T_hand.x, odom_T_hand.y, odom_T_hand.z, odom_T_hand.rot.w, odom_T_hand.rot.x,
             odom_T_hand.rot.y, odom_T_hand.rot.z, ODOM_FRAME_NAME, seconds)
-        print('From', end=' ')
-        self.print_6d_pose(self.arm_pose)
-        print('  To', end=' ')
-        self.print_6d_pose(flat_body_T_hand)
-        print(self.safe_info)
+       
         # Make the open gripper RobotCommand
         gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
 
@@ -359,14 +381,6 @@ class ArmWasdInterface(object):
             pose.z = z
         return pose, safe, safe_info
 
-    def print_6d_pose(self, pose):
-        if isinstance(pose, np.ndarray):
-            print(f"arm pose_1: x: {pose[0]:.3f}, y: {pose[1]:.3f}, z: {pose[2]:.3f}, rx: {pose[3]:.3f}, ry: {pose[4]:.3f}, rz: {pose[5]:.3f}")
-    
-        elif isinstance(pose, bosdyn.client.math_helpers.SE3Pose): 
-            pose = self.quat_2_euler(pose)
-            print(f"arm pose_2: x: {pose[0]:.3f}, y: {pose[1]:.3f}, z: {pose[2]:.3f}, rx: {pose[3]:.3f}, ry: {pose[4]:.3f}, rz: {pose[5]:.3f}")
-        return pose
     
     def get_arm_pose(self, data='hand_6d'):
         # return odom_T_flat_body quat, and update odom_hand self.arm_pose 6d pose. 
@@ -378,9 +392,16 @@ class ArmWasdInterface(object):
         flat_body_T_hand = get_a_tform_b(robot_state.kinematic_state.transforms_snapshot,
                                         GRAV_ALIGNED_BODY_FRAME_NAME, HAND_FRAME_NAME)
         # type bosdyn.client.math_helpers.Quat, can use normalize()
-        self.arm_pose = self.quat_2_euler(flat_body_T_hand)
-        if data == 'hand_6d':
+        self.arm_pose[:6] = self.quat_2_euler(flat_body_T_hand)
+        gripper_angle = robot_state.manipulator_state.gripper_open_percentage
+        if gripper_angle > 80:
+            self.arm_pose[6] = 1
+        else:
+            self.arm_pose[6] = 0
+        if data == 'hand_7d':
             return self.arm_pose
+        if data == 'hand_6d':
+            return self.arm_pose[:6]
         if data == 'hand':
             return flat_body_T_hand
         if data == 'body':
@@ -455,7 +476,10 @@ class ArmWasdInterface(object):
                 while not self._exit_check.kill_now:
                     self._robot_state_task.update()
                     self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(self.get_arm_pose('hand'))
-                    self.show_frame()
+                    img = self.show_frame()
+                    if img is not None:
+
+                        self.record.record_raw_state_step(img, self.arm_pose)
                     self._drive_draw(stdscr, self._lease_keepalive)
                     print(self.safe_info)
 
@@ -497,12 +521,11 @@ class ArmWasdInterface(object):
         stdscr.addstr(18, 0, '          [jl]: Z-axis rotation control             ')
         stdscr.addstr(19, 0, '          [nm]: Open/Close gripper                  ')
         stdscr.addstr(20, 0, '          [ESC]: Stop, [x]: Return/Acquire lease    ')
-        stdscr.addstr(21, 0, '')
-        stdscr.addstr(23, 0, f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}")
-        stdscr.addstr(24, 0, f"safe pos: x: {self.safe_pose_command.x:.3f}, y: {self.safe_pose_command.y:.3f}, z: {self.safe_pose_command.z:.3f}, info: {self.safe_info}")
-
-
-
+        stdscr.addstr(21, 0, '          [zq]: start/quit recording, [e]: done     ')
+        stdscr.addstr(22, 0, f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}, gripper: {self.arm_pose[6]}")
+        stdscr.addstr(23, 0, f"safe pos: x: {self.safe_pose_command.x:.3f}, y: {self.safe_pose_command.y:.3f}, z: {self.safe_pose_command.z:.3f}, info: {self.safe_info}")
+        stdscr.addstr(24, 0, f'Recording: {self.record.count if self.record.writer else None},  Done: {self.record.done}')
+        stdscr.addstr(25, 0, '')
         stdscr.refresh()
 
     def _drive_cmd(self, key):
@@ -789,6 +812,125 @@ class ArmWasdInterface(object):
         return f'Battery: {status}{bat_bar} {time_left}'
 
 
+class TrajectoryRecorder:
+    def __init__(self, prompt):
+        """
+        Initialize the TrajectoryRecorder.
+        
+        Args:
+            tfrecord_filename (str): The name of the TFRecord file to save data.
+            prompt (str): A prompt string associated with the trajectory.
+        """
+        self.prompt = prompt
+        dir = '../dataset/' # run under code/
+        prompt.replace(' ', '_')
+        self.tfrecord_filename = dir + 'raw/' + self.prompt.replace(' ', '_')
+        self.writer = None   # if True, then write.
+        self.done = 0  # Initialize 'done' flag
+
+        self.count = 0
+        self.json_name = dir + 'prompt_count.json'
+        self.load_count()
+
+    def load_count(self):
+        # Check if the file exists
+        if os.path.exists(self.json_name):
+            with open(self.json_name, 'r') as f:
+                data = json.load(f)  # Load JSON data
+                if self.prompt in data:
+                    self.count = data[self.prompt]  # Load count for the specific prompt
+
+    def save_count(self):
+        # Load existing data if the file exists
+        if os.path.exists(self.json_name):
+            with open(self.json_name, 'r') as f:
+                data = json.load(f)
+        else:
+            data = {}
+
+        # Update the count for the prompt
+        data[self.prompt] = self.count
+
+        # Write the updated data back to the file
+        with open(self.json_name, 'w') as f:
+            json.dump(data, f, indent=4)  # Save data in JSON format
+
+    def increment_count(self):
+        self.count += 1  # Increment the count
+        self.save_count()  # Save the updated count to the file
+
+
+    def __del__(self):
+        """
+        Destructor to ensure the TFRecord writer is closed properly.
+        """
+        if self.writer:
+            self.writer.close()
+    
+    def start_recording(self): # press z
+        if self.count < 0 or self.count > 999:
+            print(f'Error, {self.count}th trajectory')
+            return
+        filename = f'{self.tfrecord_filename}_{self.count:03}.tfrecord'
+        
+        # overwrite existed file. 
+        if self.writer:
+            self.writer.close()
+        if os.path.exists(filename):  # Check if the file exists
+            os.remove(filename)  # Remove the existing file
+
+        self.writer = tf.io.TFRecordWriter(filename)
+        self.done = 0
+    
+    def task_done(self): # press e
+        if self.writer:
+            self.done = 1
+
+    def end_recording(self): # press x
+        if self.writer:
+            self.writer.close()
+            self.writer = None
+            if self.done:   # one trajectory finished, ready for the next trajectory. 
+                self.increment_count()
+
+    def encode_image_to_jpeg(self, image_array):
+        """Encode a NumPy array as JPEG bytes using OpenCV."""
+        # Convert the image to JPEG format
+        success, jpeg_encoded_image = cv2.imencode('.jpg', image_array)
+        if not success:
+            raise ValueError("Image encoding failed")
+        return jpeg_encoded_image.tobytes()  # Convert the encoded image to bytes
+
+
+    def record_raw_state_step(self, image, pose):
+        """
+        Create a TFRecord entry with raw state data (image, pose, prompt string).
+        
+        Args:
+            image (np.array): The image data to record.
+            pose (list): The pose data to record (7-DOF).  # TODO: check type. 
+
+        Returns:
+            tf.train.Example: A serialized TFRecord example.
+        """
+        if self.writer is None:
+            return
+        
+        img_jpg = self.encode_image_to_jpeg(image)
+        # image_bytes = image.tobytes()  # Convert image to bytes
+        print(pose)
+        feature = {
+            'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[img_jpg])),
+            'pose': tf.train.Feature(float_list=tf.train.FloatList(value=pose)),
+            'prompt': tf.train.Feature(bytes_list=tf.train.BytesList(value=[self.prompt.encode('utf-8')])),  # Add prompt as a byte feature
+            'done': tf.train.Feature(int64_list=tf.train.Int64List(value=[self.done]))  # 'done' flag
+        }
+
+        example = tf.train.Example(features=tf.train.Features(feature=feature))
+        self.writer.write(example.SerializeToString())
+
+
+
 def main():
     """Command-line interface."""
 
@@ -836,6 +978,7 @@ def main():
         LOGGER.error('Traceback:\n%s', traceback.format_exc())
     finally:
         # Do any final cleanup steps.
+
         arm_wasd_interface.shutdown()
 
     return True

@@ -19,7 +19,7 @@ def send_data_to_server(image_array, prompt, array_data):
     image_binary = encoded_image.tobytes()
     # Send POST request to the server
     url = 'http://localhost:8888/process'  # Replace with your server IP and port
-    files = {'image': ('image.jpg', image_binary, 'image/jpeg')}
+    files = {'image': ('image.jpg', image_binary, 'image/jpeg')} # need json?
     data = {'state': json.dumps(array_data.tolist()), 'prompt': prompt}  # Convert array to list and then JSON format
 
     # Make the request
@@ -27,7 +27,7 @@ def send_data_to_server(image_array, prompt, array_data):
 
     if response.status_code == 200:
         result = response.json()
-        return result['action'], result['VLM_string']
+        return result['action'], result['feedback']
     else:
         print("Failed to get response from server:", response.status_code)
         return None, None
@@ -40,3 +40,4 @@ for i in range(10):
     start_time = time.time()
     processed_array, output_string = send_data_to_server(image_array, prompt, array_data)
     print(f'FREQ={1 / (time.time() - start_time)}')
+    print(processed_array, output_string)

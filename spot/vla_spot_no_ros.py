@@ -373,9 +373,3 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 
-
-
-# # Print the predicted action
-# #   
-# # [ 0.00650144  0.0235341   0.00651421  0.00688566 -0.02422586  0.03216925  0.        ]
-# print(action)   
