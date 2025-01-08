@@ -636,10 +636,12 @@ def main():
     sdk = create_standard_sdk('ArmWASDClient')
 
 
-    address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
+    # address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
     # robot = sdk.create_robot(address)
     robot = sdk.create_robot(options.hostname)
     try:
+        bosdyn.client.util.authenticate(robot)
+        robot.authenticate('rllab', 'robotlearninglab')
         bosdyn.client.util.authenticate(robot)
         robot.start_time_sync(options.time_sync_interval_sec)
     except RpcError as err:

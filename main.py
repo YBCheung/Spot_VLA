@@ -1,6 +1,6 @@
-from spot.spot_no_ros import SpotLoop
-from camera.read_img import RealSenseCapture
-from openvla.openvla import openvla
+from spot._spot_no_ros import SpotLoop
+from camera._read_img import RealSenseCapture
+from openvla._openvla import openvla
 # from ssh_tunnel.server import send_data_to_server
 
 import time
@@ -13,7 +13,8 @@ class Mission():
         self.agent = openvla()
         self.spot = SpotLoop()
         self.thread_init()
-        self.prompt = 'lift the blue cube'
+        self.prompt = 'knock off the blue can'
+        # self.prompt = 'lift the blue cube'
         print(f'prompt: {self.prompt}')
 
     def thread_init(self):

@@ -17,6 +17,8 @@ Run with:
                                     --dataset_name <DATASET_NAME> \
                                     --run_root_dir <PATH/TO/LOGS/DIR> \
                                     ...
+
+    
 """
 
 import os
@@ -78,10 +80,10 @@ class FinetuneConfig:
     vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
 
     # Directory Paths
-    data_root_dir: Path = Path("~/tensorflow_datasets/example_dataset/1.0.0")        # Path to Open-X dataset directory
-    dataset_name: str = "example_dataset"                                # Name of fine-tuning dataset (e.g., `droid_wipe`)
-    run_root_dir: Path = Path("runs")                               # Path to directory to store logs & checkpoints
-    adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
+    data_root_dir: Path = Path("~/openvla/dataset/action")        # Path to Open-X dataset directory
+    dataset_name: str = "action"                                # Name of fine-tuning dataset (e.g., `droid_wipe`)
+    run_root_dir: Path = Path("~/openvla/dataset/log")                               # Path to directory to store logs & checkpoints
+    adapter_tmp_dir: Path = Path("~/openvla/dataset/adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
     batch_size: int = 4 # 16                                            # Fine-tuning batch size

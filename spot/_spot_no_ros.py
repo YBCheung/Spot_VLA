@@ -5,7 +5,7 @@ import bosdyn.api.gripper_command_pb2
 import bosdyn.client
 import bosdyn.client.lease
 import bosdyn.client.util
-from bosdyn.client import math_helpers
+from bosdyn.client import math_helpers, RpcError
 from bosdyn.client.frame_helpers import GRAV_ALIGNED_BODY_FRAME_NAME, ODOM_FRAME_NAME, get_a_tform_b
 from bosdyn.client.robot_command import (RobotCommandBuilder, RobotCommandClient,
                                          block_until_arm_arrives, blocking_stand)
@@ -14,6 +14,7 @@ import bosdyn.api.gripper_command_pb2
 
 from scipy.spatial.transform import Rotation
 import numpy as np
+import logging
 
 class SpotLoop():
 
@@ -29,6 +30,16 @@ class SpotLoop():
         address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
         self.robot = self.sdk.create_robot(address)
 
+        # skip username and password
+        LOGGER = logging.getLogger()
+
+        try:
+            self.robot.authenticate('rllab', 'robotlearninglab')
+            bosdyn.client.util.authenticate(self.robot)
+        except RpcError as err:
+            LOGGER.error('Failed to communicate with robot: %s', err)
+            return False
+        
         # Clients need to authenticate to a robot before being able to use it.
         bosdyn.client.util.authenticate(self.robot)
 
@@ -73,8 +84,8 @@ class SpotLoop():
         self.robot.logger.info('Powering on robot... This may take a several seconds.')
         try:
             self.robot.power_on(timeout_sec=20)
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print('Power on Exception:', e)
         assert self.robot.is_powered_on(), 'Robot power on failed.'
         self.robot.logger.info('Robot powered on.')
     
@@ -104,7 +115,8 @@ class SpotLoop():
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
-        self.move_spot_arm([0.95, 0, 0.230, 0,90,0, 0]) # start pose
+        # self.move_spot_arm([0.95, 0, 0.230, 0,90,0, 0]) # start pose
+        # self.move_spot_arm([0.6, 0, 0.3, 0, 0, 0, 1])
 
     def print_6d_pose(self, pose):
         if isinstance(pose, np.ndarray):
@@ -158,6 +170,7 @@ class SpotLoop():
                                     rot=math_helpers.Quat(x=quat[0], y=quat[1], z=quat[2], w=quat[3]))
 
     def safe_boundary(self, pose):
+        return pose, True, 'safe'
         top_l = (1.000, 0.300)
         bottom_l = (0.750, 0.140)
         top_r = (1.000, -0.300)
@@ -204,16 +217,25 @@ class SpotLoop():
             pose.z = z
         return pose, safe, safe_info
 
-    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0., 0.], seconds = 0.0, offset=False): 
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0., 0.], seconds = 0.3, offset=False, quat = False): 
         '''
         pos_command: delta [x,y,z] in m
         euler_command: delta [x,y,z] in degree
-        seconds: duration in seconds>
+        seconds: duration in seconds
+        offset: if the command is difference
+        quat: if the pose command in quaternion
         '''
         # Build a position to move the arm to (in meters, relative to and expressed in the gravity aligned body frame).
         # All are relevant difference. 
+        # print(pose_command)
+        if quat == False:
+            assert len(pose_command) == 7, f"Assertion failed: pose command len = {len(pose_command)} not 7"
+            pose_command_quat = self.euler_2_quat(pose_command[:6])
+        else:
+            assert len(pose_command) == 8, f"Assertion failed: pose command len = {len(pose_command)} not 8"
+            pose_command_quat = math_helpers.SE3Pose(x=pose_command[0], y=pose_command[1], z=pose_command[2],
+                                    rot=math_helpers.Quat(x=pose_command[3], y=pose_command[4], z=pose_command[5], w=pose_command[6]))
 
-        pose_command_quat = self.euler_2_quat(pose_command[:6])
 
         if offset==True:
             # q.pos = q1.pos + q2.pos
@@ -236,15 +258,15 @@ class SpotLoop():
         arm_command = RobotCommandBuilder.arm_pose_command(
             odom_T_hand.x, odom_T_hand.y, odom_T_hand.z, odom_T_hand.rot.w, odom_T_hand.rot.x,
             odom_T_hand.rot.y, odom_T_hand.rot.z, ODOM_FRAME_NAME, seconds)
-        print('From', end=' ')
-        self.print_6d_pose(self.arm_pose)
-        print('  To', end=' ')
-        self.print_6d_pose(flat_body_T_hand)
-        print(self.safe_info)
+        # print('From', end=' ')
+        # self.print_6d_pose(self.arm_pose)
+        # print('  To', end=' ')
+        # self.print_6d_pose(flat_body_T_hand)
+        # print(self.safe_info)
 
         # Make the open gripper RobotCommand
-        print(f'gripper: {pose_command[6]}')
-        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(pose_command[6])
+        # print(f'gripper: {pose_command[-1]}')
+        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(pose_command[-1])
 
         # # Combine the arm and gripper commands into one RobotCommand
         command = RobotCommandBuilder.build_synchro_command(gripper_command, arm_command)

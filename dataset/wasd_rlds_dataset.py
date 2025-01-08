@@ -125,7 +125,7 @@ class ArmWasdInterface(object):
         self._robot_command_client = robot.ensure_client(RobotCommandClient.default_service_name)
         self._robot_state_task = AsyncRobotState(self.robot_state_client)
         self._lock = threading.Lock()
-        self.record = TrajectoryRecorder('Put the green brick off the white pad')
+        self.record = TrajectoryRecorder('Lift the cube')
         self._command_dictionary = {
             27: self._stop,  # ESC key
             ord('\t'): self._quit_program,
@@ -822,7 +822,7 @@ class TrajectoryRecorder:
             prompt (str): A prompt string associated with the trajectory.
         """
         self.prompt = prompt
-        dir = '../dataset/' # run under code/
+        dir = '../../dataset/' # run under code/
         prompt.replace(' ', '_')
         self.tfrecord_filename = dir + 'raw/' + self.prompt.replace(' ', '_')
         self.writer = None   # if True, then write.

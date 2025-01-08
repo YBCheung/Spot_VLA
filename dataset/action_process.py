@@ -33,11 +33,12 @@ def calculate_pose_difference(pose1, pose2):
 
 
 # Set the step variable (how many steps apart to compare poses)
-step = 2
+step = 5
 
 # Create a dataset from the .tfrecord file
-raw_dir = 'raw/'
-action_dir = 'action/'
+dir = '../../dataset/'
+raw_dir = dir + 'raw/'
+action_dir = dir + 'action/'
 
 for filename in os.listdir(raw_dir):
     raw_path = os.path.join(raw_dir, filename)
@@ -67,7 +68,7 @@ for filename in os.listdir(raw_dir):
             pose_difference = calculate_pose_difference(current_pose, previous_poses[0])
 
             # Print or process the pose difference as needed
-            print(f"Step: {counter}, Pose Difference: {pose_difference}, {parsed_record['done']}")
+            print(f"Step: {counter}, Pose Diff: {pose_difference}, {parsed_record['done']}, {filename[:3]}")
             feature = {
                 'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[parsed_record['image']])),
                 'pose': tf.train.Feature(float_list=tf.train.FloatList(value=pose_difference)),
