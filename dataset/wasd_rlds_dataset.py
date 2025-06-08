@@ -939,24 +939,30 @@ def main():
     parser.add_argument('--time-sync-interval-sec',
                         help='The interval (seconds) that time-sync estimate should be updated.',
                         type=float)
-    # parser.add_argument('--hostname',
-    #                     help='IP addr of robot',
-    #                     default='10.0.0.30')
+    parser.add_argument('--hostname',
+                        help='IP addr of robot',
+                        default='10.0.0.30')
     options = parser.parse_args()
 
     # Create robot object.
     sdk = create_standard_sdk('ArmWASDClient')
 
-
-    address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
-    # robot = sdk.create_robot(address)
     robot = sdk.create_robot(options.hostname)
+
+    # address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
+    # robot = sdk.create_robot(address)
+
+    # skip username and password
+    LOGGER = logging.getLogger()
+
     try:
+        robot.authenticate('rllab', 'robotlearninglab')
         bosdyn.client.util.authenticate(robot)
         robot.start_time_sync(options.time_sync_interval_sec)
     except RpcError as err:
         LOGGER.error('Failed to communicate with robot: %s', err)
         return False
+    
 
     assert robot.has_arm(), 'Robot requires an arm to run this example.'
 

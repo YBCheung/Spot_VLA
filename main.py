@@ -10,11 +10,12 @@ from PIL import Image
 class Mission():
     def __init__(self):
         self.camera = RealSenseCapture()
+        img_np = self.camera.get_frame() # np img
         self.agent = openvla()
         self.spot = SpotLoop()
         self.thread_init()
-        self.prompt = 'knock off the blue can'
-        # self.prompt = 'lift the blue cube'
+        # self.prompt = 'Lift the yellow brick'
+        self.prompt = 'lift the blue cube'
         print(f'prompt: {self.prompt}')
 
     def thread_init(self):
@@ -39,7 +40,7 @@ class Mission():
             time1 = time.time()
             output_pose = self.agent.policy(self.prompt, img_PIL)
             time2 = time.time() 
-            # print('out: ', output_pose)
+            print('out: ', output_pose)
             print(self.spot.move_spot_arm(output_pose, offset=True))
 
             print(f'Time: {time1 - start_time:.3f}s, {time2 - start_time:.3f}s, {time.time() - start_time:.3f}')

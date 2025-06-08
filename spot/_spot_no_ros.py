@@ -28,7 +28,7 @@ class SpotLoop():
         # specified to reach it. This can be done with a DNS name
         # (e.g. spot.intranet.example.com) or an IP literal (e.g. 10.0.63.1)
         address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
-        self.robot = self.sdk.create_robot(address)
+        self.robot = self.sdk.create_robot(address) 
 
         # skip username and password
         LOGGER = logging.getLogger()
@@ -103,7 +103,7 @@ class SpotLoop():
         # Issue the command via the RobotCommandClient
         unstow_command_id = self.command_client.robot_command(unstow)
         self.robot.logger.info('Unstow command issued.')
-        block_until_arm_arrives(self.command_client, unstow_command_id, 3.0)
+        # block_until_arm_arrives(self.command_client, unstow_command_id, 3.0)
 
         self.control_init()
 
@@ -115,7 +115,7 @@ class SpotLoop():
         self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
         self.safe = True
         self.safe_info = 'safe'
-        # self.move_spot_arm([0.95, 0, 0.230, 0,90,0, 0]) # start pose
+        self.move_spot_arm([0.6, 0, 0.3, 0,0,0, 0]) # start pose
         # self.move_spot_arm([0.6, 0, 0.3, 0, 0, 0, 1])
 
     def print_6d_pose(self, pose):

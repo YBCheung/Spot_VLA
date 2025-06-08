@@ -44,10 +44,11 @@ class RealSenseCapture:
 
 # Usage
 if __name__ == "__main__":
-    realsense_capture = RealSenseCapture()
+    while True:
+        realsense_capture = RealSenseCapture()
 
-    # Capture and display a single frame when the function is called
-    realsense_capture.show_frame()  # Call this when you want to capture a frame
+        # Capture and display a single frame when the function is called
+        realsense_capture.show_frame()  # Call this when you want to capture a frame
 
     # Stop the pipeline when done
     realsense_capture.stop()
