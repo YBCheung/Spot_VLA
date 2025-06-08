@@ -51,6 +51,13 @@ from prismatic.extern.hf.configuration_prismatic import OpenVLAConfig
 from prismatic.extern.hf.modeling_prismatic import OpenVLAForActionPrediction
 from prismatic.extern.hf.processing_prismatic import PrismaticImageProcessor, PrismaticProcessor
 
+# Note: If you want to run on local CPU, comment out the following lines.in terminal, and run following command on terminal 
+'''
+export RANK=0
+export WORLD_SIZE=1
+export MASTER_ADDR=localhost
+export MASTER_PORT=12355
+'''
 import torch.distributed as dist
 
 dist.init_process_group(
@@ -86,7 +93,7 @@ class FinetuneConfig:
     vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
 
     # Directory Paths
-    data_root_dir: Path = Path("/scratch/work/zhangy50/RL/spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
+    data_root_dir: Path = Path("/home/rllab/spot_vla/Spot_VLA/dataset/")        # Path to Open-X dataset directory
     dataset_name: str = "spot_kitchen"                                # Name of fine-tuning dataset (e.g., `droid_wipe`)
     run_root_dir: Path = Path("runs")                              # Path to directory to store logs & checkpoints
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
@@ -419,7 +426,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                     print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {run_dir}")
                 else:
                     # Prepare to save checkpoint in new directory
-                    checkpoint_dir = Path(str(run_dir) + f"--{gradient_step_idx}_chkpt")
+                    checkpoint_dir = Path(str(run_dir) + f"--{gradient_step_idx}_chkpt--loss-{val_loss_value:.3f}")
                     os.makedirs(checkpoint_dir, exist_ok=True)
 
                     # Save dataset statistics to new directory
@@ -554,13 +561,22 @@ def finetune(cfg: FinetuneConfig) -> None:
                             vla.module.save_pretrained(run_dir)
                     else:
                         patience_counter += 1
-                        print(f"Validation loss did not improve ({patience_counter}/{cfg.patience})")
-                        
-                        if patience_counter >= cfg.patience:
-                            print(f"Early stopping at step {gradient_step_idx}!")
-                            save_model()
-                            break  # Exit training for loop
+                        cfg.learning_rate *= 0.5
+                        for param_group in optimizer.param_groups:
+                            param_group['lr'] = cfg.learning_rate
+                        print(f"Updated learning rate to {cfg.learning_rate:.6f}")
+                        wandb.log({"learning_rate": cfg.learning_rate}, step=gradient_step_idx)
+                        if distributed_state.is_main_process:   
+                            print(f"Current best validation loss: {best_val_loss:.4f}, patience counter: {patience_counter}/{cfg.patience}")
 
+                        if patience_counter < cfg.patience:
+                            print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), continuing training...")
+                        else:
+                            if distributed_state.is_main_process:
+                                print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), stopping training...")
+                            # Save the model checkpoint before stopping
+                            save_model()
+                            break
             # Save Model Checkpoint =>> by default, only keeps the latest checkpoint, continually overwriting it!
             if gradient_step_idx > 0 and gradient_step_idx % cfg.save_steps == 0:
                 save_model()

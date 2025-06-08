@@ -1,0 +1,29 @@
+{
+  "citation": "// TODO(example_dataset): BibTeX citation",
+  "description": "TODO(example_dataset): Markdown description of your dataset.\nDescription is **formatted** as markdown.\n\nIt should also contain any processing which has been applied (if any),\n(e.g. corrupted example skipped, images cropped,...):",
+  "fileFormat": "tfrecord",
+  "moduleName": "spot_kitchen.spot_kitchen_dataset_builder",
+  "name": "spot_kitchen",
+  "releaseNotes": {
+    "1.0.0": "Initial release."
+  },
+  "splits": [
+    {
+      "filepathTemplate": "{DATASET}-{SPLIT}.{FILEFORMAT}-{SHARD_X_OF_Y}",
+      "name": "train",
+      "numBytes": "7522665",
+      "shardLengths": [
+        "137"
+      ]
+    },
+    {
+      "filepathTemplate": "{DATASET}-{SPLIT}.{FILEFORMAT}-{SHARD_X_OF_Y}",
+      "name": "val",
+      "numBytes": "2026197",
+      "shardLengths": [
+        "37"
+      ]
+    }
+  ],
+  "version": "1.0.0"
+}
