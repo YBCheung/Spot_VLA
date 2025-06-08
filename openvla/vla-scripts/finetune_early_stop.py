@@ -562,6 +562,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                     else:
                         patience_counter += 1
                         cfg.learning_rate *= 0.5
+                        validation_interval = int(validation_interval * 0.7 // 1)
                         for param_group in optimizer.param_groups:
                             param_group['lr'] = cfg.learning_rate
                         print(f"Updated learning rate to {cfg.learning_rate:.6f}")
