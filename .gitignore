@@ -1,3 +1,4 @@
 openvla/runs/
 openvla/wandb/
 openvla/adapter-tmp/
+dataset/raw/

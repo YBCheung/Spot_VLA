@@ -1,0 +1,15 @@
+name: tf_torch
+channels:
+  - conda-forge
+dependencies:
+  # # - cudatoolkit=12.2  # Set CUDA to 12.2
+  # - cudnn=8.9         # Set cuDNN to 8.9
+  # - tensorflow=2.15   # Install TensorFlow 2.15
+  - pip               # Ensure pip is installed to handle pip-based dependencies
+  - pip:
+      - tensorflow_datasets
+      - tensorflow_hub
+      - apache_beam
+      - matplotlib
+      - plotly
+      - wandb
