@@ -1,0 +1,995 @@
+# Copyright (c) 2023 Boston Dynamics, Inc.  All rights reserved.
+#
+# Downloading, reproducing, distributing or otherwise using the SDK Software
+# is subject to the terms and conditions of the Boston Dynamics Software
+# Development Kit License (20191101-BDSDK-SL).
+
+"""Arm WASD driving of robot."""
+
+import argparse
+import curses
+import logging
+import os
+import signal
+import sys
+import threading
+import time
+from scipy.spatial.transform import Rotation
+import numpy as np
+import traceback
+import json
+
+import tensorflow as tf
+
+import pyrealsense2 as rs
+import numpy as np
+import cv2
+
+import bosdyn.api.power_pb2 as PowerServiceProto
+import bosdyn.api.robot_state_pb2 as robot_state_proto
+import bosdyn.client.util
+from bosdyn.api import arm_command_pb2, geometry_pb2, robot_command_pb2, synchronized_command_pb2
+from bosdyn.client import ResponseError, RpcError, create_standard_sdk
+from bosdyn.client.async_tasks import AsyncPeriodicQuery
+from bosdyn.client.estop import EstopClient, EstopEndpoint, EstopKeepAlive
+from bosdyn.client.lease import Error as LeaseBaseError
+from bosdyn.client.lease import LeaseClient, LeaseKeepAlive
+from bosdyn.client.power import PowerClient
+from bosdyn.client.robot_command import RobotCommandBuilder, RobotCommandClient
+from bosdyn.client.robot_state import RobotStateClient
+from bosdyn.client.time_sync import TimeSyncError
+from bosdyn.util import duration_str, format_metric, secs_to_hms
+
+from bosdyn.client import math_helpers
+from bosdyn.client.frame_helpers import (GROUND_PLANE_FRAME_NAME, VISION_FRAME_NAME, BODY_FRAME_NAME, HAND_FRAME_NAME,
+                                         get_a_tform_b, get_vision_tform_body)
+from bosdyn.client.frame_helpers import GRAV_ALIGNED_BODY_FRAME_NAME, ODOM_FRAME_NAME, get_a_tform_b
+from bosdyn.client.robot_command import (RobotCommandBuilder, RobotCommandClient,
+                                         block_until_arm_arrives, blocking_stand)
+from bosdyn.client.robot_state import RobotStateClient
+LOGGER = logging.getLogger()
+
+VELOCITY_CMD_DURATION = 0.05  # seconds
+COMMAND_INPUT_RATE = 0.05  # if greater than duration, it will tremble greatly
+VELOCITY_HAND_NORMALIZED = 0.2  # normalized hand velocity [0,1]
+VELOCITY_ANGULAR_HAND = 0.5  # rad/sec
+
+
+class ExitCheck(object):
+    """A class to help exiting a loop, also capturing SIGTERM to exit the loop."""
+
+    def __init__(self):
+        self._kill_now = False
+        signal.signal(signal.SIGTERM, self._sigterm_handler)
+        signal.signal(signal.SIGINT, self._sigterm_handler)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, _type, _value, _traceback):
+        return False
+
+    def _sigterm_handler(self, _signum, _frame):
+        self._kill_now = True
+
+    def request_exit(self):
+        """Manually trigger an exit (rather than sigterm/sigint)."""
+        self._kill_now = True
+
+    @property
+    def kill_now(self):
+        """Return the status of the exit checker indicating if it should exit."""
+        return self._kill_now
+
+
+class CursesHandler(logging.Handler):
+    """logging handler which puts messages into the curses interface"""
+
+    def __init__(self, arm_wasd_interface):
+        super(CursesHandler, self).__init__()
+        self._arm_wasd_interface = arm_wasd_interface
+
+    def emit(self, record):
+        msg = record.getMessage()
+        msg = msg.replace('\n', ' ').replace('\r', '')
+        self._arm_wasd_interface.add_message(f'{record.levelname:s} {msg:s}')
+
+
+class AsyncRobotState(AsyncPeriodicQuery):
+    """Grab robot state."""
+
+    def __init__(self, robot_state_client):
+        super(AsyncRobotState, self).__init__('robot_state', robot_state_client, LOGGER,
+                                              period_sec=0.2)
+
+    def _start_query(self):
+        return self._client.get_robot_state_async()
+
+
+class ArmWasdInterface(object):
+    """A curses interface for driving the robot's arm."""
+
+    def __init__(self, robot):
+        self._robot = robot
+        # Create clients -- do not use them for communication yet.
+        self._lease_client = robot.ensure_client(LeaseClient.default_service_name)
+        try:
+            self._estop_client = self._robot.ensure_client(EstopClient.default_service_name)
+            self._estop_endpoint = EstopEndpoint(self._estop_client, 'GNClient', 9.0)
+        except:
+            # Not the estop.
+            self._estop_client = None
+            self._estop_endpoint = None
+        self._power_client = robot.ensure_client(PowerClient.default_service_name)
+        self.robot_state_client = robot.ensure_client(RobotStateClient.default_service_name)
+        self._robot_command_client = robot.ensure_client(RobotCommandClient.default_service_name)
+        self._robot_state_task = AsyncRobotState(self.robot_state_client)
+        self._lock = threading.Lock()
+        self.record = TrajectoryRecorder('Lift the cube')
+        self._command_dictionary = {
+            27: self._stop,  # ESC key
+            ord('\t'): self._quit_program,
+            ord('T'): self._toggle_time_sync,
+            ord(' '): self._toggle_estop,
+            ord('P'): self._toggle_power,
+            ord('v'): self._sit,
+            ord('c'): self._stand,
+            ord('w'): self._move_out,
+            ord('s'): self._move_in,
+            ord('a'): self._rotate_ccw,
+            ord('d'): self._rotate_cw,
+            ord('r'): self._move_up,
+            ord('f'): self._move_down,
+            ord('i'): self._rotate_plus_ry,
+            ord('k'): self._rotate_minus_ry,
+            ord('u'): self._rotate_plus_rx,
+            ord('o'): self._rotate_minus_rx,
+            ord('j'): self._rotate_plus_rz,
+            ord('l'): self._rotate_minus_rz,
+            ord('n'): self._toggle_gripper_open,
+            ord('m'): self._toggle_gripper_closed,
+            ord('y'): self._unstow,
+            ord('h'): self._stow,
+            ord('x'): self._toggle_lease,
+
+            ord('z'): self.record.start_recording,
+            ord('q'): self.record.end_recording, 
+            ord('e'): self.record.task_done
+        }
+        self._locked_messages = ['', '', '']  # string: displayed message for user
+        self._estop_keepalive = None
+        self._exit_check = None
+
+
+        # Stuff that is set in start()
+        self._robot_id = None
+        self._lease_keepalive = None
+
+        self.sample_period_timer = 0.2  # Timer period in seconds
+        self.img_start()
+        self.control_init()
+        self.timer = None
+        self.start_timer()
+
+    '''
+    robot control core (*)
+    '''
+
+    
+    def control_init(self):
+        # state: img
+        # action[t] = arm_pose[t+T] - arm_pose[t], 6d pose difference. 
+        # manually regulate range. But no angular boundary for current task. Attention to ry range!
+        self.arm_pose = [0.,0.,0.,0.,0.,0., 0]
+        self.safe_pose_command = [] # safe SE3Pose action for execute on spot.
+        self.safe = True
+        self.safe_info = 'safe'
+        
+
+    def img_start(self):
+        # Initialize RealSense pipeline
+        self.pipeline = rs.pipeline()
+
+        # Configure the pipeline to stream the color data
+        config = rs.config()
+        config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+
+        # Start streaming
+        self.pipeline.start(config)
+
+    def get_frame(self):
+        # Wait for a coherent pair of frames: depth and color
+        frames = self.pipeline.wait_for_frames()
+        color_frame = frames.get_color_frame()
+
+        # Check if we got frames, just in case
+        if not color_frame:
+            return None
+
+        # Convert images to numpy arrays
+        color_image = np.asanyarray(color_frame.get_data())
+
+        return color_image
+
+    def show_frame(self):
+        # Get the current frame
+        image = self.get_frame()
+
+        # Show the frame if it's not None
+        if image is None:
+            return
+
+        # Get the original dimensions
+        height, width = image.shape[:2]
+
+        # Determine the center of the image
+        center_x, center_y = width // 2, height // 2
+
+        # Calculate the crop dimensions
+        if width > height:  # Image is wider than tall
+            crop_width = height  # make width equal to height
+            crop_x1 = center_x - crop_width // 2
+            crop_x2 = center_x + crop_width // 2
+            cropped_image = image[0:height, crop_x1:crop_x2]  # crop height and centered width
+        else:  # Image is taller than or square
+            cropped_image = image  # no cropping needed
+
+        cv2.imshow('RealSense Color Frame', cropped_image)
+        cv2.waitKey(1)  # This is necessary for OpenCV to process window events
+        # Resize to 224x224
+        resized_image = cv2.resize(cropped_image, (224, 224))
+        return resized_image
+
+    def img_stop(self):
+        # Stop the pipeline and clean up
+        self.pipeline.stop()
+        cv2.destroyAllWindows()
+
+    def start_timer(self):
+        """ Start the recurring timer. """
+        if self.timer:  # Check if the timer already exists
+            self.timer.cancel()  # Cancel the old one if necessary
+        self.timer = threading.Timer(self.sample_period_timer, self.timer_callback)
+        self.timer.start()
+
+    def timer_callback(self):
+        """ Callback to be executed on timer expiration. """
+        self.get_arm_pose()
+        print(f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}")
+
+        # Restart the timer for the next iteration
+        # self.start_timer()
+
+    def stop_timer(self):
+        """ Stop the timer when necessary. """
+        if self.timer:
+            self.timer.cancel()
+
+
+    def start(self):
+        """Begin communication with the robot."""
+        # Construct our lease keep-alive object, which begins RetainLease calls in a thread.
+        self._lease_keepalive = LeaseKeepAlive(self._lease_client, must_acquire=True,
+                                               return_at_exit=True)
+        
+        self._robot_id = self._robot.get_id()
+        if self._estop_endpoint is not None:
+            self._estop_endpoint.force_simple_setup()  # Set this endpoint as the robot's sole estop.
+
+    def shutdown(self):
+        """Release control of robot as gracefully as possible."""
+        LOGGER.info('Shutting down ArmWasdInterface.')
+        self.record.__del__()
+        self.img_stop()
+        if self._estop_keepalive:
+            # This stops the check-in thread but does not stop the robot.
+            self._estop_keepalive.shutdown()
+        if self._lease_keepalive:
+            self._lease_keepalive.shutdown()
+
+
+    def move_spot_arm(self, pose_command = [1, 0, 0.15, 0., 0., 0.], seconds = 2, offset=False): 
+        '''
+        pos_command: delta [x,y,z] in m
+        euler_command: delta [x,y,z] in degree
+        seconds: duration in seconds>
+        '''
+        # Build a position to move the arm to (in meters, relative to and expressed in the gravity aligned body frame).
+        # All are relevant difference. 
+
+        pose_command_quat = self.euler_2_quat(pose_command)
+
+        if offset==True:
+            # q.pos = q1.pos + q2.pos
+            # q.rot = q1.rot * q2.rot.
+            # unknown reason, q != q1 * q2, leading to incorrect z value when rx continuously changes. 
+            flat_body_T_hand_rot = self.get_arm_pose('hand').rotation * pose_command_quat.rotation
+            flat_body_T_hand_pos = self.arm_pose[:3] + pose_command[:3]
+            flat_body_T_hand = math_helpers.SE3Pose(x=flat_body_T_hand_pos[0], y=flat_body_T_hand_pos[1], z=flat_body_T_hand_pos[2], 
+                                                     rot=flat_body_T_hand_rot)
+            # flat_body_T_hand = self.get_arm_pose('hand') * pose_command_quat # have precision problems
+            # print('rot', flat_body_T_hand_pos, flat_body_T_hand_rot, flat_body_T_hand, flat_body_T_hand_)
+            
+        else:
+            flat_body_T_hand = pose_command_quat
+
+        self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(flat_body_T_hand)
+
+        odom_T_hand = self.get_arm_pose('body') * self.safe_pose_command
+                         
+        arm_command = RobotCommandBuilder.arm_pose_command(
+            odom_T_hand.x, odom_T_hand.y, odom_T_hand.z, odom_T_hand.rot.w, odom_T_hand.rot.x,
+            odom_T_hand.rot.y, odom_T_hand.rot.z, ODOM_FRAME_NAME, seconds)
+       
+        # Make the open gripper RobotCommand
+        gripper_command = RobotCommandBuilder.claw_gripper_open_fraction_command(1.0)
+
+        # # Combine the arm and gripper commands into one RobotCommand
+        # command = RobotCommandBuilder.build_synchro_command(gripper_command, arm_command)
+
+        # Send the request
+        cmd_id = self._robot_command_client.robot_command(arm_command)
+
+        # Wait until the arm arrives at the goal.
+        block_until_arm_arrives(self._robot_command_client, cmd_id)
+        return self.safe
+    
+    def safe_boundary(self, pose):
+        top_l = (1.000, 0.300)
+        bottom_l = (0.750, 0.140)
+        top_r = (1.000, -0.300)
+        bottom_r = (0.750, -0.140)
+        z_range = (0.035, 0.230)
+        x = pose.x
+        y = pose.y
+        z = pose.z
+        safe = True
+        safe_info = 'safe'
+
+        if z < z_range[0]:
+            safe_info = 'z to low'
+            z = z_range[0]
+            safe = False
+        elif z > z_range[1]:
+            safe_info = 'z to high'
+            z = z_range[1]
+            safe = False
+
+        if x < bottom_l[0]:
+            safe_info = 'x too_close'
+            x = bottom_l[0]
+            safe = False
+        elif x > top_l[0]:
+            safe_info = 'x too_far'
+            x = top_l[0]
+            safe = False
+                
+        y_l = ((bottom_l[1] - top_l[1]) / (bottom_l[0] - top_l[0])) * (x - top_l[0]) + top_l[1]
+        y_r = ((bottom_r[1] - top_r[1]) / (bottom_r[0] - top_r[0])) * (x - top_r[0]) + top_r[1]
+        if y >= y_l:
+            safe_info = 'y too_left'
+            y = y_l
+            safe = False
+        if y <= y_r:
+            safe_info = 'y too right!'
+            y = y_r
+            safe = False
+
+        if safe == False:
+            pose.x = x
+            pose.y = y
+            pose.z = z
+        return pose, safe, safe_info
+
+    
+    def get_arm_pose(self, data='hand_6d'):
+        # return odom_T_flat_body quat, and update odom_hand self.arm_pose 6d pose. 
+
+        robot_state = self.robot_state_client.get_robot_state()
+
+        odom_T_flat_body = get_a_tform_b(robot_state.kinematic_state.transforms_snapshot,
+                                        ODOM_FRAME_NAME, GRAV_ALIGNED_BODY_FRAME_NAME)
+        flat_body_T_hand = get_a_tform_b(robot_state.kinematic_state.transforms_snapshot,
+                                        GRAV_ALIGNED_BODY_FRAME_NAME, HAND_FRAME_NAME)
+        # type bosdyn.client.math_helpers.Quat, can use normalize()
+        self.arm_pose[:6] = self.quat_2_euler(flat_body_T_hand)
+        gripper_angle = robot_state.manipulator_state.gripper_open_percentage
+        if gripper_angle > 80:
+            self.arm_pose[6] = 1
+        else:
+            self.arm_pose[6] = 0
+        if data == 'hand_7d':
+            return self.arm_pose
+        if data == 'hand_6d':
+            return self.arm_pose[:6]
+        if data == 'hand':
+            return flat_body_T_hand
+        if data == 'body':
+            return odom_T_flat_body
+
+    def quat_2_euler(self, pose_7d):
+        # Convert SE3pose (x, y, z, rx, ry, rz, w) to np.array Euler angles (in degrees)
+
+        pos = np.array([
+            pose_7d.position.x,
+            pose_7d.position.y,
+            pose_7d.position.z
+        ])
+        quat = np.array([
+            pose_7d.rotation.x,
+            pose_7d.rotation.y,
+            pose_7d.rotation.z,
+            pose_7d.rotation.w,
+        ])
+        euler = Rotation.from_quat(quat).as_euler('xyz', degrees=True)
+        pose_6d = np.concatenate((pos, euler))
+        return pose_6d
+    
+    def euler_2_quat(self, pose_6d):
+        # Convert Euler angles (in degrees) to (x,y,z,w), return SE3Pose. 
+        quat = Rotation.from_euler('xyz', pose_6d[3:], degrees=True).as_quat()
+        return math_helpers.SE3Pose(x=pose_6d[0], y=pose_6d[1], z=pose_6d[2],
+                                    rot=math_helpers.Quat(x=quat[0], y=quat[1], z=quat[2], w=quat[3]))
+
+    '''
+    robot control core
+    '''
+
+    def flush_and_estop_buffer(self, stdscr):
+        """Manually flush the curses input buffer but trigger any estop requests (space)"""
+        key = ''
+        while key != -1:
+            key = stdscr.getch()
+            if key == ord(' '):
+                self._toggle_estop()
+
+    def add_message(self, msg_text):
+        """Display the given message string to the user in the curses interface."""
+        with self._lock:
+            self._locked_messages = [msg_text] + self._locked_messages[:-1]
+
+    def message(self, idx):
+        """Grab one of the 3 last messages added."""
+        with self._lock:
+            return self._locked_messages[idx]
+
+    @property
+    def robot_state(self):
+        """Get latest robot state proto."""
+        return self._robot_state_task.proto
+
+    def drive(self, stdscr):
+        """User interface to control the robot via the passed-in curses screen interface object."""
+        with ExitCheck() as self._exit_check:
+            curses_handler = CursesHandler(self)
+            curses_handler.setLevel(logging.INFO)
+            LOGGER.addHandler(curses_handler)
+
+            stdscr.nodelay(True)  # Don't block for user input.
+            stdscr.resize(26, 96)
+            stdscr.refresh()
+
+            # for debug
+            curses.echo()
+
+            try:
+                while not self._exit_check.kill_now:
+                    self._robot_state_task.update()
+                    self.safe_pose_command, self.safe, self.safe_info = self.safe_boundary(self.get_arm_pose('hand'))
+                    img = self.show_frame()
+                    if img is not None:
+
+                        self.record.record_raw_state_step(img, self.arm_pose)
+                    self._drive_draw(stdscr, self._lease_keepalive)
+                    print(self.safe_info)
+
+                    try:
+                        cmd = stdscr.getch()
+                        # Do not queue up commands on client
+                        self.flush_and_estop_buffer(stdscr)
+                        self._drive_cmd(cmd)
+                        time.sleep(COMMAND_INPUT_RATE)
+                    except Exception:
+                        # On robot command fault, sit down safely before killing the program.
+                        self._safe_power_off()
+                        time.sleep(2.0)
+                        raise
+
+            finally:
+                LOGGER.removeHandler(curses_handler)
+
+    def _drive_draw(self, stdscr, lease_keep_alive):
+        """Draw the interface screen at each update."""
+        stdscr.clear()  # clear screen
+        stdscr.resize(26, 96)
+        stdscr.addstr(0, 0, f'{self._robot_id.nickname:20s} {self._robot_id.serial_number}')
+        stdscr.addstr(1, 0, self._lease_str(lease_keep_alive))
+        stdscr.addstr(2, 0, self._battery_str())
+        stdscr.addstr(3, 0, self._estop_str())
+        stdscr.addstr(4, 0, self._power_state_str())
+        stdscr.addstr(5, 0, self._time_sync_str())
+        for i in range(3):
+            stdscr.addstr(7 + i, 2, self.message(i))
+        stdscr.addstr(10, 0, 'Commands: [TAB]: quit                               ')
+        stdscr.addstr(11, 0, '          [T]: Time-sync, [SPACE]: Estop, [P]: Power')
+        stdscr.addstr(12, 0, '          [c]: Stand, [v]: Sit                      ')
+        stdscr.addstr(13, 0, '          [y]: Unstow arm, [h]: Stow arm            ')
+        stdscr.addstr(14, 0, '          [wasd]: Radial/Azimuthal control          ')
+        stdscr.addstr(15, 0, '          [rf]: Up/Down control                     ')
+        stdscr.addstr(16, 0, '          [uo]: X-axis rotation control             ')
+        stdscr.addstr(17, 0, '          [ik]: Y-axis rotation control             ')
+        stdscr.addstr(18, 0, '          [jl]: Z-axis rotation control             ')
+        stdscr.addstr(19, 0, '          [nm]: Open/Close gripper                  ')
+        stdscr.addstr(20, 0, '          [ESC]: Stop, [x]: Return/Acquire lease    ')
+        stdscr.addstr(21, 0, '          [zq]: start/quit recording, [e]: done     ')
+        stdscr.addstr(22, 0, f"arm pose: x: {self.arm_pose[0]:.3f}, y: {self.arm_pose[1]:.3f}, z: {self.arm_pose[2]:.3f}, rx: {self.arm_pose[3]:.3f}, ry: {self.arm_pose[4]:.3f}, rz: {self.arm_pose[5]:.3f}, gripper: {self.arm_pose[6]}")
+        stdscr.addstr(23, 0, f"safe pos: x: {self.safe_pose_command.x:.3f}, y: {self.safe_pose_command.y:.3f}, z: {self.safe_pose_command.z:.3f}, info: {self.safe_info}")
+        stdscr.addstr(24, 0, f'Recording: {self.record.count if self.record.writer else None},  Done: {self.record.done}')
+        stdscr.addstr(25, 0, '')
+        stdscr.refresh()
+
+    def _drive_cmd(self, key):
+        """Run user commands at each update."""
+        try:
+            cmd_function = self._command_dictionary[key]
+            cmd_function()
+
+        except KeyError:
+            if key and key != -1 and key < 256:
+                self.add_message(f'Unrecognized keyboard command: \'{chr(key)}\'')
+
+    def _try_grpc(self, desc, thunk):
+        try:
+            return thunk()
+        except (ResponseError, RpcError, LeaseBaseError) as err:
+            self.add_message(f'Failed {desc}: {err}')
+            return None
+
+    def _try_grpc_async(self, desc, thunk):
+
+        def on_future_done(fut):
+            try:
+                fut.result()
+            except (ResponseError, RpcError, LeaseBaseError) as err:
+                self.add_message(f'Failed {desc}: {err}')
+                return None
+
+        future = thunk()
+        future.add_done_callback(on_future_done)
+
+    def _quit_program(self):
+        self._sit()
+        self.stop_timer()
+        if self._exit_check is not None:
+            self._exit_check.request_exit()
+
+    def _toggle_time_sync(self):
+        if self._robot.time_sync.stopped:
+            self._robot.start_time_sync()
+        else:
+            self._robot.time_sync.stop()
+
+    def _toggle_estop(self):
+        """toggle estop on/off. Initial state is ON"""
+        if self._estop_client is not None and self._estop_endpoint is not None:
+            if not self._estop_keepalive:
+                self._estop_keepalive = EstopKeepAlive(self._estop_endpoint)
+            else:
+                self._try_grpc('stopping estop', self._estop_keepalive.stop)
+                self._estop_keepalive.stop()
+                self._estop_keepalive = None
+
+    def _toggle_lease(self):
+        """toggle lease acquisition. Initial state is acquired"""
+        if self._lease_client is not None:
+            if self._lease_keepalive is None:
+                self._lease_keepalive = LeaseKeepAlive(self._lease_client, must_acquire=True,
+                                                       return_at_exit=True)
+            else:
+                self._lease_keepalive.shutdown()
+                self._lease_keepalive = None
+
+    def _start_robot_command(self, desc, command_proto, end_time_secs=None):
+
+        def _start_command():
+            self._robot_command_client.robot_command(command=command_proto,
+                                                     end_time_secs=end_time_secs)
+
+        self._try_grpc(desc, _start_command)
+
+    def _sit(self):
+        self._start_robot_command('sit', RobotCommandBuilder.synchro_sit_command())
+
+    def _stand(self):
+        self._start_robot_command('stand', RobotCommandBuilder.synchro_stand_command())
+
+    def _stop(self):
+        self._start_robot_command('stop', RobotCommandBuilder.stop_command())
+
+    def _move_out(self):
+        self._arm_cylindrical_velocity_cmd_helper('move_out', v_r=VELOCITY_HAND_NORMALIZED)
+
+    def _move_in(self):
+        self._arm_cylindrical_velocity_cmd_helper('move_in', v_r=-VELOCITY_HAND_NORMALIZED)
+
+    def _rotate_ccw(self):
+        self._arm_cylindrical_velocity_cmd_helper('rotate_ccw', v_theta=VELOCITY_HAND_NORMALIZED)
+
+    def _rotate_cw(self):
+        self._arm_cylindrical_velocity_cmd_helper('rotate_cw', v_theta=-VELOCITY_HAND_NORMALIZED)
+
+    def _move_up(self):
+        self._arm_cylindrical_velocity_cmd_helper('move_up', v_z=VELOCITY_HAND_NORMALIZED)
+
+    def _move_down(self):
+        self._arm_cylindrical_velocity_cmd_helper('move_down', v_z=-VELOCITY_HAND_NORMALIZED)
+
+    def _rotate_plus_rx(self):
+        self._arm_angular_velocity_cmd_helper('rotate_plus_rx', v_rx=VELOCITY_ANGULAR_HAND)
+
+    def _rotate_minus_rx(self):
+        self._arm_angular_velocity_cmd_helper('rotate_minus_rx', v_rx=-VELOCITY_ANGULAR_HAND)
+
+    def _rotate_plus_ry(self):
+        self._arm_angular_velocity_cmd_helper('rotate_plus_ry', v_ry=VELOCITY_ANGULAR_HAND)
+
+    def _rotate_minus_ry(self):
+        self._arm_angular_velocity_cmd_helper('rotate_minus_ry', v_ry=-VELOCITY_ANGULAR_HAND)
+
+    def _rotate_plus_rz(self):
+        self._arm_angular_velocity_cmd_helper('rotate_plus_rz', v_rz=VELOCITY_ANGULAR_HAND)
+
+    def _rotate_minus_rz(self):
+        self._arm_angular_velocity_cmd_helper('rotate_minus_rz', v_rz=-VELOCITY_ANGULAR_HAND)
+
+    def _arm_cylindrical_velocity_cmd_helper(self, desc='', v_r=0.0, v_theta=0.0, v_z=0.0):
+        """ Helper function to build an arm velocity command from unitless cylindrical coordinates.
+
+        params:
+        + desc: string description of the desired command
+        + v_r: normalized velocity in R-axis to move hand towards/away from shoulder in range [-1.0,1.0]
+        + v_theta: normalized velocity in theta-axis to rotate hand clockwise/counter-clockwise around the shoulder in range [-1.0,1.0]
+        + v_z: normalized velocity in Z-axis to raise/lower the hand in range [-1.0,1.0]
+
+        """
+        # Build the linear velocity command specified in a cylindrical coordinate system
+        cylindrical_velocity = arm_command_pb2.ArmVelocityCommand.CylindricalVelocity()
+        cylindrical_velocity.linear_velocity.r = v_r
+        cylindrical_velocity.linear_velocity.theta = v_theta
+        cylindrical_velocity.linear_velocity.z = v_z
+
+        arm_velocity_command = arm_command_pb2.ArmVelocityCommand.Request(
+            cylindrical_velocity=cylindrical_velocity,
+            end_time=self._robot.time_sync.robot_timestamp_from_local_secs(time.time() +
+                                                                           VELOCITY_CMD_DURATION))
+
+        self._arm_velocity_cmd_helper(arm_velocity_command=arm_velocity_command, desc=desc)
+
+    def _arm_angular_velocity_cmd_helper(self, desc='', v_rx=0.0, v_ry=0.0, v_rz=0.0):
+        """ Helper function to build an arm velocity command from angular velocities measured with respect
+            to the odom frame, expressed in the hand frame.
+
+        params:
+        + desc: string description of the desired command
+        + v_rx: angular velocity about X-axis in units rad/sec
+        + v_ry: angular velocity about Y-axis in units rad/sec
+        + v_rz: angular velocity about Z-axis in units rad/sec
+
+        """
+        # Specify a zero linear velocity of the hand. This can either be in a cylindrical or Cartesian coordinate system.
+        cylindrical_velocity = arm_command_pb2.ArmVelocityCommand.CylindricalVelocity()
+
+        # Build the angular velocity command of the hand
+        angular_velocity_of_hand_rt_odom_in_hand = geometry_pb2.Vec3(x=v_rx, y=v_ry, z=v_rz)
+
+        arm_velocity_command = arm_command_pb2.ArmVelocityCommand.Request(
+            cylindrical_velocity=cylindrical_velocity,
+            angular_velocity_of_hand_rt_odom_in_hand=angular_velocity_of_hand_rt_odom_in_hand,
+            end_time=self._robot.time_sync.robot_timestamp_from_local_secs(time.time() +
+                                                                           VELOCITY_CMD_DURATION))
+
+        self._arm_velocity_cmd_helper(arm_velocity_command=arm_velocity_command, desc=desc)
+
+    def _arm_velocity_cmd_helper(self, arm_velocity_command, desc=''):
+
+        # Build synchronized robot command
+        robot_command = robot_command_pb2.RobotCommand()
+        robot_command.synchronized_command.arm_command.arm_velocity_command.CopyFrom(
+            arm_velocity_command)
+
+        self._start_robot_command(desc, robot_command,
+                                  end_time_secs=time.time() + VELOCITY_CMD_DURATION)
+
+    def _toggle_gripper_open(self):
+        self._start_robot_command('open_gripper', RobotCommandBuilder.claw_gripper_open_command())
+
+    def _toggle_gripper_closed(self):
+        self._start_robot_command('close_gripper', RobotCommandBuilder.claw_gripper_close_command())
+
+    def _stow(self):
+        self._start_robot_command('stow', RobotCommandBuilder.arm_stow_command())
+
+    def _unstow(self):
+        # self._start_robot_command('stow', RobotCommandBuilder.arm_ready_command())
+
+        self.move_spot_arm([0.95, 0, 0.230, 0,90,0]) # start pose
+
+    def _toggle_power(self):
+        power_state = self._power_state()
+        if power_state is None:
+            self.add_message('Could not toggle power because power state is unknown')
+            return
+
+        if power_state == robot_state_proto.PowerState.STATE_OFF:
+            self._try_grpc_async('powering-on', self._request_power_on)
+        else:
+            self._try_grpc('powering-off', self._safe_power_off)
+
+    def _request_power_on(self):
+        request = PowerServiceProto.PowerCommandRequest.REQUEST_ON
+        return self._power_client.power_command_async(request)
+
+    def _safe_power_off(self):
+        self._start_robot_command('safe_power_off', RobotCommandBuilder.safe_power_off_command())
+
+    def _power_state(self):
+        state = self.robot_state
+        if not state:
+            return None
+        return state.power_state.motor_power_state
+
+    def _lease_str(self, lease_keep_alive):
+        if lease_keep_alive is None:
+            alive = 'STOPPED'
+            lease = 'RETURNED'
+        else:
+            try:
+                _lease = lease_keep_alive.lease_wallet.get_lease()
+                lease = f'{_lease.lease_proto.resource}:{_lease.lease_proto.sequence}'
+            except bosdyn.client.lease.Error:
+                lease = '...'
+            if lease_keep_alive.is_alive():
+                alive = 'RUNNING'
+            else:
+                alive = 'STOPPED'
+        return f'Lease {lease} THREAD:{alive}'
+
+    def _power_state_str(self):
+        power_state = self._power_state()
+        if power_state is None:
+            return ''
+        state_str = robot_state_proto.PowerState.MotorPowerState.Name(power_state)
+        return f'Power: {state_str[6:]}'  # get rid of STATE_ prefix
+
+    def _estop_str(self):
+        if not self._estop_client:
+            thread_status = 'NOT ESTOP'
+        else:
+            thread_status = 'RUNNING' if self._estop_keepalive else 'STOPPED'
+        estop_status = '??'
+        state = self.robot_state
+        if state:
+            for estop_state in state.estop_states:
+                if estop_state.type == estop_state.TYPE_SOFTWARE:
+                    estop_status = estop_state.State.Name(estop_state.state)[6:]  # s/STATE_//
+                    break
+        return f'Estop {estop_status} (thread: {thread_status})'
+
+    def _time_sync_str(self):
+        if not self._robot.time_sync:
+            return 'Time sync: (none)'
+        if self._robot.time_sync.stopped:
+            status = 'STOPPED'
+            exception = self._robot.time_sync.thread_exception
+            if exception:
+                status = f'{status} Exception: {exception}'
+        else:
+            status = 'RUNNING'
+        try:
+            skew = self._robot.time_sync.get_robot_clock_skew()
+            if skew:
+                skew_str = f'offset={duration_str(skew)}'
+            else:
+                skew_str = '(Skew undetermined)'
+        except (TimeSyncError, RpcError) as err:
+            skew_str = f'({err})'
+        return f'Time sync: {status} {skew_str}'
+
+    def _battery_str(self):
+        if not self.robot_state:
+            return ''
+        battery_state = self.robot_state.battery_states[0]
+        status = battery_state.Status.Name(battery_state.status)
+        status = status[7:]  # get rid of STATUS_ prefix
+        if battery_state.charge_percentage.value:
+            bar_len = int(battery_state.charge_percentage.value) // 10
+            bat_bar = f'|{"=" * bar_len}{" " * (10 - bar_len)}|'
+        else:
+            bat_bar = ''
+        time_left = ''
+        if battery_state.estimated_runtime:
+            time_left = f'({secs_to_hms(battery_state.estimated_runtime.seconds)})'
+        return f'Battery: {status}{bat_bar} {time_left}'
+
+
+class TrajectoryRecorder:
+    def __init__(self, prompt):
+        """
+        Initialize the TrajectoryRecorder.
+        
+        Args:
+            tfrecord_filename (str): The name of the TFRecord file to save data.
+            prompt (str): A prompt string associated with the trajectory.
+        """
+        self.prompt = prompt
+        dir = '../../dataset/' # run under code/
+        prompt.replace(' ', '_')
+        self.tfrecord_filename = dir + 'raw/' + self.prompt.replace(' ', '_')
+        self.writer = None   # if True, then write.
+        self.done = 0  # Initialize 'done' flag
+
+        self.count = 0
+        self.json_name = dir + 'prompt_count.json'
+        self.load_count()
+
+    def load_count(self):
+        # Check if the file exists
+        if os.path.exists(self.json_name):
+            with open(self.json_name, 'r') as f:
+                data = json.load(f)  # Load JSON data
+                if self.prompt in data:
+                    self.count = data[self.prompt]  # Load count for the specific prompt
+
+    def save_count(self):
+        # Load existing data if the file exists
+        if os.path.exists(self.json_name):
+            with open(self.json_name, 'r') as f:
+                data = json.load(f)
+        else:
+            data = {}
+
+        # Update the count for the prompt
+        data[self.prompt] = self.count
+
+        # Write the updated data back to the file
+        with open(self.json_name, 'w') as f:
+            json.dump(data, f, indent=4)  # Save data in JSON format
+
+    def increment_count(self):
+        self.count += 1  # Increment the count
+        self.save_count()  # Save the updated count to the file
+
+
+    def __del__(self):
+        """
+        Destructor to ensure the TFRecord writer is closed properly.
+        """
+        if self.writer:
+            self.writer.close()
+    
+    def start_recording(self): # press z
+        if self.count < 0 or self.count > 999:
+            print(f'Error, {self.count}th trajectory')
+            return
+        filename = f'{self.tfrecord_filename}_{self.count:03}.tfrecord'
+        
+        # overwrite existed file. 
+        if self.writer:
+            self.writer.close()
+        if os.path.exists(filename):  # Check if the file exists
+            os.remove(filename)  # Remove the existing file
+
+        self.writer = tf.io.TFRecordWriter(filename)
+        self.done = 0
+    
+    def task_done(self): # press e
+        if self.writer:
+            self.done = 1
+
+    def end_recording(self): # press x
+        if self.writer:
+            self.writer.close()
+            self.writer = None
+            if self.done:   # one trajectory finished, ready for the next trajectory. 
+                self.increment_count()
+
+    def encode_image_to_jpeg(self, image_array):
+        """Encode a NumPy array as JPEG bytes using OpenCV."""
+        # Convert the image to JPEG format
+        success, jpeg_encoded_image = cv2.imencode('.jpg', image_array)
+        if not success:
+            raise ValueError("Image encoding failed")
+        return jpeg_encoded_image.tobytes()  # Convert the encoded image to bytes
+
+
+    def record_raw_state_step(self, image, pose):
+        """
+        Create a TFRecord entry with raw state data (image, pose, prompt string).
+        
+        Args:
+            image (np.array): The image data to record.
+            pose (list): The pose data to record (7-DOF).  # TODO: check type. 
+
+        Returns:
+            tf.train.Example: A serialized TFRecord example.
+        """
+        if self.writer is None:
+            return
+        
+        img_jpg = self.encode_image_to_jpeg(image)
+        # image_bytes = image.tobytes()  # Convert image to bytes
+        print(pose)
+        feature = {
+            'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[img_jpg])),
+            'pose': tf.train.Feature(float_list=tf.train.FloatList(value=pose)),
+            'prompt': tf.train.Feature(bytes_list=tf.train.BytesList(value=[self.prompt.encode('utf-8')])),  # Add prompt as a byte feature
+            'done': tf.train.Feature(int64_list=tf.train.Int64List(value=[self.done]))  # 'done' flag
+        }
+
+        example = tf.train.Example(features=tf.train.Features(feature=feature))
+        self.writer.write(example.SerializeToString())
+
+
+
+def main():
+    """Command-line interface."""
+
+    parser = argparse.ArgumentParser()
+    bosdyn.client.util.add_base_arguments(parser)
+    parser.add_argument('--time-sync-interval-sec',
+                        help='The interval (seconds) that time-sync estimate should be updated.',
+                        type=float)
+    parser.add_argument('--hostname',
+                        help='IP addr of robot',
+                        default='10.0.0.30')
+    options = parser.parse_args()
+
+    # Create robot object.
+    sdk = create_standard_sdk('ArmWASDClient')
+
+    robot = sdk.create_robot(options.hostname)
+
+    # address = "10.0.0.30" #<-- CHANGE THIS TO CORRECT ONE
+    # robot = sdk.create_robot(address)
+
+    # skip username and password
+    LOGGER = logging.getLogger()
+
+    try:
+        robot.authenticate('rllab', 'robotlearninglab')
+        bosdyn.client.util.authenticate(robot)
+        robot.start_time_sync(options.time_sync_interval_sec)
+    except RpcError as err:
+        LOGGER.error('Failed to communicate with robot: %s', err)
+        return False
+    
+
+    assert robot.has_arm(), 'Robot requires an arm to run this example.'
+
+    arm_wasd_interface = ArmWasdInterface(robot)
+    try:
+        arm_wasd_interface.start()
+    except (ResponseError, RpcError) as err:
+        LOGGER.error('Failed to initialize robot communication: %s', err)
+        return False
+
+    try:
+        # Prevent curses from introducing a 1-second delay for ESC key
+        os.environ.setdefault('ESCDELAY', '0')
+        # Run wasd interface in curses mode
+        curses.wrapper(arm_wasd_interface.drive)
+    except Exception as e:
+        LOGGER.error('Arm WASD has thrown an error: [%r] %s', e, e)
+        # Print the traceback to get the line number
+        LOGGER.error('Traceback:\n%s', traceback.format_exc())
+    finally:
+        # Do any final cleanup steps.
+
+        arm_wasd_interface.shutdown()
+
+    return True
+
+
+if __name__ == '__main__':
+    if not main():
+        sys.exit(1)
