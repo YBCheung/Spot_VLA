@@ -14,8 +14,8 @@ class Mission():
         self.agent = openvla()
         self.spot = SpotLoop()
         self.thread_init()
-        # self.prompt = 'Lift the yellow brick'
-        self.prompt = 'lift the blue cube'
+        # self.prompt = 'Lift the blue cube'
+        self.prompt = 'grasp the carrot'
         print(f'prompt: {self.prompt}')
 
     def thread_init(self):

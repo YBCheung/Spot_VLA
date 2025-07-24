@@ -93,24 +93,24 @@ class FinetuneConfig:
     vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
 
     # Directory Paths
-    data_root_dir: Path = Path("/home/rllab/spot_vla/Spot_VLA/dataset/")        # Path to Open-X dataset directory
+    data_root_dir: Path = Path("/home/rllab/spot_vla/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
     dataset_name: str = "spot_kitchen"                                # Name of fine-tuning dataset (e.g., `droid_wipe`)
     run_root_dir: Path = Path("runs")                              # Path to directory to store logs & checkpoints
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
-    batch_size: int = 1  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
+    batch_size: int = 4  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
     max_steps: int = 10_000 # 10_000                                        # Max number of fine-tuning steps
     save_steps: int = 2000                                          # Interval for checkpoint saving
-    learning_rate: float = 2e-5                                     # Fine-tuning learning rate
+    learning_rate: float = 5e-4                                     # Fine-tuning learning rate
     grad_accumulation_steps: int = 1   # or 4?                             # Gradient accumulation steps
     image_aug: bool = True                                          # Whether to train with image augmentations
-    shuffle_buffer_size: int = 100_000 # 100_000                              # Dataloader shuffle buffer size (can reduce if OOM)
-    save_latest_checkpoint_only: bool = False                        # Whether to save only one checkpoint per run and
+    shuffle_buffer_size: int = 1000 # 100_000                              # Dataloader shuffle buffer size (can reduce if OOM)
+    save_latest_checkpoint_only: bool = True                        # Whether to save only one checkpoint per run and
                                                                     #   continually overwrite the latest checkpoint
                                                                     #   (If False, saves all checkpoints)
     # Validation
-    validation_interval = 50       # Validate every 500 optimizer steps
+    validation_interval = 5       # Validate every 500 optimizer steps
     patience = 5                    # Early stopping after 3 validation checks
 
 
@@ -442,6 +442,10 @@ def finetune(cfg: FinetuneConfig) -> None:
         dist.barrier()
     
     best_val_loss = float('inf')
+    val_accuracy = 0.0
+    val_l1 = 0.0
+    val_loss = 0.0
+    # steps = []
 
     # Train!
     with tqdm.tqdm(total=cfg.max_steps, leave=False) as progress:
@@ -484,6 +488,7 @@ def finetune(cfg: FinetuneConfig) -> None:
 
             # Push Metrics to W&B (every 10 gradient steps)
             if distributed_state.is_main_process and gradient_step_idx % 10 == 0:
+                print(smoothened_loss, type(smoothened_loss))
                 wandb.log(
                     {
                         "train_loss": smoothened_loss,
@@ -529,29 +534,61 @@ def finetune(cfg: FinetuneConfig) -> None:
                             num_samples = len(batch["input_ids"])
 
                             # Accumulate
-                            total_loss += loss * num_samples
-                            total_accuracy += action_accuracy * num_samples
-                            total_l1 += action_l1_loss * num_samples
+                            total_loss += loss.item() * num_samples
+                            total_accuracy += action_accuracy.item() * num_samples
+                            total_l1 += action_l1_loss.item() * num_samples
                             total_samples += num_samples
 
                     
-                    val_loss = total_loss / total_samples,
-                    val_accuracy = total_accuracy / total_samples,
-                    val_l1 = total_l1 / total_samples,
-                    
+                    # val_loss.append(total_loss / total_samples)
+                    # val_accuracy.append(total_accuracy / total_samples)
+                    # val_l1.append(total_l1 / total_samples)
+                    # steps.append(gradient_step_idx)
+
+
+                    val_loss = (total_loss / total_samples)
+                    val_accuracy = (total_accuracy / total_samples)
+                    val_l1 = (total_l1 / total_samples)
+                    print(val_loss)
                     # Log validation metrics
                     if distributed_state.is_main_process:
-                        wandb.log({
-                            "val_loss": val_loss,
-                            "val_action_accuracy": val_accuracy,
-                            "val_l1_loss": val_l1,
-                        }, step=gradient_step_idx)
+
+                        print(f"Validation Loss: {val_loss:.4f}, "
+                              f"Validation Action Accuracy: {val_accuracy:.4f}, "
+                              f"Validation L1 Loss: {val_l1:.4f}")
+                        
+                        # Log validation metrics
+                        if distributed_state.is_main_process:
+                            wandb.log({
+                                "val_loss": val_loss,
+                                "val_action_accuracy": val_accuracy,
+                                "val_l1_loss": val_l1,
+                            }, step=gradient_step_idx)
+
+
+                        # print("logging validation metrics...")
+                        # # Convert to table format: [[step, loss], ...]
+                        # val_loss_data = [[i, loss] for i, loss in enumerate(val_loss)]
+                        # val_loss_table = wandb.Table(data=val_loss_data, columns=["step", "loss"])
+                        # wandb.log({
+                        #     "val_loss_plot": wandb.plot.line(
+                        #         val_loss_table, x="step", y="loss", title="Validation Loss"
+                        #     )
+                        # })
+
+                        # wandb.log({
+                        #     "val_loss_plot": wandb.plot.line(
+                        #         x=steps, y=val_loss, title="Validation Loss"
+                        #     )
+                        #     # "val_loss": val_loss.item(),
+                        #     # "val_action_accuracy": val_accuracy.item(),
+                        #     # "val_l1_loss": val_l1.item(),
+                        # })
 
                     # Early Stopping Check
-                    val_loss_value = val_loss[0].item()
-                    print('val_loss:', val_loss_value, 'best_val_loss:', best_val_loss)
-                    if val_loss_value < best_val_loss:
-                        best_val_loss = val_loss_value
+                    print('val_loss:', val_loss, 'best_val_loss:', best_val_loss)
+                    if val_loss < best_val_loss:
+                        best_val_loss = val_loss
                         patience_counter = 0
                         
                         # Save best model checkpoint

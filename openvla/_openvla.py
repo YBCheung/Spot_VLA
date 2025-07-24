@@ -15,7 +15,8 @@ class openvla():
         SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))  # `openvla/server_vla`
         # Navigate up to the project root, then into `run/model`
         OPENVLA_ROOT = os.path.dirname(SCRIPT_DIR)  # Goes up to `project/`
-        self.MODEL_PATH = "/home/rllab/spot_vla/Spot_VLA/openvla/runs/openvla-7b+spot_kitchen+b16+lr-2e-05+shf100000+lora-r64+dropout-0.0--image_aug--999_chkpt--loss-3.703"
+        # self.MODEL_PATH = "/home/rllab/spot_vla/Spot_VLA/openvla/runs/spot_kitchen/openvla-7b+spot_kitchen+b16+lr-2e-05+shf100000+lora-r64+dropout-0.0--image_aug--999_chkpt--loss-3.703"
+        self.MODEL_PATH = "/home/rllab/spot_vla/Spot_VLA/openvla/runs/test_models/openvla-7b+spot_carrot+b16+lr-0.0005+shf100000+lora-r32+dropout-0.0--image_aug/--1000_chkpt--loss-7.307"
         model_absolute_path = os.path.join(SCRIPT_DIR, self.MODEL_PATH)
         print(model_absolute_path)
 
