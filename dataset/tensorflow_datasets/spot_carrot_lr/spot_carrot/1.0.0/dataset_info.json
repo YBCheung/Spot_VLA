@@ -1,0 +1,29 @@
+{
+  "citation": "// TODO(example_dataset): BibTeX citation",
+  "description": "TODO(example_dataset): Markdown description of your dataset.\nDescription is **formatted** as markdown.\n\nIt should also contain any processing which has been applied (if any),\n(e.g. corrupted example skipped, images cropped,...):\n\ntfds.core.DatasetInfo(\n    name='spot_carrot',\n    full_name='spot_carrot/1.0.0',\n    description=\"\"\"\n    TODO(example_dataset): Markdown description of your dataset.\n    Description is **formatted** as markdown.\n\n    It should also contain any processing which has been applied (if any),\n    (e.g. corrupted example skipped, images cropped,...):\n    \"\"\",\n    homepage='https://www.tensorflow.org/datasets/catalog/spot_carrot',\n    data_dir='/home/zhangy50/tensorflow_datasets/spot_carrot/1.0.0',\n    file_format=tfrecord,\n    download_size=Unknown size,\n    dataset_size=45.87 MiB,\n    features=FeaturesDict({\n        'episode_metadata': FeaturesDict({\n            'file_path': Text(shape=(), dtype=string),\n        }),\n        'steps': Dataset({\n            'action': Tensor(shape=(8,), dtype=float32, description=Robot action, consists of [7x joint angles, 1x gripper on/off state].),\n            'discount': Scalar(shape=(), dtype=float32, description=Discount if provided, default to 1.),\n            'is_first': Scalar(shape=(), dtype=bool, description=True on first step of the episode.),\n            'is_last': Scalar(shape=(), dtype=bool, description=True on last step of the episode.),\n            'is_terminal': Scalar(shape=(), dtype=bool, description=True on last step of the episode if it is a terminal step, True for demos.),\n            'language_embedding': Tensor(shape=(512,), dtype=float32, description=Kona language embedding. See https://tfhub.dev/google/universal-sentence-encoder-large/5),\n            'language_instruction': Text(shape=(), dtype=string),\n            'observation': FeaturesDict({\n                'image': Image(shape=(224, 224, 3), dtype=uint8, description=Main camera RGB observation.),\n                'state': Tensor(shape=(8,), dtype=float32, description=Robot state, consists of [7x robot joint angles, 1x gripper angle]),\n                'wrist_image': Image(shape=(224, 224, 3), dtype=uint8, description=Wrist camera RGB observation.),\n            }),\n            'reward': Scalar(shape=(), dtype=float32, description=Reward if provided, 1 on final step for demos.),\n        }),\n    }),\n    supervised_keys=None,\n    disable_shuffling=False,\n    nondeterministic_order=False,\n    splits={\n        'train': <SplitInfo num_examples=79, num_shards=1>,\n        'val': <SplitInfo num_examples=21, num_shards=1>,\n    },\n    citation=\"\"\"// TODO(example_dataset): BibTeX citation\"\"\",\n)",
+  "fileFormat": "tfrecord",
+  "moduleName": "spot_carrot.spot_carrot",
+  "name": "spot_carrot",
+  "releaseNotes": {
+    "1.0.0": "Initial release."
+  },
+  "splits": [
+    {
+      "filepathTemplate": "{DATASET}-{SPLIT}.{FILEFORMAT}-{SHARD_X_OF_Y}",
+      "name": "train",
+      "numBytes": "53779585",
+      "shardLengths": [
+        "111"
+      ]
+    },
+    {
+      "filepathTemplate": "{DATASET}-{SPLIT}.{FILEFORMAT}-{SHARD_X_OF_Y}",
+      "name": "val",
+      "numBytes": "14075566",
+      "shardLengths": [
+        "29"
+      ]
+    }
+  ],
+  "version": "1.0.0"
+}

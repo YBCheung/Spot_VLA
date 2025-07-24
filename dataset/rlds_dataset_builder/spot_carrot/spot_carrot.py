@@ -88,8 +88,8 @@ class SpotCarrot(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='data/grasp_carrot_cen_r/train/*.npy'),
-            'val': self._generate_examples(path='data/grasp_carrot_cen_r/val/*.npy'),
+            'train': self._generate_examples(path='data/grasp*/train/*.npy'),
+            'val': self._generate_examples(path='data/grasp*/val/*.npy'),
         }
 
     def _generate_examples(self, path) -> Iterator[Tuple[str, Any]]:
