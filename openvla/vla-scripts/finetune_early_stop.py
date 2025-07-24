@@ -64,7 +64,7 @@ export WORLD_SIZE=1
 export MASTER_ADDR=localhost
 export MASTER_PORT=12355
 '''
-local_debug = False  # Set to True if you want to run on local GPU for debugging
+local_debug = True  # Set to True if you want to run on local GPU for debugging
 
 if local_debug == True:
     import torch.distributed as dist
@@ -103,15 +103,16 @@ class FinetuneConfig:
     vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
 
     # Directory Paths
-    data_root_dir: Path = Path("/home/rllab/spot_vla/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
+    data_root_dir_string = "/home/rllab/spot_vla/Spot_VLA/dataset/tensorflow_datasets/spot_carrot_l/"
+    data_root_dir: Path = Path(data_root_dir_string)        # Path to Open-X dataset directory
     # data_root_dir: Path = Path("/scratch/work/zhangy50/RL/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
-    dataset_name: str = "spot_kitchen"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
+    dataset_name: str = "spot_carrot"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
     run_root_dir: Path = Path("runs")                              # Path to directory to store logs & checkpoints
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
     if local_debug == True:
-        batch_size: int = 4  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
+        batch_size: int = 1  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
     else:
         batch_size: int = 16
     max_steps: int = 1000 # 10_000                                        # Max number of fine-tuning steps
@@ -206,7 +207,7 @@ def finetune(cfg: FinetuneConfig) -> None:
 
     # Configure Unique Experiment ID & Log Directory
     exp_id = (
-        f"{cfg.vla_path.split('/')[-1]}+{cfg.data_root_dir.split('/')[-1]}+{cfg.dataset_name}"
+        f"{cfg.vla_path.split('/')[-1]}+{cfg.data_root_dir_string.split('/')[-2]}+{cfg.dataset_name}"
         f"+b{cfg.batch_size * cfg.grad_accumulation_steps}"
         f"+lr-{cfg.learning_rate}"
         f"+shf{cfg.shuffle_buffer_size}"
@@ -401,25 +402,40 @@ def finetune(cfg: FinetuneConfig) -> None:
         correct_preds = (action_preds == action_gt) & mask
         action_accuracy = correct_preds.sum().float() / mask.sum().float()
 
-        # Compute L1 Loss on Predicted (Continuous) Actions
-        continuous_actions_pred = torch.tensor(
-            action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy())
-        )
-        continuous_actions_gt = torch.tensor(
-            action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy())
-        )
-        action_l1_loss = torch.nn.functional.l1_loss(continuous_actions_pred, continuous_actions_gt)
+        # # Compute L1 Loss on Predicted (Continuous) Actions
+        # continuous_actions_pred = torch.tensor(
+        #     action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy())
+        # )
+        # continuous_actions_gt = torch.tensor(
+        #     action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy())
+        # )
+        # action_l1_loss = torch.nn.functional.l1_loss(continuous_actions_pred, continuous_actions_gt)
+        # action_l2_loss = torch.nn.functional.mse_loss(continuous_actions_pred, continuous_actions_gt)
 
-        # Compute DTW
-        batch_dtw = []
+        # get orginal action predictions and ground truth
         action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
         action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
-        # print(f"GT action shape: {action_7_gt.shape}, Pred action shape: {action_7_pred.shape}, {type(action_7_pred)}")
-        # print(f"GT action: {action_7_gt}, Pred action: {action_7_pred}")
         
-        dtw_distance, _ = fastdtw(action_7_gt, action_7_pred, dist=euclidean)
+        tensor_pred = torch.tensor(action_7_pred, dtype=torch.float32).to(device_id)
+        tensor_gt = torch.tensor(action_7_gt, dtype=torch.float32).to(device_id)
         
-        return action_accuracy, action_l1_loss, dtw_distance
+        # cosine distance between predicted and ground truth actions, then calculate mean
+        cos_distances = torch.nn.functional.cosine_similarity(tensor_pred, tensor_gt, dim=1)
+        mean_cos_distance = torch.mean(cos_distances)
+        
+        # Compute L1 Loss on Predicted (Continuous) Actions
+        action_l1_loss = torch.nn.functional.l1_loss(tensor_pred, tensor_gt)
+        mean_l1_loss = torch.mean(action_l1_loss)
+        # Compute L2 Loss on Predicted (Continuous) Actions
+        action_l2_loss = torch.nn.functional.mse_loss(tensor_pred, tensor_gt)
+        mean_l2_loss = torch.mean(action_l2_loss)
+
+        print('cos', cos_distances, mean_cos_distance, 
+              'l1', action_l1_loss, mean_l1_loss, 
+              'l2', action_l2_loss, mean_l2_loss)
+
+
+        return action_accuracy, mean_l1_loss, mean_l2_loss, mean_cos_distance #, action_7_pred, action_7_gt
 
     def save_model(subfolder: str = "default"):
         if distributed_state.is_main_process:

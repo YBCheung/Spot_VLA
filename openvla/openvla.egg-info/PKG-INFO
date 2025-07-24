@@ -1,4 +1,4 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: openvla
 Version: 0.0.3
 Summary: OpenVLA: Vision-Language-Action Models for Robotics
@@ -75,6 +75,7 @@ Requires-Dist: ruff>=0.2.2; extra == "dev"
 Provides-Extra: sagemaker
 Requires-Dist: boto3; extra == "sagemaker"
 Requires-Dist: sagemaker; extra == "sagemaker"
+Dynamic: license-file
 
 # OpenVLA: An Open-Source Vision-Language-Action Model
 
@@ -579,3 +580,5 @@ If you find our code or models useful in your work, please cite [our paper](http
     year={2024}
 } 
 ```
+# Spot_VLA
+# Spot_VLA

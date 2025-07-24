@@ -3,6 +3,8 @@ README.md
 pyproject.toml
 experiments/robot/openvla_utils.py
 experiments/robot/robot_utils.py
+experiments/robot/Spot/data_utils.py
+experiments/robot/Spot/run_spot_eval.py
 experiments/robot/bridge/bridgev2_utils.py
 experiments/robot/bridge/run_bridgev2_eval.py
 experiments/robot/bridge/widowx_env.py
@@ -97,7 +99,8 @@ scripts/additional-datasets/lvis_instruct_4v.py
 scripts/extern/convert_prismatic_weights_to_hf.py
 scripts/extern/verify_prismatic.py
 vla-scripts/deploy.py
-vla-scripts/finetune.py
+vla-scripts/finetune_early_stop.py
+vla-scripts/finetune_server.py
 vla-scripts/train.py
 vla-scripts/extern/convert_openvla_weights_to_hf.py
 vla-scripts/extern/verify_openvla.py
