@@ -27,6 +27,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from fastdtw import fastdtw
+from scipy.spatial.distance import euclidean
+import numpy as np
+
 import draccus
 import torch
 import torch.distributed as dist
@@ -51,6 +55,8 @@ from prismatic.extern.hf.configuration_prismatic import OpenVLAConfig
 from prismatic.extern.hf.modeling_prismatic import OpenVLAForActionPrediction
 from prismatic.extern.hf.processing_prismatic import PrismaticImageProcessor, PrismaticProcessor
 
+
+# === Local GPU ===
 # Note: If you want to run on local CPU, comment out the following lines.in terminal, and run following command on terminal 
 '''
 export RANK=0
@@ -58,14 +64,18 @@ export WORLD_SIZE=1
 export MASTER_ADDR=localhost
 export MASTER_PORT=12355
 '''
-import torch.distributed as dist
+local_debug = False  # Set to True if you want to run on local GPU for debugging
 
-dist.init_process_group(
-    backend='nccl',  # or 'gloo' for CPU
-    init_method='env://'
-)
-# Sane Defaults
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+if local_debug == True:
+    import torch.distributed as dist
+
+    dist.init_process_group(
+        backend='nccl',  # or 'gloo' for CPU
+        init_method='env://'
+    )
+    # Sane Defaults
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+# === Local GPU ===
 
 
 # # === Utilities ===
@@ -94,14 +104,18 @@ class FinetuneConfig:
 
     # Directory Paths
     data_root_dir: Path = Path("/home/rllab/spot_vla/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
-    dataset_name: str = "spot_kitchen"                                # Name of fine-tuning dataset (e.g., `droid_wipe`)
+    # data_root_dir: Path = Path("/scratch/work/zhangy50/RL/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
+    dataset_name: str = "spot_kitchen"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
     run_root_dir: Path = Path("runs")                              # Path to directory to store logs & checkpoints
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
-    batch_size: int = 4  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
-    max_steps: int = 10_000 # 10_000                                        # Max number of fine-tuning steps
-    save_steps: int = 2000                                          # Interval for checkpoint saving
+    if local_debug == True:
+        batch_size: int = 4  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
+    else:
+        batch_size: int = 16
+    max_steps: int = 1000 # 10_000                                        # Max number of fine-tuning steps
+    save_steps: int = 1000                                          # Interval for checkpoint saving
     learning_rate: float = 5e-4                                     # Fine-tuning learning rate
     grad_accumulation_steps: int = 1   # or 4?                             # Gradient accumulation steps
     image_aug: bool = True                                          # Whether to train with image augmentations
@@ -110,13 +124,13 @@ class FinetuneConfig:
                                                                     #   continually overwrite the latest checkpoint
                                                                     #   (If False, saves all checkpoints)
     # Validation
-    validation_interval = 5       # Validate every 500 optimizer steps
-    patience = 5                    # Early stopping after 3 validation checks
+    validation_interval = 10       # Validate every 10 optimizer steps
+    patience = 5                    # Early stopping after 5 validation checks
 
 
     # LoRA Arguments
     use_lora: bool = True                                           # Whether to use LoRA fine-tuning
-    lora_rank: int = 64 # 64 is good                                             # Rank of LoRA weight matrix
+    lora_rank: int = 32 # 64 is good                                             # Rank of LoRA weight matrix
     lora_dropout: float = 0.0                                       # Dropout applied to LoRA weights
     use_quantization: bool = False                                  # Whether to 4-bit quantize VLA for LoRA fine-tuning
                                                                     #   => CAUTION: Reduces memory but hurts performance
@@ -182,7 +196,7 @@ def evaluate(model, dataloader, device_id, action_tokenizer):
 
 @draccus.wrap()
 def finetune(cfg: FinetuneConfig) -> None:
-    print(f"Fine-tuning OpenVLA Model `{cfg.vla_path}` on `{cfg.dataset_name}`")
+    print(f"Fine-tuning OpenVLA Model `{cfg.vla_path}` on `{cfg.dataset_name}`. Dataset path: {cfg.data_root_dir}")
 
     # [Validate] Ensure GPU Available & Set Device / Distributed Context
     assert torch.cuda.is_available(), "Fine-tuning assumes at least one GPU is available!"
@@ -192,7 +206,7 @@ def finetune(cfg: FinetuneConfig) -> None:
 
     # Configure Unique Experiment ID & Log Directory
     exp_id = (
-        f"{cfg.vla_path.split('/')[-1]}+{cfg.dataset_name}"
+        f"{cfg.vla_path.split('/')[-1]}+{cfg.data_root_dir.split('/')[-1]}+{cfg.dataset_name}"
         f"+b{cfg.batch_size * cfg.grad_accumulation_steps}"
         f"+lr-{cfg.learning_rate}"
         f"+shf{cfg.shuffle_buffer_size}"
@@ -253,7 +267,7 @@ def finetune(cfg: FinetuneConfig) -> None:
         vla.print_trainable_parameters()
 
     # Wrap VLA in PyTorch DDP Wrapper for Multi-GPU Training
-    print(distributed_state)
+    print(f'distributed_state: {distributed_state}')
     # if distributed_state:
     vla = DDP(vla, device_ids=[device_id], find_unused_parameters=True, gradient_as_bucket_view=True)
 
@@ -374,6 +388,7 @@ def finetune(cfg: FinetuneConfig) -> None:
     recent_losses = deque(maxlen=cfg.grad_accumulation_steps)
     recent_action_accuracies = deque(maxlen=cfg.grad_accumulation_steps)
     recent_l1_losses = deque(maxlen=cfg.grad_accumulation_steps)
+    recent_dtws = deque(maxlen=cfg.grad_accumulation_steps)
 
     def action_eval(output):
         # Compute Accuracy and L1 Loss for Logging
@@ -394,9 +409,19 @@ def finetune(cfg: FinetuneConfig) -> None:
             action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy())
         )
         action_l1_loss = torch.nn.functional.l1_loss(continuous_actions_pred, continuous_actions_gt)
-        return action_accuracy, action_l1_loss
-    
-    def save_model():
+
+        # Compute DTW
+        batch_dtw = []
+        action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
+        action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
+        # print(f"GT action shape: {action_7_gt.shape}, Pred action shape: {action_7_pred.shape}, {type(action_7_pred)}")
+        # print(f"GT action: {action_7_gt}, Pred action: {action_7_pred}")
+        
+        dtw_distance, _ = fastdtw(action_7_gt, action_7_pred, dist=euclidean)
+        
+        return action_accuracy, action_l1_loss, dtw_distance
+
+    def save_model(subfolder: str = "default"):
         if distributed_state.is_main_process:
             print(f"Saving Model Checkpoint for Step {gradient_step_idx}")
 
@@ -404,7 +429,6 @@ def finetune(cfg: FinetuneConfig) -> None:
             save_dir = adapter_dir if cfg.use_lora else run_dir
 
             # Save Processor & Weights
-            processor.save_pretrained(run_dir)
             vla.module.save_pretrained(save_dir)
 
         # Wait for processor and adapter weights to be saved by main process
@@ -413,39 +437,51 @@ def finetune(cfg: FinetuneConfig) -> None:
         # Merge LoRA weights into model backbone for faster inference
         #   =>> Note that merging is slow and can be done post-hoc to speed up training
         if cfg.use_lora:
-            base_vla = AutoModelForVision2Seq.from_pretrained(
-                cfg.vla_path, torch_dtype=torch.bfloat16, low_cpu_mem_usage=True, trust_remote_code=True
-            )
-            merged_vla = PeftModel.from_pretrained(base_vla, adapter_dir)
-            merged_vla = merged_vla.merge_and_unload()
+            # base_vla = AutoModelForVision2Seq.from_pretrained(
+            #     cfg.vla_path, torch_dtype=torch.bfloat16, low_cpu_mem_usage=True, trust_remote_code=True
+            # )
+            # merged_vla = PeftModel.from_pretrained(base_vla, adapter_dir)
+            # merged_vla = merged_vla.merge_and_unload()
             if distributed_state.is_main_process:
-                if cfg.save_latest_checkpoint_only:
-                    # Overwrite latest checkpoint
-                    merged_vla.save_pretrained(run_dir)
+                if subfolder == "default":
+                    if cfg.save_latest_checkpoint_only:
+                        # Overwrite latest checkpoint
+                        checkpoint_dir = run_dir
+                    else:
+                        # Prepare to save checkpoint in new directory
+                        checkpoint_dir = run_dir / f"--{gradient_step_idx}_chkpt--loss-{val_loss:.3f}"
+                        os.makedirs(checkpoint_dir, exist_ok=True)
 
-                    print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {run_dir}")
+                        # Save dataset statistics to new directory
+                        save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
                 else:
-                    # Prepare to save checkpoint in new directory
-                    checkpoint_dir = Path(str(run_dir) + f"--{gradient_step_idx}_chkpt--loss-{val_loss_value:.3f}")
+                    # Save to subfolder
+                    checkpoint_dir = run_dir / subfolder
                     os.makedirs(checkpoint_dir, exist_ok=True)
-
-                    # Save dataset statistics to new directory
                     save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
 
-                    # Save processor and model weights to new directory
-                    processor.save_pretrained(checkpoint_dir)
-                    merged_vla.save_pretrained(checkpoint_dir)
+                # Save processor and model weights
+                print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {checkpoint_dir}")
+                processor.save_pretrained(checkpoint_dir)
+                vla.module.save_pretrained(checkpoint_dir)
+                # merged_vla.save_pretrained(checkpoint_dir)
 
-                    print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {checkpoint_dir}")
+                print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {checkpoint_dir}")
+        else:
+            if distributed_state.is_main_process:
+                processor.save_pretrained(run_dir)
 
         # Block on Main Process Checkpointing
         dist.barrier()
     
-    best_val_loss = float('inf')
     val_accuracy = 0.0
     val_l1 = 0.0
     val_loss = 0.0
-    # steps = []
+
+    best_val_loss = float('inf')
+    best_val_l1 = float('inf')
+    best_val_dtw = float('inf')
+    best_val_accuracy = 0.0 
 
     # Train!
     with tqdm.tqdm(total=cfg.max_steps, leave=False) as progress:
@@ -468,12 +504,13 @@ def finetune(cfg: FinetuneConfig) -> None:
             normalized_loss.backward()
 
             # Compute Accuracy and L1 Loss for Logging
-            action_accuracy, action_l1_loss = action_eval(output)
+            action_accuracy, action_l1_loss, mean_dtw = action_eval(output)
 
             # Store recent train metrics
             recent_losses.append(loss.item())
             recent_action_accuracies.append(action_accuracy.item())
             recent_l1_losses.append(action_l1_loss.item())
+            recent_dtws.append(mean_dtw)
 
             # Compute gradient step index
             gradient_step_idx = batch_idx // cfg.grad_accumulation_steps
@@ -484,6 +521,7 @@ def finetune(cfg: FinetuneConfig) -> None:
             smoothened_loss = sum(recent_losses) / len(recent_losses)
             smoothened_action_accuracy = sum(recent_action_accuracies) / len(recent_action_accuracies)
             smoothened_l1_loss = sum(recent_l1_losses) / len(recent_l1_losses)  
+            smoothened_dtw = sum(recent_dtws) / len(recent_dtws)
             # smoothen, recent losses is defined as deque, no need to manually deque.  
 
             # Push Metrics to W&B (every 10 gradient steps)
@@ -494,6 +532,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                         "train_loss": smoothened_loss,
                         "action_accuracy": smoothened_action_accuracy,
                         "l1_loss": smoothened_l1_loss,
+                        "dtw": smoothened_dtw,
                     },
                     step=gradient_step_idx,
                 )
@@ -515,6 +554,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                     total_accuracy = 0.0
                     total_l1 = 0.0
                     total_samples = 0
+                    total_dtw = 0.0
 
                     with torch.no_grad():
                         for batch in val_dataloader:
@@ -529,92 +569,96 @@ def finetune(cfg: FinetuneConfig) -> None:
 
 
                             # Compute Accuracy and L1 Loss for Logging
-                            action_accuracy, action_l1_loss = action_eval(output)
-                            
+                            action_accuracy, action_l1_loss, mean_dtw = action_eval(output)
+
                             num_samples = len(batch["input_ids"])
 
                             # Accumulate
                             total_loss += loss.item() * num_samples
                             total_accuracy += action_accuracy.item() * num_samples
                             total_l1 += action_l1_loss.item() * num_samples
+                            total_dtw += mean_dtw * num_samples
                             total_samples += num_samples
 
                     
-                    # val_loss.append(total_loss / total_samples)
-                    # val_accuracy.append(total_accuracy / total_samples)
-                    # val_l1.append(total_l1 / total_samples)
-                    # steps.append(gradient_step_idx)
-
-
                     val_loss = (total_loss / total_samples)
                     val_accuracy = (total_accuracy / total_samples)
                     val_l1 = (total_l1 / total_samples)
-                    print(val_loss)
+                    val_dtw = (total_dtw / total_samples)
+                    # Log validation metrics
+                    # if distributed_state.is_main_process:
+
+                    print(f"Validation Loss: {val_loss:.4f}, "
+                            f"Validation Action Accuracy: {val_accuracy:.4f}, "
+                            f"Validation L1 Loss: {val_l1:.4f}, "
+                            f"Validation DTW: {val_dtw:.4f}")
+
                     # Log validation metrics
                     if distributed_state.is_main_process:
-
-                        print(f"Validation Loss: {val_loss:.4f}, "
-                              f"Validation Action Accuracy: {val_accuracy:.4f}, "
-                              f"Validation L1 Loss: {val_l1:.4f}")
-                        
-                        # Log validation metrics
-                        if distributed_state.is_main_process:
-                            wandb.log({
-                                "val_loss": val_loss,
-                                "val_action_accuracy": val_accuracy,
-                                "val_l1_loss": val_l1,
-                            }, step=gradient_step_idx)
-
-
-                        # print("logging validation metrics...")
-                        # # Convert to table format: [[step, loss], ...]
-                        # val_loss_data = [[i, loss] for i, loss in enumerate(val_loss)]
-                        # val_loss_table = wandb.Table(data=val_loss_data, columns=["step", "loss"])
-                        # wandb.log({
-                        #     "val_loss_plot": wandb.plot.line(
-                        #         val_loss_table, x="step", y="loss", title="Validation Loss"
-                        #     )
-                        # })
-
-                        # wandb.log({
-                        #     "val_loss_plot": wandb.plot.line(
-                        #         x=steps, y=val_loss, title="Validation Loss"
-                        #     )
-                        #     # "val_loss": val_loss.item(),
-                        #     # "val_action_accuracy": val_accuracy.item(),
-                        #     # "val_l1_loss": val_l1.item(),
-                        # })
+                        wandb.log({
+                            "val_loss": val_loss,
+                            "val_action_accuracy": val_accuracy,
+                            "val_l1_loss": val_l1,
+                            "val_dtw": val_dtw,
+                        }, step=gradient_step_idx)
+                
 
                     # Early Stopping Check
-                    print('val_loss:', val_loss, 'best_val_loss:', best_val_loss)
+                    print('val accuracy:', val_accuracy, 'val_loss:', val_loss, 'best_val_loss:', best_val_loss, 'val_dtw:', val_dtw,
+                          'val_l1:', val_l1, 'best_val_l1:', best_val_l1,  'best_val_dtw:', best_val_dtw)
                     if val_loss < best_val_loss:
                         best_val_loss = val_loss
-                        patience_counter = 0
+                        # patience_counter = 0
                         
                         # Save best model checkpoint
                         if distributed_state.is_main_process:
                             print(f"New best validation loss: {best_val_loss:.4f}")
-                            processor.save_pretrained(run_dir)
-                            vla.module.save_pretrained(run_dir)
-                    else:
-                        patience_counter += 1
-                        cfg.learning_rate *= 0.5
-                        validation_interval = int(validation_interval * 0.7 // 1)
-                        for param_group in optimizer.param_groups:
-                            param_group['lr'] = cfg.learning_rate
-                        print(f"Updated learning rate to {cfg.learning_rate:.6f}")
-                        wandb.log({"learning_rate": cfg.learning_rate}, step=gradient_step_idx)
-                        if distributed_state.is_main_process:   
-                            print(f"Current best validation loss: {best_val_loss:.4f}, patience counter: {patience_counter}/{cfg.patience}")
+                            save_model("val_loss")
+                    
+                    if val_l1 < best_val_l1:
+                        best_val_l1 = val_l1
+                        
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation l1 loss: {best_val_l1:.4f}")
+                            save_model("val_l1")
 
-                        if patience_counter < cfg.patience:
-                            print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), continuing training...")
-                        else:
-                            if distributed_state.is_main_process:
-                                print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), stopping training...")
-                            # Save the model checkpoint before stopping
-                            save_model()
-                            break
+                    if val_accuracy > best_val_accuracy:
+                        best_val_accuracy = val_accuracy
+                        
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation accuracy: {best_val_accuracy:.4f}")
+                            save_model("val_accuracy")
+                            
+                    if val_dtw < best_val_dtw:
+                        best_val_dtw = val_dtw
+                        
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation DTW: {best_val_dtw:.4f}")
+                            save_model("val_dtw")
+
+                    # else:
+                    #     patience_counter += 1
+                    #     cfg.learning_rate *= 0.7
+                    #     cfg.validation_interval = int(cfg.validation_interval * 0.7 // 1)
+                    #     for param_group in optimizer.param_groups:
+                    #         param_group['lr'] = cfg.learning_rate
+                    #     print(f"Updated learning rate to {cfg.learning_rate:.6f}")
+                    #     wandb.log({"learning_rate": cfg.learning_rate}, step=gradient_step_idx)
+                    #     if distributed_state.is_main_process:   
+                    #         print(f"Current best validation loss: {best_val_loss:.4f}, patience counter: {patience_counter}/{cfg.patience}")
+
+                    #     if patience_counter < cfg.patience:
+                    #         print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), continuing training...")
+                    #     else:
+                    #         if distributed_state.is_main_process:
+                    #             print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), stopping training...")
+                            
+                    #         break
+                        
+
             # Save Model Checkpoint =>> by default, only keeps the latest checkpoint, continually overwriting it!
             if gradient_step_idx > 0 and gradient_step_idx % cfg.save_steps == 0:
                 save_model()

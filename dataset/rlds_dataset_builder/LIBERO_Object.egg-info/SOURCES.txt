@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+LIBERO_Object/LIBERO_Object_dataset_builder.py
+LIBERO_Object/__init__.py
+LIBERO_Object/conversion_utils.py
+LIBERO_Object.egg-info/PKG-INFO
+LIBERO_Object.egg-info/SOURCES.txt
+LIBERO_Object.egg-info/dependency_links.txt
+LIBERO_Object.egg-info/top_level.txt
