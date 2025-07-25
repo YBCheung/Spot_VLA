@@ -48,7 +48,7 @@ import wandb
 from prismatic.models.backbones.llm.prompting import PurePromptBuilder, VicunaV15ChatPromptBuilder
 from prismatic.util.data_utils import PaddedCollatorForActionPrediction
 from prismatic.vla.action_tokenizer import ActionTokenizer
-from prismatic.vla.datasets import RLDSBatchTransform, RLDSDataset
+from prismatic.vla.datasets import RLDSBatchTransform, RLDSDataset, EpisodicRLDSDataset
 from prismatic.vla.datasets.rlds.utils.data_utils import save_dataset_statistics
 
 from prismatic.extern.hf.configuration_prismatic import OpenVLAConfig
@@ -112,7 +112,7 @@ class FinetuneConfig:
 
     # Fine-tuning Parameters
     if local_debug == True:
-        batch_size: int = 1  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
+        batch_size: int = 2  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
     else:
         batch_size: int = 16
     max_steps: int = 1000 # 10_000                                        # Max number of fine-tuning steps
@@ -381,6 +381,7 @@ def finetune(cfg: FinetuneConfig) -> None:
         shuffle=False  # Never shuffle validation
     )
 
+
     # Initialize Logging =>> W&B
     if distributed_state.is_main_process:
         wandb.init(entity=cfg.wandb_entity, project=cfg.wandb_project, name=f"ft+{exp_id}")
@@ -389,7 +390,8 @@ def finetune(cfg: FinetuneConfig) -> None:
     recent_losses = deque(maxlen=cfg.grad_accumulation_steps)
     recent_action_accuracies = deque(maxlen=cfg.grad_accumulation_steps)
     recent_l1_losses = deque(maxlen=cfg.grad_accumulation_steps)
-    recent_dtws = deque(maxlen=cfg.grad_accumulation_steps)
+    recent_l2_losses = deque(maxlen=cfg.grad_accumulation_steps)
+    recent_cos_distances = deque(maxlen=cfg.grad_accumulation_steps)
 
     def action_eval(output):
         # Compute Accuracy and L1 Loss for Logging
@@ -430,12 +432,12 @@ def finetune(cfg: FinetuneConfig) -> None:
         action_l2_loss = torch.nn.functional.mse_loss(tensor_pred, tensor_gt)
         mean_l2_loss = torch.mean(action_l2_loss)
 
-        print('cos', cos_distances, mean_cos_distance, 
-              'l1', action_l1_loss, mean_l1_loss, 
-              'l2', action_l2_loss, mean_l2_loss)
+        # print('cos', cos_distances, mean_cos_distance, 
+        #       'l1', action_l1_loss, mean_l1_loss, 
+        #       'l2', action_l2_loss, mean_l2_loss)
 
 
-        return action_accuracy, mean_l1_loss, mean_l2_loss, mean_cos_distance #, action_7_pred, action_7_gt
+        return action_accuracy, mean_l1_loss, mean_l2_loss, mean_cos_distance, action_7_pred, action_7_gt
 
     def save_model(subfolder: str = "default"):
         if distributed_state.is_main_process:
@@ -496,8 +498,10 @@ def finetune(cfg: FinetuneConfig) -> None:
 
     best_val_loss = float('inf')
     best_val_l1 = float('inf')
-    best_val_dtw = float('inf')
-    best_val_accuracy = 0.0 
+    best_val_l2 = float('inf')
+    best_val_dtw = float('inf')  # Add DTW tracking
+    best_val_cos_distance = -1.0  # ideal cosine distance is 1.0, so we start from -1.0
+    best_val_accuracy = 0.0
 
     # Train!
     with tqdm.tqdm(total=cfg.max_steps, leave=False) as progress:
@@ -520,13 +524,15 @@ def finetune(cfg: FinetuneConfig) -> None:
             normalized_loss.backward()
 
             # Compute Accuracy and L1 Loss for Logging
-            action_accuracy, action_l1_loss, mean_dtw = action_eval(output)
+            action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance, action_7_pred, action_7_gt = action_eval(output)
 
             # Store recent train metrics
             recent_losses.append(loss.item())
             recent_action_accuracies.append(action_accuracy.item())
             recent_l1_losses.append(action_l1_loss.item())
-            recent_dtws.append(mean_dtw)
+            recent_l2_losses.append(action_l2_loss.item())
+            recent_cos_distances.append(mean_cos_distance.item())
+            # recent_dtws.append(mean_dtw)
 
             # Compute gradient step index
             gradient_step_idx = batch_idx // cfg.grad_accumulation_steps
@@ -537,7 +543,9 @@ def finetune(cfg: FinetuneConfig) -> None:
             smoothened_loss = sum(recent_losses) / len(recent_losses)
             smoothened_action_accuracy = sum(recent_action_accuracies) / len(recent_action_accuracies)
             smoothened_l1_loss = sum(recent_l1_losses) / len(recent_l1_losses)  
-            smoothened_dtw = sum(recent_dtws) / len(recent_dtws)
+            smoothened_l2_loss = sum(recent_l2_losses) / len(recent_l2_losses)
+            smoothened_cos_distance = sum(recent_cos_distances) / len(recent_cos_distances)
+            # smoothened_dtw = sum(recent_dtws) / len(recent_dtws)
             # smoothen, recent losses is defined as deque, no need to manually deque.  
 
             # Push Metrics to W&B (every 10 gradient steps)
@@ -548,7 +556,9 @@ def finetune(cfg: FinetuneConfig) -> None:
                         "train_loss": smoothened_loss,
                         "action_accuracy": smoothened_action_accuracy,
                         "l1_loss": smoothened_l1_loss,
-                        "dtw": smoothened_dtw,
+                        "l2_loss": smoothened_l2_loss,
+                        "cosine_distance": smoothened_cos_distance,
+                        # "dtw": smoothened_dtw,
                     },
                     step=gradient_step_idx,
                 )
@@ -569,8 +579,9 @@ def finetune(cfg: FinetuneConfig) -> None:
                     total_loss = 0.0
                     total_accuracy = 0.0
                     total_l1 = 0.0
+                    total_l2 = 0.0
+                    total_cos_distance = 0.0
                     total_samples = 0
-                    total_dtw = 0.0
 
                     with torch.no_grad():
                         for batch in val_dataloader:
@@ -585,7 +596,7 @@ def finetune(cfg: FinetuneConfig) -> None:
 
 
                             # Compute Accuracy and L1 Loss for Logging
-                            action_accuracy, action_l1_loss, mean_dtw = action_eval(output)
+                            action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance, action_7_pred, action_7_gt = action_eval(output)
 
                             num_samples = len(batch["input_ids"])
 
@@ -593,21 +604,23 @@ def finetune(cfg: FinetuneConfig) -> None:
                             total_loss += loss.item() * num_samples
                             total_accuracy += action_accuracy.item() * num_samples
                             total_l1 += action_l1_loss.item() * num_samples
-                            total_dtw += mean_dtw * num_samples
+                            total_l2 += action_l2_loss.item() * num_samples
+                            total_cos_distance += mean_cos_distance.item() * num_samples
                             total_samples += num_samples
 
                     
                     val_loss = (total_loss / total_samples)
                     val_accuracy = (total_accuracy / total_samples)
                     val_l1 = (total_l1 / total_samples)
-                    val_dtw = (total_dtw / total_samples)
-                    # Log validation metrics
-                    # if distributed_state.is_main_process:
+                    val_l2 = (total_l2 / total_samples)
+                    val_cos_distance = (total_cos_distance / total_samples)
 
                     print(f"Validation Loss: {val_loss:.4f}, "
                             f"Validation Action Accuracy: {val_accuracy:.4f}, "
                             f"Validation L1 Loss: {val_l1:.4f}, "
-                            f"Validation DTW: {val_dtw:.4f}")
+                            f"Validation L2 Loss: {val_l2:.4f}, "
+                            f"Validation Cosine Distance: {val_cos_distance:.4f}, ")
+                            
 
                     # Log validation metrics
                     if distributed_state.is_main_process:
@@ -615,13 +628,13 @@ def finetune(cfg: FinetuneConfig) -> None:
                             "val_loss": val_loss,
                             "val_action_accuracy": val_accuracy,
                             "val_l1_loss": val_l1,
-                            "val_dtw": val_dtw,
+                            "val_l2_loss": val_l2,
+                            "val_cosine_distance": val_cos_distance,
+                            # "val_dtw_distance": val_dtw,
                         }, step=gradient_step_idx)
                 
 
                     # Early Stopping Check
-                    print('val accuracy:', val_accuracy, 'val_loss:', val_loss, 'best_val_loss:', best_val_loss, 'val_dtw:', val_dtw,
-                          'val_l1:', val_l1, 'best_val_l1:', best_val_l1,  'best_val_dtw:', best_val_dtw)
                     if val_loss < best_val_loss:
                         best_val_loss = val_loss
                         # patience_counter = 0
@@ -633,11 +646,23 @@ def finetune(cfg: FinetuneConfig) -> None:
                     
                     if val_l1 < best_val_l1:
                         best_val_l1 = val_l1
-                        
-                        # Save best model checkpoint
                         if distributed_state.is_main_process:
                             print(f"New best validation l1 loss: {best_val_l1:.4f}")
                             save_model("val_l1")
+
+                    if val_l2 < best_val_l2:
+                        best_val_l2 = val_l2
+                        if distributed_state.is_main_process:
+                            print(f"New best validation l2 loss: {best_val_l2:.4f}")
+                            save_model("val_l2")
+
+                    if val_cos_distance > best_val_cos_distance:
+                        best_val_cos_distance = val_cos_distance
+
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation cosine distance: {best_val_cos_distance:.4f}")
+                            save_model("val_cosine_distance")
 
                     if val_accuracy > best_val_accuracy:
                         best_val_accuracy = val_accuracy
@@ -647,33 +672,14 @@ def finetune(cfg: FinetuneConfig) -> None:
                             print(f"New best validation accuracy: {best_val_accuracy:.4f}")
                             save_model("val_accuracy")
                             
-                    if val_dtw < best_val_dtw:
-                        best_val_dtw = val_dtw
+                    # if val_dtw < best_val_dtw:
+                    #     best_val_dtw = val_dtw
                         
-                        # Save best model checkpoint
-                        if distributed_state.is_main_process:
-                            print(f"New best validation DTW: {best_val_dtw:.4f}")
-                            save_model("val_dtw")
+                    #     # Save best model checkpoint
+                    #     if distributed_state.is_main_process:
+                    #         print(f"New best validation DTW: {best_val_dtw:.4f}")
+                    #         save_model("val_dtw")
 
-                    # else:
-                    #     patience_counter += 1
-                    #     cfg.learning_rate *= 0.7
-                    #     cfg.validation_interval = int(cfg.validation_interval * 0.7 // 1)
-                    #     for param_group in optimizer.param_groups:
-                    #         param_group['lr'] = cfg.learning_rate
-                    #     print(f"Updated learning rate to {cfg.learning_rate:.6f}")
-                    #     wandb.log({"learning_rate": cfg.learning_rate}, step=gradient_step_idx)
-                    #     if distributed_state.is_main_process:   
-                    #         print(f"Current best validation loss: {best_val_loss:.4f}, patience counter: {patience_counter}/{cfg.patience}")
-
-                    #     if patience_counter < cfg.patience:
-                    #         print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), continuing training...")
-                    #     else:
-                    #         if distributed_state.is_main_process:
-                    #             print(f"Validation loss did not improve ({patience_counter}/{cfg.patience}), stopping training...")
-                            
-                    #         break
-                        
 
             # Save Model Checkpoint =>> by default, only keeps the latest checkpoint, continually overwriting it!
             if gradient_step_idx > 0 and gradient_step_idx % cfg.save_steps == 0:
