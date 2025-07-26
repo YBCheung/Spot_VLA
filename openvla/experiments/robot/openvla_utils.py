@@ -40,15 +40,51 @@ def get_vla(cfg):
     AutoProcessor.register(OpenVLAConfig, PrismaticProcessor)
     AutoModelForVision2Seq.register(OpenVLAConfig, OpenVLAForActionPrediction)
 
-    vla = AutoModelForVision2Seq.from_pretrained(
-        cfg.pretrained_checkpoint,
-        attn_implementation="flash_attention_2",
-        torch_dtype=torch.bfloat16,
-        load_in_8bit=cfg.load_in_8bit,
-        load_in_4bit=cfg.load_in_4bit,
-        low_cpu_mem_usage=True,
-        trust_remote_code=True,
-    )
+    # Determine what to load based on configuration
+    if cfg.load_from_adapter and cfg.vla_path is not None and cfg.adapter_dir is not None:
+        # Load base model first
+        print(f"[*] Loading base VLA model from: {cfg.vla_path}")
+        print(f"[*] Loading LoRA adapter from: {cfg.adapter_dir}")
+        
+        vla = AutoModelForVision2Seq.from_pretrained(
+            cfg.vla_path,
+            attn_implementation="flash_attention_2",
+            torch_dtype=torch.bfloat16,
+            load_in_8bit=cfg.load_in_8bit,
+            load_in_4bit=cfg.load_in_4bit,
+            low_cpu_mem_usage=True,
+            trust_remote_code=True,
+        )
+        
+        # Load LoRA adapter
+        from peft import PeftModel
+        vla = PeftModel.from_pretrained(vla, cfg.adapter_dir)
+        
+        # Load dataset statistics from adapter directory
+        dataset_statistics_path = os.path.join(cfg.adapter_dir, "dataset_statistics.json")
+        if not os.path.isfile(dataset_statistics_path):
+            # Fallback to parent directory (run directory)
+            parent_dir = os.path.dirname(cfg.adapter_dir)
+            dataset_statistics_path = os.path.join(parent_dir, "dataset_statistics.json")
+            
+    elif hasattr(cfg, 'pretrained_checkpoint') and cfg.pretrained_checkpoint is not None:
+        # Load from pretrained checkpoint (original behavior)
+        print(f"[*] Loading VLA model from checkpoint: {cfg.pretrained_checkpoint}")
+        vla = AutoModelForVision2Seq.from_pretrained(
+            cfg.pretrained_checkpoint,
+            attn_implementation="flash_attention_2",
+            torch_dtype=torch.bfloat16,
+            load_in_8bit=cfg.load_in_8bit,
+            load_in_4bit=cfg.load_in_4bit,
+            low_cpu_mem_usage=True,
+            trust_remote_code=True,
+        )
+        
+        # Load dataset statistics from checkpoint directory
+        dataset_statistics_path = os.path.join(cfg.pretrained_checkpoint, "dataset_statistics.json")
+        
+    else:
+        raise ValueError("Either set load_from_adapter=True with vla_path and adapter_dir, or provide pretrained_checkpoint")
 
     # Move model to device.
     # Note: `.to()` is not supported for 8-bit or 4-bit bitsandbytes models, but the model will
@@ -57,15 +93,15 @@ def get_vla(cfg):
         vla = vla.to(DEVICE)
 
     # Load dataset stats used during finetuning (for action un-normalization).
-    dataset_statistics_path = os.path.join(cfg.pretrained_checkpoint, "dataset_statistics.json")
     if os.path.isfile(dataset_statistics_path):
         with open(dataset_statistics_path, "r") as f:
             norm_stats = json.load(f)
         vla.norm_stats = norm_stats
+        print(f"[*] Loaded dataset statistics from: {dataset_statistics_path}")
     else:
         print(
-            "WARNING: No local dataset_statistics.json file found for current checkpoint.\n"
-            "You can ignore this if you are loading the base VLA (i.e. not fine-tuned) checkpoint."
+            f"WARNING: No dataset_statistics.json file found at {dataset_statistics_path}.\n"
+            "You can ignore this if you are loading the base VLA (i.e. not fine-tuned) checkpoint. "
             "Otherwise, you may run into errors when trying to call `predict_action()` due to an absent `unnorm_key`."
         )
 
@@ -74,7 +110,14 @@ def get_vla(cfg):
 
 def get_processor(cfg):
     """Get VLA model's Hugging Face processor."""
-    processor = AutoProcessor.from_pretrained(cfg.pretrained_checkpoint, trust_remote_code=True)
+    if cfg.load_from_adapter and cfg.vla_path is not None:
+        # When loading from adapter, get processor from base model
+        processor = AutoProcessor.from_pretrained(cfg.vla_path, trust_remote_code=True)
+    elif hasattr(cfg, 'pretrained_checkpoint') and cfg.pretrained_checkpoint is not None:
+        # Original behavior - load from checkpoint
+        processor = AutoProcessor.from_pretrained(cfg.pretrained_checkpoint, trust_remote_code=True)
+    else:
+        raise ValueError("Either set load_from_adapter=True with vla_path, or provide pretrained_checkpoint")
     return processor
 
 
@@ -154,8 +197,13 @@ def get_vla_action(vla, processor, base_vla_name, obs, task_label, unnorm_key, c
         image = Image.fromarray(image.numpy())
         image = image.convert("RGB")
 
-    # Build VLA prompt
-    if "openvla-v01" in base_vla_name:  # OpenVLA v0.1
+    # Build VLA prompt - handle base model name properly
+    if isinstance(base_vla_name, (str, os.PathLike)):
+        base_vla_str = str(base_vla_name)
+    else:
+        base_vla_str = ""
+        
+    if "openvla-v01" in base_vla_str:  # OpenVLA v0.1
         prompt = (
             f"{OPENVLA_V01_SYSTEM_PROMPT} USER: What action should the robot take to {task_label.lower()}? ASSISTANT:"
         )

@@ -1,5 +1,7 @@
 """Utils for evaluating robot policies in various environments."""
 
+import os
+import random
 import time
 
 import numpy as np
@@ -22,6 +24,17 @@ OPENVLA_V01_SYSTEM_PROMPT = (
     "A chat between a curious user and an artificial intelligence assistant. "
     "The assistant gives helpful, detailed, and polite answers to the user's questions."
 )
+
+
+def set_seed_everywhere(seed: int):
+    """Sets the random seed for Python, NumPy, and PyTorch functions."""
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    os.environ["PYTHONHASHSEED"] = str(seed)
 
 
 def get_model(cfg, wrap_diffusion_policy_for_droid=False):
@@ -50,8 +63,16 @@ def get_image_resize_size(cfg):
 def get_action(cfg, model, obs, task_label, processor=None):
     """Queries the model to get an action."""
     if cfg.model_family == "openvla":
+        # Determine base model name for prompt building
+        if cfg.load_from_adapter and cfg.vla_path is not None:
+            base_model_name = cfg.vla_path
+        elif hasattr(cfg, 'pretrained_checkpoint') and cfg.pretrained_checkpoint is not None:
+            base_model_name = cfg.pretrained_checkpoint
+        else:
+            base_model_name = "openvla"  # fallback
+            
         action = get_vla_action(
-            model, processor, cfg.pretrained_checkpoint, obs, task_label, cfg.unnorm_key, center_crop=cfg.center_crop
+            model, processor, base_model_name, obs, task_label, cfg.unnorm_key, center_crop=cfg.center_crop
         )
         assert action.shape == (ACTION_DIM,)
     else:
@@ -76,4 +97,14 @@ def normalize_gripper_action(action, binarize=True):
         # Binarize to -1 or +1.
         action[..., -1] = np.sign(action[..., -1])
 
+    return action
+
+
+def invert_gripper_action(action):
+    """
+    Flips the sign of the gripper action (last dimension of action vector).
+    This is necessary for some environments where -1 = open, +1 = close, since
+    the RLDS dataloader aligns gripper actions such that 0 = close, 1 = open.
+    """
+    action[..., -1] = action[..., -1] * -1.0
     return action

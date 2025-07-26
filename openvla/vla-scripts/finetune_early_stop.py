@@ -34,6 +34,7 @@ import numpy as np
 import draccus
 import torch
 import torch.distributed as dist
+import torch.nn.functional as F
 import tqdm
 from accelerate import PartialState
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
@@ -55,6 +56,7 @@ from prismatic.extern.hf.configuration_prismatic import OpenVLAConfig
 from prismatic.extern.hf.modeling_prismatic import OpenVLAForActionPrediction
 from prismatic.extern.hf.processing_prismatic import PrismaticImageProcessor, PrismaticProcessor
 
+import ot
 
 # === Local GPU ===
 # Note: If you want to run on local CPU, comment out the following lines.in terminal, and run following command on terminal 
@@ -103,16 +105,16 @@ class FinetuneConfig:
     vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
 
     # Directory Paths
-    data_root_dir_string = "/home/rllab/spot_vla/Spot_VLA/dataset/tensorflow_datasets/spot_carrot_l/"
+    data_root_dir_string = "/home/rllab/spot_vla/Spot_VLA/dataset/modified_libero_rlds" # Path to Open-X dataset directory
     data_root_dir: Path = Path(data_root_dir_string)        # Path to Open-X dataset directory
     # data_root_dir: Path = Path("/scratch/work/zhangy50/RL/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
-    dataset_name: str = "spot_carrot"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
+    dataset_name: str = "libero_goal_no_noops"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
     run_root_dir: Path = Path("runs")                              # Path to directory to store logs & checkpoints
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
     if local_debug == True:
-        batch_size: int = 2  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
+        batch_size: int = 1  # 16 is good, 24 to big for H100                                        # Fine-tuning batch size
     else:
         batch_size: int = 16
     max_steps: int = 1000 # 10_000                                        # Max number of fine-tuning steps
@@ -194,6 +196,212 @@ def evaluate(model, dataloader, device_id, action_tokenizer):
         "accuracy": total_accuracy / total_samples,
         "l1_loss": total_l1 / total_samples,
     }
+
+def compute_optimal_transport_distance(gt: np.ndarray, pred: np.ndarray) -> float:
+    """
+    Compute optimal transport distance between two trajectory sequences.
+    
+    Args:
+        gt: Ground truth trajectory actions (shape: [num_steps, 7])
+        pred: Predicted trajectory actions (shape: [num_steps, 7])
+    
+    Returns:
+        Optimal transport distance
+    """
+    # Flatten the trajectories to 1D for optimal transport computation
+    gt_flat = gt.flatten()
+    pred_flat = pred.flatten()
+    
+    # Normalize to obtain probability distributions (histograms)
+    a = np.ones(len(gt_flat)) / len(gt_flat)
+    b = np.ones(len(pred_flat)) / len(pred_flat)
+    
+    # Cost matrix: squared Euclidean distance
+    M = ot.dist(gt_flat.reshape(-1, 1), pred_flat.reshape(-1, 1), metric='euclidean') ** 2
+    
+    return ot.emd2(a, b, M)
+    
+def evaluate_dtw_on_trajectories(model, device_id, action_tokenizer, processor, cfg, num_trajectories=5):
+    """
+    Evaluate DTW distance between predicted and ground truth action trajectories.
+    
+    Args:
+        model: The VLA model
+        device_id: Device ID
+        action_tokenizer: Action tokenizer
+        processor: Model processor
+        cfg: Configuration
+        num_trajectories: Number of trajectories to evaluate
+        step_idx: Current training step (used for random seed)
+    
+    Returns:
+        Average DTW distance across trajectories
+    """
+    from accelerate import PartialState
+    import random
+    import time
+    distributed_state = PartialState()
+    
+    # Clear GPU cache before starting evaluation
+    torch.cuda.empty_cache()
+    
+    random.seed(int(time.time()))  # Use current time as seed
+    
+    # Create episodic dataset for trajectory-level evaluation
+    batch_transform = RLDSBatchTransform(
+        action_tokenizer,
+        processor.tokenizer,
+        image_transform=processor.image_processor.apply_transform,
+        prompt_builder_fn=PurePromptBuilder if "v01" not in cfg.vla_path else VicunaV15ChatPromptBuilder,
+    )
+    
+    episodic_dataset = EpisodicRLDSDataset(
+        cfg.data_root_dir,
+        cfg.dataset_name,
+        batch_transform,
+        resize_resolution=tuple(model.module.config.image_sizes),
+        # shuffle_buffer_size=10000,  # Increased shuffle buffer for better randomization
+        train=False,  # Use validation split
+        image_aug=False,
+
+    )
+    
+    model.eval()
+    
+    if distributed_state.is_main_process:
+        print(f"Sampling {num_trajectories} trajectories randomly from validation set...")
+    
+    # Use reservoir sampling or random skip-based sampling to avoid memory waste
+    # This approach samples truly randomly from the entire validation set without loading all trajectories
+    
+    with torch.no_grad(): 
+        total_trajectories = sum(1 for _ in episodic_dataset)
+        print(f"Total val traj: {total_trajectories}")
+        if total_trajectories < num_trajectories:
+            num_trajectories = total_trajectories
+            if distributed_state.is_main_process:
+                print(f"Adjusted number of trajectories to sample: {num_trajectories}")
+        target_indices = sorted(random.sample(range(total_trajectories), num_trajectories))
+        sampled_trajectories = []
+        current_target_idx = 0
+        for traj_idx, trajectory in enumerate(episodic_dataset):
+            if current_target_idx >= num_trajectories:
+                break  # Got all trajectories we need
+            print(f"trajectory {traj_idx}, target_idx={target_indices[current_target_idx]}, {current_target_idx}/{num_trajectories}, length={len(trajectory)}")
+            if traj_idx == target_indices[current_target_idx]:
+                sampled_trajectories.append(trajectory)
+                current_target_idx += 1
+                
+                if distributed_state.is_main_process:
+                    print(f"Collected trajectory {current_target_idx}/{num_trajectories} (index {traj_idx})")
+        
+        all_ce = []
+        all_accuracy = []
+        all_cos_distances = []
+        all_l1_losses = []
+        all_l2_losses = []
+        all_dtw = []
+        all_ot = []
+
+        chunk_size = 8  # Process 8 steps at a time to avoid OOM
+        # Now process the selected trajectories
+        # Extract ground truth actions from trajectory
+        for trajectory in sampled_trajectories:        
+            # Process the trajectory in smaller chunks to avoid OOM
+            # Split trajectory into manageable chunks and compute DTW/OT for each chunk
+          
+            for chunk_start in range(0, len(trajectory), chunk_size):
+                chunk_end = min(chunk_start + chunk_size, len(trajectory))
+                trajectory_chunk = trajectory[chunk_start:chunk_end]
+                
+                if len(trajectory_chunk) == 0:
+                    continue
+                
+                # Process this chunk as a batch
+                batch_input_ids = torch.stack([step["input_ids"] for step in trajectory_chunk]).to(device_id)
+                
+                # Check if attention_mask exists, if not create it (all ones)
+                if "attention_mask" in trajectory_chunk[0]:
+                    batch_attention_mask = torch.stack([step["attention_mask"] for step in trajectory_chunk]).to(device_id)
+                else:
+                    batch_attention_mask = torch.ones_like(batch_input_ids).to(device_id)
+                
+                batch_pixel_values = torch.stack([step["pixel_values"] for step in trajectory_chunk]).to(torch.bfloat16).to(device_id)
+                batch_labels = torch.stack([step["labels"] for step in trajectory_chunk])
+                
+                # Process chunk with gradient checkpointing to save memory
+                with torch.autocast("cuda", dtype=torch.bfloat16):
+                    output: CausalLMOutputWithPast = model(
+                        input_ids=batch_input_ids,
+                        attention_mask=batch_attention_mask,
+                        pixel_values=batch_pixel_values,
+                        labels=batch_labels,
+                    )
+                    loss = output.loss
+                
+                # Extract action predictions for this chunk
+                action_logits = output.logits[:, model.module.vision_backbone.featurizer.patch_embed.num_patches : -1]
+                action_preds = action_logits.argmax(dim=2)
+                action_gt = batch_labels[:, 1:].to(action_preds.device)
+                mask = action_gt > action_tokenizer.action_token_begin_idx
+
+                if mask.sum() == 0:
+                    torch.cuda.empty_cache()
+                    continue  # Skip this chunk if no valid action tokens
+
+                correct_preds = (action_preds == action_gt) & mask
+                action_accuracy = correct_preds.sum().float() / mask.sum().float()
+
+                # get orginal action predictions and ground truth
+                action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
+                action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
+                
+
+                tensor_pred = torch.tensor(action_7_pred, dtype=torch.float32).to(device_id)
+                tensor_gt = torch.tensor(action_7_gt, dtype=torch.float32).to(device_id)
+
+                # cosine distance between predicted and ground truth actions, then calculate mean
+                cos_distances = torch.nn.functional.cosine_similarity(tensor_pred, tensor_gt, dim=1)
+                mean_cos_distance = torch.mean(cos_distances)
+                
+                # Compute L1 Loss on Predicted (Continuous) Actions
+                action_l1_loss = torch.nn.functional.l1_loss(tensor_pred, tensor_gt, reduction='mean')
+                action_l2_loss = F.mse_loss(tensor_pred, tensor_gt, reduction='mean')
+
+                all_ce = loss.item()
+                all_accuracy.append(action_accuracy.item())
+                all_cos_distances.append(mean_cos_distance.item())
+                all_l1_losses.append(action_l1_loss.item())
+                all_l2_losses.append(action_l2_loss.item())
+                
+                
+                min_len = min(len(action_7_pred), len(action_7_gt))
+                # Compute DTW and OT for this chunk directly
+                if min_len > 1:
+                    chunk_gt_trimmed = np.array(action_7_gt[:min_len])
+                    chunk_pred_trimmed = np.array(action_7_pred[:min_len])
+                    
+                    # Calculate DTW and OT for this chunk
+                    chunk_dtw_distance, _ = fastdtw(chunk_gt_trimmed, chunk_pred_trimmed, dist=euclidean)
+                    chunk_ot_distance = compute_optimal_transport_distance(chunk_gt_trimmed, chunk_pred_trimmed)
+                    
+                    # Normalize by chunk length
+                    normalized_chunk_dtw = chunk_dtw_distance / min_len
+                    normalized_chunk_ot = chunk_ot_distance / min_len
+
+                    all_dtw.append(normalized_chunk_dtw)
+                    all_ot.append(normalized_chunk_ot)
+
+                # Clear cache after each chunk to free memory
+                torch.cuda.empty_cache()
+    return {np.mean(all_ce) if all_ce else float('inf'),
+            np.mean(all_accuracy) if all_accuracy else 0.0,
+            np.mean(all_cos_distances) if all_cos_distances else -1.0,
+            np.mean(all_l1_losses) if all_l1_losses else float('inf'),
+            np.mean(all_l2_losses) if all_l2_losses else float('inf'), 
+            np.mean(all_dtw) if all_dtw else float('inf'), 
+            np.mean(all_ot) if all_ot else float('inf')}
+
 
 @draccus.wrap()
 def finetune(cfg: FinetuneConfig) -> None:
@@ -353,6 +561,7 @@ def finetune(cfg: FinetuneConfig) -> None:
     # Save dataset statistics (only need to do this once, using train stats)
     if distributed_state.is_main_process:
         save_dataset_statistics(train_dataset.dataset_statistics, run_dir)
+        
 
     # Create collator (shared between train and val)
     collator = PaddedCollatorForActionPrediction(
@@ -404,16 +613,6 @@ def finetune(cfg: FinetuneConfig) -> None:
         correct_preds = (action_preds == action_gt) & mask
         action_accuracy = correct_preds.sum().float() / mask.sum().float()
 
-        # # Compute L1 Loss on Predicted (Continuous) Actions
-        # continuous_actions_pred = torch.tensor(
-        #     action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy())
-        # )
-        # continuous_actions_gt = torch.tensor(
-        #     action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy())
-        # )
-        # action_l1_loss = torch.nn.functional.l1_loss(continuous_actions_pred, continuous_actions_gt)
-        # action_l2_loss = torch.nn.functional.mse_loss(continuous_actions_pred, continuous_actions_gt)
-
         # get orginal action predictions and ground truth
         action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
         action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
@@ -427,27 +626,26 @@ def finetune(cfg: FinetuneConfig) -> None:
         
         # Compute L1 Loss on Predicted (Continuous) Actions
         action_l1_loss = torch.nn.functional.l1_loss(tensor_pred, tensor_gt)
-        mean_l1_loss = torch.mean(action_l1_loss)
-        # Compute L2 Loss on Predicted (Continuous) Actions
-        action_l2_loss = torch.nn.functional.mse_loss(tensor_pred, tensor_gt)
-        mean_l2_loss = torch.mean(action_l2_loss)
+        action_l2_loss = F.mse_loss(tensor_pred, tensor_gt, reduction='mean')
 
-        # print('cos', cos_distances, mean_cos_distance, 
-        #       'l1', action_l1_loss, mean_l1_loss, 
-        #       'l2', action_l2_loss, mean_l2_loss)
+        return action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance
 
-
-        return action_accuracy, mean_l1_loss, mean_l2_loss, mean_cos_distance, action_7_pred, action_7_gt
-
-    def save_model(subfolder: str = "default"):
+    def save_model(subfolder: str = "default", val: float = 0.0) -> None:
+        import datetime
         if distributed_state.is_main_process:
             print(f"Saving Model Checkpoint for Step {gradient_step_idx}")
+            
+            # Write to log file
+            log_file = run_dir / "model_saves.log"
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            with open(log_file, "a") as f:
+                f.write(f"[{timestamp}] Saving {subfolder} at step: {gradient_step_idx}, value: {val:.4f} \n")
 
-            # If LoRA, we first save adapter weights, then merge into full model; otherwise, default save!
-            save_dir = adapter_dir if cfg.use_lora else run_dir
+            # # If LoRA, we first save adapter weights, then merge into full model; otherwise, default save!
+            # save_dir = adapter_dir if cfg.use_lora else run_dir
 
-            # Save Processor & Weights
-            vla.module.save_pretrained(save_dir)
+            # # Save Processor & Weights
+            # vla.module.save_pretrained(save_dir)
 
         # Wait for processor and adapter weights to be saved by main process
         dist.barrier()
@@ -461,34 +659,33 @@ def finetune(cfg: FinetuneConfig) -> None:
             # merged_vla = PeftModel.from_pretrained(base_vla, adapter_dir)
             # merged_vla = merged_vla.merge_and_unload()
             if distributed_state.is_main_process:
-                if subfolder == "default":
-                    if cfg.save_latest_checkpoint_only:
-                        # Overwrite latest checkpoint
-                        checkpoint_dir = run_dir
-                    else:
-                        # Prepare to save checkpoint in new directory
-                        checkpoint_dir = run_dir / f"--{gradient_step_idx}_chkpt--loss-{val_loss:.3f}"
-                        os.makedirs(checkpoint_dir, exist_ok=True)
-
-                        # Save dataset statistics to new directory
-                        save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
+                if subfolder == "default" and cfg.save_latest_checkpoint_only == False:
+                    # Prepare to save checkpoint in new directory
+                    checkpoint_dir = run_dir / f"--{gradient_step_idx}_chkpt--loss-{val_loss:.3f}"
                 else:
-                    # Save to subfolder
+                    # Save in subfolder
                     checkpoint_dir = run_dir / subfolder
-                    os.makedirs(checkpoint_dir, exist_ok=True)
-                    save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
-
+                save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
+                os.makedirs(checkpoint_dir, exist_ok=True)
                 # Save processor and model weights
                 print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {checkpoint_dir}")
                 processor.save_pretrained(checkpoint_dir)
                 vla.module.save_pretrained(checkpoint_dir)
                 # merged_vla.save_pretrained(checkpoint_dir)
 
+                # Log successful save to file
+                log_file = run_dir / "model_saves.log"
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+      
                 print(f"Saved Model Checkpoint for Step {gradient_step_idx} at: {checkpoint_dir}")
         else:
             if distributed_state.is_main_process:
                 processor.save_pretrained(run_dir)
-
+                
+                # Log successful save to file
+                log_file = run_dir / "model_saves.log"
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+             
         # Block on Main Process Checkpointing
         dist.barrier()
     
@@ -524,7 +721,7 @@ def finetune(cfg: FinetuneConfig) -> None:
             normalized_loss.backward()
 
             # Compute Accuracy and L1 Loss for Logging
-            action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance, action_7_pred, action_7_gt = action_eval(output)
+            action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance = action_eval(output)
 
             # Store recent train metrics
             recent_losses.append(loss.item())
@@ -553,12 +750,11 @@ def finetune(cfg: FinetuneConfig) -> None:
                 print(smoothened_loss, type(smoothened_loss))
                 wandb.log(
                     {
-                        "train_loss": smoothened_loss,
+                        "train_cross_entropy": smoothened_loss,
                         "action_accuracy": smoothened_action_accuracy,
                         "l1_loss": smoothened_l1_loss,
                         "l2_loss": smoothened_l2_loss,
-                        "cosine_distance": smoothened_cos_distance,
-                        # "dtw": smoothened_dtw,
+                        "vector_cosine": smoothened_cos_distance,
                     },
                     step=gradient_step_idx,
                 )
@@ -574,63 +770,22 @@ def finetune(cfg: FinetuneConfig) -> None:
 
                 if (gradient_step_idx + 1) % cfg.validation_interval == 0:
 
-                    # val_loss, val_accuracy, val_l1 = evaluate(vla, val_dataloader, device_id, action_tokenizer)
-                    vla.eval()
-                    total_loss = 0.0
-                    total_accuracy = 0.0
-                    total_l1 = 0.0
-                    total_l2 = 0.0
-                    total_cos_distance = 0.0
-                    total_samples = 0
-
                     with torch.no_grad():
-                        for batch in val_dataloader:
-                            with torch.autocast("cuda", dtype=torch.bfloat16):
-                                output: CausalLMOutputWithPast = vla(
-                                    input_ids=batch["input_ids"].to(device_id),
-                                    attention_mask=batch["attention_mask"].to(device_id),
-                                    pixel_values=batch["pixel_values"].to(torch.bfloat16).to(device_id),
-                                    labels=batch["labels"],
-                                )
-                                loss = output.loss
-
-
-                            # Compute Accuracy and L1 Loss for Logging
-                            action_accuracy, action_l1_loss, action_l2_loss, mean_cos_distance, action_7_pred, action_7_gt = action_eval(output)
-
-                            num_samples = len(batch["input_ids"])
-
-                            # Accumulate
-                            total_loss += loss.item() * num_samples
-                            total_accuracy += action_accuracy.item() * num_samples
-                            total_l1 += action_l1_loss.item() * num_samples
-                            total_l2 += action_l2_loss.item() * num_samples
-                            total_cos_distance += mean_cos_distance.item() * num_samples
-                            total_samples += num_samples
-
-                    
-                    val_loss = (total_loss / total_samples)
-                    val_accuracy = (total_accuracy / total_samples)
-                    val_l1 = (total_l1 / total_samples)
-                    val_l2 = (total_l2 / total_samples)
-                    val_cos_distance = (total_cos_distance / total_samples)
-
-                    print(f"Validation Loss: {val_loss:.4f}, "
-                            f"Validation Action Accuracy: {val_accuracy:.4f}, "
-                            f"Validation L1 Loss: {val_l1:.4f}, "
-                            f"Validation L2 Loss: {val_l2:.4f}, "
-                            f"Validation Cosine Distance: {val_cos_distance:.4f}, ")
-                            
+                        # DTW evaluation on full trajectories (with memory management)
+                        torch.cuda.empty_cache()  # Clear cache before DTW evaluation
+                        val_loss, val_accuracy, val_l1, val_l2, val_cos_distance, val_dtw, val_ot = evaluate_dtw_on_trajectories(vla, device_id, action_tokenizer, processor, cfg, num_trajectories=3)
+                        torch.cuda.empty_cache()  # Clear cache after DTW evaluation
 
                     # Log validation metrics
                     if distributed_state.is_main_process:
                         wandb.log({
-                            "val_loss": val_loss,
+                            "val_cross_entropy": val_loss,
                             "val_action_accuracy": val_accuracy,
                             "val_l1_loss": val_l1,
                             "val_l2_loss": val_l2,
-                            "val_cosine_distance": val_cos_distance,
-                            # "val_dtw_distance": val_dtw,
+                            "val_vector_cosine": val_cos_distance,
+                            "val_normalized_dtw_distance": val_dtw,
+                            "val_normalized_ot_distance": val_ot,
                         }, step=gradient_step_idx)
                 
 
@@ -642,19 +797,19 @@ def finetune(cfg: FinetuneConfig) -> None:
                         # Save best model checkpoint
                         if distributed_state.is_main_process:
                             print(f"New best validation loss: {best_val_loss:.4f}")
-                            save_model("val_loss")
-                    
+                            save_model("val_loss", best_val_loss)
+
                     if val_l1 < best_val_l1:
                         best_val_l1 = val_l1
                         if distributed_state.is_main_process:
                             print(f"New best validation l1 loss: {best_val_l1:.4f}")
-                            save_model("val_l1")
+                            save_model("val_l1", best_val_l1)
 
                     if val_l2 < best_val_l2:
                         best_val_l2 = val_l2
                         if distributed_state.is_main_process:
                             print(f"New best validation l2 loss: {best_val_l2:.4f}")
-                            save_model("val_l2")
+                            save_model("val_l2", best_val_l2)
 
                     if val_cos_distance > best_val_cos_distance:
                         best_val_cos_distance = val_cos_distance
@@ -662,7 +817,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                         # Save best model checkpoint
                         if distributed_state.is_main_process:
                             print(f"New best validation cosine distance: {best_val_cos_distance:.4f}")
-                            save_model("val_cosine_distance")
+                            save_model("val_cosine_distance", best_val_cos_distance)
 
                     if val_accuracy > best_val_accuracy:
                         best_val_accuracy = val_accuracy
@@ -670,15 +825,15 @@ def finetune(cfg: FinetuneConfig) -> None:
                         # Save best model checkpoint
                         if distributed_state.is_main_process:
                             print(f"New best validation accuracy: {best_val_accuracy:.4f}")
-                            save_model("val_accuracy")
-                            
-                    # if val_dtw < best_val_dtw:
-                    #     best_val_dtw = val_dtw
+                            save_model("val_accuracy", best_val_accuracy)
+
+                    if val_dtw < best_val_dtw:
+                        best_val_dtw = val_dtw
                         
-                    #     # Save best model checkpoint
-                    #     if distributed_state.is_main_process:
-                    #         print(f"New best validation DTW: {best_val_dtw:.4f}")
-                    #         save_model("val_dtw")
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation normalized DTW: {best_val_dtw:.4f}")
+                            save_model("val_dtw", best_val_dtw)
 
 
             # Save Model Checkpoint =>> by default, only keeps the latest checkpoint, continually overwriting it!

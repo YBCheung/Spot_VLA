@@ -2,3 +2,7 @@ openvla/runs/
 openvla/wandb/
 openvla/adapter-tmp/
 dataset/raw/
+dataset/modified_libero_rlds/
+openvla/experiments/logs/
+openvla/rollouts/
+LIBERO/

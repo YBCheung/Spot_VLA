@@ -1,0 +1,153 @@
+\section{Fine-tuning Methodology}
+
+\subsection{Model Architecture and Adaptation Strategy}
+
+We present a specialized adaptation of the OpenVLA-7B vision-language-action (VLA) transformer for goal-conditioned robotic manipulation tasks. The fine-tuning process incorporates advanced evaluation methodologies including Dynamic Time Warping (DTW) for trajectory similarity assessment and multi-metric early stopping mechanisms.
+
+\textbf{Base Architecture:} OpenVLA-7B is a 7-billion parameter transformer-based vision-language-action model that processes RGB observations and language instructions to generate discretized robotic actions. The model employs a unified encoder-decoder architecture capable of handling multimodal inputs and producing action sequences for 7-DOF robotic manipulation.
+
+\textbf{Adaptation Strategy:} We employ Low-Rank Adaptation (LoRA) \cite{hu2021lora} for parameter-efficient fine-tuning, targeting all linear layers in the transformer architecture. This approach enables efficient adaptation while preserving the pre-trained representations from the base model.
+
+\subsection{Dataset and Data Preprocessing}
+
+\textbf{Dataset:} The model was fine-tuned on the LIBERO Goal dataset (\texttt{libero\_goal\_no\_noops}), which contains goal-conditioned robotic manipulation demonstrations. The dataset follows the RLDS (Reinforcement Learning Datasets) format and includes RGB observations, language instructions, and action sequences.
+
+\textbf{Data Splits:} The training protocol employed a 95/5 train-validation split when no dedicated validation set was available, or used the dedicated validation split when present. This ensures robust evaluation during training while maintaining sufficient training data.
+
+\textbf{Data Augmentation:} Image augmentations were enabled during training (\texttt{image\_aug=True}) to improve model robustness and generalization. The data pipeline utilized a shuffle buffer of 1,000 examples to ensure proper randomization during training.
+
+\subsection{Training Hyperparameters and Configuration}
+
+\textbf{Optimization Setup:}
+\begin{itemize}
+    \item \textbf{Optimizer:} AdamW with constant learning rate
+    \item \textbf{Learning Rate:} $5 \times 10^{-4}$
+    \item \textbf{Batch Size:} 16 (effective batch size accounting for gradient accumulation)
+    \item \textbf{Gradient Accumulation Steps:} 1
+    \item \textbf{Maximum Training Steps:} 1,000
+    \item \textbf{Precision:} Mixed precision training with bfloat16
+\end{itemize}
+
+\textbf{LoRA Configuration:}
+\begin{itemize}
+    \item \textbf{LoRA Rank ($r$):} 32
+    \item \textbf{LoRA Alpha:} $\min(\text{rank}, 16) = 16$
+    \item \textbf{LoRA Dropout:} 0.0
+    \item \textbf{Target Modules:} all-linear layers
+    \item \textbf{Initialization:} Gaussian initialization for LoRA weights
+\end{itemize}
+
+\textbf{Infrastructure:}
+\begin{itemize}
+    \item \textbf{Framework:} PyTorch with Distributed Data Parallel (DDP)
+    \item \textbf{Distributed Training:} Single-node multi-GPU setup with NCCL backend
+    \item \textbf{Memory Optimization:} Gradient checkpointing and optimized memory usage
+\end{itemize}
+
+\subsection{Advanced Evaluation Framework}
+
+\textbf{Multi-Metric Validation:} The training incorporates a comprehensive evaluation framework that assesses model performance across multiple dimensions:
+
+\begin{enumerate}
+    \item \textbf{Standard Metrics:}
+    \begin{itemize}
+        \item Cross-entropy loss on action token predictions
+        \item Action prediction accuracy (token-level)
+        \item L1 and L2 losses on continuous action values
+        \item Cosine similarity between predicted and ground truth actions
+    \end{itemize}
+    
+    \item \textbf{Trajectory-Level Evaluation:}
+    \begin{itemize}
+        \item \textbf{Dynamic Time Warping (DTW):} Length-normalized DTW distance between predicted and ground truth action trajectories
+        \item \textbf{Reservoir Sampling:} Efficient random sampling of validation trajectories (5 trajectories per evaluation)
+        \item \textbf{Normalization:} DTW distances are normalized by trajectory length to ensure fair comparison across sequences of different lengths
+    \end{itemize}
+\end{enumerate}
+
+The DTW distance is computed as:
+\begin{equation}
+\text{DTW}_{\text{normalized}} = \frac{\text{DTW}(\mathbf{a}_{\text{pred}}, \mathbf{a}_{\text{gt}})}{\min(|\mathbf{a}_{\text{pred}}|, |\mathbf{a}_{\text{gt}}|)}
+\end{equation}
+where $\mathbf{a}_{\text{pred}}$ and $\mathbf{a}_{\text{gt}}$ represent the predicted and ground truth action trajectories, respectively.
+
+\textbf{Early Stopping Mechanism:} The training employs a sophisticated multi-criteria early stopping approach:
+\begin{itemize}
+    \item \textbf{Validation Interval:} Every 10 optimizer steps
+    \item \textbf{Patience:} 5 validation checks without improvement
+    \item \textbf{Multiple Model Checkpoints:} Separate best model saves for each metric (validation loss, L1/L2 loss, accuracy, cosine similarity, DTW distance)
+\end{itemize}
+
+\subsection{Training Procedure}
+
+\textbf{Preprocessing:} Action sequences are tokenized using the OpenVLA action tokenizer, which discretizes continuous 7-DOF actions into tokens. Image observations undergo standard normalization and augmentation transformations.
+
+\textbf{Loss Computation:} The model is trained using next-token prediction on action sequences, with masking applied to focus learning on action tokens while ignoring padding and instruction tokens. The training loss is formulated as:
+
+\begin{equation}
+\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T_i} \mathbb{I}[\text{token}_t \text{ is action}] \log p(\text{token}_t | \text{context}_{<t})
+\end{equation}
+
+where $N$ is the batch size, $T_i$ is the sequence length for sample $i$, and $\mathbb{I}[\cdot]$ is the indicator function for action tokens.
+
+\textbf{Regularization:} The training incorporates LoRA-specific regularization through the low-rank constraint and optional dropout (set to 0.0 in this configuration).
+
+\subsection{Computational Requirements and Reproducibility}
+
+\textbf{Hardware Requirements:}
+\begin{itemize}
+    \item \textbf{GPU Memory:} Optimized for single H100 80GB GPU (batch size 16) or smaller GPUs (batch size 2 in debug mode)
+    \item \textbf{Training Time:} Approximately 1,000 steps with validation every 10 steps
+    \item \textbf{Checkpoint Strategy:} Continuous overwriting of latest checkpoint with separate best model saves
+\end{itemize}
+
+\textbf{Reproducibility Information:}
+\begin{itemize}
+    \item \textbf{Random Seeding:} DTW trajectory evaluation uses step-dependent random seeding to ensure different trajectory sampling across validation steps while maintaining reproducibility within each step
+    \item \textbf{Dependencies:} PEFT 0.11.1 for LoRA implementation, fastdtw for trajectory similarity computation, OpenVLA prismatic framework for model architecture, Weights \& Biases for experiment tracking
+    \item \textbf{Experiment Identifier:} \texttt{openvla-7b+dataset+libero\_goal\_no\_noops+b2+lr-0.0005+shf1000+lora-r32+dropout-0.0--image\_aug}
+\end{itemize}
+
+\subsection{Evaluation Protocol}
+
+The model evaluation employs both step-level and trajectory-level metrics to comprehensively assess performance:
+
+\textbf{Step-Level Metrics:}
+\begin{itemize}
+    \item Action token prediction accuracy
+    \item L1/L2 regression losses on continuous actions
+    \item Cosine similarity between predicted and target action vectors
+\end{itemize}
+
+\textbf{Trajectory-Level Metrics:}
+\begin{itemize}
+    \item Length-normalized DTW distance for sequence similarity assessment
+    \item Random trajectory sampling (5 trajectories per validation) to ensure diverse evaluation coverage
+\end{itemize}
+
+\textbf{Performance Tracking:} All metrics are logged to Weights \& Biases with the following keys:
+\begin{itemize}
+    \item \texttt{train\_loss}, \texttt{val\_loss}: Cross-entropy losses
+    \item \texttt{action\_accuracy}, \texttt{val\_action\_accuracy}: Token prediction accuracy
+    \item \texttt{l1\_loss}, \texttt{l2\_loss}: Regression losses on continuous actions
+    \item \texttt{cosine\_distance}, \texttt{val\_cosine\_distance}: Action vector similarity
+    \item \texttt{val\_normalized\_dtw\_distance}: Trajectory-level similarity metric
+\end{itemize}
+
+\subsection{Technical Specifications}
+
+\textbf{Model Architecture:}
+\begin{itemize}
+    \item \textbf{Base Model:} OpenVLA-7B transformer with vision encoder and language decoder
+    \item \textbf{Action Space:} 7-DOF continuous actions (discretized via tokenization)
+    \item \textbf{Input Modalities:} RGB images (224×224) + natural language instructions
+    \item \textbf{Output:} Sequence of discretized action tokens
+\end{itemize}
+
+\textbf{Software Stack:}
+\begin{itemize}
+    \item PyTorch with CUDA support
+    \item HuggingFace Transformers and PEFT libraries
+    \item Custom OpenVLA framework components
+    \item PEFT 0.11.1, PyTorch 2.0+, Transformers 4.30+, fastdtw 0.3.4
+\end{itemize}
