@@ -61,14 +61,12 @@ class GenerateConfig:
     # Model-specific parameters
     #################################################################################################################
     model_family: str = "openvla"                    # Model family
-    pretrained_checkpoint: Union[str, Path] = "openvla/openvla-7b-finetuned-libero-object"     # Pretrained checkpoint path
     load_in_8bit: bool = False                       # (For OpenVLA only) Load with 8-bit quantization
     load_in_4bit: bool = False                       # (For OpenVLA only) Load with 4-bit quantization
     center_crop: bool = True                         # Center crop? (if trained w/ random crop image aug)
-    load_from_adapter: bool = True                  # Load from adapter? (if using OpenVLA)
+    load_from_adapter: bool = True                   # Load from adapter? (if using OpenVLA)
     vla_path: Optional[Union[str, Path]] = "openvla/openvla-7b"      # Path to VLA model (if not using OpenVLA)
-    adapter_dir: Optional[Union[str, Path]] = "./runs/openvla-7b+libero_object_no_noops+b16+lr-0.0005+shf100000+lora-r64+dropout-0.0--image_aug/val_accuracy"   # Path to adapter directory (if using OpenVLA)
-
+    adapter_dir: Optional[Union[str, Path]] = "/home/rllab/spot_vla/Spot_VLA/openvla/runs/openvla-7b+libero_object_no_noops+b16+lr-0.0005+lora-r64+dropout-0.0--image_aug--10000_chkpt"
     #################################################################################################################
     # LIBERO environment-specific parameters
     #################################################################################################################
@@ -93,10 +91,15 @@ class GenerateConfig:
 
 @draccus.wrap()
 def eval_libero(cfg: GenerateConfig) -> None:
-    assert cfg.pretrained_checkpoint is not None, "cfg.pretrained_checkpoint must not be None!"
-    if "image_aug" in cfg.pretrained_checkpoint:
-        assert cfg.center_crop, "Expecting `center_crop==True` because model was trained with image augmentations!"
     assert not (cfg.load_in_8bit and cfg.load_in_4bit), "Cannot use both 8-bit and 4-bit quantization!"
+    
+    # Validate configuration
+    if cfg.load_from_adapter:
+        assert cfg.vla_path is not None, "vla_path must be specified when load_from_adapter=True"
+        assert cfg.adapter_dir is not None, "adapter_dir must be specified when load_from_adapter=True"
+        print(f"Loading base model from: {cfg.vla_path}")
+        print(f"Loading LoRA adapter from: {cfg.adapter_dir}")
+    
     print(f"Running LIBERO evaluation with config:\n{cfg}")
     # Set random seed
     set_seed_everywhere(cfg.seed)

@@ -63,8 +63,16 @@ def get_image_resize_size(cfg):
 def get_action(cfg, model, obs, task_label, processor=None):
     """Queries the model to get an action."""
     if cfg.model_family == "openvla":
+        # Determine base model name for prompt building
+        if cfg.load_from_adapter and cfg.vla_path is not None:
+            base_model_name = cfg.vla_path
+        elif hasattr(cfg, 'pretrained_checkpoint') and cfg.pretrained_checkpoint is not None:
+            base_model_name = cfg.pretrained_checkpoint
+        else:
+            base_model_name = "openvla"  # fallback
+            
         action = get_vla_action(
-            model, processor, cfg.pretrained_checkpoint, obs, task_label, cfg.unnorm_key, center_crop=cfg.center_crop
+            model, processor, base_model_name, obs, task_label, cfg.unnorm_key, center_crop=cfg.center_crop
         )
         assert action.shape == (ACTION_DIM,)
     else:

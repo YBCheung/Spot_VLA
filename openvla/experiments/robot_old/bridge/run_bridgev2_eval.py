@@ -1,11 +1,11 @@
 """
-run_bridgev2_eval.py
+run_bridge_eval.py
 
 Runs a model in a real-world Bridge V2 environment.
 
 Usage:
     # OpenVLA:
-    python experiments/robot/bridge/run_bridgev2_eval.py --model_family openvla --pretrained_checkpoint openvla/openvla-7b
+    python experiments/robot/bridge/run_bridge_eval.py --model_family openvla --pretrained_checkpoint openvla/openvla-7b
 """
 
 import sys
