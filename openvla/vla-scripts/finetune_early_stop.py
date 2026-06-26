@@ -108,6 +108,7 @@ class FinetuneConfig:
     # vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
     vla_path: str = "/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/Good_726_H200_3k_2h_openvla-7b+dataset+libero_goal_no_noops+b16+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance"
     # Directory Paths
+    # data_root_dir_string = "dataset/tensorflow_datasets/spot_carrot_l/"
     if local_debug:
         data_root_dir_string = "/home/zhangy50/RL/Spot_VLA/dataset/modified_libero_rlds"
     else:

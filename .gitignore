@@ -3,6 +3,7 @@ openvla/wandb/
 openvla/adapter-tmp/
 dataset/raw/
 dataset/modified_libero_rlds/
+dataset/modified_libero_rlds/libero_goal/libero_goal-train.tfrecord-00000-of-00016
 openvla/experiments/logs/
 openvla/rollouts/
 LIBERO/

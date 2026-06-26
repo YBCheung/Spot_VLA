@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\begin{algorithm}[H]
+\caption{Intra-task vs Inter-task Metric Analysis}
+\label{alg:intra_inter_analysis}
+\begin{algorithmic}[1]
+\REQUIRE Dataset $\mathcal{D} = \{(\mathbf{T}_i, l_i)\}_{i=1}^N$, Distance functions: $d_{DTW}, d_{OT}, s_{cos}$
+\ENSURE Box plot visualizations for each metric
+
+\STATE Group trajectories by task: $\mathcal{G}[l_i].append(\mathbf{T}_i)$ for each $(\mathbf{T}_i, l_i) \in \mathcal{D}$
+
+\STATE \textbf{Intra-task Analysis:}
+\FOR{each task $k$ with $|\mathcal{G}[k]| \geq 2$}
+    \FOR{each pair $(\mathbf{T}_i, \mathbf{T}_j) \in \mathcal{G}[k] \times \mathcal{G}[k], i \neq j$}
+        \STATE Compute $d_{DTW}(\mathbf{T}_i, \mathbf{T}_j)$, $d_{OT}(\mathbf{T}_i, \mathbf{T}_j)$, $s_{cos}(\mathbf{T}_i, \mathbf{T}_j)$
+        \STATE Store in $\mathcal{M}_{\text{intra}}[k]$
+    \ENDFOR
+\ENDFOR
+
+\STATE \textbf{Inter-task Analysis:}
+\FOR{each task pair $(k_1, k_2)$ with $k_1 \neq k_2$}
+    \STATE Sample $\mathcal{T}_1 \subseteq \mathcal{G}[k_1], \mathcal{T}_2 \subseteq \mathcal{G}[k_2]$ (max 10 each)
+    \FOR{each $(\mathbf{T}_i, \mathbf{T}_j) \in \mathcal{T}_1 \times \mathcal{T}_2$}
+        \STATE Compute $d_{DTW}(\mathbf{T}_i, \mathbf{T}_j)$, $d_{OT}(\mathbf{T}_i, \mathbf{T}_j)$, $s_{cos}(\mathbf{T}_i, \mathbf{T}_j)$
+        \STATE Store in $\mathcal{M}_{\text{inter}}[k_1, k_2]$
+    \ENDFOR
+\ENDFOR
+
+\STATE \textbf{Visualization:}
+\STATE \textbf{1. Box plot}
+\FOR{each metric $M \in \{DTW, OT, Cosine\}$}
+    \STATE Collect $\mathcal{V}_{\text{intra}} = \bigcup_k \mathcal{M}_{\text{intra}}[k][M]$
+    \STATE Collect $\mathcal{V}_{\text{inter}} = \bigcup_{k_1,k_2} \mathcal{M}_{\text{inter}}[k_1,k_2][M]$
+    \STATE Generate box plot comparing $\mathcal{V}_{\text{intra}}$ vs $\mathcal{V}_{\text{inter}}$
+    \STATE Add Mann-Whitney U test p-value annotation
+    \STATE Apply log scale for DTW/OT metrics
+\ENDFOR
+
+\STATE \textbf{2. Matrix}
+\FOR{each metric $M \in \{DTW, OT, Cosine\}$}
+    \STATE Create distance matrix $\mathbf{D}_M$ where $D_{ij} = M(\mathbf{T}_i, \mathbf{T}_j)$
+    \STATE Generate heatmap visualization with task label annotations
+    \STATE Apply hierarchical clustering to reveal task groupings
+\ENDFOR
+
+\STATE \textbf{3. Violin plot}
+\FOR{each metric $M \in \{DTW, OT, Cosine\}$}
+    \STATE Generate violin plot comparing $\mathcal{V}_{\text{intra}}$ vs $\mathcal{V}_{\text{inter}}$
+    \STATE Add kernel density estimation overlay
+    \STATE Include quartile and median markers
+\ENDFOR
+
+\STATE \textbf{4. Comprehensive multi-metric plot}
+\STATE Create subplot grid with all three metrics side-by-side
+\STATE Generate combined visualization showing DTW, OT, and Cosine comparisons
+\STATE Add statistical significance annotations across all metrics
+\end{algorithmic}
+\end{algorithm}
+
+\section{Algorithm Summary}
+
+This algorithm analyzes trajectory similarity within and between tasks:
+
+\textbf{Key Steps:}
+\begin{enumerate}
+    \item Group trajectories by task labels
+    \item Compute intra-task distances (same task comparisons)
+    \item Compute inter-task distances (different task comparisons)
+    \item Generate multiple visualization types with statistical tests
+\end{enumerate>
+
+\textbf{Metrics:} DTW (temporal alignment), Optimal Transport (distribution matching), Cosine Similarity (directional consistency)
+
+\textbf{Output:} Multiple visualization types including box plots, distance matrix heatmaps, violin plots, and comprehensive multi-metric comparisons showing task separability (intra < inter for DTW/OT, intra > inter for Cosine)
+
+\end{document}

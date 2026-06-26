@@ -1,0 +1,274 @@
+=== INTRA-TASK DTW ANALYSIS ===
+
+put the bowl on the plate:
+  Trajectories: 3
+  Mean DTW: 22.6327 ± 1.5635
+  Min DTW: 21.2044
+  Max DTW: 24.8086
+
+put the wine bottle on the rack:
+  Trajectories: 2
+  Mean DTW: 38.5459 ± 0.0000
+  Min DTW: 38.5459
+  Max DTW: 38.5459
+
+open the top drawer and put the bowl inside:
+  Trajectories: 3
+  Mean DTW: 110.5134 ± 34.2515
+  Min DTW: 62.0869
+  Max DTW: 135.6795
+
+put the cream cheese in the bowl:
+  Trajectories: 4
+  Mean DTW: 48.1553 ± 23.0606
+  Min DTW: 21.3376
+  Max DTW: 74.8377
+
+put the wine bottle on top of the cabinet:
+  Trajectories: 4
+  Mean DTW: 28.2387 ± 4.9566
+  Min DTW: 20.7291
+  Max DTW: 36.1257
+
+turn on the stove:
+  Trajectories: 3
+  Mean DTW: 27.1971 ± 1.5395
+  Min DTW: 25.0814
+  Max DTW: 28.7001
+
+put the bowl on the stove:
+  Trajectories: 5
+  Mean DTW: 27.2609 ± 4.0505
+  Min DTW: 18.7467
+  Max DTW: 33.4763
+
+put the bowl on top of the cabinet:
+  Trajectories: 2
+  Mean DTW: 23.7111 ± 0.0000
+  Min DTW: 23.7111
+  Max DTW: 23.7111
+
+=== INTER-TASK DTW ANALYSIS ===
+
+put the bowl on the plate vs put the wine bottle on the rack:
+  Mean DTW: 82.2049 ± 3.7362
+
+put the bowl on the plate vs open the top drawer and put the bowl inside:
+  Mean DTW: 117.8434 ± 42.9573
+
+put the bowl on the plate vs put the cream cheese in the bowl:
+  Mean DTW: 55.1604 ± 18.4307
+
+put the bowl on the plate vs put the wine bottle on top of the cabinet:
+  Mean DTW: 53.7812 ± 7.0908
+
+put the bowl on the plate vs push the plate to the front of the stove:
+  Mean DTW: 143.2814 ± 6.6563
+
+put the bowl on the plate vs turn on the stove:
+  Mean DTW: 74.5988 ± 10.7110
+
+put the bowl on the plate vs put the bowl on the stove:
+  Mean DTW: 50.4043 ± 6.0603
+
+put the bowl on the plate vs put the bowl on top of the cabinet:
+  Mean DTW: 47.8411 ± 8.7613
+
+put the wine bottle on the rack vs open the top drawer and put the bowl inside:
+  Mean DTW: 140.7820 ± 37.5073
+
+put the wine bottle on the rack vs put the cream cheese in the bowl:
+  Mean DTW: 85.0914 ± 10.6943
+
+put the wine bottle on the rack vs put the wine bottle on top of the cabinet:
+  Mean DTW: 79.7528 ± 4.4758
+
+put the wine bottle on the rack vs push the plate to the front of the stove:
+  Mean DTW: 206.4678 ± 2.8114
+
+put the wine bottle on the rack vs turn on the stove:
+  Mean DTW: 102.7902 ± 13.0104
+
+put the wine bottle on the rack vs put the bowl on the stove:
+  Mean DTW: 90.0657 ± 4.0372
+
+put the wine bottle on the rack vs put the bowl on top of the cabinet:
+  Mean DTW: 77.7041 ± 5.6396
+
+open the top drawer and put the bowl inside vs put the cream cheese in the bowl:
+  Mean DTW: 141.0680 ± 41.0517
+
+open the top drawer and put the bowl inside vs put the wine bottle on top of the cabinet:
+  Mean DTW: 134.2429 ± 42.7864
+
+open the top drawer and put the bowl inside vs push the plate to the front of the stove:
+  Mean DTW: 275.1892 ± 46.5997
+
+open the top drawer and put the bowl inside vs turn on the stove:
+  Mean DTW: 169.7718 ± 47.1750
+
+open the top drawer and put the bowl inside vs put the bowl on the stove:
+  Mean DTW: 153.4919 ± 46.7115
+
+open the top drawer and put the bowl inside vs put the bowl on top of the cabinet:
+  Mean DTW: 134.8799 ± 44.9794
+
+put the cream cheese in the bowl vs put the wine bottle on top of the cabinet:
+  Mean DTW: 73.6084 ± 20.5655
+
+put the cream cheese in the bowl vs push the plate to the front of the stove:
+  Mean DTW: 151.7725 ± 15.6793
+
+put the cream cheese in the bowl vs turn on the stove:
+  Mean DTW: 91.5808 ± 24.6159
+
+put the cream cheese in the bowl vs put the bowl on the stove:
+  Mean DTW: 65.7092 ± 18.9299
+
+put the cream cheese in the bowl vs put the bowl on top of the cabinet:
+  Mean DTW: 52.3169 ± 21.9183
+
+put the wine bottle on top of the cabinet vs push the plate to the front of the stove:
+  Mean DTW: 186.3903 ± 14.0795
+
+put the wine bottle on top of the cabinet vs turn on the stove:
+  Mean DTW: 91.9193 ± 13.0727
+
+put the wine bottle on top of the cabinet vs put the bowl on the stove:
+  Mean DTW: 80.8682 ± 4.5777
+
+put the wine bottle on top of the cabinet vs put the bowl on top of the cabinet:
+  Mean DTW: 53.1616 ± 8.7121
+
+push the plate to the front of the stove vs turn on the stove:
+  Mean DTW: 150.0361 ± 8.6262
+
+push the plate to the front of the stove vs put the bowl on the stove:
+  Mean DTW: 142.7128 ± 6.6154
+
+push the plate to the front of the stove vs put the bowl on top of the cabinet:
+  Mean DTW: 169.1526 ± 5.6095
+
+turn on the stove vs put the bowl on the stove:
+  Mean DTW: 76.1113 ± 9.7864
+
+turn on the stove vs put the bowl on top of the cabinet:
+  Mean DTW: 93.4610 ± 13.0063
+
+put the bowl on the stove vs put the bowl on top of the cabinet:
+  Mean DTW: 64.1548 ± 6.2042
+
+=== TASK SEPARABILITY ANALYSIS ===
+
+put the bowl on the plate:
+  Separability Ratio: 3.072
+  Effect Size (Cohen's d): 2.041
+  T-test p-value: 0.015902
+  Significant separation: Yes
+
+put the wine bottle on the rack:
+  Separability Ratio: 2.541
+  Effect Size (Cohen's d): 2.572
+  T-test p-value: 0.080798
+  Significant separation: No
+
+open the top drawer and put the bowl inside:
+  Separability Ratio: 1.341
+  Effect Size (Cohen's d): 0.843
+  T-test p-value: 0.233858
+  Significant separation: No
+
+put the cream cheese in the bowl:
+  Separability Ratio: 1.727
+  Effect Size (Cohen's d): 1.105
+  T-test p-value: 0.031361
+  Significant separation: Yes
+
+put the wine bottle on top of the cabinet:
+  Separability Ratio: 3.065
+  Effect Size (Cohen's d): 2.206
+  T-test p-value: 0.000243
+  Significant separation: Yes
+
+turn on the stove:
+  Separability Ratio: 3.662
+  Effect Size (Cohen's d): 2.722
+  T-test p-value: 0.001537
+  Significant separation: Yes
+
+put the bowl on the stove:
+  Separability Ratio: 3.130
+  Effect Size (Cohen's d): 2.131
+  T-test p-value: 0.000006
+  Significant separation: Yes
+
+put the bowl on top of the cabinet:
+  Separability Ratio: 3.198
+  Effect Size (Cohen's d): 1.923
+  T-test p-value: 0.188732
+  Significant separation: No
+
+=== TRAJECTORY SUCCESS EVALUATION ===
+
+put the bowl on the plate:
+  Total trajectories: 3
+  DTW thresholds for success:
+    Conservative (25th percentile): 21.5447
+    Moderate (50th percentile): 21.8851
+    Liberal (75th percentile): 23.3468
+
+put the wine bottle on the rack:
+  Total trajectories: 2
+  DTW thresholds for success:
+    Conservative (25th percentile): 38.5459
+    Moderate (50th percentile): 38.5459
+    Liberal (75th percentile): 38.5459
+
+open the top drawer and put the bowl inside:
+  Total trajectories: 3
+  DTW thresholds for success:
+    Conservative (25th percentile): 97.9304
+    Moderate (50th percentile): 133.7738
+    Liberal (75th percentile): 134.7267
+
+put the cream cheese in the bowl:
+  Total trajectories: 4
+  DTW thresholds for success:
+    Conservative (25th percentile): 25.3947
+    Moderate (50th percentile): 50.1118
+    Liberal (75th percentile): 69.0608
+
+put the wine bottle on top of the cabinet:
+  Total trajectories: 4
+  DTW thresholds for success:
+    Conservative (25th percentile): 25.0529
+    Moderate (50th percentile): 28.3600
+    Liberal (75th percentile): 31.0200
+
+turn on the stove:
+  Total trajectories: 3
+  DTW thresholds for success:
+    Conservative (25th percentile): 26.4455
+    Moderate (50th percentile): 27.8096
+    Liberal (75th percentile): 28.2549
+
+put the bowl on the stove:
+  Total trajectories: 5
+  DTW thresholds for success:
+    Conservative (25th percentile): 25.4723
+    Moderate (50th percentile): 28.0221
+    Liberal (75th percentile): 29.9952
+
+put the bowl on top of the cabinet:
+  Total trajectories: 2
+  DTW thresholds for success:
+    Conservative (25th percentile): 23.7111
+    Moderate (50th percentile): 23.7111
+    Liberal (75th percentile): 23.7111
+
+==================================================
+SUMMARY STATISTICS
+==================================================
+Total tasks analyzed: 8
+Total inter-task comparisons: 36
+Average task separability ratio: 2.717 ± 0.745

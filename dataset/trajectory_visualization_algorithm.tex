@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\begin{algorithm}[H]
+\caption{Multi-Metric Trajectory Visualization and Analysis}
+\label{alg:trajectory_visualization}
+\begin{algorithmic}[1]
+\REQUIRE Dataset $\mathcal{D} = \{(\mathbf{T}_i, l_i)\}_{i=1}^N$, Metrics: $d_{DTW}, d_{OT}, s_{cos}$
+\ENSURE Four comprehensive visualization files
+
+\STATE Compute intra-task and inter-task metrics $\mathcal{M}_{\text{intra}}, \mathcal{M}_{\text{inter}}$
+
+\STATE \textbf{Phase 1: Individual Metric Analysis (3 figures)}
+\FOR{each metric $M \in \{DTW, OT, Cosine\}$}
+    \STATE Create figure with 2×2 subplot grid
+    
+    \STATE \textbf{Subplot 1: Box Plot Comparison}
+    \STATE Collect $\mathcal{V}_{\text{intra}} = \bigcup_k \mathcal{M}_{\text{intra}}[k][M]$
+    \STATE Collect $\mathcal{V}_{\text{inter}} = \bigcup_{k_1,k_2} \mathcal{M}_{\text{inter}}[k_1,k_2][M]$
+    \STATE Generate box plot comparing distributions
+    \STATE Add Mann-Whitney U test p-value annotation
+    \STATE Apply logarithmic scale for DTW/OT metrics
+    
+    \STATE \textbf{Subplot 2: Task Similarity Heatmap}
+    \STATE Create $n \times n$ matrix $\mathbf{S}_M$ for $n$ tasks
+    \STATE Fill diagonal: $S_{ii} = \text{mean}(\mathcal{M}_{\text{intra}}[k_i][M])$
+    \STATE Fill off-diagonal: $S_{ij} = \text{mean}(\mathcal{M}_{\text{inter}}[k_i,k_j][M])$
+    \STATE Generate heatmap with color coding and task labels
+    
+    \STATE \textbf{Subplot 3: Per-Task Distribution}
+    \STATE Create horizontal box plots for each task's intra-task values
+    \STATE Sort tasks by median metric value
+    \STATE Apply logarithmic scale for DTW/OT metrics
+    
+    \STATE \textbf{Subplot 4: Task Separability Scores}
+    \STATE Compute separability ratio for each task:
+    \IF{$M =$ Cosine}
+        \STATE $\text{sep}_k = \frac{\text{mean}_{\text{intra}}(k)}{\text{mean}_{\text{inter}}(k)}$
+    \ELSE
+        \STATE $\text{sep}_k = \frac{\text{mean}_{\text{inter}}(k)}{\text{mean}_{\text{intra}}(k)}$
+    \ENDIF
+    \STATE Generate horizontal bar chart sorted by separability
+    \STATE Add average separability line
+    
+    \STATE Save as: $M + \text{``\_analysis\_detailed.png''}$
+\ENDFOR
+
+\STATE \textbf{Phase 2: Cross-Metric Correlation Analysis (1 figure)}
+\STATE Create figure with 2×3 subplot grid
+\STATE Combine all intra and inter values: $\mathcal{A}_{DTW}, \mathcal{A}_{OT}, \mathcal{A}_{cos}$
+\STATE Create color coding: red for intra-task, blue for inter-task
+
+\STATE \textbf{Subplot 1: DTW vs OT Scatter}
+\STATE Plot scatter($\mathcal{A}_{DTW}, \mathcal{A}_{OT}$) with color coding
+\STATE Compute and display correlation coefficient
+\STATE Add linear trend line
+
+\STATE \textbf{Subplot 2: DTW vs Cosine Scatter}
+\STATE Plot scatter($\mathcal{A}_{DTW}, \mathcal{A}_{cos}$) with color coding
+\STATE Compute and display correlation coefficient
+\STATE Add linear trend line
+
+\STATE \textbf{Subplot 3: OT vs Cosine Scatter}
+\STATE Plot scatter($\mathcal{A}_{OT}, \mathcal{A}_{cos}$) with color coding
+\STATE Compute and display correlation coefficient
+\STATE Add linear trend line
+
+\STATE \textbf{Subplot 4: 3D Metric Space}
+\STATE Create 3D scatter plot($\mathcal{A}_{DTW}, \mathcal{A}_{OT}, \mathcal{A}_{cos}$)
+\STATE Apply color coding for intra/inter-task distinction
+\STATE Add legend for color interpretation
+
+\STATE \textbf{Subplot 5: Metric Agreement Analysis}
+\STATE Normalize all metrics to [0,1] range
+\STATE Invert cosine similarity: $\mathcal{A}_{cos}^{\text{norm}} = 1 - \mathcal{A}_{cos}^{\text{norm}}$
+\STATE Compute pairwise agreements:
+\STATE $\text{agree}_{DTW,OT} = 1 - |\mathcal{A}_{DTW}^{\text{norm}} - \mathcal{A}_{OT}^{\text{norm}}|$
+\STATE $\text{agree}_{DTW,cos} = 1 - |\mathcal{A}_{DTW}^{\text{norm}} - \mathcal{A}_{cos}^{\text{norm}}|$
+\STATE $\text{agree}_{OT,cos} = 1 - |\mathcal{A}_{OT}^{\text{norm}} - \mathcal{A}_{cos}^{\text{norm}}|$
+\STATE Generate bar chart with error bars
+
+\STATE \textbf{Subplot 6: Correlation Matrix Heatmap}
+\STATE Compute correlation matrix:
+\STATE $\mathbf{C} = \begin{pmatrix}
+1 & \rho_{DTW,OT} & \rho_{DTW,cos} \\
+\rho_{DTW,OT} & 1 & \rho_{OT,cos} \\
+\rho_{DTW,cos} & \rho_{OT,cos} & 1
+\end{pmatrix}$
+\STATE Generate symmetric heatmap with annotations
+
+\STATE Save as: ``metric\_correlation\_comprehensive.png''
+
+\RETURN Four visualization files with comprehensive multi-metric analysis
+\end{algorithmic}
+\end{algorithm}
+
+\section{Visualization Analysis and Interpretation}
+
+\subsection{Individual Metric Analysis Figures}
+
+\textbf{Generated Files:} \texttt{dtw\_analysis\_detailed.png}, \texttt{ot\_analysis\_detailed.png}, \texttt{cosine\_analysis\_detailed.png}
+
+Each figure provides comprehensive analysis for a single metric:
+
+\subsubsection{Subplot 1: Box Plot Comparison}
+\textbf{Purpose:} Compare intra-task vs inter-task metric distributions
+\textbf{Indicates:} 
+\begin{itemize}
+    \item Good task separability when intra-task values are significantly different from inter-task values
+    \item For DTW/OT: Lower intra-task distances indicate consistent task execution
+    \item For Cosine: Higher intra-task similarity indicates consistent action directions
+    \item Mann-Whitney U test p-value confirms statistical significance
+\end{itemize}
+
+\subsubsection{Subplot 2: Task Similarity Heatmap}
+\textbf{Purpose:} Visualize pairwise task similarities as a matrix
+\textbf{Indicates:}
+\begin{itemize}
+    \item Diagonal elements show intra-task consistency (self-similarity)
+    \item Off-diagonal elements show inter-task relationships
+    \item Block patterns reveal task clusters or families
+    \item Color intensity represents similarity magnitude
+\end{itemize}
+
+\subsubsection{Subplot 3: Per-Task Distribution}
+\textbf{Purpose:} Show metric distribution for each individual task
+\textbf{Indicates:}
+\begin{itemize}
+    \item Task execution consistency (narrow distributions = more consistent)
+    \item Relative difficulty between tasks (higher/lower median values)
+    \item Outlier trajectories within tasks
+    \item Tasks sorted by median performance for easy comparison
+\end{itemize}
+
+\subsubsection{Subplot 4: Task Separability Scores}
+\textbf{Purpose:} Quantify how well each task can be distinguished from others
+\textbf{Indicates:}
+\begin{itemize}
+    \item Separability ratio > 1: Task is well-distinguishable
+    \item Higher scores indicate better task-specific learning
+    \item Tasks below average line may need more training data
+    \item Identifies which tasks are most/least distinct
+\end{itemize}
+
+\subsection{Cross-Metric Correlation Analysis}
+
+\textbf{Generated File:} \texttt{metric\_correlation\_comprehensive.png}
+
+\subsubsection{Subplots 1-3: Pairwise Metric Correlations}
+\textbf{Purpose:} Examine relationships between different similarity metrics
+\textbf{Indicates:}
+\begin{itemize}
+    \item High correlation: Metrics capture similar trajectory aspects
+    \item Low correlation: Metrics provide complementary information
+    \item Color coding reveals whether correlations are driven by intra/inter-task differences
+    \item Trend lines show linear relationships between metrics
+\end{itemize}
+
+\subsubsection{Subplot 4: 3D Metric Space}
+\textbf{Purpose:} Visualize all three metrics simultaneously
+\textbf{Indicates:}
+\begin{itemize}
+    \item Clustering patterns in high-dimensional metric space
+    \item Whether intra-task (red) and inter-task (blue) points are separable
+    \item Metric combinations that best distinguish trajectory types
+\end{itemize}
+
+\subsubsection{Subplot 5: Metric Agreement Analysis}
+\textbf{Purpose:} Quantify how often metrics agree on trajectory similarity rankings
+\textbf{Indicates:}
+\begin{itemize}
+    \item High agreement: Metrics are redundant, one may be sufficient
+    \item Low agreement: Each metric captures unique trajectory aspects
+    \item Guides metric selection for specific applications
+\end{itemize}
+
+\subsubsection{Subplot 6: Correlation Matrix}
+\textbf{Purpose:} Comprehensive overview of all pairwise correlations
+\textbf{Indicates:}
+\begin{itemize}
+    \item Symmetric matrix showing correlation strengths
+    \item Values near ±1 indicate strong linear relationships
+    \item Values near 0 indicate independence between metrics
+    \item Helps identify metric redundancy and complementarity
+\end{itemize}
+
+\subsection{Applications and Insights}
+
+\textbf{Task Quality Assessment:} Use separability scores to identify well-learned vs poorly-learned tasks
+
+\textbf{Metric Selection:} Choose metrics based on correlation analysis and specific evaluation needs
+
+\textbf{Trajectory Evaluation:} Apply appropriate thresholds based on intra-task distributions
+
+\textbf{Dataset Analysis:} Identify task clusters and relationships through similarity patterns
+
+\textbf{Model Performance:} Compare generated trajectories against reference distributions
+
+\end{document}

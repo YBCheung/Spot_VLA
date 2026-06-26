@@ -1,8 +1,4 @@
-adapter-tmp
 experiments
 prismatic
-runs
 scripts
 vla-scripts
-wandb
-~

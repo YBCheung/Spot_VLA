@@ -1,0 +1,503 @@
+=== INTRA-TASK MULTI-METRIC ANALYSIS ===
+
+put the bowl on the plate:
+  Trajectories: 3
+  DTW - Mean: 22.6327 ± 1.5635
+  OT  - Mean: 0.3231 ± 0.0226
+  COS - Mean: 0.6704 ± 0.1853
+
+put the wine bottle on the rack:
+  Trajectories: 2
+  DTW - Mean: 38.5459 ± 0.0000
+  OT  - Mean: 0.3686 ± 0.0000
+  COS - Mean: 0.7587 ± 0.0000
+
+open the top drawer and put the bowl inside:
+  Trajectories: 3
+  DTW - Mean: 110.5134 ± 34.2515
+  OT  - Mean: 0.4175 ± 0.0346
+  COS - Mean: 0.4775 ± 0.1025
+
+put the cream cheese in the bowl:
+  Trajectories: 4
+  DTW - Mean: 48.1553 ± 23.0606
+  OT  - Mean: 0.3469 ± 0.0431
+  COS - Mean: 0.3547 ± 0.2275
+
+put the wine bottle on top of the cabinet:
+  Trajectories: 4
+  DTW - Mean: 28.2387 ± 4.9566
+  OT  - Mean: 0.4222 ± 0.0904
+  COS - Mean: 0.4928 ± 0.2621
+
+turn on the stove:
+  Trajectories: 3
+  DTW - Mean: 27.1971 ± 1.5395
+  OT  - Mean: 0.4621 ± 0.0395
+  COS - Mean: 0.7536 ± 0.0580
+
+put the bowl on the stove:
+  Trajectories: 5
+  DTW - Mean: 27.2609 ± 4.0505
+  OT  - Mean: 0.3864 ± 0.0562
+  COS - Mean: 0.6894 ± 0.1372
+
+put the bowl on top of the cabinet:
+  Trajectories: 2
+  DTW - Mean: 23.7111 ± 0.0000
+  OT  - Mean: 0.3738 ± 0.0000
+  COS - Mean: 0.8182 ± 0.0000
+
+=== INTER-TASK MULTI-METRIC ANALYSIS ===
+
+put the bowl on the plate vs put the wine bottle on the rack:
+  DTW - Mean: 82.2049 ± 3.7362
+  OT  - Mean: 0.7067 ± 0.0536
+  COS - Mean: 0.1551 ± 0.0989
+
+put the bowl on the plate vs open the top drawer and put the bowl inside:
+  DTW - Mean: 117.8434 ± 42.9573
+  OT  - Mean: 0.6325 ± 0.0490
+  COS - Mean: 0.1254 ± 0.0620
+
+put the bowl on the plate vs put the cream cheese in the bowl:
+  DTW - Mean: 55.1604 ± 18.4307
+  OT  - Mean: 0.5572 ± 0.0477
+  COS - Mean: 0.5089 ± 0.2054
+
+put the bowl on the plate vs put the wine bottle on top of the cabinet:
+  DTW - Mean: 53.7812 ± 7.0908
+  OT  - Mean: 0.7278 ± 0.0747
+  COS - Mean: 0.4468 ± 0.1982
+
+put the bowl on the plate vs push the plate to the front of the stove:
+  DTW - Mean: 143.2814 ± 6.6563
+  OT  - Mean: 1.3444 ± 0.0247
+  COS - Mean: 0.1986 ± 0.0227
+
+put the bowl on the plate vs turn on the stove:
+  DTW - Mean: 74.5988 ± 10.7110
+  OT  - Mean: 0.8030 ± 0.0188
+  COS - Mean: 0.5761 ± 0.1019
+
+put the bowl on the plate vs put the bowl on the stove:
+  DTW - Mean: 50.4043 ± 6.0603
+  OT  - Mean: 0.5584 ± 0.0440
+  COS - Mean: 0.6267 ± 0.1154
+
+put the bowl on the plate vs put the bowl on top of the cabinet:
+  DTW - Mean: 47.8411 ± 8.7613
+  OT  - Mean: 0.6896 ± 0.0531
+  COS - Mean: 0.3471 ± 0.2044
+
+put the wine bottle on the rack vs open the top drawer and put the bowl inside:
+  DTW - Mean: 140.7820 ± 37.5073
+  OT  - Mean: 0.6624 ± 0.0630
+  COS - Mean: 0.1698 ± 0.1360
+
+put the wine bottle on the rack vs put the cream cheese in the bowl:
+  DTW - Mean: 85.0914 ± 10.6943
+  OT  - Mean: 0.6198 ± 0.0394
+  COS - Mean: 0.1656 ± 0.1407
+
+put the wine bottle on the rack vs put the wine bottle on top of the cabinet:
+  DTW - Mean: 79.7528 ± 4.4758
+  OT  - Mean: 0.8537 ± 0.1166
+  COS - Mean: 0.0399 ± 0.2304
+
+put the wine bottle on the rack vs push the plate to the front of the stove:
+  DTW - Mean: 206.4678 ± 2.8114
+  OT  - Mean: 1.3890 ± 0.0139
+  COS - Mean: 0.1851 ± 0.0496
+
+put the wine bottle on the rack vs turn on the stove:
+  DTW - Mean: 102.7902 ± 13.0104
+  OT  - Mean: 0.8637 ± 0.0467
+  COS - Mean: 0.1387 ± 0.1261
+
+put the wine bottle on the rack vs put the bowl on the stove:
+  DTW - Mean: 90.0657 ± 4.0372
+  OT  - Mean: 0.7722 ± 0.0762
+  COS - Mean: 0.1082 ± 0.1012
+
+put the wine bottle on the rack vs put the bowl on top of the cabinet:
+  DTW - Mean: 77.7041 ± 5.6396
+  OT  - Mean: 0.8325 ± 0.0660
+  COS - Mean: -0.1339 ± 0.0918
+
+open the top drawer and put the bowl inside vs put the cream cheese in the bowl:
+  DTW - Mean: 141.0680 ± 41.0517
+  OT  - Mean: 0.6178 ± 0.0554
+  COS - Mean: 0.1824 ± 0.0901
+
+open the top drawer and put the bowl inside vs put the wine bottle on top of the cabinet:
+  DTW - Mean: 134.2429 ± 42.7864
+  OT  - Mean: 0.8918 ± 0.0974
+  COS - Mean: -0.0910 ± 0.1137
+
+open the top drawer and put the bowl inside vs push the plate to the front of the stove:
+  DTW - Mean: 275.1892 ± 46.5997
+  OT  - Mean: 1.1546 ± 0.0335
+  COS - Mean: 0.6862 ± 0.1463
+
+open the top drawer and put the bowl inside vs turn on the stove:
+  DTW - Mean: 169.7718 ± 47.1750
+  OT  - Mean: 0.8613 ± 0.0796
+  COS - Mean: 0.0143 ± 0.0944
+
+open the top drawer and put the bowl inside vs put the bowl on the stove:
+  DTW - Mean: 153.4919 ± 46.7115
+  OT  - Mean: 0.7491 ± 0.0651
+  COS - Mean: 0.0893 ± 0.0550
+
+open the top drawer and put the bowl inside vs put the bowl on top of the cabinet:
+  DTW - Mean: 134.8799 ± 44.9794
+  OT  - Mean: 0.8469 ± 0.0599
+  COS - Mean: -0.1087 ± 0.0855
+
+put the cream cheese in the bowl vs put the wine bottle on top of the cabinet:
+  DTW - Mean: 73.6084 ± 20.5655
+  OT  - Mean: 0.8851 ± 0.0886
+  COS - Mean: 0.3224 ± 0.1637
+
+put the cream cheese in the bowl vs push the plate to the front of the stove:
+  DTW - Mean: 151.7725 ± 15.6793
+  OT  - Mean: 1.2692 ± 0.0290
+  COS - Mean: 0.2067 ± 0.0383
+
+put the cream cheese in the bowl vs turn on the stove:
+  DTW - Mean: 91.5808 ± 24.6159
+  OT  - Mean: 0.8435 ± 0.0631
+  COS - Mean: 0.5086 ± 0.1528
+
+put the cream cheese in the bowl vs put the bowl on the stove:
+  DTW - Mean: 65.7092 ± 18.9299
+  OT  - Mean: 0.6567 ± 0.0559
+  COS - Mean: 0.4940 ± 0.1374
+
+put the cream cheese in the bowl vs put the bowl on top of the cabinet:
+  DTW - Mean: 52.3169 ± 21.9183
+  OT  - Mean: 0.7546 ± 0.0527
+  COS - Mean: 0.3423 ± 0.1713
+
+put the wine bottle on top of the cabinet vs push the plate to the front of the stove:
+  DTW - Mean: 186.3903 ± 14.0795
+  OT  - Mean: 1.6764 ± 0.0864
+  COS - Mean: -0.1520 ± 0.1172
+
+put the wine bottle on top of the cabinet vs turn on the stove:
+  DTW - Mean: 91.9193 ± 13.0727
+  OT  - Mean: 1.0093 ± 0.1176
+  COS - Mean: 0.4449 ± 0.1264
+
+put the wine bottle on top of the cabinet vs put the bowl on the stove:
+  DTW - Mean: 80.8682 ± 4.5777
+  OT  - Mean: 0.8637 ± 0.0769
+  COS - Mean: 0.3882 ± 0.1572
+
+put the wine bottle on top of the cabinet vs put the bowl on top of the cabinet:
+  DTW - Mean: 53.1616 ± 8.7121
+  OT  - Mean: 0.6211 ± 0.0553
+  COS - Mean: 0.5772 ± 0.2678
+
+push the plate to the front of the stove vs turn on the stove:
+  DTW - Mean: 150.0361 ± 8.6262
+  OT  - Mean: 1.2815 ± 0.0890
+  COS - Mean: 0.0509 ± 0.1148
+
+push the plate to the front of the stove vs put the bowl on the stove:
+  DTW - Mean: 142.7128 ± 6.6154
+  OT  - Mean: 1.3332 ± 0.0417
+  COS - Mean: 0.2037 ± 0.0579
+
+push the plate to the front of the stove vs put the bowl on top of the cabinet:
+  DTW - Mean: 169.1526 ± 5.6095
+  OT  - Mean: 1.6071 ± 0.0605
+  COS - Mean: -0.1458 ± 0.0585
+
+turn on the stove vs put the bowl on the stove:
+  DTW - Mean: 76.1113 ± 9.7864
+  OT  - Mean: 0.7923 ± 0.0621
+  COS - Mean: 0.6085 ± 0.0675
+
+turn on the stove vs put the bowl on top of the cabinet:
+  DTW - Mean: 93.4610 ± 13.0063
+  OT  - Mean: 0.9744 ± 0.0831
+  COS - Mean: 0.3991 ± 0.0954
+
+put the bowl on the stove vs put the bowl on top of the cabinet:
+  DTW - Mean: 64.1548 ± 6.2042
+  OT  - Mean: 0.7183 ± 0.0509
+  COS - Mean: 0.3687 ± 0.1733
+Saved detailed analysis for DTW Distance: dtw_analysis_detailed.png
+Saved detailed analysis for OT Distance: ot_analysis_detailed.png
+Saved detailed analysis for Cosine Similarity: cosine_analysis_detailed.png
+
+=== MULTI-METRIC TASK SEPARABILITY ANALYSIS ===
+
+put the bowl on the plate:
+  DTW:
+    Separability Ratio: 3.072
+    Effect Size: 2.041
+    T-test p-value: 0.015902
+    Significant: Yes
+  OT:
+    Separability Ratio: 2.112
+    Effect Size: 2.949
+    T-test p-value: 0.000589
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 1.567
+    Effect Size: 1.148
+    T-test p-value: 0.084959
+    Significant: No
+
+put the wine bottle on the rack:
+  DTW:
+    Separability Ratio: 2.541
+    Effect Size: 2.572
+    T-test p-value: 0.080798
+    Significant: No
+  OT:
+    Separability Ratio: 2.117
+    Effect Size: 3.467
+    T-test p-value: 0.020106
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 7.101
+    Effect Size: 5.630
+    T-test p-value: 0.000291
+    Significant: Yes
+
+open the top drawer and put the bowl inside:
+  DTW:
+    Separability Ratio: 1.341
+    Effect Size: 0.843
+    T-test p-value: 0.233858
+    Significant: No
+  OT:
+    Separability Ratio: 1.840
+    Effect Size: 3.243
+    T-test p-value: 0.000141
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 5.618
+    Effect Size: 2.598
+    T-test p-value: 0.000666
+    Significant: Yes
+
+put the cream cheese in the bowl:
+  DTW:
+    Separability Ratio: 1.727
+    Effect Size: 1.105
+    T-test p-value: 0.031361
+    Significant: Yes
+  OT:
+    Separability Ratio: 2.118
+    Effect Size: 3.073
+    T-test p-value: 0.000000
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 0.951
+    Effect Size: -0.086
+    T-test p-value: 0.832425
+    Significant: No
+
+put the wine bottle on top of the cabinet:
+  DTW:
+    Separability Ratio: 3.065
+    Effect Size: 2.206
+    T-test p-value: 0.000243
+    Significant: Yes
+  OT:
+    Separability Ratio: 2.098
+    Effect Size: 2.793
+    T-test p-value: 0.000001
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 1.688
+    Effect Size: 0.739
+    T-test p-value: 0.095168
+    Significant: No
+
+turn on the stove:
+  DTW:
+    Separability Ratio: 3.662
+    Effect Size: 2.722
+    T-test p-value: 0.001537
+    Significant: Yes
+  OT:
+    Separability Ratio: 1.923
+    Effect Size: 4.258
+    T-test p-value: 0.000001
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 1.854
+    Effect Size: 1.997
+    T-test p-value: 0.015464
+    Significant: Yes
+
+put the bowl on the stove:
+  DTW:
+    Separability Ratio: 3.130
+    Effect Size: 2.131
+    T-test p-value: 0.000006
+    Significant: Yes
+  OT:
+    Separability Ratio: 1.964
+    Effect Size: 2.958
+    T-test p-value: 0.000000
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 1.751
+    Effect Size: 1.573
+    T-test p-value: 0.000108
+    Significant: Yes
+
+put the bowl on top of the cabinet:
+  DTW:
+    Separability Ratio: 3.198
+    Effect Size: 1.923
+    T-test p-value: 0.188732
+    Significant: No
+  OT:
+    Separability Ratio: 2.129
+    Effect Size: 2.919
+    T-test p-value: 0.048501
+    Significant: Yes
+  COSINE:
+    Separability Ratio: 2.914
+    Effect Size: 2.567
+    T-test p-value: 0.081365
+    Significant: No
+
+=== MULTI-METRIC TRAJECTORY SUCCESS EVALUATION ===
+
+put the bowl on the plate:
+  Total trajectories: 3
+  DTW thresholds:
+    Conservative: 21.5447
+    Moderate: 21.8851
+    Liberal: 23.3468
+  OT thresholds:
+    Conservative: 0.3085
+    Moderate: 0.3195
+    Liberal: 0.3359
+  COSINE thresholds:
+    Conservative: 0.7486
+    Moderate: 0.5664
+    Liberal: 0.5402
+
+put the wine bottle on the rack:
+  Total trajectories: 2
+  DTW thresholds:
+    Conservative: 38.5459
+    Moderate: 38.5459
+    Liberal: 38.5459
+  OT thresholds:
+    Conservative: 0.3686
+    Moderate: 0.3686
+    Liberal: 0.3686
+  COSINE thresholds:
+    Conservative: 0.7587
+    Moderate: 0.7587
+    Liberal: 0.7587
+
+open the top drawer and put the bowl inside:
+  Total trajectories: 3
+  DTW thresholds:
+    Conservative: 97.9304
+    Moderate: 133.7738
+    Liberal: 134.7267
+  OT thresholds:
+    Conservative: 0.3936
+    Moderate: 0.4027
+    Liberal: 0.4340
+  COSINE thresholds:
+    Conservative: 0.5366
+    Moderate: 0.4640
+    Liberal: 0.4116
+
+put the cream cheese in the bowl:
+  Total trajectories: 4
+  DTW thresholds:
+    Conservative: 25.3947
+    Moderate: 50.1118
+    Liberal: 69.0608
+  OT thresholds:
+    Conservative: 0.3139
+    Moderate: 0.3495
+    Liberal: 0.3734
+  COSINE thresholds:
+    Conservative: 0.3553
+    Moderate: 0.2392
+    Liberal: 0.2249
+
+put the wine bottle on top of the cabinet:
+  Total trajectories: 4
+  DTW thresholds:
+    Conservative: 25.0529
+    Moderate: 28.3600
+    Liberal: 31.0200
+  OT thresholds:
+    Conservative: 0.3434
+    Moderate: 0.4212
+    Liberal: 0.5014
+  COSINE thresholds:
+    Conservative: 0.7076
+    Moderate: 0.4813
+    Liberal: 0.3150
+
+turn on the stove:
+  Total trajectories: 3
+  DTW thresholds:
+    Conservative: 26.4455
+    Moderate: 27.8096
+    Liberal: 28.2549
+  OT thresholds:
+    Conservative: 0.4363
+    Moderate: 0.4551
+    Liberal: 0.4843
+  COSINE thresholds:
+    Conservative: 0.7908
+    Moderate: 0.7609
+    Liberal: 0.7201
+
+put the bowl on the stove:
+  Total trajectories: 5
+  DTW thresholds:
+    Conservative: 25.4723
+    Moderate: 28.0221
+    Liberal: 29.9952
+  OT thresholds:
+    Conservative: 0.3572
+    Moderate: 0.3810
+    Liberal: 0.4150
+  COSINE thresholds:
+    Conservative: 0.7456
+    Moderate: 0.6741
+    Liberal: 0.6252
+
+put the bowl on top of the cabinet:
+  Total trajectories: 2
+  DTW thresholds:
+    Conservative: 23.7111
+    Moderate: 23.7111
+    Liberal: 23.7111
+  OT thresholds:
+    Conservative: 0.3738
+    Moderate: 0.3738
+    Liberal: 0.3738
+  COSINE thresholds:
+    Conservative: 0.8182
+    Moderate: 0.8182
+    Liberal: 0.8182
+
+==================================================
+MULTI-METRIC SUMMARY STATISTICS
+==================================================
+Total tasks analyzed: 8
+Total inter-task comparisons: 36
+DTW separability ratio: 2.717 ± 0.745
+OT separability ratio: 2.038 ± 0.105
+COSINE separability ratio: 2.930 ± 2.076
