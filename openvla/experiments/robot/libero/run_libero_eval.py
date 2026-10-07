@@ -8,7 +8,6 @@ Usage:
     # IMPORTANT: Set `center_crop=True` if model is fine-tuned with augmentations
     python experiments/robot/libero/run_libero_eval.py \
         --model_family openvla \
-        --pretrained_checkpoint <CHECKPOINT_PATH> \
         --task_suite_name [ libero_spatial | libero_object | libero_goal | libero_10 | libero_90 ] \
         --center_crop [ True | False ] \
         --run_id_note <OPTIONAL TAG TO INSERT INTO RUN ID FOR LOGGING> \
@@ -16,11 +15,14 @@ Usage:
         --wandb_project <PROJECT> \
         --wandb_entity <ENTITY> \
         --load_from_adapter [ True | False ] \
+        --vla_path <VLA_PATH> \
         --adapter_dir <ADAPTER_DIR> 
 """
 
 import os
 import sys
+import json
+import pickle
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Union
@@ -43,6 +45,7 @@ from experiments.robot.libero.libero_utils import (
 )
 from experiments.robot.openvla_utils import get_processor
 from experiments.robot.robot_utils import (
+    ACTION_DIM,
     DATE_TIME,
     get_action,
     get_image_resize_size,
@@ -61,13 +64,12 @@ class GenerateConfig:
     # Model-specific parameters
     #################################################################################################################
     model_family: str = "openvla"                    # Model family
-    pretrained_checkpoint: Union[str, Path] = "openvla/openvla-7b-finetuned-libero-object"     # Pretrained checkpoint path
     load_in_8bit: bool = False                       # (For OpenVLA only) Load with 8-bit quantization
     load_in_4bit: bool = False                       # (For OpenVLA only) Load with 4-bit quantization
     center_crop: bool = True                         # Center crop? (if trained w/ random crop image aug)
     load_from_adapter: bool = True                  # Load from adapter? (if using OpenVLA)
-    vla_path: Optional[Union[str, Path]] = "openvla/openvla-7b"      # Path to VLA model (if not using OpenVLA)
-    adapter_dir: Optional[Union[str, Path]] = "./runs/openvla-7b+libero_object_no_noops+b16+lr-0.0005+shf100000+lora-r64+dropout-0.0--image_aug/val_accuracy"   # Path to adapter directory (if using OpenVLA)
+    vla_path: Optional[Union[str, Path]] = "openvla/openvla-7b"     # Path to VLA model (if not using OpenVLA)
+    adapter_dir: Optional[Union[str, Path]] = "/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss"
 
     #################################################################################################################
     # LIBERO environment-specific parameters
@@ -75,12 +77,28 @@ class GenerateConfig:
     task_suite_name: str = "libero_object"          # Task suite. Options: libero_spatial, libero_object, libero_goal, libero_10, libero_90
     num_steps_wait: int = 10                         # Number of steps to wait for objects to stabilize in sim
     num_trials_per_task: int = 5                    # Number of rollouts per task
+    max_videos_per_task: int = 2                     # Cap on rollout MP4s saved per task (videos are for
+                                                     # visualization only; trajectories are always saved for
+                                                     # every episode). Set < 0 to save a video for every episode.
 
     #################################################################################################################
     # Utils
     #################################################################################################################
     run_id_note: Optional[str] = None                # Extra note to add in run ID for logging
     local_log_dir: str = "./experiments/logs"        # Local directory for eval logs
+    trajectory_save_dir: Optional[str] = None         # Directory to save action trajectories. If None
+                                                       # (default), derived at runtime in eval_libero() from
+                                                       # the actual --adapter_dir/--vla_path for this run --
+                                                       # NOT hardcoded here as an f-string default, because a
+                                                       # dataclass field default referencing another field's
+                                                       # default is evaluated once at class-definition time
+                                                       # and never sees CLI overrides (every run landed in
+                                                       # the same stale trajectory_logs/5800_seg_.../val_loss/
+                                                       # dir regardless of which checkpoint was evaluated).
+    summary_output_path: Optional[str] = None         # If set, also write the run summary (success rate, etc.)
+                                                       # to this exact path -- lets a driver script (e.g.
+                                                       # select_and_eval_checkpoints.py) find results without
+                                                       # having to guess the timestamped trajectory_save_dir.
 
     use_wandb: bool = False                          # Whether to also log results in Weights & Biases
     wandb_project: str = "YOUR_WANDB_PROJECT"        # Name of W&B project to log to (use default!)
@@ -91,10 +109,43 @@ class GenerateConfig:
     # fmt: on
 
 
+def save_trajectory(trajectory_data, trajectory_save_dir, trajectory_id):
+    """
+    Save trajectory data to both pickle and JSON formats for easy reloading
+    """
+    os.makedirs(trajectory_save_dir, exist_ok=True)
+    
+    # Save as pickle (preserves numpy arrays exactly)
+    pickle_path = os.path.join(trajectory_save_dir, f"trajectory_{trajectory_id:03d}.pkl")
+    with open(pickle_path, 'wb') as f:
+        pickle.dump(trajectory_data, f)
+    
+    # Save as JSON (human readable, but converts numpy arrays to lists)
+    json_data = {
+        'model_path': trajectory_data['model_path'],
+        'task_name': trajectory_data['task_name'],
+        'task_id': trajectory_data['task_id'],
+        'episode_id': trajectory_data['episode_id'],
+        'success': trajectory_data['success'],
+        'actions': [action.tolist() if isinstance(action, np.ndarray) else action
+                   for action in trajectory_data['actions']],
+        'log_likelihoods': trajectory_data['log_likelihoods'],
+        'nll': trajectory_data['nll'],
+        'total_steps': trajectory_data['total_steps'],
+        'timestamp': trajectory_data['timestamp']
+    }
+    
+    json_path = os.path.join(trajectory_save_dir, f"trajectory_{trajectory_id:03d}.json")
+    with open(json_path, 'w') as f:
+        json.dump(json_data, f, indent=2)
+    
+    return pickle_path, json_path
+
+
 @draccus.wrap()
 def eval_libero(cfg: GenerateConfig) -> None:
-    assert cfg.pretrained_checkpoint is not None, "cfg.pretrained_checkpoint must not be None!"
-    if "image_aug" in cfg.pretrained_checkpoint:
+    assert cfg.vla_path is not None, "cfg.vla_path must not be None!"
+    if "image_aug" in cfg.vla_path:
         assert cfg.center_crop, "Expecting `center_crop==True` because model was trained with image augmentations!"
     assert not (cfg.load_in_8bit and cfg.load_in_4bit), "Cannot use both 8-bit and 4-bit quantization!"
     print(f"Running LIBERO evaluation with config:\n{cfg}")
@@ -103,6 +154,15 @@ def eval_libero(cfg: GenerateConfig) -> None:
 
     # [OpenVLA] Set action un-normalization key
     cfg.unnorm_key = cfg.task_suite_name
+
+    # Derive trajectory_save_dir from the *actual* checkpoint being evaluated this run, unless the
+    # caller explicitly overrode it via --trajectory_save_dir.
+    if cfg.trajectory_save_dir is None:
+        adapter_ref = str(cfg.adapter_dir) if cfg.adapter_dir else str(cfg.vla_path)
+        parts = adapter_ref.rstrip("/").split("/")
+        run_name = parts[-2] if len(parts) >= 2 else "root"
+        ckpt_name = parts[-1]
+        cfg.trajectory_save_dir = f"./trajectory_logs/{run_name}/{ckpt_name}"
 
     # Load model
     model = get_model(cfg)
@@ -130,6 +190,11 @@ def eval_libero(cfg: GenerateConfig) -> None:
     log_file = open(local_log_filepath, "w")
     print(f"Logging to local log file: {local_log_filepath}")
 
+    # Create trajectory save directory
+    trajectory_save_dir = os.path.join(cfg.trajectory_save_dir, run_id)
+    os.makedirs(trajectory_save_dir, exist_ok=True)
+    print(f"Saving trajectories to: {trajectory_save_dir}")
+
     # Initialize Weights & Biases logging as well
     if cfg.use_wandb:
         wandb.init(
@@ -150,6 +215,8 @@ def eval_libero(cfg: GenerateConfig) -> None:
 
     # Start evaluation
     total_episodes, total_successes = 0, 0
+    trajectory_counter = 0  # Global counter for trajectory files
+    
     for task_id in tqdm.tqdm(range(num_tasks_in_suite)):
         # Get task
         task = task_suite.get_task(task_id)
@@ -162,6 +229,7 @@ def eval_libero(cfg: GenerateConfig) -> None:
 
         # Start episodes
         task_episodes, task_successes = 0, 0
+        task_videos_saved = 0  # cap rollout videos per task (see cfg.max_videos_per_task)
         for episode_idx in tqdm.tqdm(range(cfg.num_trials_per_task)):
             print(f"\nTask: {task_description}")
             log_file.write(f"\nTask: {task_description}\n")
@@ -175,6 +243,9 @@ def eval_libero(cfg: GenerateConfig) -> None:
             # Setup
             t = 0
             replay_images = []
+            trajectory_actions = []  # Store actions for this trajectory
+            trajectory_log_likelihoods = []  # Store per-step summed token log-likelihoods for NLL calculation
+            
             if cfg.task_suite_name == "libero_spatial":
                 max_steps = 220  # longest training demo has 193 steps
             elif cfg.task_suite_name == "libero_object":
@@ -188,6 +259,8 @@ def eval_libero(cfg: GenerateConfig) -> None:
 
             print(f"Starting episode {task_episodes+1}...")
             log_file.write(f"Starting episode {task_episodes+1}...\n")
+            
+            success = False
             while t < max_steps + cfg.num_steps_wait:
                 try:
                     # IMPORTANT: Do nothing for the first few timesteps because the simulator drops objects
@@ -213,13 +286,18 @@ def eval_libero(cfg: GenerateConfig) -> None:
                     }
 
                     # Query model to get action
-                    action = get_action(
+                    action, token_log_likelihood = get_action(
                         cfg,
                         model,
                         observation,
                         task_description,
                         processor=processor,
                     )
+                    if token_log_likelihood is not None:
+                        trajectory_log_likelihoods.append(float(np.sum(token_log_likelihood)))
+
+                    # Store the raw action (before any normalization/inversion)
+                    raw_action = action.copy()
 
                     # Normalize gripper action [0,1] -> [-1,+1] because the environment expects the latter
                     action = normalize_gripper_action(action, binarize=True)
@@ -229,11 +307,15 @@ def eval_libero(cfg: GenerateConfig) -> None:
                     if cfg.model_family == "openvla":
                         action = invert_gripper_action(action)
 
+                    # Store the final processed action that will be executed
+                    trajectory_actions.append(action.copy())
+
                     # Execute action in environment
                     obs, reward, done, info = env.step(action.tolist())
                     if done:
                         task_successes += 1
                         total_successes += 1
+                        success = True
                         break
                     t += 1
 
@@ -242,19 +324,53 @@ def eval_libero(cfg: GenerateConfig) -> None:
                     log_file.write(f"Caught exception: {e}\n")
                     break
 
+            # Save trajectory data
+            trajectory_data = {
+                'model_path': str(cfg.vla_path),
+                'adapter_dir': str(cfg.adapter_dir) if cfg.adapter_dir else None,
+                'model_family': cfg.model_family,
+                'task_name': task_description,
+                'task_id': task_id,
+                'episode_id': episode_idx,
+                'success': success,
+                'actions': trajectory_actions,
+                'log_likelihoods': trajectory_log_likelihoods,
+                'nll': (
+                    float(np.sum(trajectory_log_likelihoods)) / (len(trajectory_log_likelihoods) * ACTION_DIM)
+                    if trajectory_log_likelihoods
+                    else None
+                ),
+                'total_steps': len(trajectory_actions),
+                'max_steps': max_steps,
+                'task_suite_name': cfg.task_suite_name,
+                'timestamp': DATE_TIME,
+                'seed': cfg.seed,
+                'run_id': run_id
+            }
+            
+            pickle_path, json_path = save_trajectory(trajectory_data, trajectory_save_dir, trajectory_counter)
+            trajectory_counter += 1
+            
+            print(f"Saved trajectory {trajectory_counter} to: {pickle_path}")
+            log_file.write(f"Saved trajectory {trajectory_counter} to: {pickle_path}\n")
+
             task_episodes += 1
             total_episodes += 1
 
-            # Save a replay video of the episode
-            save_rollout_video(
-                replay_images, total_episodes, success=done, task_description=task_description, log_file=log_file
-            )
+            # Save a replay video of the episode (visualization only) -- capped per task, since we
+            # never watch all num_trials_per_task clips per checkpoint. Trajectories above are saved
+            # for every episode regardless. cfg.max_videos_per_task < 0 saves all.
+            if cfg.max_videos_per_task < 0 or task_videos_saved < cfg.max_videos_per_task:
+                save_rollout_video(
+                    replay_images, total_episodes, success=success, task_description=task_description, log_file=log_file
+                )
+                task_videos_saved += 1
 
             # Log current results
-            print(f"Success: {done}")
+            print(f"Success: {success}")
             print(f"# episodes completed so far: {total_episodes}")
             print(f"# successes: {total_successes} ({total_successes / total_episodes * 100:.1f}%)")
-            log_file.write(f"Success: {done}\n")
+            log_file.write(f"Success: {success}\n")
             log_file.write(f"# episodes completed so far: {total_episodes}\n")
             log_file.write(f"# successes: {total_successes} ({total_successes / total_episodes * 100:.1f}%)\n")
             log_file.flush()
@@ -273,6 +389,33 @@ def eval_libero(cfg: GenerateConfig) -> None:
                 }
             )
 
+    # Save a summary of all trajectories
+    summary_data = {
+        'total_trajectories': trajectory_counter,
+        'total_successes': total_successes,
+        'total_episodes': total_episodes,
+        'success_rate': float(total_successes) / float(total_episodes),
+        'model_path': str(cfg.vla_path),
+        'task_suite_name': cfg.task_suite_name,
+        'run_id': run_id,
+        'timestamp': DATE_TIME
+    }
+    
+    summary_path = os.path.join(trajectory_save_dir, "trajectory_summary.json")
+    with open(summary_path, 'w') as f:
+        json.dump(summary_data, f, indent=2)
+
+    if cfg.summary_output_path is not None:
+        os.makedirs(os.path.dirname(cfg.summary_output_path) or ".", exist_ok=True)
+        with open(cfg.summary_output_path, 'w') as f:
+            json.dump(summary_data, f, indent=2)
+        print(f"Also wrote summary to fixed path: {cfg.summary_output_path}")
+
+    print(f"Saved trajectory summary to: {summary_path}")
+    print(f"Total trajectories saved: {trajectory_counter}")
+    log_file.write(f"Saved trajectory summary to: {summary_path}\n")
+    log_file.write(f"Total trajectories saved: {trajectory_counter}\n")
+
     # Save local log file
     log_file.close()
 
@@ -285,9 +428,28 @@ def eval_libero(cfg: GenerateConfig) -> None:
             }
         )
         wandb.save(local_log_filepath)
-        
+
     env.close()
+
+    return summary_data
+
+
+def load_trajectory(trajectory_path):
+    """
+    Helper function to load a saved trajectory
+    """
+    if trajectory_path.endswith('.pkl'):
+        with open(trajectory_path, 'rb') as f:
+            return pickle.load(f)
+    elif trajectory_path.endswith('.json'):
+        with open(trajectory_path, 'r') as f:
+            data = json.load(f)
+            # Convert action lists back to numpy arrays
+            data['actions'] = [np.array(action) for action in data['actions']]
+            return data
+    else:
+        raise ValueError("Trajectory file must be either .pkl or .json")
 
 
 if __name__ == "__main__":
-    eval_libero() 
+    eval_libero()

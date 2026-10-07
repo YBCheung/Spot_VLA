@@ -1,0 +1,6023 @@
+
+  0%|          | 0/30000 [00:00<?, ?it/s]
+
+
+
+
+
+
+
+
+
+  0%|          | 10/30000 [00:30<16:31:54,  1.98s/it]
+
+
+
+
+
+
+
+
+
+
+  0%|          | 20/30000 [00:49<15:22:42,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  0%|          | 31/30000 [01:09<15:23:47,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 40/30000 [01:26<15:18:08,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 50/30000 [01:44<15:18:52,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  0%|          | 61/30000 [02:05<15:26:55,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 70/30000 [02:21<15:38:41,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 80/30000 [02:40<15:15:03,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 90/30000 [02:58<15:24:58,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 100/30000 [03:17<15:29:30,  1.87s/it]
+Validating at step 99...
+step: 99, CE loss: [4.884098467947561, 6.940617656707763, 4.843232009828705], acc: [0.36166364558135405, 0.2526785723865032, 0.35198821787981643], L1 loss: [0.11113712158572825, 0.19406863264739513, 0.1009442992892462], L2 loss: [0.04195688153275206, 0.0928316131234169, 0.0272566762935255], cosine distance: [0.8451099871080133, 0.8745421260595322, 0.9330081024120763], DTW_seg: [0.4529259693893026, 0.7179889220855171, 0.4055593660487121], OT_seg: [0.0018084652575351317, 0.004746629043774373, 0.0012138083290724824], DTW: [0.41036628849752976, 0.6900902955580976, 0.3900417538440689], OT: [3.821529805798371e-05, 2.583930631075963e-05, 2.3471880859400265e-05]
+New best validation loss: 5.5560
+Saving Model Checkpoint for Step 99
+08/02 [09:14:03] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1354
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0540
+Saving Model Checkpoint for Step 99
+08/02 [09:14:04] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l2/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.8842
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _cosine_distance/dataset_statistics.
+                          json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation accuracy: 0.3221
+Saving Model Checkpoint for Step 99
+08/02 [09:14:05] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.4968
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+New best validation DTW segment: 0.5255
+Saving Model Checkpoint for Step 99
+08/02 [09:14:06] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0026
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+  0%|          | 101/30000 [03:49<91:18:40, 10.99s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 110/30000 [04:06<18:22:26,  2.21s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 120/30000 [04:24<15:17:47,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  0%|          | 131/30000 [04:45<15:25:26,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 141/30000 [05:03<15:18:02,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 150/30000 [05:20<15:35:56,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 160/30000 [05:38<15:16:41,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|          | 171/30000 [05:59<15:18:04,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 181/30000 [06:17<15:13:57,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 190/30000 [06:34<15:30:22,  1.87s/it]
+
+
+
+
+
+
+
+
+  1%|          | 199/30000 [06:51<15:10:43,  1.83s/it]
+
+  1%|          | 200/30000 [06:52<15:11:56,  1.84s/it]
+step: 199, CE loss: [5.754965439648696, 4.942065882026602, 4.282212257385254], acc: [0.26760563359294137, 0.3328964565325221, 0.3586309490104516], L1 loss: [0.13404348303734417, 0.11574539155998362, 0.10490196819106738], L2 loss: [0.05059450371584422, 0.03653802294198663, 0.03337745966079334], cosine distance: [0.9244925245432787, 0.9154220628082206, 0.8788398653268814], DTW_seg: [0.5296395815933381, 0.44724488793727707, 0.41420606848207236], OT_seg: [0.002754865731618985, 0.0019851806165891435, 0.00155590340711448], DTW: [0.5215703977586779, 0.43027587456189414, 0.38800711467490934], OT: [1.7930413352313643e-05, 2.117037602440863e-05, 1.696157765938619e-05]
+New best validation loss: 4.9931
+Saving Model Checkpoint for Step 199
+08/02 [09:17:38] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1182
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0402
+Saving Model Checkpoint for Step 199
+08/02 [09:17:39] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l2/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.9063
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _cosine_distance/dataset_statistics.
+                          json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation normalized DTW: 0.4466
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 199
+08/02 [09:17:40] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+New best validation DTW segment: 0.4637
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0021
+Saving Model Checkpoint for Step 199
+08/02 [09:17:41] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+
+  1%|          | 211/30000 [07:43<17:20:01,  2.09s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 221/30000 [08:01<15:19:26,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 230/30000 [08:18<15:27:49,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 240/30000 [08:37<15:25:28,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|          | 251/30000 [08:57<15:16:42,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 261/30000 [09:15<15:14:51,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 270/30000 [09:32<15:24:46,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|          | 281/30000 [09:53<15:37:46,  1.89s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 291/30000 [10:11<15:12:27,  1.84s/it]
+
+
+
+
+
+
+
+
+  1%|          | 300/30000 [10:28<15:16:11,  1.85s/it]
+Validating at step 299...
+
+  1%|          | 301/30000 [10:55<78:45:37,  9.55s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 311/30000 [11:14<16:52:50,  2.05s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 320/30000 [11:31<15:26:29,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 330/30000 [11:49<15:15:24,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|          | 341/30000 [12:09<14:42:34,  1.79s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 351/30000 [12:28<15:16:04,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 360/30000 [12:44<15:12:35,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 370/30000 [13:03<15:12:40,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|▏         | 381/30000 [13:23<14:54:00,  1.81s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 391/30000 [13:42<15:12:16,  1.85s/it]
+
+
+
+
+
+
+
+
+  1%|▏         | 399/30000 [13:57<15:25:38,  1.88s/it]
+
+  1%|▏         | 400/30000 [13:58<15:24:43,  1.87s/it]
+step: 399, CE loss: [4.818631016478246, 4.723929664363032, 5.20667608924534], acc: [0.29737609381578406, 0.35248446723689203, 0.29968944321507995], L1 loss: [0.1073115033154585, 0.10465230404034905, 0.11267812226129614], L2 loss: [0.030672574605868787, 0.03747006485481625, 0.03624081862685473], cosine distance: [0.9128408760440593, 0.8796990617461826, 0.9222617978635042], DTW_seg: [0.4151242281527428, 0.4244898369010176, 0.4444377091227022], OT_seg: [0.001973640997015052, 0.0015767705206549798, 0.002143513842024448], DTW: [0.3925683235893842, 0.39672208615263005, 0.40880138973337027], OT: [2.627015477774024e-05, 9.310073412218239e-06, 3.7003570470777054e-05]
+New best validation loss: 4.9164
+Saving Model Checkpoint for Step 399
+08/02 [09:24:43] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1082
+Saving Model Checkpoint for Step 399
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0348
+Saving Model Checkpoint for Step 399
+08/02 [09:24:44] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l2/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation normalized DTW: 0.3994
+Saving Model Checkpoint for Step 399
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.4280
+Saving Model Checkpoint for Step 399
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0019
+Saving Model Checkpoint for Step 399
+08/02 [09:24:45] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+  1%|▏         | 401/30000 [14:28<83:54:25, 10.21s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 410/30000 [14:45<17:54:23,  2.18s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|▏         | 421/30000 [15:05<15:34:51,  1.90s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 431/30000 [15:24<15:26:18,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 440/30000 [15:40<15:10:43,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 450/30000 [15:59<15:08:30,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 460/30000 [16:18<15:08:05,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 471/30000 [16:38<14:56:12,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 481/30000 [16:56<15:12:51,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 490/30000 [17:13<15:20:13,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 500/30000 [17:32<15:30:19,  1.89s/it]
+Validating at step 499...
+step: 499, CE loss: [6.459922357322344, 5.254159684574932, 5.13035565873851], acc: [0.23529411823141808, 0.3211009187982717, 0.34006211161613464], L1 loss: [0.1800772736664691, 0.12299232800072486, 0.1161856094132299], L2 loss: [0.0943076587190815, 0.03955402168009533, 0.04135094016142513], cosine distance: [0.8582781019553639, 0.9038845027258636, 0.8647540496743243], DTW_seg: [0.7142360916558367, 0.47093797513092156, 0.44535106871681446], OT_seg: [0.004260194904566978, 0.0021056383697569694, 0.0015533323303746048], DTW: [0.6912650831562274, 0.4651250411419144, 0.43584064341169176], OT: [1.6238469180222152e-05, 3.4922762350375714e-05, 2.9071267485458872e-05]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 510/30000 [18:13<17:21:59,  2.12s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 520/30000 [18:31<15:14:53,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 531/30000 [18:52<14:57:00,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 541/30000 [19:10<15:07:06,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 551/30000 [19:28<14:57:50,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 560/30000 [19:45<15:06:45,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 570/30000 [20:03<14:49:46,  1.81s/it]
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 581/30000 [20:24<15:11:29,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 591/30000 [20:42<15:22:16,  1.88s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 599/30000 [20:57<15:08:49,  1.85s/it]
+
+  2%|▏         | 600/30000 [20:59<15:09:05,  1.86s/it]
+step: 599, CE loss: [5.783799407458065, 4.924700698074029, 5.227090773375138], acc: [0.2972583004621544, 0.33090378800216985, 0.30745341855546704], L1 loss: [0.14298730411312796, 0.09894244175176231, 0.11081477125053821], L2 loss: [0.050955210144471644, 0.026957833550262208, 0.03418628296450428], cosine distance: [0.887469683030639, 0.9203508411134992, 0.9192805238392042], DTW_seg: [0.5431019908019532, 0.39077599041013, 0.41980115842553184], OT_seg: [0.0027878351446209964, 0.0015504353001704885, 0.0018417307246854412], DTW: [0.5245225638654442, 0.37705912462249946, 0.41191989566350445], OT: [3.896735456858008e-05, 2.0571425277365248e-05, 2.479467638643729e-05]
+New best validation cosine distance: 0.9090
+Saving Model Checkpoint for Step 599
+08/02 [09:31:45] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _cosine_distance/dataset_statistics.
+                          json
+Saved Model Checkpoint for Step 599 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+
+  2%|▏         | 601/30000 [21:28<82:19:09, 10.08s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 610/30000 [21:45<17:39:54,  2.16s/it]
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 621/30000 [22:06<15:31:42,  1.90s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 631/30000 [22:24<15:05:24,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 641/30000 [22:43<14:58:13,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 650/30000 [22:59<14:55:54,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 660/30000 [23:18<15:04:36,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 671/30000 [23:38<15:02:46,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 681/30000 [23:57<14:54:20,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 691/30000 [24:15<14:49:45,  1.82s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 699/30000 [24:30<15:13:09,  1.87s/it]
+
+  2%|▏         | 700/30000 [24:32<15:10:18,  1.86s/it]
+step: 699, CE loss: [5.253466370341542, 4.072806109552798, 5.611325008768431], acc: [0.24568288846985326, 0.3618012446424235, 0.26861166849102774], L1 loss: [0.15335366023438318, 0.10218001092257707, 0.14658934675471882], L2 loss: [0.07105617120780133, 0.037764360399349876, 0.060870695964131555], cosine distance: [0.8060661030339671, 0.86483735623567, 0.910391070473362], DTW_seg: [0.6066697992897107, 0.42554130319092054, 0.5842990366063008], OT_seg: [0.003824127941774999, 0.0014961517428795895, 0.003063066338567094], DTW: [0.5562766032767694, 0.4132073053170634, 0.5555750053226062], OT: [1.3642305744667062e-05, 1.9234796479843287e-05, 1.0900673247972112e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 699
+08/02 [09:35:18] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  2%|▏         | 701/30000 [25:01<82:05:28, 10.09s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 710/30000 [25:18<17:41:37,  2.17s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 720/30000 [25:36<15:00:02,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  2%|▏         | 731/30000 [25:56<15:01:20,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 741/30000 [26:14<14:47:22,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 751/30000 [26:33<15:00:43,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 760/30000 [26:50<14:54:37,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 770/30000 [27:08<14:47:47,  1.82s/it]
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 781/30000 [27:28<15:09:14,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 791/30000 [27:47<14:55:52,  1.84s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 799/30000 [28:01<15:03:20,  1.86s/it]
+
+  3%|▎         | 800/30000 [28:03<15:07:03,  1.86s/it]
+step: 799, CE loss: [5.917371868398148, 4.5238952742682565, 4.390708461560701], acc: [0.22295623509525564, 0.31904761923684016, 0.3308270686551144], L1 loss: [0.1637862183455098, 0.10857143807742331, 0.10900192096045143], L2 loss: [0.06482263835351591, 0.03423787300578422, 0.03211350499799377], cosine distance: [0.8586758447520305, 0.8896121210522122, 0.8994473149901943], DTW_seg: [0.6045592176176826, 0.4273662410113829, 0.42145445202536214], OT_seg: [0.003220138605141706, 0.0014472821808461946, 0.0015632804205273445], DTW: [0.5886139060405832, 0.41465691953506273, 0.4050183988115432], OT: [5.55680647931269e-06, 1.527454845409479e-05, 1.7842457171886248e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 799
+08/02 [09:38:45] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  3%|▎         | 801/30000 [28:29<72:37:06,  8.95s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 810/30000 [28:45<17:14:28,  2.13s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 820/30000 [29:04<14:49:07,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 830/30000 [29:22<14:43:10,  1.82s/it]
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 841/30000 [29:43<15:13:52,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 850/30000 [29:59<14:59:55,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 860/30000 [30:18<14:50:57,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 871/30000 [30:38<15:10:44,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 881/30000 [30:57<14:49:31,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 891/30000 [31:15<14:49:49,  1.83s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 899/30000 [31:30<14:58:30,  1.85s/it]
+
+  3%|▎         | 900/30000 [31:32<15:09:47,  1.88s/it]
+step: 899, CE loss: [5.319145531124539, 4.19370436668396, 4.799710923975164], acc: [0.30952380730046164, 0.3633540350457896, 0.30735930740231215], L1 loss: [0.13474012745751274, 0.10235051146667937, 0.11040376623471577], L2 loss: [0.050292262021038266, 0.03370743979821387, 0.033752813187399595], cosine distance: [0.8635713683234321, 0.8671951967736949, 0.8871875369187557], DTW_seg: [0.5376020391805946, 0.4122252413596864, 0.4238813578142043], OT_seg: [0.0019899306127679826, 0.0016850303633814993, 0.0016188578818336602], DTW: [0.5125862076642878, 0.40225984564012923, 0.4083679090821434], OT: [3.526306189384494e-05, 1.1088612026596447e-05, 1.5087521291428912e-05]
+New best validation loss: 4.7709
+Saving Model Checkpoint for Step 899
+08/02 [09:42:16] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation accuracy: 0.3267
+Saving Model Checkpoint for Step 899
+08/02 [09:42:17] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation OT segment: 0.0018
+Saving Model Checkpoint for Step 899
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 911/30000 [32:19<16:46:29,  2.08s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 921/30000 [32:37<14:56:18,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 930/30000 [32:54<14:47:45,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 940/30000 [33:12<14:34:54,  1.81s/it]
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 951/30000 [33:33<15:06:00,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 961/30000 [33:51<15:02:39,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 971/30000 [34:09<14:37:04,  1.81s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 980/30000 [34:26<14:45:42,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 990/30000 [34:44<14:49:11,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1000/30000 [35:03<14:51:37,  1.84s/it]
+Validating at step 999...
+
+  3%|▎         | 1001/30000 [35:31<77:35:27,  9.63s/it]
+0.6394115090370178 <class 'float'>
+Saving Model Checkpoint for Step 1000
+08/02 [09:45:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/def
+                          ault/dataset_statistics.json
+Saved Model Checkpoint for Step 1000 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1010/30000 [35:48<17:27:29,  2.17s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1020/30000 [36:06<14:48:58,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1030/30000 [36:25<14:48:31,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1041/30000 [36:45<14:30:07,  1.80s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1051/30000 [37:03<14:49:39,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1061/30000 [37:22<15:02:21,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1070/30000 [37:38<14:53:00,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1080/30000 [37:57<14:50:35,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1091/30000 [38:17<14:56:47,  1.86s/it]
+
+
+
+
+
+
+
+
+  4%|▎         | 1100/30000 [38:34<14:58:44,  1.87s/it]
+Validating at step 1099...
+step: 1099, CE loss: [5.090923882494069, 4.587583303451538, 4.5290688411476685], acc: [0.3246753214284627, 0.3244047599534194, 0.3578792349579408], L1 loss: [0.11359534480355003, 0.10475024146338303, 0.09551532474375263], L2 loss: [0.035191174502475095, 0.03054310893639922, 0.02591567244572738], cosine distance: [0.8822711236549147, 0.9007443388303121, 0.9350129378210638], DTW_seg: [0.4440721443137921, 0.3988955577199244, 0.38187858919750195], OT_seg: [0.001735662773725058, 0.0013593329488658208, 0.0012490955387612903], DTW: [0.4280237892498115, 0.3799644109583054, 0.3624551772576837], OT: [2.4312006882812978e-05, 2.0694688550801566e-05, 1.8484421395423606e-05]
+New best validation loss: 4.7359
+Saving Model Checkpoint for Step 1099
+08/02 [09:49:18] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1046
+Saving Model Checkpoint for Step 1099
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0305
+Saving Model Checkpoint for Step 1099
+08/02 [09:49:19] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l2/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation accuracy: 0.3357
+Saving Model Checkpoint for Step 1099
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.3901
+Saving Model Checkpoint for Step 1099
+08/02 [09:49:20] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.4083
+Saving Model Checkpoint for Step 1099
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0014
+Saving Model Checkpoint for Step 1099
+08/02 [09:49:21] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 1099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1110/30000 [39:21<17:37:17,  2.20s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1121/30000 [39:41<14:45:30,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1131/30000 [39:59<15:06:51,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1140/30000 [40:16<14:59:28,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1150/30000 [40:35<14:58:58,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1161/30000 [40:55<14:57:32,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1171/30000 [41:14<15:00:05,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1180/30000 [41:31<14:52:24,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1190/30000 [41:49<14:57:36,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1200/30000 [42:08<14:36:50,  1.83s/it]
+Validating at step 1199...
+step: 1199, CE loss: [4.672300318667763, 6.573439724872567, 5.070730770958795], acc: [0.3518796999203531, 0.22708505435141524, 0.33333333399560716], L1 loss: [0.08812620263350637, 0.15030197902566436, 0.10173669929305712], L2 loss: [0.022288341045771775, 0.056509858783269896, 0.03126416862424877], cosine distance: [0.9448584205225894, 0.8873335918939182, 0.9031714147991604], DTW_seg: [0.35086170903985175, 0.5659850922424332, 0.3951353661053218], OT_seg: [0.0013026502654725463, 0.002966357029040791, 0.00137130407718643], DTW: [0.33088187054184953, 0.550137074899678, 0.38878712824021305], OT: [1.1450954831989829e-05, 6.539267482207304e-06, 2.3798742445416786e-05]
+New best validation cosine distance: 0.9118
+Saving Model Checkpoint for Step 1199
+08/02 [09:52:53] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _cosine_distance/dataset_statistics.
+                          json
+Saved Model Checkpoint for Step 1199 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+
+  4%|▍         | 1201/30000 [42:36<78:27:10,  9.81s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1210/30000 [42:52<17:14:35,  2.16s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1220/30000 [43:11<15:03:10,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1231/30000 [43:31<14:48:50,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1241/30000 [43:50<14:51:32,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1250/30000 [44:07<14:47:15,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1260/30000 [44:25<14:55:34,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1271/30000 [44:45<14:45:51,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1281/30000 [45:04<14:40:24,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1291/30000 [45:22<14:43:09,  1.85s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1299/30000 [45:37<14:50:29,  1.86s/it]
+
+  4%|▍         | 1300/30000 [45:39<14:44:10,  1.85s/it]
+step: 1299, CE loss: [5.610498087746756, 5.928468066202083, 6.429710435867309], acc: [0.24411302870446508, 0.26659959785535303, 0.2517857141792774], L1 loss: [0.15744760468765928, 0.13719967406400493, 0.19957284033298492], L2 loss: [0.0739250102254388, 0.051653623475994864, 0.10201939628459514], cosine distance: [0.8024935820600488, 0.9230520523769755, 0.8596317946910859], DTW_seg: [0.6158057315574713, 0.5511881084351231, 0.7557668649843847], OT_seg: [0.0033913173112382214, 0.0028840658973706395, 0.0044304594386774315], DTW: [0.5863950953060616, 0.5396855081684622, 0.7236375917284256], OT: [1.2315005063235579e-05, 1.4617326912561352e-05, 1.9400848574724022e-05]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1310/30000 [46:25<17:39:13,  2.22s/it]
+
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1321/30000 [46:46<15:17:49,  1.92s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1330/30000 [47:03<14:44:14,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1340/30000 [47:21<14:27:32,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1350/30000 [47:39<14:53:56,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1361/30000 [48:00<14:46:50,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1371/30000 [48:18<14:38:37,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1380/30000 [48:35<14:42:13,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1390/30000 [48:54<14:39:38,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1400/30000 [49:12<14:41:01,  1.85s/it]
+Validating at step 1399...
+step: 1399, CE loss: [5.476934952206082, 5.985724940554786, 6.021458344652474], acc: [0.29365079237355124, 0.2519083993353006, 0.23121387334917323], L1 loss: [0.13826331661807167, 0.1542369735832433, 0.15116336140673975], L2 loss: [0.05174059284230073, 0.0780117093293949, 0.05869548978833105], cosine distance: [0.8520952569113838, 0.8126271544522001, 0.8816658248102045], DTW_seg: [0.550891736035919, 0.5870318198261277, 0.5713569826676994], OT_seg: [0.0021482213800552894, 0.002850512853946648, 0.003212147014535158], DTW: [0.5228668061086966, 0.5217943283664079, 0.5428407042002976], OT: [3.97014579252181e-05, 2.5909782453196252e-05, 6.981756642805661e-06]
+
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1411/30000 [50:00<16:40:48,  2.10s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1421/30000 [50:18<14:52:47,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1430/30000 [50:35<14:34:42,  1.84s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1440/30000 [50:54<14:31:11,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1451/30000 [51:14<14:47:39,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1460/30000 [51:31<14:52:14,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1470/30000 [51:50<14:42:20,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1481/30000 [52:10<14:47:08,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1490/30000 [52:28<15:10:13,  1.92s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1500/30000 [52:46<14:34:26,  1.84s/it]
+Validating at step 1499...
+step: 1499, CE loss: [4.232005233350008, 5.138581906906282, 4.578373571236928], acc: [0.394409936407338, 0.31746031328885244, 0.3586309477686882], L1 loss: [0.09974425172676211, 0.11227117719674351, 0.11100607334325711], L2 loss: [0.029990571773732485, 0.03733940031191315, 0.037957290769554675], cosine distance: [0.8893377729084181, 0.8851994661369709, 0.8619029968976974], DTW_seg: [0.3979923940513396, 0.4445397434266576, 0.4267529664117375], OT_seg: [0.0013386633425748822, 0.001890448395638707, 0.001691508302667472], DTW: [0.38657702688776835, 0.4209188695283935, 0.40509357041270594], OT: [2.6274196249536546e-05, 1.0454656103765432e-05, 3.1671846298432194e-05]
+New best validation loss: 4.6497
+Saving Model Checkpoint for Step 1499
+08/02 [10:03:30] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _loss/dataset_statistics.json
+Saved Model Checkpoint for Step 1499 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 1499 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation accuracy: 0.3568
+Saving Model Checkpoint for Step 1499
+08/02 [10:03:31] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 1499 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 1499 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1510/30000 [53:36<17:32:50,  2.22s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1521/30000 [53:56<14:49:33,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1531/30000 [54:15<14:39:40,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1540/30000 [54:31<14:39:13,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1550/30000 [54:50<14:37:56,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1561/30000 [55:10<14:45:29,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1570/30000 [55:27<14:52:05,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1580/30000 [55:46<14:47:53,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1591/30000 [56:07<14:49:03,  1.88s/it]
+
+
+
+
+
+
+
+
+  5%|▌         | 1599/30000 [56:21<14:29:30,  1.84s/it]
+
+  5%|▌         | 1600/30000 [56:23<14:22:30,  1.82s/it]
+
+  5%|▌         | 1601/30000 [56:48<69:46:22,  8.84s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1611/30000 [57:07<16:11:25,  2.05s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1620/30000 [57:24<14:40:37,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1631/30000 [57:44<14:31:00,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1641/30000 [58:02<14:14:07,  1.81s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1651/30000 [58:21<14:30:06,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1661/30000 [58:47<23:43:01,  3.01s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1671/30000 [59:05<14:45:36,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1680/30000 [59:22<14:29:01,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1690/30000 [59:40<14:32:58,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1700/30000 [59:59<14:32:07,  1.85s/it]
+Validating at step 1699...
+step: 1699, CE loss: [4.388802269230718, 5.2230884875726264, 4.740589499473572], acc: [0.38198757301206177, 0.3302752318185404, 0.3601190447807312], L1 loss: [0.10250883840996286, 0.10946471103971157, 0.10434173885732889], L2 loss: [0.033914431848603745, 0.03306586137297777, 0.037380866007879376], cosine distance: [0.8864822309950123, 0.9208812626129991, 0.8520378867785136], DTW_seg: [0.41692917361737974, 0.43232226418962233, 0.41561284741095017], OT_seg: [0.0022189029064311147, 0.0016100793978321675, 0.001473746361289614], DTW: [0.40976730520888993, 0.42421774899888476, 0.39519130531157837], OT: [1.8764464902310705e-05, 2.3773218356527085e-05, 2.6905097551002965e-05]
+New best validation accuracy: 0.3575
+Saving Model Checkpoint for Step 1699
+08/02 [10:10:43] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 1699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 1699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+
+
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1711/30000 [1:00:45<16:13:47,  2.07s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1721/30000 [1:01:03<14:47:59,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1730/30000 [1:01:20<14:44:45,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1741/30000 [1:01:41<14:38:57,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1751/30000 [1:01:59<14:33:23,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1760/30000 [1:02:16<14:23:50,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1770/30000 [1:02:34<14:22:45,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1781/30000 [1:02:55<14:37:57,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1791/30000 [1:03:13<14:21:58,  1.83s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1799/30000 [1:03:28<14:20:42,  1.83s/it]
+
+  6%|▌         | 1800/30000 [1:03:30<14:25:05,  1.84s/it]
+step: 1799, CE loss: [5.857485320541885, 5.618424072178132, 5.182011226812999], acc: [0.25902668787882877, 0.3342070781856502, 0.3586309490104516], L1 loss: [0.14738204182831796, 0.11397734308324822, 0.10680439199010532], L2 loss: [0.06669074248850018, 0.03618360685885226, 0.03493519333035996], cosine distance: [0.8186108286564167, 0.9110558109545926, 0.8697176724672318], DTW_seg: [0.5859734540685736, 0.44732243232864183, 0.4174279481962851], OT_seg: [0.002916605556249649, 0.001932713650309917, 0.0015338995075154247], DTW: [0.5640123472004962, 0.4370796253939106, 0.40967130643670063], OT: [8.06833266513974e-06, 2.4756218487071403e-05, 2.728365311266118e-05]
+
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1811/30000 [1:04:17<16:03:57,  2.05s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1821/30000 [1:04:35<14:34:36,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1831/30000 [1:04:53<14:17:21,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1841/30000 [1:05:12<14:30:37,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1850/30000 [1:05:28<14:23:33,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1860/30000 [1:05:46<14:20:50,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1870/30000 [1:06:05<14:07:31,  1.81s/it]
+
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1881/30000 [1:06:25<14:16:00,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1891/30000 [1:06:43<14:23:42,  1.84s/it]
+
+
+
+
+
+
+
+
+  6%|▋         | 1899/30000 [1:06:58<14:26:52,  1.85s/it]
+
+  6%|▋         | 1900/30000 [1:07:00<14:18:08,  1.83s/it]
+step: 1899, CE loss: [5.199870761559934, 6.685853715576878, 5.836608845254649], acc: [0.3090379031337037, 0.23451692839233862, 0.30900621025458624], L1 loss: [0.10810039146822326, 0.15552857948865503, 0.10738034999888876], L2 loss: [0.03289221827777065, 0.05940410266549601, 0.030595306307077408], cosine distance: [0.89911943187519, 0.8708756703861876, 0.9292240298312643], DTW_seg: [0.4277331568567038, 0.581247730180611, 0.417613795560058], OT_seg: [0.0021088547463803445, 0.0028442785932235293, 0.0018302922191894663], DTW: [0.41415167105620354, 0.563348735981779, 0.406163372665756], OT: [1.7871208393035337e-05, 7.5754614090497876e-06, 1.2111297686352802e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 1899
+08/02 [10:17:45] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 1899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 1899 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1911/30000 [1:07:47<16:05:53,  2.06s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1921/30000 [1:08:05<14:13:21,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1931/30000 [1:08:24<14:15:58,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1940/30000 [1:08:40<14:10:33,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1950/30000 [1:08:59<14:09:48,  1.82s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1961/30000 [1:09:22<21:14:36,  2.73s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1970/30000 [1:09:38<14:45:06,  1.89s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1980/30000 [1:09:57<14:30:58,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1991/30000 [1:10:17<14:26:51,  1.86s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2000/30000 [1:10:34<14:19:20,  1.84s/it]
+Validating at step 1999...
+
+  7%|▋         | 2001/30000 [1:11:02<76:18:29,  9.81s/it]
+0.5333473682403564 <class 'float'>
+Saving Model Checkpoint for Step 2000
+08/02 [10:21:21] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/def
+                          ault/dataset_statistics.json
+Saved Model Checkpoint for Step 2000 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+  7%|▋         | 2010/30000 [1:11:19<16:56:33,  2.18s/it]
+
+
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2021/30000 [1:11:42<15:42:07,  2.02s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2030/30000 [1:12:11<21:33:11,  2.77s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2040/30000 [1:12:30<14:14:27,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2051/30000 [1:12:50<14:32:25,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2061/30000 [1:13:08<14:12:29,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2071/30000 [1:13:27<14:10:51,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2080/30000 [1:13:43<14:05:33,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2090/30000 [1:14:01<14:13:27,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2100/30000 [1:14:20<14:20:43,  1.85s/it]
+Validating at step 2099...
+
+  7%|▋         | 2101/30000 [1:14:44<66:40:43,  8.60s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2110/30000 [1:15:01<16:33:48,  2.14s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2120/30000 [1:15:19<14:11:28,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2130/30000 [1:15:37<14:17:09,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2141/30000 [1:15:58<14:11:46,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2150/30000 [1:16:15<14:13:44,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2160/30000 [1:16:34<14:11:55,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2170/30000 [1:16:52<14:13:35,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2181/30000 [1:17:12<14:12:36,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2191/30000 [1:17:30<14:14:47,  1.84s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2200/30000 [1:17:47<14:05:15,  1.82s/it]
+Validating at step 2199...
+step: 2199, CE loss: [6.643077041791833, 4.901169238211233, 5.3646488707998525], acc: [0.28183229737307713, 0.3743218870102605, 0.35093167424201965], L1 loss: [0.16838388760452686, 0.1095202734010129, 0.10559006715598314], L2 loss: [0.08475412746243503, 0.04108455194796942, 0.038139946232347385], cosine distance: [0.8227970664915831, 0.8622030366825152, 0.8737936123557712], DTW_seg: [0.6610173318858681, 0.438886244665461, 0.4154722083124182], OT_seg: [0.0032231989129837776, 0.001442360016729452, 0.0017699714156762447], DTW: [0.641361723551796, 0.4176750746021062, 0.3799273875117936], OT: [2.669988266628795e-05, 1.9910254773024693e-05, 2.388827579662283e-05]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2210/30000 [1:18:28<16:19:04,  2.11s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2220/30000 [1:18:46<14:24:02,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2231/30000 [1:19:06<14:10:23,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2241/30000 [1:19:25<14:15:42,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2250/30000 [1:19:42<14:29:15,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2261/30000 [1:20:02<14:29:46,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2271/30000 [1:20:20<13:56:01,  1.81s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2281/30000 [1:20:39<14:18:23,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2290/30000 [1:20:56<14:15:06,  1.85s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2299/30000 [1:21:12<14:13:56,  1.85s/it]
+
+  8%|▊         | 2300/30000 [1:21:14<14:09:20,  1.84s/it]
+step: 2299, CE loss: [6.527414935866212, 6.566715350729882, 5.000881519514261], acc: [0.26050420173632555, 0.23038811266766807, 0.3416789441379075], L1 loss: [0.170454600278069, 0.14782145119815893, 0.10455976733841847], L2 loss: [0.08685523449303278, 0.05564270952361167, 0.03218266306464205], cosine distance: [0.872320754465714, 0.8836591116265754, 0.9148037329162519], DTW_seg: [0.6829189728521993, 0.5588203505608086, 0.42929476272908695], OT_seg: [0.0033899054841723952, 0.002562798847295917, 0.0015243833373252277], DTW: [0.6620963595833519, 0.5475782559118915, 0.39770064456202964], OT: [1.377356746398999e-05, 6.291743685004617e-06, 1.2364042768562372e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2299
+08/02 [10:32:00] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 2299 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 2299 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2310/30000 [1:22:00<16:47:12,  2.18s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2321/30000 [1:22:21<14:19:40,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2330/30000 [1:22:37<14:11:25,  1.85s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2340/30000 [1:22:56<14:11:16,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2351/30000 [1:23:16<14:02:02,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2361/30000 [1:23:35<14:22:34,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2370/30000 [1:23:52<13:57:56,  1.82s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2380/30000 [1:24:10<14:25:57,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2391/30000 [1:24:31<14:01:30,  1.83s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2400/30000 [1:24:47<14:07:41,  1.84s/it]
+Validating at step 2399...
+step: 2399, CE loss: [4.69084063820217, 5.4296077749003535, 5.8505227669425635], acc: [0.4021739091562188, 0.3555900622969088, 0.31677018559497333], L1 loss: [0.08752893073403317, 0.10909755722336147, 0.10315431265727333], L2 loss: [0.027207598110417956, 0.04190877804775601, 0.03048669976060805], cosine distance: [0.8883785372195037, 0.8651234274325164, 0.9270635117655215], DTW_seg: [0.3680309767763163, 0.43400932734411163, 0.39025746378919496], OT_seg: [0.0013458034535212206, 0.0018322623166913824, 0.0017087073533590762], DTW: [0.36169094699756654, 0.40386805182258495, 0.3754280179954848], OT: [2.6698844406734867e-05, 4.0263705467360585e-05, 1.8260909019080408e-05]
+New best validation l1 loss: 0.0999
+Saving Model Checkpoint for Step 2399
+08/02 [10:35:31] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation accuracy: 0.3582
+Saving Model Checkpoint for Step 2399
+08/02 [10:35:32] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _accuracy/dataset_statistics.json
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.3803
+Saving Model Checkpoint for Step 2399
+08/02 [10:35:33] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.3974
+Saving Model Checkpoint for Step 2399
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 2399 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2411/30000 [1:25:35<15:56:53,  2.08s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2421/30000 [1:25:53<14:24:16,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2430/30000 [1:26:10<14:09:41,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2441/30000 [1:26:31<14:30:56,  1.90s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2450/30000 [1:26:48<14:22:36,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2460/30000 [1:27:07<14:13:04,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2471/30000 [1:27:27<14:37:11,  1.91s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2480/30000 [1:27:45<14:28:24,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2491/30000 [1:28:05<14:05:54,  1.85s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2500/30000 [1:28:22<14:04:53,  1.84s/it]
+Validating at step 2499...
+step: 2499, CE loss: [5.510709227937641, 5.274570163415403, 4.78731675238549], acc: [0.3217893179618951, 0.313411076458133, 0.3616636531262458], L1 loss: [0.10735931112007661, 0.10292117723396846, 0.10995994545990907], L2 loss: [0.031224135723378923, 0.031098694217448333, 0.04119056134331453], cosine distance: [0.9009892302330094, 0.9067703534145745, 0.8509634288051461], DTW_seg: [0.41120661233748634, 0.41389581417863375, 0.45191111642418563], OT_seg: [0.0015783140350614398, 0.001962745882666792, 0.0017315280542596788], DTW: [0.39167239789545066, 0.3972263155140645, 0.4194495509694297], OT: [1.1385353619692409e-05, 2.5093442167354484e-05, 3.322646972270598e-05]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2511/30000 [1:29:07<15:49:12,  2.07s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2520/30000 [1:29:24<14:23:44,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2531/30000 [1:29:45<14:09:52,  1.86s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2541/30000 [1:30:03<13:59:11,  1.83s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2550/30000 [1:30:20<14:19:42,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2560/30000 [1:30:39<13:52:15,  1.82s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2571/30000 [1:30:59<14:10:50,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2581/30000 [1:31:17<14:10:12,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2591/30000 [1:31:36<13:57:08,  1.83s/it]
+
+
+
+
+
+
+
+
+  9%|▊         | 2599/30000 [1:31:51<13:59:22,  1.84s/it]
+
+  9%|▊         | 2600/30000 [1:31:52<13:55:22,  1.83s/it]
+step: 2599, CE loss: [5.924168240893018, 5.274806032375413, 5.255274751911992], acc: [0.2637362647187579, 0.3221574340547834, 0.3571428552917812], L1 loss: [0.15001693867392593, 0.09962842871948165, 0.10399464550225632], L2 loss: [0.07058829130543458, 0.0289374266047867, 0.03776999567027973], cosine distance: [0.8031390933217583, 0.9094332468752958, 0.871924877166748], DTW_seg: [0.5911589340101885, 0.39771596827242295, 0.4194435069344166], OT_seg: [0.0033642114462677972, 0.0019247811169285638, 0.0013469735720375107], DTW: [0.5671071217359283, 0.37246333399248266, 0.4075342183888644], OT: [1.3357372518231446e-05, 2.9156120231205678e-05, 2.282198323563831e-05]
+
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2611/30000 [1:32:39<16:02:22,  2.11s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2621/30000 [1:32:58<14:03:08,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2630/30000 [1:33:15<14:01:32,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2641/30000 [1:33:35<14:18:12,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2651/30000 [1:33:54<13:57:48,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2660/30000 [1:34:10<14:19:19,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2671/30000 [1:34:31<14:03:49,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2681/30000 [1:34:49<14:12:05,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2691/30000 [1:35:08<14:08:45,  1.86s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2699/30000 [1:35:23<13:50:16,  1.82s/it]
+
+  9%|▉         | 2700/30000 [1:35:24<13:44:22,  1.81s/it]
+step: 2699, CE loss: [6.17932636659224, 5.457347744389584, 6.154258759125419], acc: [0.2629513344266912, 0.3248120267140238, 0.3027950292048247], L1 loss: [0.14673562724511702, 0.10680820314507736, 0.10943856641002324], L2 loss: [0.06530163879250432, 0.030672484871588256, 0.032106908281212265], cosine distance: [0.8179559940165215, 0.9022142749083669, 0.9234002595362456], DTW_seg: [0.5764564803989559, 0.41291461137153973, 0.41362258446162753], OT_seg: [0.002828928454237401, 0.0014320262676794143, 0.001769255016584639], DTW: [0.5592735788862043, 0.3899894078830705, 0.4025148325914136], OT: [1.0393695541963001e-05, 1.0033217567076787e-05, 1.160774180312254e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2699
+08/02 [10:46:10] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 2699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  9%|▉         | 2701/30000 [1:35:53<75:17:28,  9.93s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2710/30000 [1:36:11<17:54:29,  2.36s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2721/30000 [1:36:31<14:02:13,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2731/30000 [1:36:50<14:16:36,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2740/30000 [1:37:07<14:03:01,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2751/30000 [1:37:27<14:00:47,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2761/30000 [1:37:46<13:53:41,  1.84s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2770/30000 [1:38:03<14:03:01,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2781/30000 [1:38:23<14:09:15,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2791/30000 [1:38:42<14:12:06,  1.88s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2800/30000 [1:38:58<14:03:56,  1.86s/it]
+Validating at step 2799...
+step: 2799, CE loss: [6.755119759103526, 6.88598233039933, 4.971700414858367], acc: [0.2802795039732819, 0.28282828207569893, 0.3609022554598357], L1 loss: [0.17232372498382692, 0.12862520085440743, 0.08760725730343868], L2 loss: [0.08869914599167912, 0.04124430363828486, 0.024978711907016605], cosine distance: [0.8207345540108888, 0.9043597001017947, 0.9437585266012894], DTW_seg: [0.6708509656612204, 0.4859826891808781, 0.35491346599369633], OT_seg: [0.0031280073836866375, 0.0020078339647736027, 0.0014495193330170046], DTW: [0.6432645913518599, 0.47464127291987973, 0.32493822830322144], OT: [2.364921653453251e-05, 4.678324112574339e-05, 2.3532880644517857e-05]
+
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2811/30000 [1:39:45<15:35:05,  2.06s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2821/30000 [1:40:04<14:02:29,  1.86s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2831/30000 [1:40:22<13:46:31,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2841/30000 [1:40:41<14:08:02,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2851/30000 [1:40:59<13:47:22,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2861/30000 [1:41:18<14:04:47,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2871/30000 [1:41:37<14:14:39,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2881/30000 [1:41:56<14:20:11,  1.90s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2891/30000 [1:42:15<14:21:27,  1.91s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2900/30000 [1:42:33<14:33:23,  1.93s/it]
+Validating at step 2899...
+
+ 10%|▉         | 2901/30000 [1:43:02<77:19:22, 10.27s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2910/30000 [1:43:19<16:37:20,  2.21s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2921/30000 [1:43:40<13:50:52,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2931/30000 [1:43:58<14:10:13,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2941/30000 [1:44:17<13:56:43,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2951/30000 [1:44:36<14:16:41,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2960/30000 [1:44:53<14:07:58,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2971/30000 [1:45:14<13:52:22,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2981/30000 [1:45:32<13:58:49,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2991/30000 [1:45:51<13:59:25,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3000/30000 [1:46:08<14:19:16,  1.91s/it]
+Validating at step 2999...
+
+ 10%|█         | 3001/30000 [1:46:38<78:23:58, 10.45s/it]
+0.4363442063331604 <class 'float'>
+Saving Model Checkpoint for Step 3000
+08/02 [10:56:57] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/def
+                          ault/dataset_statistics.json
+Saved Model Checkpoint for Step 3000 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3011/30000 [1:47:01<16:16:42,  2.17s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3021/30000 [1:47:19<13:45:59,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3031/30000 [1:47:38<14:01:55,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3041/30000 [1:47:57<14:15:07,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3050/30000 [1:48:14<13:56:14,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3061/30000 [1:48:34<13:43:37,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3071/30000 [1:48:53<14:07:18,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3080/30000 [1:49:09<13:51:12,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3091/30000 [1:49:30<13:57:52,  1.87s/it]
+
+
+
+
+
+
+
+
+ 10%|█         | 3100/30000 [1:49:47<14:11:55,  1.90s/it]
+Validating at step 3099...
+
+ 10%|█         | 3101/30000 [1:50:14<70:56:38,  9.49s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3111/30000 [1:50:32<15:23:52,  2.06s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3121/30000 [1:50:51<13:45:38,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3130/30000 [1:51:08<13:58:37,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3141/30000 [1:51:28<13:35:34,  1.82s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3151/30000 [1:51:47<13:50:55,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3161/30000 [1:52:05<13:55:38,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3171/30000 [1:52:24<14:02:39,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3181/30000 [1:52:43<13:55:41,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3191/30000 [1:53:01<13:45:58,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3200/30000 [1:53:18<14:01:36,  1.88s/it]
+Validating at step 3199...
+
+ 11%|█         | 3201/30000 [1:53:45<70:07:03,  9.42s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3211/30000 [1:54:03<15:27:59,  2.08s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3221/30000 [1:54:22<14:02:01,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3231/30000 [1:54:40<13:37:46,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3241/30000 [1:54:59<13:54:38,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3251/30000 [1:55:17<13:59:22,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3261/30000 [1:55:36<13:52:22,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3271/30000 [1:55:54<13:35:49,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3281/30000 [1:56:13<13:59:23,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3290/30000 [1:56:30<13:58:22,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3300/30000 [1:56:49<13:40:10,  1.84s/it]
+Validating at step 3299...
+
+ 11%|█         | 3301/30000 [1:57:17<72:09:03,  9.73s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3311/30000 [1:57:35<14:59:24,  2.02s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3321/30000 [1:57:54<13:35:15,  1.83s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3331/30000 [1:58:12<13:50:04,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3341/30000 [1:58:31<14:04:00,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3350/30000 [1:58:48<13:57:05,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3360/30000 [1:59:15<15:37:27,  2.11s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3371/30000 [1:59:36<13:55:54,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3380/30000 [1:59:52<13:45:52,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3391/30000 [2:00:13<14:02:33,  1.90s/it]
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3399/30000 [2:00:28<13:49:51,  1.87s/it]
+
+ 11%|█▏        | 3400/30000 [2:00:30<13:42:57,  1.86s/it]
+
+ 11%|█▏        | 3401/30000 [2:00:57<69:23:29,  9.39s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3411/30000 [2:01:16<15:29:36,  2.10s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3421/30000 [2:01:35<14:10:15,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3430/30000 [2:01:52<14:02:16,  1.90s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3441/30000 [2:02:13<13:34:23,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3451/30000 [2:02:32<14:10:11,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3460/30000 [2:02:48<13:43:05,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3471/30000 [2:03:09<13:52:59,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3481/30000 [2:03:28<13:44:17,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3490/30000 [2:03:45<13:46:01,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3500/30000 [2:04:03<13:47:18,  1.87s/it]
+Validating at step 3499...
+step: 3499, CE loss: [6.330965215033228, 6.163764010535346, 4.803112112957498], acc: [0.24960753452646864, 0.29999999900658925, 0.39285714211671247], L1 loss: [0.1564318128339537, 0.13408030718564987, 0.10516381198945253], L2 loss: [0.07439457682462838, 0.05051439677675565, 0.036186277218486954], cosine distance: [0.8004712599974412, 0.8613909853829278, 0.8748942820922189], DTW_seg: [0.6213426195621075, 0.5422125351441895, 0.4435723769260996], OT_seg: [0.0036351835857520473, 0.0021883280545333603, 0.0018202984518615624], DTW: [0.5724646754677427, 0.5077563897888067, 0.4342661653762696], OT: [1.4880730605934724e-05, 5.1652905170782864e-05, 2.4645167010797785e-05]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3511/30000 [2:04:45<14:58:46,  2.04s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3521/30000 [2:05:04<13:51:31,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3530/30000 [2:05:21<13:40:05,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3541/30000 [2:05:41<13:53:23,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3551/30000 [2:06:00<13:52:43,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3560/30000 [2:06:21<16:48:28,  2.29s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3571/30000 [2:06:41<13:33:26,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3581/30000 [2:07:00<13:35:34,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3591/30000 [2:07:18<13:54:53,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3600/30000 [2:07:35<13:36:06,  1.85s/it]
+Validating at step 3599...
+
+ 12%|█▏        | 3601/30000 [2:08:08<82:48:38, 11.29s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3610/30000 [2:08:25<16:28:14,  2.25s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3621/30000 [2:08:46<13:47:57,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3631/30000 [2:09:04<13:33:32,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3640/30000 [2:09:21<13:19:33,  1.82s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3651/30000 [2:09:41<13:44:27,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3661/30000 [2:10:00<13:46:56,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3670/30000 [2:10:17<13:42:19,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3681/30000 [2:10:37<13:29:08,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3691/30000 [2:10:56<13:27:26,  1.84s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3700/30000 [2:11:12<13:33:36,  1.86s/it]
+Validating at step 3699...
+
+ 12%|█▏        | 3701/30000 [2:11:41<72:59:24,  9.99s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3711/30000 [2:12:00<15:18:08,  2.10s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3721/30000 [2:12:19<13:59:30,  1.92s/it]
+
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3731/30000 [2:12:37<13:44:36,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3741/30000 [2:12:56<13:36:12,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3751/30000 [2:13:22<21:43:26,  2.98s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3761/30000 [2:13:41<13:52:49,  1.90s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3771/30000 [2:13:59<13:33:21,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3781/30000 [2:14:18<13:37:00,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3791/30000 [2:14:37<13:43:34,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3800/30000 [2:14:54<13:35:16,  1.87s/it]
+Validating at step 3799...
+
+ 13%|█▎        | 3801/30000 [2:15:23<74:10:24, 10.19s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3811/30000 [2:15:42<15:25:18,  2.12s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3821/30000 [2:16:01<13:42:01,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3831/30000 [2:16:19<13:25:52,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3841/30000 [2:16:38<13:40:30,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3850/30000 [2:16:56<13:39:25,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3861/30000 [2:17:16<13:46:13,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3871/30000 [2:17:35<13:41:33,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3881/30000 [2:17:54<13:55:56,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3891/30000 [2:18:13<13:44:55,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3900/30000 [2:18:30<13:38:24,  1.88s/it]
+Validating at step 3899...
+
+ 13%|█▎        | 3901/30000 [2:18:58<70:36:48,  9.74s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3911/30000 [2:19:17<15:08:50,  2.09s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3920/30000 [2:19:34<13:35:28,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3931/30000 [2:19:54<13:36:26,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3941/30000 [2:20:13<13:37:31,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3951/30000 [2:20:31<13:27:40,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3960/30000 [2:20:48<13:34:32,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3971/30000 [2:21:08<13:24:22,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3981/30000 [2:21:27<13:38:48,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3990/30000 [2:21:44<13:21:39,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4000/30000 [2:22:03<13:51:06,  1.92s/it]
+Validating at step 3999...
+
+ 13%|█▎        | 4001/30000 [2:22:30<69:07:55,  9.57s/it]
+0.39041605591773987 <class 'float'>
+Saving Model Checkpoint for Step 4000
+08/02 [11:32:49] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/def
+                          ault/dataset_statistics.json
+Saved Model Checkpoint for Step 4000 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4011/30000 [2:22:49<14:58:11,  2.07s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4021/30000 [2:23:08<13:32:00,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4031/30000 [2:23:26<13:22:23,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4041/30000 [2:23:45<13:38:09,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4051/30000 [2:24:09<19:06:56,  2.65s/it]
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4060/30000 [2:24:28<14:54:16,  2.07s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4071/30000 [2:24:48<13:19:18,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4081/30000 [2:25:07<13:30:36,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4091/30000 [2:25:25<13:14:42,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4100/30000 [2:25:42<13:20:03,  1.85s/it]
+Validating at step 4099...
+step: 4099, CE loss: [7.31199287121592, 5.7575946278042265, 5.663466307991429], acc: [0.25023342873535903, 0.33333333399560716, 0.30827067996326246], L1 loss: [0.17997474466858346, 0.09017118546697829, 0.10292791551665256], L2 loss: [0.09692068805832879, 0.023896940373298196, 0.027245508742175604], cosine distance: [0.8603632122862572, 0.9320888678232829, 0.9121782836161162], DTW_seg: [0.7072677169987063, 0.3513796433246932, 0.3957640161402594], OT_seg: [0.003358623972464803, 0.0010240139628836283, 0.0012974155606515052], DTW: [0.6897005684175133, 0.3415901888558294, 0.3837415284919302], OT: [6.684441053796804e-06, 1.3586417379830188e-05, 1.0834589661186291e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 4099
+08/02 [11:36:27] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _ot/dataset_statistics.json
+Saved Model Checkpoint for Step 4099 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+ 14%|█▎        | 4101/30000 [2:26:11<70:27:13,  9.79s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4111/30000 [2:26:29<14:52:16,  2.07s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4121/30000 [2:26:48<13:27:50,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4130/30000 [2:27:04<13:12:31,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4141/30000 [2:27:25<13:34:11,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4151/30000 [2:27:43<13:23:12,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4160/30000 [2:28:00<13:19:59,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4171/30000 [2:28:21<13:17:11,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4181/30000 [2:28:39<13:06:24,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4191/30000 [2:28:58<13:08:57,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4200/30000 [2:29:14<13:24:01,  1.87s/it]
+Validating at step 4199...
+
+ 14%|█▍        | 4201/30000 [2:29:42<69:31:27,  9.70s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4211/30000 [2:30:01<14:51:49,  2.07s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4221/30000 [2:30:20<13:22:05,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4230/30000 [2:30:36<13:38:20,  1.91s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4241/30000 [2:30:57<13:24:02,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4251/30000 [2:31:16<13:36:01,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4261/30000 [2:31:34<13:12:47,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4270/30000 [2:31:51<13:10:01,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4281/30000 [2:32:11<13:10:49,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4291/30000 [2:32:30<13:29:33,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4300/30000 [2:32:47<13:27:40,  1.89s/it]
+Validating at step 4299...
+
+ 14%|█▍        | 4301/30000 [2:33:16<70:37:52,  9.89s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4310/30000 [2:33:33<15:44:13,  2.21s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4321/30000 [2:33:54<13:40:58,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4330/30000 [2:34:11<13:18:03,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4341/30000 [2:34:31<13:18:09,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4351/30000 [2:34:50<13:20:25,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4361/30000 [2:35:09<13:23:57,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4371/30000 [2:35:28<13:40:18,  1.92s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4381/30000 [2:35:47<13:25:24,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4391/30000 [2:36:06<13:16:27,  1.87s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4400/30000 [2:36:28<14:37:17,  2.06s/it]
+Validating at step 4399...
+
+ 15%|█▍        | 4401/30000 [2:36:57<71:46:58, 10.09s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4411/30000 [2:37:16<15:35:00,  2.19s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4420/30000 [2:37:33<13:24:02,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4431/30000 [2:37:54<13:22:58,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4441/30000 [2:38:12<13:05:35,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4451/30000 [2:38:31<13:28:40,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4461/30000 [2:38:50<13:18:07,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4471/30000 [2:39:09<13:12:57,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4480/30000 [2:39:25<12:50:47,  1.81s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4491/30000 [2:39:46<13:13:22,  1.87s/it]
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4500/30000 [2:40:03<13:23:31,  1.89s/it]
+Validating at step 4499...
+step: 4499, CE loss: [7.238745896712594, 6.082717190618101, 5.9191538492838545], acc: [0.2872670783620814, 0.3400621129118878, 0.3174603197309706], L1 loss: [0.1654548900930778, 0.10750213718932608, 0.09878618924154176], L2 loss: [0.08301600168013702, 0.0380863576884503, 0.028375804062104888], cosine distance: [0.8324855747430221, 0.87551363395608, 0.9128074129422505], DTW_seg: [0.649955549174491, 0.42627636237104066, 0.3891633080839598], OT_seg: [0.003064415024321749, 0.0012307855793638853, 0.0010780957263079526], DTW: [0.6421267215046298, 0.41206791907007284, 0.3715450776919153], OT: [2.0545858730459822e-05, 1.8153968285116066e-05, 6.944554631341766e-06]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4511/30000 [2:40:50<14:32:50,  2.05s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4521/30000 [2:41:08<13:15:33,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4530/30000 [2:41:25<13:12:50,  1.87s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4541/30000 [2:41:46<13:12:29,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4551/30000 [2:42:04<13:12:28,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4560/30000 [2:42:21<13:18:35,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4571/30000 [2:42:42<13:12:43,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4581/30000 [2:43:01<13:06:55,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4590/30000 [2:43:18<12:58:10,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4600/30000 [2:43:37<13:21:57,  1.89s/it]
+Validating at step 4599...
+
+ 15%|█▌        | 4601/30000 [2:44:02<62:52:30,  8.91s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4611/30000 [2:44:21<14:39:00,  2.08s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4620/30000 [2:44:38<13:02:32,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4631/30000 [2:44:58<13:08:16,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4641/30000 [2:45:17<13:05:17,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4651/30000 [2:45:39<14:40:58,  2.09s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4660/30000 [2:45:55<13:15:35,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4671/30000 [2:46:18<14:04:36,  2.00s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4681/30000 [2:46:36<13:07:42,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4691/30000 [2:46:55<12:56:37,  1.84s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4699/30000 [2:47:10<13:03:00,  1.86s/it]
+
+ 16%|█▌        | 4700/30000 [2:47:12<13:06:30,  1.87s/it]
+step: 4699, CE loss: [7.909730978415046, 5.912859533250947, 6.233199014161762], acc: [0.2635814889635838, 0.3490427090335138, 0.31278195694873207], L1 loss: [0.14037164877837813, 0.10124462858303306, 0.10223205630716524], L2 loss: [0.04992922914909645, 0.027576481789043268, 0.028062037496190323], cosine distance: [0.9253938315619885, 0.931832628766286, 0.8994298313793383], DTW_seg: [0.5443137166182199, 0.40170097530896315, 0.3942352256263246], OT_seg: [0.0024633640623698615, 0.0011804009899896895, 0.0015130229594417747], DTW: [0.5334011430604978, 0.3910831235286746, 0.37915536304988745], OT: [1.0591242654414605e-05, 1.515010860770889e-05, 1.6660360304026042e-05]
+New best validation cosine distance: 0.9189
+Saving Model Checkpoint for Step 4699
+08/02 [11:57:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _cosine_distance/dataset_statistics.
+                          json
+Saved Model Checkpoint for Step 4699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 4699 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4711/30000 [2:47:53<14:36:43,  2.08s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4720/30000 [2:48:10<12:53:39,  1.84s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4731/30000 [2:48:30<12:58:57,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4741/30000 [2:48:48<13:07:36,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4751/30000 [2:49:07<13:14:46,  1.89s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4761/30000 [2:49:26<13:23:49,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4771/30000 [2:49:45<13:09:33,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4781/30000 [2:50:05<13:32:49,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4790/30000 [2:50:22<13:05:23,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4800/30000 [2:50:41<13:11:03,  1.88s/it]
+Validating at step 4799...
+
+ 16%|█▌        | 4801/30000 [2:51:09<68:29:48,  9.79s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4811/30000 [2:51:27<14:28:09,  2.07s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4821/30000 [2:51:46<13:11:20,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4831/30000 [2:52:05<13:06:58,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4840/30000 [2:52:22<13:23:28,  1.92s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4851/30000 [2:52:42<13:01:20,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4861/30000 [2:53:01<12:49:23,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4871/30000 [2:53:19<12:58:47,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4881/30000 [2:53:38<13:08:11,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4891/30000 [2:53:57<13:05:31,  1.88s/it]
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4899/30000 [2:54:12<12:59:13,  1.86s/it]
+
+ 16%|█▋        | 4900/30000 [2:54:14<12:54:40,  1.85s/it]
+step: 4899, CE loss: [7.012741680983659, 5.937143183246102, 6.298527702532317], acc: [0.25196232278268416, 0.35051546207408313, 0.3172932367575796], L1 loss: [0.1474682269515572, 0.10223801441721081, 0.10234999484137484], L2 loss: [0.06824696135635559, 0.029317921200363906, 0.027991735817570435], cosine distance: [0.8130201625299978, 0.9249965800452478, 0.9060336050234343], DTW_seg: [0.5851285410092597, 0.4138134048281844, 0.3876356188268899], OT_seg: [0.0033198397508827555, 0.0012161638295908623, 0.0011264642079742116], DTW: [0.553088182335359, 0.3876333634816112, 0.3801784953390933], OT: [1.0317554167673414e-05, 1.6707989204321802e-05, 9.075076448481723e-06]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4911/30000 [2:55:01<14:25:15,  2.07s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4921/30000 [2:55:19<12:52:43,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4930/30000 [2:55:36<12:58:49,  1.86s/it]
+
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4941/30000 [2:55:57<13:04:32,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4951/30000 [2:56:15<12:39:58,  1.82s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4961/30000 [2:56:38<13:28:11,  1.94s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4971/30000 [2:56:56<13:01:55,  1.87s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4981/30000 [2:57:15<13:03:12,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4991/30000 [2:57:34<13:13:53,  1.90s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5000/30000 [2:57:51<12:52:05,  1.85s/it]
+Validating at step 4999...
+step: 4999, CE loss: [5.393183417942213, 5.657513759010716, 6.972504760908044], acc: [0.38198757560356805, 0.34586466143005773, 0.2826086943564208], L1 loss: [0.09599318744047829, 0.09095680721496281, 0.10505420163921687], L2 loss: [0.029541436643542154, 0.026031216082016105, 0.030406080591289894], cosine distance: [0.8903331316035726, 0.9375171586086876, 0.9277601293895555], DTW_seg: [0.3961191145994866, 0.36771043520425106, 0.40206701062634187], OT_seg: [0.0016036116066204826, 0.0015556654034162682, 0.0016403509400350078], DTW: [0.3887111381628662, 0.3387223953580643, 0.380298063793337], OT: [2.8043390527937258e-05, 2.6535835125968243e-05, 9.776251951538623e-06]
+New best validation l1 loss: 0.0973
+Saving Model Checkpoint for Step 4999
+08/02 [12:08:35] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l1/dataset_statistics.json
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0287
+Saving Model Checkpoint for Step 4999
+08/02 [12:08:36] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _l2/dataset_statistics.json
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation normalized DTW: 0.3692
+Saving Model Checkpoint for Step 4999
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw/dataset_statistics.json
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.3886
+Saving Model Checkpoint for Step 4999
+08/02 [12:08:37] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/val
+                          _dtw_seg/dataset_statistics.json
+
+ 17%|█▋        | 5001/30000 [2:58:20<69:09:50,  9.96s/it]
+Saved Model Checkpoint for Step 4999 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+0.3668491542339325 <class 'float'>
+Saving Model Checkpoint for Step 5000
+08/02 [12:08:39] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/val_ot_5000+7700+dataset+libero
+                          _goal_no_noops+b56+lr-0.0005+shf1000
+                          +lora-r32+dropout-0.0--image_aug/def
+                          ault/dataset_statistics.json
+Saved Model Checkpoint for Step 5000 at: runs/val_ot_5000+7700+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5011/30000 [2:58:39<14:33:39,  2.10s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5021/30000 [2:58:58<12:51:21,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5032/30000 [2:59:18<12:45:27,  1.84s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5041/30000 [2:59:35<13:40:54,  1.97s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5051/30000 [2:59:54<12:40:03,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5061/30000 [3:00:12<12:47:35,  1.85s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5071/30000 [3:00:31<12:49:14,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5081/30000 [3:00:49<12:35:44,  1.82s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5091/30000 [3:01:07<12:45:26,  1.84s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5100/30000 [3:01:24<12:32:30,  1.81s/it]
+Validating at step 5099...
+
+ 17%|█▋        | 5101/30000 [3:01:54<70:56:18, 10.26s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5112/30000 [3:02:14<13:56:37,  2.02s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5121/30000 [3:02:31<12:50:28,  1.86s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5131/30000 [3:02:50<13:02:46,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5141/30000 [3:03:08<12:58:13,  1.88s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5151/30000 [3:03:27<13:02:32,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5161/30000 [3:03:45<12:39:02,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5171/30000 [3:04:04<12:36:21,  1.83s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5181/30000 [3:04:22<12:38:16,  1.83s/it]
+
+
+

@@ -102,7 +102,7 @@ class OpenVLAServer:
             # Run VLA Inference
             prompt = get_openvla_prompt(instruction, self.openvla_path)
             inputs = self.processor(prompt, Image.fromarray(image).convert("RGB")).to(self.device, dtype=torch.bfloat16)
-            action = self.vla.predict_action(**inputs, unnorm_key=unnorm_key, do_sample=False)
+            action, _ = self.vla.predict_action(**inputs, unnorm_key=unnorm_key, do_sample=False)
             if double_encode:
                 return JSONResponse(json_numpy.dumps(action))
             else:

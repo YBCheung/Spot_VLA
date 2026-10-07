@@ -1,0 +1,379 @@
+{
+  "metrics": [
+    {
+      "metric": "val_dtw_distance",
+      "pretty": "DTW distance",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.8382709675438977,
+      "ci95": [
+        0.4428602732250275,
+        0.9874867196905114
+      ],
+      "boot_P(rho>0)": 0.9983,
+      "regret": 0.0
+    },
+    {
+      "metric": "val_dtw_distance",
+      "pretty": "DTW distance",
+      "subset": "no499(10)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.7841981513472833,
+      "ci95": [
+        0.33439950036284777,
+        0.9655813115572083
+      ],
+      "boot_P(rho>0)": 0.9969,
+      "regret": 0.0
+    },
+    {
+      "metric": "val_dtw_distance",
+      "pretty": "DTW distance",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.21518987341772153,
+        0.8987341772151899
+      ],
+      "boot_P(rho>0)": 0.9530953095309531,
+      "regret": 0.0
+    },
+    {
+      "metric": "val_ot_distance",
+      "pretty": "OT distance",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.6423706870852693,
+      "ci95": [
+        0.04695253109342718,
+        0.9270819206677493
+      ],
+      "boot_P(rho>0)": 0.9776,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_ot_distance",
+      "pretty": "OT distance",
+      "subset": "no499(10)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.7841981513472833,
+      "ci95": [
+        0.31775713099303593,
+        0.9627329192546584
+      ],
+      "boot_P(rho>0)": 0.9974,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_ot_distance",
+      "pretty": "OT distance",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.22131868833257964,
+        0.8987341772151899
+      ],
+      "boot_P(rho>0)": 0.9463,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_cosine_distance",
+      "pretty": "cosine distance",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 28499,
+      "selected_Q": 0.73,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.8792733518259361,
+      "ci95": [
+        0.5354825491266189,
+        0.997604786979686
+      ],
+      "boot_P(rho>0)": 0.9997,
+      "regret": 0.050000000000000044
+    },
+    {
+      "metric": "val_cosine_distance",
+      "pretty": "cosine distance",
+      "subset": "no499(10)",
+      "selected_checkpoint": 28499,
+      "selected_Q": 0.73,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.8389096502784891,
+      "ci95": [
+        0.4117647058823529,
+        0.9901523028437645
+      ],
+      "boot_P(rho>0)": 0.9981,
+      "regret": 0.050000000000000044
+    },
+    {
+      "metric": "val_cosine_distance",
+      "pretty": "cosine distance",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 28499,
+      "selected_Q": 0.73,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.6826469692905576,
+      "ci95": [
+        -0.0395044735862605,
+        0.9607689228305228
+      ],
+      "boot_P(rho>0)": 0.9714,
+      "regret": 0.050000000000000044
+    },
+    {
+      "metric": "val_nll",
+      "pretty": "action NLL",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.8109360446892052,
+      "ci95": [
+        0.3749851895734597,
+        0.9715639810426541
+      ],
+      "boot_P(rho>0)": 0.9984,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_nll",
+      "pretty": "action NLL",
+      "subset": "no499(10)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.7477238187264795,
+      "ci95": [
+        0.23791547571544322,
+        0.9535573682822281
+      ],
+      "boot_P(rho>0)": 0.9943,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_nll",
+      "pretty": "action NLL",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.21518987341772153,
+        0.8987170342729172
+      ],
+      "boot_P(rho>0)": 0.9516,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_ce_loss",
+      "pretty": "CE loss (baseline)",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.8109360446892052,
+      "ci95": [
+        0.39716335431134403,
+        0.971830985915493
+      ],
+      "boot_P(rho>0)": 0.9986,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_ce_loss",
+      "pretty": "CE loss (baseline)",
+      "subset": "no499(10)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.7477238187264795,
+      "ci95": [
+        0.24182798595568056,
+        0.9607843137254902
+      ],
+      "boot_P(rho>0)": 0.9956,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_ce_loss",
+      "pretty": "CE loss (baseline)",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 33999,
+      "selected_Q": 0.74,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.2,
+        0.8987170342729172
+      ],
+      "boot_P(rho>0)": 0.9554,
+      "regret": 0.040000000000000036
+    },
+    {
+      "metric": "val_l1_loss",
+      "pretty": "L1 loss (baseline)",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 29999,
+      "selected_Q": null,
+      "selected_evaluated": false,
+      "n": 11,
+      "spearman_rho": 0.8382709675438977,
+      "ci95": [
+        0.4478790490727937,
+        0.9899497487437185
+      ],
+      "boot_P(rho>0)": 0.9986,
+      "regret": NaN
+    },
+    {
+      "metric": "val_l1_loss",
+      "pretty": "L1 loss (baseline)",
+      "subset": "no499(10)",
+      "selected_checkpoint": 29999,
+      "selected_Q": null,
+      "selected_evaluated": false,
+      "n": 10,
+      "spearman_rho": 0.7841981513472833,
+      "ci95": [
+        0.31349348720910514,
+        0.9627329192546584
+      ],
+      "boot_P(rho>0)": 0.9973,
+      "regret": NaN
+    },
+    {
+      "metric": "val_l1_loss",
+      "pretty": "L1 loss (baseline)",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 29999,
+      "selected_Q": null,
+      "selected_evaluated": false,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.21518987341772153,
+        0.8822665767598178
+      ],
+      "boot_P(rho>0)": 0.9547,
+      "regret": NaN
+    },
+    {
+      "metric": "val_l2_loss",
+      "pretty": "L2 loss (baseline)",
+      "subset": "ALL(11)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 11,
+      "spearman_rho": 0.8382709675438977,
+      "ci95": [
+        0.4450567027937149,
+        0.9836092547280011
+      ],
+      "boot_P(rho>0)": 0.9986,
+      "regret": 0.0
+    },
+    {
+      "metric": "val_l2_loss",
+      "pretty": "L2 loss (baseline)",
+      "subset": "no499(10)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 10,
+      "spearman_rho": 0.7841981513472833,
+      "ci95": [
+        0.32075471698113206,
+        0.9627329192546584
+      ],
+      "boot_P(rho>0)": 0.9968,
+      "regret": 0.0
+    },
+    {
+      "metric": "val_l2_loss",
+      "pretty": "L2 loss (baseline)",
+      "subset": "SR>0.6(8)",
+      "selected_checkpoint": 21499,
+      "selected_Q": 0.78,
+      "selected_evaluated": true,
+      "n": 8,
+      "spearman_rho": 0.5748606057183643,
+      "ci95": [
+        -0.2,
+        0.8987341772151899
+      ],
+      "boot_P(rho>0)": 0.9551,
+      "regret": 0.0
+    }
+  ],
+  "subsets": {
+    "ALL(11)": [
+      499,
+      4499,
+      8499,
+      12499,
+      16499,
+      20499,
+      21499,
+      24499,
+      28499,
+      32499,
+      33999
+    ],
+    "no499(10)": [
+      4499,
+      8499,
+      12499,
+      16499,
+      20499,
+      21499,
+      24499,
+      28499,
+      32499,
+      33999
+    ],
+    "SR>0.6(8)": [
+      8499,
+      16499,
+      20499,
+      21499,
+      24499,
+      28499,
+      32499,
+      33999
+    ]
+  },
+  "bootstrap_B": 10000,
+  "tolerance_frac": 0.01
+}

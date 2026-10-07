@@ -105,14 +105,21 @@ if local_debug:
 @dataclass
 class FinetuneConfig:
     # fmt: off
+<<<<<<< HEAD
     # vla_path: str = "openvla/openvla-7b"                            # Path to OpenVLA model (on HuggingFace Hub)
     vla_path: str = "/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/Good_726_H200_3k_2h_openvla-7b+dataset+libero_goal_no_noops+b16+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance"
     # Directory Paths
     # data_root_dir_string = "dataset/tensorflow_datasets/spot_carrot_l/"
+=======
+    vla_path: str = "/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_4300+7600"    # Path to OpenVLA model (on HuggingFace Hub)
+    adapter_path: str = "/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_4300+7600"
+        
+    
+>>>>>>> 0c594b1 (final thesis)
     if local_debug:
         data_root_dir_string = "/home/zhangy50/RL/Spot_VLA/dataset/modified_libero_rlds"
     else:
-        data_root_dir_string = "/scratch/work/zhangy50/RL/Spot_VLA/dataset/modified_libero_rlds" # Path to Open-X dataset directory
+        data_root_dir_string = "/scratch/work/zhangy50/RL/Spot_VLA/dataset/modified_libero_rlds"
     data_root_dir: Path = Path(data_root_dir_string)        # Path to Open-X dataset directory
     # data_root_dir: Path = Path("/scratch/work/zhangy50/RL/Spot_VLA/dataset/tensorflow_datasets/")        # Path to Open-X dataset directory
     dataset_name: str = "libero_goal_no_noops"                    # already updated in openvla/prismatic/vla/datasets/rlds/oxe/configs.py and transform.py. dont include /!
@@ -123,8 +130,8 @@ class FinetuneConfig:
     if local_debug:
         batch_size: int = 2  # 16 is good, 24 to big for H100, for H200, 32 is a good target                                     # Fine-tuning batch size
     else:
-        batch_size: int = 32
-    max_steps: int = 10000 # 10_000                                        # Max number of fine-tuning steps
+        batch_size: int = 56 # 40 only Power 85%, MEM 74%, 56 is good for H200, 98% MEM, 86% Power. 64& too big. 
+    max_steps: int = 30000 # 10_000                                        # Max number of fine-tuning steps
     save_steps: int = 1000                                          # Interval for checkpoint saving
     learning_rate: float = 5e-4                                     # Fine-tuning learning rate
     grad_accumulation_steps: int = 1   # or 4?                             # Gradient accumulation steps
@@ -134,13 +141,13 @@ class FinetuneConfig:
                                                                     #   continually overwrite the latest checkpoint
                                                                     #   (If False, saves all checkpoints)
     # Validation
-    validation_interval = 50       # Validate every 50 optimizer steps
+    validation_interval = 200       # Validate every 200 optimizer steps
     patience = 5                    # Early stopping after 5 validation checks
 
     if local_debug:
         chunk_size: int = 8              # Trajectory segment, Process 8 steps at a time to avoid OOM
     else:
-        chunk_size: int = 16             # Trajectory segment, Process 16 steps at a time to avoid OOM
+        chunk_size: int = 8             # Trajectory segment, Process 16 steps at a time to avoid OOM
 
     # LoRA Arguments
     use_lora: bool = True                                           # Whether to use LoRA fine-tuning
@@ -268,15 +275,22 @@ def finetune(cfg: FinetuneConfig) -> None:
 
     # [LoRA] Wrap Model w/ PEFT `LoraConfig` =>> target specific linear modules to avoid Identity layers
     if cfg.use_lora:
-        lora_config = LoraConfig(
-            r=cfg.lora_rank,
-            lora_alpha=min(cfg.lora_rank, 16),
-            lora_dropout=cfg.lora_dropout,
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-            init_lora_weights="gaussian",
-        )
-        vla = get_peft_model(vla, lora_config)
-        vla.print_trainable_parameters()
+        if os.path.exists(cfg.adapter_path):
+            # Load existing LoRA adapter weights
+            print(f"Loading LoRA adapter weights from {cfg.adapter_path}")
+            vla = PeftModel.from_pretrained(vla, cfg.adapter_path, is_trainable=True)
+            vla.print_trainable_parameters()
+        else:
+            print("Initializing new LoRA adapter")
+            lora_config = LoraConfig(
+                r=cfg.lora_rank,
+                lora_alpha=min(cfg.lora_rank, 16),
+                lora_dropout=cfg.lora_dropout,
+                target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+                init_lora_weights="gaussian",
+            )
+            vla = get_peft_model(vla, lora_config)
+            vla.print_trainable_parameters()
 
     # Wrap VLA in PyTorch DDP Wrapper for Multi-GPU Training
     print(f'distributed_state: {distributed_state}')
@@ -375,15 +389,18 @@ def finetune(cfg: FinetuneConfig) -> None:
         action_l1_loss = torch.nn.functional.l1_loss(tensor_pred, tensor_gt)
         action_l2_loss = F.mse_loss(tensor_pred, tensor_gt, reduction='mean')
 
-        if traj and len(action_7_pred) > 1:
-            # Calculate DTW and OT for this chunk
-            chunk_dtw_distance, _ = fastdtw(action_7_pred, action_7_gt, dist=euclidean)
-            chunk_ot_distance = compute_optimal_transport_distance(action_7_gt, action_7_pred)
+        if traj:
+            if len(action_7_pred) > 1:
+                # Calculate DTW and OT for this chunk
+                chunk_dtw_distance, _ = fastdtw(action_7_pred, action_7_gt, dist=euclidean)
+                chunk_ot_distance = compute_optimal_transport_distance(action_7_gt, action_7_pred)
 
-            # Normalize by chunk length
-            normalized_chunk_dtw = chunk_dtw_distance / len(action_7_pred)
-            normalized_chunk_ot = chunk_ot_distance / len(action_7_pred)
-
+                # Normalize by chunk length
+                normalized_chunk_dtw = chunk_dtw_distance / len(action_7_pred)
+                normalized_chunk_ot = chunk_ot_distance / len(action_7_pred)
+            else:
+                normalized_chunk_dtw = 0.8
+                normalized_chunk_ot = 0.0002 # fake value in case
             return action_l1_loss.item(), action_l2_loss.item(), mean_cos_distance.item(), normalized_chunk_dtw, normalized_chunk_ot
         return  action_l1_loss.item(), action_l2_loss.item(), mean_cos_distance.item()
 
@@ -412,7 +429,7 @@ def finetune(cfg: FinetuneConfig) -> None:
             if distributed_state.is_main_process:
                 if subfolder == "default" and cfg.save_latest_checkpoint_only == False:
                     # Prepare to save checkpoint in new directory
-                    checkpoint_dir = run_dir / f"--{gradient_step_idx}_chkpt--loss-{val_loss:.3f}"
+                    checkpoint_dir = run_dir / f"--{gradient_step_idx}_chkpt-{val:.4f}"
                 else:
                     # Save in subfolder
                     checkpoint_dir = run_dir / subfolder
@@ -484,33 +501,36 @@ def finetune(cfg: FinetuneConfig) -> None:
             action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
             action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
 
-            # Compute Accuracy and L1 Loss for Logging
-            action_l1_loss, action_l2_loss, mean_cos_distance = action_eval(action_7_pred, action_7_gt, traj=False)
 
-            # Store recent train metrics
-            recent_losses.append(loss.item())
-            recent_action_accuracies.append(action_accuracy.item())
-            recent_l1_losses.append(action_l1_loss)
-            recent_l2_losses.append(action_l2_loss)
-            recent_cos_distances.append(mean_cos_distance)
-            # recent_dtws.append(mean_dtw)
-
-            # Compute gradient step index
             gradient_step_idx = batch_idx // cfg.grad_accumulation_steps
-
-            # Compute smoothened train metrics
-            #   =>> Equal to current step metrics when not using gradient accumulation
-            #   =>> Otherwise, equal to the average of metrics observed over micro-batches used for gradient accumulation
-            smoothened_loss = sum(recent_losses) / len(recent_losses)
-            smoothened_action_accuracy = sum(recent_action_accuracies) / len(recent_action_accuracies)
-            smoothened_l1_loss = sum(recent_l1_losses) / len(recent_l1_losses)  
-            smoothened_l2_loss = sum(recent_l2_losses) / len(recent_l2_losses)
-            smoothened_cos_distance = sum(recent_cos_distances) / len(recent_cos_distances)
-            # smoothened_dtw = sum(recent_dtws) / len(recent_dtws)
-            # smoothen, recent losses is defined as deque, no need to manually deque.  
-
+            
             # Push Metrics to W&B (every 10 gradient steps)
             if distributed_state.is_main_process and gradient_step_idx % 10 == 0:
+                
+                # Compute Accuracy and L1 Loss for Logging
+                action_l1_loss, action_l2_loss, mean_cos_distance = action_eval(action_7_pred, action_7_gt, traj=False)
+                
+                # Store recent train metrics
+                recent_losses.append(loss.item())
+                recent_action_accuracies.append(action_accuracy.item())
+                recent_l1_losses.append(action_l1_loss)
+                recent_l2_losses.append(action_l2_loss)
+                recent_cos_distances.append(mean_cos_distance)
+                # recent_dtws.append(mean_dtw)
+
+                # Compute gradient step index
+
+                # Compute smoothened train metrics
+                #   =>> Equal to current step metrics when not using gradient accumulation
+                #   =>> Otherwise, equal to the average of metrics observed over micro-batches used for gradient accumulation
+                smoothened_loss = sum(recent_losses) / len(recent_losses)
+                smoothened_action_accuracy = sum(recent_action_accuracies) / len(recent_action_accuracies)
+                smoothened_l1_loss = sum(recent_l1_losses) / len(recent_l1_losses)  
+                smoothened_l2_loss = sum(recent_l2_losses) / len(recent_l2_losses)
+                smoothened_cos_distance = sum(recent_cos_distances) / len(recent_cos_distances)
+                # smoothened_dtw = sum(recent_dtws) / len(recent_dtws)
+                # smoothen, recent losses is defined as deque, no need to manually deque.  
+
                 print(smoothened_loss, type(smoothened_loss))
                 wandb.log(
                     {
@@ -548,7 +568,7 @@ def finetune(cfg: FinetuneConfig) -> None:
                     traj_action_gt = []
 
                     # Sample a few trajectories for validation instead of processing all
-                    sampled_trajectories = random_trajectory_sampling(episodic_dataset, num_trajectories=3)
+                    sampled_trajectories = random_trajectory_sampling(episodic_dataset, num_trajectories=5)
                     
                     for traj_i, trajectory in enumerate(sampled_trajectories):  
 
@@ -560,8 +580,8 @@ def finetune(cfg: FinetuneConfig) -> None:
                         traj_l1 = 0.0
                         traj_l2 = 0.0
                         traj_cos_distance = 0.0 
-                        # traj_dtw_seg = 0.0
-                        # traj_ot_seg = 0.0
+                        traj_dtw_seg = 0.0
+                        traj_ot_seg = 0.0
                         traj_action_preds = []
                         traj_action_gt = []
                         
@@ -609,15 +629,15 @@ def finetune(cfg: FinetuneConfig) -> None:
                                     action_7_pred = action_tokenizer.decode_token_ids_to_actions(action_preds[mask].cpu().numpy()).reshape(-1, 7)
                                     action_7_gt = action_tokenizer.decode_token_ids_to_actions(action_gt[mask].cpu().numpy()).reshape(-1, 7)
 
-                                    chunk_l1, chunk_l2, chunk_cos_distance = action_eval(action_7_pred, action_7_gt, traj=False)
+                                    chunk_l1, chunk_l2, chunk_cos_distance, chunk_dtw_seg, chunk_ot_seg = action_eval(action_7_pred, action_7_gt, traj=True)
 
                             traj_loss += chunk_loss.item() * chunk_length
                             traj_accuracy += chunk_accuracy.item() * chunk_length
                             traj_l1 += chunk_l1 * chunk_length
                             traj_l2 += chunk_l2 * chunk_length
                             traj_cos_distance += chunk_cos_distance * chunk_length
-                            # traj_dtw_seg += chunk_dtw_seg * chunk_length
-                            # traj_ot_seg += chunk_ot_seg * chunk_length
+                            traj_dtw_seg += chunk_dtw_seg * chunk_length
+                            traj_ot_seg += chunk_ot_seg * chunk_length
                             traj_action_gt.append(action_7_gt)
                             traj_action_preds.append(action_7_pred)
 
@@ -628,8 +648,8 @@ def finetune(cfg: FinetuneConfig) -> None:
                         val_l1_list.append(traj_l1 / traj_length)
                         val_l2_list.append(traj_l2 / traj_length)
                         val_cos_distance_list.append(traj_cos_distance / traj_length)
-                        # val_dtw_seg_list.append(traj_dtw_seg / traj_length)
-                        # val_ot_seg_list.append(traj_ot_seg / traj_length)
+                        val_dtw_seg_list.append(traj_dtw_seg / traj_length)
+                        val_ot_seg_list.append(traj_ot_seg / traj_length)
 
                         # Concatenate all actions for DTW/OT evaluation
                         traj_action_gt = np.concatenate(traj_action_gt)
@@ -646,8 +666,8 @@ def finetune(cfg: FinetuneConfig) -> None:
                           f"L1 loss: {val_l1_list}, "
                           f"L2 loss: {val_l2_list}, "
                           f"cosine distance: {val_cos_distance_list}, "
-                        #   f"DTW_seg: {val_dtw_seg_list}, "
-                        #   f"OT_seg: {val_ot_seg_list}, "
+                          f"DTW_seg: {val_dtw_seg_list}, "
+                          f"OT_seg: {val_ot_seg_list}, "
                           f"DTW: {val_dtw_list}, "
                           f"OT: {val_ot_list}")
 
@@ -656,8 +676,8 @@ def finetune(cfg: FinetuneConfig) -> None:
                     val_l2 = np.mean(val_l2_list)
                     val_accuracy = np.mean(val_accuracy_list)
                     val_cos_distance = np.mean(val_cos_distance_list)
-                    # val_dtw_seg = np.mean(val_dtw_seg_list)
-                    # val_ot_seg = np.mean(val_ot_seg_list)
+                    val_dtw_seg = np.mean(val_dtw_seg_list)
+                    val_ot_seg = np.mean(val_ot_seg_list)
                     val_dtw = np.mean(val_dtw_list)
                     val_ot = np.mean(val_ot_list)
                     # Log validation metrics
@@ -667,8 +687,8 @@ def finetune(cfg: FinetuneConfig) -> None:
                             "val_accuracy": val_accuracy,
                             "val_l1_loss": val_l1,
                             "val_l2_loss": val_l2,
-                            # "val_dtw_seg": val_dtw_seg,
-                            # "val_ot_seg": val_ot_seg,
+                            "val_dtw_seg": val_dtw_seg,
+                            "val_ot_seg": val_ot_seg,
                             "val_vector_cosine": val_cos_distance,
                             "val_dtw_distance": val_dtw,
                             "val_ot_distance": val_ot,
@@ -729,26 +749,26 @@ def finetune(cfg: FinetuneConfig) -> None:
                             print(f"New best validation normalized OT: {best_val_ot:.4f}")
                             save_model("val_ot", best_val_ot)
                     
-                    # if val_dtw_seg < best_val_dtw_seg:
-                    #     best_val_dtw_seg = val_dtw_seg
+                    if val_dtw_seg < best_val_dtw_seg:
+                        best_val_dtw_seg = val_dtw_seg
                         
-                    #     # Save best model checkpoint
-                    #     if distributed_state.is_main_process:
-                    #         print(f"New best validation DTW segment: {best_val_dtw_seg:.4f}")
-                    #         save_model("val_dtw_seg", best_val_dtw_seg) 
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation DTW segment: {best_val_dtw_seg:.4f}")
+                            save_model("val_dtw_seg", best_val_dtw_seg) 
                     
-                    # if val_ot_seg < best_val_ot_seg:
-                    #     best_val_ot_seg = val_ot_seg
+                    if val_ot_seg < best_val_ot_seg:
+                        best_val_ot_seg = val_ot_seg
                         
-                    #     # Save best model checkpoint
-                    #     if distributed_state.is_main_process:
-                    #         print(f"New best validation OT segment: {best_val_ot_seg:.4f}")
-                    #         save_model("val_ot_seg", best_val_ot_seg)
+                        # Save best model checkpoint
+                        if distributed_state.is_main_process:
+                            print(f"New best validation OT segment: {best_val_ot_seg:.4f}")
+                            save_model("val_ot_seg", best_val_ot_seg)
 
 
             # Save Model Checkpoint =>> by default, only keeps the latest checkpoint, continually overwriting it!
             if gradient_step_idx > 0 and gradient_step_idx % cfg.save_steps == 0:
-                save_model()
+                save_model(val=smoothened_loss)
 
 
 if __name__ == "__main__":

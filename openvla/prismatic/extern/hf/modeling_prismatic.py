@@ -505,8 +505,12 @@ class OpenVLAForActionPrediction(PrismaticForConditionalGeneration):
 
     def predict_action(
         self, input_ids: Optional[torch.LongTensor] = None, unnorm_key: Optional[str] = None, **kwargs: str
-    ) -> np.ndarray:
-        """Thin wrapper around super().generate() that decodes predicted actions and de-normalizes them."""
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Thin wrapper around super().generate() that decodes predicted actions and de-normalizes them.
+
+        Returns (actions, token_log_likelihood), where token_log_likelihood holds the log-probability of
+        each predicted action token under the model, for downstream NLL calculation.
+        """
 
         # If the special empty token ('') does not already appear after the colon (':') token in the prompt
         # (after "OUT:" or "ASSISTANT:"), insert it to match the inputs seen at training time
@@ -516,10 +520,24 @@ class OpenVLAForActionPrediction(PrismaticForConditionalGeneration):
             )
 
         # Run VLA inference
-        generated_ids = self.generate(input_ids, max_new_tokens=self.get_action_dim(unnorm_key), **kwargs)
+        action_dim = self.get_action_dim(unnorm_key)
+        generated = self.generate(
+            input_ids,
+            max_new_tokens=action_dim,
+            output_scores=True,
+            return_dict_in_generate=True,
+            **kwargs,
+        )
+        generated_ids = generated.sequences
+
+        # Per-token log-likelihood of the chosen action tokens (for NLL calculation)
+        chosen_ids = generated_ids[0, -action_dim:]
+        scores = torch.stack(generated.scores, dim=0)  # [action_dim, 1, vocab_size]
+        log_probs = scores.log_softmax(dim=-1)
+        token_log_likelihood = log_probs[torch.arange(action_dim), 0, chosen_ids].cpu().numpy()
 
         # Extract predicted action tokens and translate into (normalized) continuous actions
-        predicted_action_token_ids = generated_ids[0, -self.get_action_dim(unnorm_key) :].cpu().numpy()
+        predicted_action_token_ids = chosen_ids.cpu().numpy()
         discretized_actions = self.vocab_size - predicted_action_token_ids
         discretized_actions = np.clip(discretized_actions - 1, a_min=0, a_max=self.bin_centers.shape[0] - 1)
         normalized_actions = self.bin_centers[discretized_actions]
@@ -534,7 +552,7 @@ class OpenVLAForActionPrediction(PrismaticForConditionalGeneration):
             normalized_actions,
         )
 
-        return actions
+        return actions, token_log_likelihood
 
     @staticmethod
     def _check_unnorm_key(norm_stats: Dict[str, Dict[str, Any]], unnorm_key: Optional[str]) -> str:

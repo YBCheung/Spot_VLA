@@ -13,6 +13,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import dlimp as dl
 import numpy as np
 import tensorflow as tf
+import tensorflow_datasets as tfds
 from tqdm import tqdm
 
 from prismatic.overwatch import initialize_overwatch
@@ -291,6 +292,142 @@ def save_dataset_statistics(dataset_statistics, run_dir):
                     stats["num_transitions"] = stats["num_transitions"].item()
         json.dump(dataset_statistics, f_json, indent=2)
     overwatch.info(f"Saved dataset statistics file at path {out_path}")
+
+
+def compute_stratified_split_indices(
+    name: str,
+    data_dir: str,
+    language_key: str,
+    split_fractions: Tuple[float, float, float] = (0.8, 0.1, 0.1),
+    seed: int = 0,
+    cache_path: Optional[str] = None,
+    max_train_trajectories: Optional[int] = None,
+) -> Dict[str, List[int]]:
+    """
+    Assigns every trajectory in the dataset's native "train" split to train/val/test, stratified by
+    task (the trajectory's language instruction), so all three splits cover every task proportionally.
+
+    Returns a dict {"train": [...], "val": [...], "test": [...]} of global trajectory indices (position
+    within the native "train" split, in the order TFDS yields them for `split="train", shuffle=False`).
+    The same indices must be used consistently by every dataset load (train/val/test) for the split to
+    be meaningful, so the result is cached to `cache_path` and reused on subsequent calls.
+
+    `max_train_trajectories` (optional): cap the *train* split at this many trajectories, distributed as
+    evenly as possible across tasks (bounded by how many train trajectories each task has). The capped
+    split is derived *from the uncapped `custom_splits.json`* -- val and test are copied byte-for-byte and
+    only the train list is subsampled (a per-task, seed-reproducible subset of the exact same train
+    trajectories the full split uses). This keeps val/test identical to every prior full-split run so the
+    reduced-train model stays comparable on the same held-out data, and guarantees the smaller train set is
+    a strict subset of the full one (no leakage into val/test). The capped result is cached under its own
+    filename (e.g. `custom_splits_train150.json`) so it never clobbers or silently reuses the uncapped file.
+    """
+    assert abs(sum(split_fractions) - 1.0) < 1e-6, "split_fractions must sum to 1.0"
+
+    builder = tfds.builder(name, data_dir=data_dir)
+    base_cache_path = tf.io.gfile.join(builder.data_dir, "custom_splits.json")
+    if cache_path is None:
+        cache_name = (
+            "custom_splits.json"
+            if max_train_trajectories is None
+            else f"custom_splits_train{max_train_trajectories}.json"
+        )
+        cache_path = tf.io.gfile.join(builder.data_dir, cache_name)
+
+    if tf.io.gfile.exists(cache_path):
+        overwatch.info(f"Loading existing train/val/test split assignment from {cache_path}.")
+        with tf.io.gfile.GFile(cache_path, "r") as f:
+            return json.load(f)
+
+    # ----- Build (or load) the uncapped base 80/10/10 split -----
+    # A cap only ever *subsamples* this base split's train list; loading the existing base file (rather
+    # than recomputing) keeps val/test byte-for-byte identical to whatever every prior full-split run used.
+    if tf.io.gfile.exists(base_cache_path):
+        overwatch.info(f"Loading base train/val/test split assignment from {base_cache_path}.")
+        with tf.io.gfile.GFile(base_cache_path, "r") as f:
+            splits: Dict[str, List[int]] = json.load(f)
+    else:
+        full_dataset = dl.DLataset.from_rlds(builder, split="train", shuffle=False)
+        task_by_index: Dict[int, str] = {}
+        for idx, traj in enumerate(full_dataset.iterator()):
+            lang = traj[language_key][0]
+            task_by_index[idx] = lang.decode("utf-8") if isinstance(lang, bytes) else str(lang)
+
+        by_task: Dict[str, List[int]] = {}
+        for idx, task in task_by_index.items():
+            by_task.setdefault(task, []).append(idx)
+
+        rng = np.random.RandomState(seed)
+        splits = {"train": [], "val": [], "test": []}
+        for task in sorted(by_task):
+            indices = sorted(by_task[task])
+            rng.shuffle(indices)
+            n = len(indices)
+            n_train = int(round(n * split_fractions[0]))
+            n_val = int(round(n * split_fractions[1]))
+            splits["train"].extend(indices[:n_train])
+            splits["val"].extend(indices[n_train : n_train + n_val])
+            splits["test"].extend(indices[n_train + n_val :])
+        for k in splits:
+            splits[k] = sorted(splits[k])
+        with tf.io.gfile.GFile(base_cache_path, "w") as f:
+            json.dump(splits, f, indent=2)
+
+    # ----- Optionally subsample the train split (val/test untouched) -----
+    if max_train_trajectories is not None:
+        # Group the base train indices by task so the subsample stays stratified. Requires a task label
+        # per train index; read the language instruction for exactly those trajectories.
+        train_set = set(splits["train"])
+        full_dataset = dl.DLataset.from_rlds(builder, split="train", shuffle=False)
+        train_by_task: Dict[str, List[int]] = {}
+        for idx, traj in enumerate(full_dataset.iterator()):
+            if idx not in train_set:
+                continue
+            lang = traj[language_key][0]
+            task = lang.decode("utf-8") if isinstance(lang, bytes) else str(lang)
+            train_by_task.setdefault(task, []).append(idx)
+
+        tasks = sorted(train_by_task)
+        available = {t: len(train_by_task[t]) for t in tasks}
+        total_available = sum(available.values())
+        assert max_train_trajectories <= total_available, (
+            f"max_train_trajectories={max_train_trajectories} exceeds the {total_available} train "
+            f"trajectories available across {len(tasks)} tasks."
+        )
+        # Even per-task allotment, then water-fill any leftover into tasks with spare capacity so the kept
+        # total is exactly `max_train_trajectories`.
+        target = {t: min(max_train_trajectories // len(tasks), available[t]) for t in tasks}
+        remainder = max_train_trajectories - sum(target.values())
+        while remainder > 0:
+            grew = False
+            for t in tasks:
+                if remainder == 0:
+                    break
+                if target[t] < available[t]:
+                    target[t] += 1
+                    remainder -= 1
+                    grew = True
+            assert grew, "Unable to allocate remaining train budget (should not happen)."
+        # Seed-reproducible per-task subset (shuffle then take the allotted count) so the choice of which
+        # trajectories to keep is stable across runs but not biased toward low TFDS indices.
+        rng = np.random.RandomState(seed)
+        kept: List[int] = []
+        for t in tasks:
+            task_indices = sorted(train_by_task[t])
+            rng.shuffle(task_indices)
+            kept.extend(task_indices[: target[t]])
+        splits = {"train": sorted(kept), "val": splits["val"], "test": splits["test"]}
+
+    overwatch.info(
+        f"Stratified split for `{name}`"
+        + (f" (train capped at {max_train_trajectories})" if max_train_trajectories is not None else "")
+        + f": {len(splits['train'])} train / {len(splits['val'])} val / {len(splits['test'])} test "
+        f"trajectories."
+    )
+
+    with tf.io.gfile.GFile(cache_path, "w") as f:
+        json.dump(splits, f, indent=2)
+
+    return splits
 
 
 def allocate_threads(n: Optional[int], weights: np.ndarray):

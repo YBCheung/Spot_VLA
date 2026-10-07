@@ -1,0 +1,743 @@
+Task suite: libero_goal
+
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+Saved trajectory 1 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_000.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=1--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 1
+# successes: 0 (0.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 2...
+Saved trajectory 2 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_001.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=2--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 2
+# successes: 1 (50.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 3...
+Saved trajectory 3 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_002.pkl
+Success: False
+# episodes completed so far: 3
+# successes: 1 (33.3%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 4...
+Saved trajectory 4 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_003.pkl
+Success: False
+# episodes completed so far: 4
+# successes: 1 (25.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 5...
+Saved trajectory 5 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_004.pkl
+Success: False
+# episodes completed so far: 5
+# successes: 1 (20.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 6...
+Saved trajectory 6 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_005.pkl
+Success: True
+# episodes completed so far: 6
+# successes: 2 (33.3%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 7...
+Saved trajectory 7 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_006.pkl
+Success: True
+# episodes completed so far: 7
+# successes: 3 (42.9%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 8...
+Saved trajectory 8 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_007.pkl
+Success: False
+# episodes completed so far: 8
+# successes: 3 (37.5%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 9...
+Saved trajectory 9 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_008.pkl
+Success: False
+# episodes completed so far: 9
+# successes: 3 (33.3%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 10...
+Saved trajectory 10 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_009.pkl
+Success: False
+# episodes completed so far: 10
+# successes: 3 (30.0%)
+Current task success rate: 0.3
+Current total success rate: 0.3
+
+Task: put the bowl on the stove
+Starting episode 1...
+Saved trajectory 11 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_010.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=11--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 11
+# successes: 4 (36.4%)
+
+Task: put the bowl on the stove
+Starting episode 2...
+Saved trajectory 12 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_011.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=12--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 12
+# successes: 5 (41.7%)
+
+Task: put the bowl on the stove
+Starting episode 3...
+Saved trajectory 13 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_012.pkl
+Success: True
+# episodes completed so far: 13
+# successes: 6 (46.2%)
+
+Task: put the bowl on the stove
+Starting episode 4...
+Saved trajectory 14 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_013.pkl
+Success: True
+# episodes completed so far: 14
+# successes: 7 (50.0%)
+
+Task: put the bowl on the stove
+Starting episode 5...
+Saved trajectory 15 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_014.pkl
+Success: True
+# episodes completed so far: 15
+# successes: 8 (53.3%)
+
+Task: put the bowl on the stove
+Starting episode 6...
+Saved trajectory 16 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_015.pkl
+Success: True
+# episodes completed so far: 16
+# successes: 9 (56.2%)
+
+Task: put the bowl on the stove
+Starting episode 7...
+Saved trajectory 17 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_016.pkl
+Success: True
+# episodes completed so far: 17
+# successes: 10 (58.8%)
+
+Task: put the bowl on the stove
+Starting episode 8...
+Saved trajectory 18 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_017.pkl
+Success: True
+# episodes completed so far: 18
+# successes: 11 (61.1%)
+
+Task: put the bowl on the stove
+Starting episode 9...
+Saved trajectory 19 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_018.pkl
+Success: True
+# episodes completed so far: 19
+# successes: 12 (63.2%)
+
+Task: put the bowl on the stove
+Starting episode 10...
+Saved trajectory 20 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_019.pkl
+Success: True
+# episodes completed so far: 20
+# successes: 13 (65.0%)
+Current task success rate: 1.0
+Current total success rate: 0.65
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 1...
+Saved trajectory 21 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_020.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=21--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 21
+# successes: 13 (61.9%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 2...
+Saved trajectory 22 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_021.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=22--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 22
+# successes: 13 (59.1%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 3...
+Saved trajectory 23 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_022.pkl
+Success: True
+# episodes completed so far: 23
+# successes: 14 (60.9%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 4...
+Saved trajectory 24 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_023.pkl
+Success: False
+# episodes completed so far: 24
+# successes: 14 (58.3%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 5...
+Saved trajectory 25 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_024.pkl
+Success: True
+# episodes completed so far: 25
+# successes: 15 (60.0%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 6...
+Saved trajectory 26 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_025.pkl
+Success: True
+# episodes completed so far: 26
+# successes: 16 (61.5%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 7...
+Saved trajectory 27 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_026.pkl
+Success: True
+# episodes completed so far: 27
+# successes: 17 (63.0%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 8...
+Saved trajectory 28 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_027.pkl
+Success: False
+# episodes completed so far: 28
+# successes: 17 (60.7%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 9...
+Saved trajectory 29 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_028.pkl
+Success: False
+# episodes completed so far: 29
+# successes: 17 (58.6%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 10...
+Saved trajectory 30 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_029.pkl
+Success: True
+# episodes completed so far: 30
+# successes: 18 (60.0%)
+Current task success rate: 0.5
+Current total success rate: 0.6
+
+Task: open the top drawer and put the bowl inside
+Starting episode 1...
+Saved trajectory 31 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_030.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=31--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 31
+# successes: 18 (58.1%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 2...
+Saved trajectory 32 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_031.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=32--success=True--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: True
+# episodes completed so far: 32
+# successes: 19 (59.4%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 3...
+Saved trajectory 33 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_032.pkl
+Success: False
+# episodes completed so far: 33
+# successes: 19 (57.6%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 4...
+Saved trajectory 34 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_033.pkl
+Success: False
+# episodes completed so far: 34
+# successes: 19 (55.9%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 5...
+Saved trajectory 35 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_034.pkl
+Success: False
+# episodes completed so far: 35
+# successes: 19 (54.3%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 6...
+Saved trajectory 36 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_035.pkl
+Success: True
+# episodes completed so far: 36
+# successes: 20 (55.6%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 7...
+Saved trajectory 37 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_036.pkl
+Success: True
+# episodes completed so far: 37
+# successes: 21 (56.8%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 8...
+Saved trajectory 38 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_037.pkl
+Success: True
+# episodes completed so far: 38
+# successes: 22 (57.9%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 9...
+Saved trajectory 39 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_038.pkl
+Success: True
+# episodes completed so far: 39
+# successes: 23 (59.0%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 10...
+Saved trajectory 40 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_039.pkl
+Success: True
+# episodes completed so far: 40
+# successes: 24 (60.0%)
+Current task success rate: 0.6
+Current total success rate: 0.6
+
+Task: put the bowl on top of the cabinet
+Starting episode 1...
+Saved trajectory 41 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_040.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=41--success=True--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 41
+# successes: 25 (61.0%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 2...
+Saved trajectory 42 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_041.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=42--success=True--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 42
+# successes: 26 (61.9%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 3...
+Saved trajectory 43 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_042.pkl
+Success: True
+# episodes completed so far: 43
+# successes: 27 (62.8%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 4...
+Saved trajectory 44 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_043.pkl
+Success: True
+# episodes completed so far: 44
+# successes: 28 (63.6%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 5...
+Saved trajectory 45 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_044.pkl
+Success: True
+# episodes completed so far: 45
+# successes: 29 (64.4%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 6...
+Saved trajectory 46 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_045.pkl
+Success: True
+# episodes completed so far: 46
+# successes: 30 (65.2%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 7...
+Saved trajectory 47 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_046.pkl
+Success: True
+# episodes completed so far: 47
+# successes: 31 (66.0%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 8...
+Saved trajectory 48 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_047.pkl
+Success: True
+# episodes completed so far: 48
+# successes: 32 (66.7%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 9...
+Saved trajectory 49 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_048.pkl
+Success: True
+# episodes completed so far: 49
+# successes: 33 (67.3%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 10...
+Saved trajectory 50 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_049.pkl
+Success: True
+# episodes completed so far: 50
+# successes: 34 (68.0%)
+Current task success rate: 1.0
+Current total success rate: 0.68
+
+Task: push the plate to the front of the stove
+Starting episode 1...
+Saved trajectory 51 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_050.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=51--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 51
+# successes: 34 (66.7%)
+
+Task: push the plate to the front of the stove
+Starting episode 2...
+Saved trajectory 52 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_051.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=52--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 52
+# successes: 34 (65.4%)
+
+Task: push the plate to the front of the stove
+Starting episode 3...
+Saved trajectory 53 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_052.pkl
+Success: True
+# episodes completed so far: 53
+# successes: 35 (66.0%)
+
+Task: push the plate to the front of the stove
+Starting episode 4...
+Saved trajectory 54 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_053.pkl
+Success: False
+# episodes completed so far: 54
+# successes: 35 (64.8%)
+
+Task: push the plate to the front of the stove
+Starting episode 5...
+Saved trajectory 55 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_054.pkl
+Success: True
+# episodes completed so far: 55
+# successes: 36 (65.5%)
+
+Task: push the plate to the front of the stove
+Starting episode 6...
+Saved trajectory 56 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_055.pkl
+Success: False
+# episodes completed so far: 56
+# successes: 36 (64.3%)
+
+Task: push the plate to the front of the stove
+Starting episode 7...
+Saved trajectory 57 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_056.pkl
+Success: True
+# episodes completed so far: 57
+# successes: 37 (64.9%)
+
+Task: push the plate to the front of the stove
+Starting episode 8...
+Saved trajectory 58 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_057.pkl
+Success: False
+# episodes completed so far: 58
+# successes: 37 (63.8%)
+
+Task: push the plate to the front of the stove
+Starting episode 9...
+Saved trajectory 59 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_058.pkl
+Success: False
+# episodes completed so far: 59
+# successes: 37 (62.7%)
+
+Task: push the plate to the front of the stove
+Starting episode 10...
+Saved trajectory 60 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_059.pkl
+Success: True
+# episodes completed so far: 60
+# successes: 38 (63.3%)
+Current task success rate: 0.4
+Current total success rate: 0.6333333333333333
+
+Task: put the cream cheese in the bowl
+Starting episode 1...
+Saved trajectory 61 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_060.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=61--success=True--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: True
+# episodes completed so far: 61
+# successes: 39 (63.9%)
+
+Task: put the cream cheese in the bowl
+Starting episode 2...
+Saved trajectory 62 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_061.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=62--success=True--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: True
+# episodes completed so far: 62
+# successes: 40 (64.5%)
+
+Task: put the cream cheese in the bowl
+Starting episode 3...
+Saved trajectory 63 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_062.pkl
+Success: True
+# episodes completed so far: 63
+# successes: 41 (65.1%)
+
+Task: put the cream cheese in the bowl
+Starting episode 4...
+Saved trajectory 64 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_063.pkl
+Success: False
+# episodes completed so far: 64
+# successes: 41 (64.1%)
+
+Task: put the cream cheese in the bowl
+Starting episode 5...
+Saved trajectory 65 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_064.pkl
+Success: False
+# episodes completed so far: 65
+# successes: 41 (63.1%)
+
+Task: put the cream cheese in the bowl
+Starting episode 6...
+Saved trajectory 66 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_065.pkl
+Success: False
+# episodes completed so far: 66
+# successes: 41 (62.1%)
+
+Task: put the cream cheese in the bowl
+Starting episode 7...
+Saved trajectory 67 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_066.pkl
+Success: True
+# episodes completed so far: 67
+# successes: 42 (62.7%)
+
+Task: put the cream cheese in the bowl
+Starting episode 8...
+Saved trajectory 68 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_067.pkl
+Success: True
+# episodes completed so far: 68
+# successes: 43 (63.2%)
+
+Task: put the cream cheese in the bowl
+Starting episode 9...
+Saved trajectory 69 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_068.pkl
+Success: True
+# episodes completed so far: 69
+# successes: 44 (63.8%)
+
+Task: put the cream cheese in the bowl
+Starting episode 10...
+Saved trajectory 70 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_069.pkl
+Success: False
+# episodes completed so far: 70
+# successes: 44 (62.9%)
+Current task success rate: 0.6
+Current total success rate: 0.6285714285714286
+
+Task: turn on the stove
+Starting episode 1...
+Saved trajectory 71 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_070.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=71--success=True--task=turn_on_the_stove.mp4
+Success: True
+# episodes completed so far: 71
+# successes: 45 (63.4%)
+
+Task: turn on the stove
+Starting episode 2...
+Saved trajectory 72 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_071.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=72--success=True--task=turn_on_the_stove.mp4
+Success: True
+# episodes completed so far: 72
+# successes: 46 (63.9%)
+
+Task: turn on the stove
+Starting episode 3...
+Saved trajectory 73 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_072.pkl
+Success: True
+# episodes completed so far: 73
+# successes: 47 (64.4%)
+
+Task: turn on the stove
+Starting episode 4...
+Saved trajectory 74 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_073.pkl
+Success: True
+# episodes completed so far: 74
+# successes: 48 (64.9%)
+
+Task: turn on the stove
+Starting episode 5...
+Saved trajectory 75 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_074.pkl
+Success: True
+# episodes completed so far: 75
+# successes: 49 (65.3%)
+
+Task: turn on the stove
+Starting episode 6...
+Saved trajectory 76 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_075.pkl
+Success: True
+# episodes completed so far: 76
+# successes: 50 (65.8%)
+
+Task: turn on the stove
+Starting episode 7...
+Saved trajectory 77 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_076.pkl
+Success: True
+# episodes completed so far: 77
+# successes: 51 (66.2%)
+
+Task: turn on the stove
+Starting episode 8...
+Saved trajectory 78 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_077.pkl
+Success: True
+# episodes completed so far: 78
+# successes: 52 (66.7%)
+
+Task: turn on the stove
+Starting episode 9...
+Saved trajectory 79 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_078.pkl
+Success: True
+# episodes completed so far: 79
+# successes: 53 (67.1%)
+
+Task: turn on the stove
+Starting episode 10...
+Saved trajectory 80 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_079.pkl
+Success: True
+# episodes completed so far: 80
+# successes: 54 (67.5%)
+Current task success rate: 1.0
+Current total success rate: 0.675
+
+Task: put the bowl on the plate
+Starting episode 1...
+Saved trajectory 81 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_080.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=81--success=True--task=put_the_bowl_on_the_plate.mp4
+Success: True
+# episodes completed so far: 81
+# successes: 55 (67.9%)
+
+Task: put the bowl on the plate
+Starting episode 2...
+Saved trajectory 82 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_081.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=82--success=True--task=put_the_bowl_on_the_plate.mp4
+Success: True
+# episodes completed so far: 82
+# successes: 56 (68.3%)
+
+Task: put the bowl on the plate
+Starting episode 3...
+Saved trajectory 83 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_082.pkl
+Success: True
+# episodes completed so far: 83
+# successes: 57 (68.7%)
+
+Task: put the bowl on the plate
+Starting episode 4...
+Saved trajectory 84 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_083.pkl
+Success: False
+# episodes completed so far: 84
+# successes: 57 (67.9%)
+
+Task: put the bowl on the plate
+Starting episode 5...
+Saved trajectory 85 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_084.pkl
+Success: True
+# episodes completed so far: 85
+# successes: 58 (68.2%)
+
+Task: put the bowl on the plate
+Starting episode 6...
+Saved trajectory 86 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_085.pkl
+Success: True
+# episodes completed so far: 86
+# successes: 59 (68.6%)
+
+Task: put the bowl on the plate
+Starting episode 7...
+Saved trajectory 87 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_086.pkl
+Success: True
+# episodes completed so far: 87
+# successes: 60 (69.0%)
+
+Task: put the bowl on the plate
+Starting episode 8...
+Saved trajectory 88 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_087.pkl
+Success: True
+# episodes completed so far: 88
+# successes: 61 (69.3%)
+
+Task: put the bowl on the plate
+Starting episode 9...
+Saved trajectory 89 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_088.pkl
+Success: True
+# episodes completed so far: 89
+# successes: 62 (69.7%)
+
+Task: put the bowl on the plate
+Starting episode 10...
+Saved trajectory 90 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_089.pkl
+Success: False
+# episodes completed so far: 90
+# successes: 62 (68.9%)
+Current task success rate: 0.8
+Current total success rate: 0.6888888888888889
+
+Task: put the wine bottle on the rack
+Starting episode 1...
+Saved trajectory 91 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_090.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=91--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 91
+# successes: 62 (68.1%)
+
+Task: put the wine bottle on the rack
+Starting episode 2...
+Saved trajectory 92 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_091.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-20_12_18--episode=92--success=True--task=put_the_wine_bottle_on_the_rack.mp4
+Success: True
+# episodes completed so far: 92
+# successes: 63 (68.5%)
+
+Task: put the wine bottle on the rack
+Starting episode 3...
+Saved trajectory 93 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_092.pkl
+Success: False
+# episodes completed so far: 93
+# successes: 63 (67.7%)
+
+Task: put the wine bottle on the rack
+Starting episode 4...
+Saved trajectory 94 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_093.pkl
+Success: False
+# episodes completed so far: 94
+# successes: 63 (67.0%)
+
+Task: put the wine bottle on the rack
+Starting episode 5...
+Saved trajectory 95 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_094.pkl
+Success: False
+# episodes completed so far: 95
+# successes: 63 (66.3%)
+
+Task: put the wine bottle on the rack
+Starting episode 6...
+Saved trajectory 96 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_095.pkl
+Success: True
+# episodes completed so far: 96
+# successes: 64 (66.7%)
+
+Task: put the wine bottle on the rack
+Starting episode 7...
+Saved trajectory 97 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_096.pkl
+Success: False
+# episodes completed so far: 97
+# successes: 64 (66.0%)
+
+Task: put the wine bottle on the rack
+Starting episode 8...
+Saved trajectory 98 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_097.pkl
+Success: False
+# episodes completed so far: 98
+# successes: 64 (65.3%)
+
+Task: put the wine bottle on the rack
+Starting episode 9...
+Saved trajectory 99 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_098.pkl
+Success: True
+# episodes completed so far: 99
+# successes: 65 (65.7%)
+
+Task: put the wine bottle on the rack
+Starting episode 10...
+Saved trajectory 100 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_099.pkl
+Success: True
+# episodes completed so far: 100
+# successes: 66 (66.0%)
+Current task success rate: 0.4
+Current total success rate: 0.66
+Saved trajectory summary to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_23499/EVAL-libero_goal-openvla-2026_07_15-20_12_18--ckpt_select_step_23499/trajectory_summary.json
+Total trajectories saved: 100

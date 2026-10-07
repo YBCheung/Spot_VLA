@@ -1,0 +1,50 @@
+
+  0%|          | 0/1000 [00:00<?, ?it/s]
+
+
+
+  1%|          | 10/1000 [00:25<14:06,  1.17it/s]
+07/26 [12:31:28] INFO     | >> [*] Loading existing dataset    data_utils.py:208
+                          statistics from
+                          /scratch/work/zhangy50/RL/Spot_VLA/d
+                          ataset/modified_libero_rlds/libero_g
+                          oal_no_noops/1.0.0/dataset_statistic
+                          s_4037c7dea2b9df0591d57980f41b00efaa
+                          334ea43e1aa4c7b6cb0e13e2af035f.json.
+Sampling 3 trajectories randomly from validation set...
+Total val traj: 21
+trajectory 0, target_idx=7, 0/3, length=182
+trajectory 1, target_idx=7, 0/3, length=90
+trajectory 2, target_idx=7, 0/3, length=184
+trajectory 3, target_idx=7, 0/3, length=92
+trajectory 4, target_idx=7, 0/3, length=99
+trajectory 5, target_idx=7, 0/3, length=99
+trajectory 6, target_idx=7, 0/3, length=142
+trajectory 7, target_idx=7, 0/3, length=131
+Collected trajectory 1/3 (index 7)
+trajectory 8, target_idx=15, 1/3, length=153
+trajectory 9, target_idx=15, 1/3, length=95
+trajectory 10, target_idx=15, 1/3, length=98
+trajectory 11, target_idx=15, 1/3, length=109
+trajectory 12, target_idx=15, 1/3, length=173
+trajectory 13, target_idx=15, 1/3, length=96
+trajectory 14, target_idx=15, 1/3, length=79
+trajectory 15, target_idx=15, 1/3, length=92
+Collected trajectory 2/3 (index 15)
+trajectory 16, target_idx=18, 2/3, length=160
+trajectory 17, target_idx=18, 2/3, length=97
+trajectory 18, target_idx=18, 2/3, length=90
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 845, in <module>
+    finetune()
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/draccus/argparsing.py", line 203, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 800, in finetune
+    save_model("val_loss", best_val_loss)
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 668, in save_model
+    save_dataset_statistics(train_dataset.dataset_statistics, checkpoint_dir)
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/vla/datasets/rlds/utils/data_utils.py", line 277, in save_dataset_statistics
+    with open(out_path, "w") as f_json:
+FileNotFoundError: [Errno 2] No such file or directory: 'runs/openvla-7b+dataset+libero_goal_no_noops+b16+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/dataset_statistics.json'
+New best validation loss: 0.1974
+Saving Model Checkpoint for Step 9

@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2em, topsep=0.2em}
+
+\title{Offline Metrics for Early Stopping in SmolVLA Fine-Tuning:\\
+An Empirical Comparison against Closed-Loop Success}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+This note applies the offline early-stopping protocol of
+\texttt{wenyan\_experiment\_instruction.tex} to a fine-tuned \textbf{SmolVLA} policy and compares
+every offline validation metric against the closed-loop LIBERO success rate that it is meant to
+predict. Notation follows that document: $\theta_k$ is the checkpoint after $k$ training steps,
+$\bar m(k)$ the aggregated validation value of metric $m$ at $\theta_k$, and $Q(k)$ the downstream
+quality (simulator success rate). SmolVLA is a \emph{chunking} flow-matching policy, so all offline
+metrics are computed in \textbf{AC-Chunk} mode (tex \S\,``Chunking VLA Policy'').
+
+\section{Experimental Setup}
+
+\begin{itemize}
+  \item \textbf{Model / fine-tuning.} \texttt{lerobot/smolvla\_base} ($\approx$450M), LoRA
+        ($r{=}32$, $\alpha{=}16$) on the LM-expert $q,v$ projections and the state/action projections;
+        batch size $64$, peak LR $10^{-4}$ with a cosine schedule decaying to $2.5\times10^{-6}$ over
+        the full run.
+  \item \textbf{Data.} LIBERO-goal, restricted to a \textbf{150-trajectory} train split
+        ($15$ demos $\times$ $10$ tasks) to encourage overtraining; $44$ held-out validation
+        trajectories of the same $10$ tasks form $\mathcal{D}_{\mathrm{val}}$.
+  \item \textbf{Checkpoints.} Trained to $100{,}000$ steps, saved every $500$ steps
+        $\Rightarrow$ $200$ checkpoints. Offline metrics are computed at \emph{all} $200$.
+  \item \textbf{Offline metrics (AC-Chunk).} At strided anchor windows of each validation trajectory,
+        one \texttt{predict\_action\_chunk} call produces an $H{=}50$-step chunk, scored against the
+        ground-truth chunk on \emph{train-normalized} actions: DTW, entropic OT, cosine distance
+        (tex \S\,Metric Definitions), and the per-element regression errors L1 and L2. Because
+        SmolVLA is flow-matching (continuous, no discrete action tokens), there is no tractable
+        likelihood and no token cross-entropy or token accuracy; per tex \S6.4 the \textbf{NLL column
+        is replaced by the flow-matching validation loss} (denoted NLL/FM).
+  \item \textbf{Downstream quality $Q(k)$.} LIBERO-goal simulator success, $10$ tasks $\times$ $10$
+        trials $=100$ episodes per checkpoint, with an open-loop horizon of
+        $n_{\text{action}}{=}10$ (replan every $10$ steps within the $50$-step chunk).\footnote{The
+        checkpoint default of executing all $50$ predicted actions open-loop roughly halves measured
+        success; a $6$--$12$ step replan horizon is used throughout, cf. the $n_{\text{action}}$
+        sweep.} $Q(k)$ is measured at $18$ checkpoints (every $5000$ steps, $500$--$85{,}500$).
+\end{itemize}
+
+\section{Result 1: The Model Does Not Overtrain in Action Quality}
+
+Figure~\ref{fig:curves} plots the training loss against the six offline validation metrics.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/smolvla_offline_curves.png}
+  \caption{Training loss and offline validation metrics vs.\ training step ($200$ checkpoints).
+  Top-left overlays the training and validation flow-matching loss on one axis; the remaining panels
+  show the AC-Chunk trajectory/regression metrics, each with its minimum marked.}
+  \label{fig:curves}
+\end{figure}
+
+A sharp \textbf{dissociation} appears between the two families of signal:
+
+\begin{itemize}
+  \item \textbf{The training objective overfits.} Training flow-matching loss decreases
+        monotonically ($2.95 \to 0.16$). The \emph{validation} flow-matching loss (NLL/FM) instead
+        forms a $U$: it bottoms at $\bar m \approx 0.45$ near step $13{,}000$ and then drifts up
+        $\sim\!60\%$ toward the end of training (individual points up to $\sim\!1.0$). This is the
+        textbook widening train/val gap.
+  \item \textbf{The predicted actions do not.} Every metric computed on the fully-integrated action
+        chunk---DTW ($6.0\!\to\!1.52$), OT ($5.3\!\to\!2.10$), cosine ($0.82\!\to\!0.22$),
+        L1 ($0.85\!\to\!0.39$), L2 ($1.16\!\to\!0.37$)---drops steeply in the first $\sim\!10{,}000$
+        steps and then \textbf{plateaus with no upturn} (best values at $94$--$99$k are only
+        $1$--$2\%$ below their step-$20$k values).
+\end{itemize}
+
+The pointwise denoising loss degrades as the model memorizes the training noise distribution, yet the
+ODE-integrated action chunk---averaged over $\sim\!300$ validation windows---stays accurate. The
+downstream success rate (Fig.~\ref{fig:success}, top-left) agrees with the \emph{action} metrics, not
+the loss: $Q(k)$ rises to a $\sim\!66\%$ level by step $20$k and then holds a \textbf{noisy plateau}
+($44$--$68\%$, peak $68\%$ at step $75{,}500$) with no late collapse. This matches the sibling
+OpenVLA 150-trajectory run and is consistent with LoRA + in-distribution validation acting as strong
+regularizers.
+
+\begin{table}[h]
+  \centering
+  \caption{Metric Curve Table. Best (minimum) offline value over all $200$ checkpoints, AC-Chunk mode.}
+  \begin{tabular}{llllr}
+    \toprule
+    Model & Checkpoint & Mode & Metric & Value \\
+    \midrule
+    SmolVLA & 94000 & AC-Chunk & DTW    & 1.523 \\
+    SmolVLA & 99000 & AC-Chunk & OT     & 2.098 \\
+    SmolVLA & 99000 & AC-Chunk & COS    & 0.222 \\
+    SmolVLA & 99000 & AC-Chunk & L1     & 0.387 \\
+    SmolVLA & 99000 & AC-Chunk & L2     & 0.365 \\
+    SmolVLA & 13000 & AC-Chunk & NLL/FM & 0.450 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Result 2: Which Offline Metric Predicts Success}
+
+For each metric we select the earliest checkpoint within tolerance of its best validation value
+(tex Early-Stopping Rule),
+\begin{equation}
+  k_m^{\star} = \min\!\Big\{ k : \bar m(k) \le \min_j \bar m(j) + \eta_m \Big\},
+  \qquad \eta_m = 0.01\,\big|\bar m(0) - \min_j \bar m(j)\big|,
+\end{equation}
+evaluated over all $200$ offline checkpoints, and score each metric by its rank correlation and
+selection regret against $Q(k)$:
+\begin{equation}
+  \rho_m = \operatorname{SpearmanCorr}\!\big(-\bar m(k),\, Q(k)\big),
+  \qquad
+  \operatorname{Regret}(m) = \max_k Q(k) - Q(k_m^{\star}).
+\end{equation}
+$\rho_m$ is computed over the $18$ checkpoints where both signals exist; $Q(k_m^\star)$ uses the
+success at the nearest evaluated checkpoint. Figure~\ref{fig:success} shows the scatter of $Q(k)$
+against each metric.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/smolvla_offline_vs_success.png}
+  \caption{Downstream success $Q(k)$ vs.\ each offline metric ($18$ checkpoints, $n_{\text{action}}{=}10$).
+  Points are colored by training step; the red ring marks the early-stop selection $k_m^\star$.
+  Lower metric $=$ better, so a good predictor slopes down-right. NLL/FM (bottom-center) is the only
+  metric that does \emph{not}: its highest-loss (late, overfit) checkpoints reach the highest success.}
+  \label{fig:success}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \caption{Metric Ranking Table (AC-Chunk mode, $Q$ = LIBERO success, $n_{\text{action}}{=}10$).
+  Sorted by Spearman $\rho$. Higher $\rho$ and lower regret are better.}
+  \begin{tabular}{llrrrrl}
+    \toprule
+    Metric & Mode & Selected $k_m^\star$ & $Q(k_m^\star)$ & Spearman $\rho$ & Regret & Comment \\
+    \midrule
+    DTW    & AC-Chunk & 22000 & 0.66 & $+0.47$ & 0.02 & best: high $\rho$, low regret \\
+    L2     & AC-Chunk & 24500 & 0.63 & $+0.46$ & 0.05 & strong; selects on the plateau \\
+    L1     & AC-Chunk & 56000 & 0.44 & $+0.44$ & 0.24 & good $\rho$, selects a success noise-dip \\
+    OT     & AC-Chunk & 11000 & 0.42 & $+0.34$ & 0.26 & plateaus too early $\Rightarrow$ fires early \\
+    COS    & AC-Chunk & 33000 & 0.58 & $+0.28$ & 0.10 & middling \\
+    NLL/FM & AC-Chunk & 13000 & 0.42 & $-0.22$ & 0.26 & \textbf{anti-correlated}; overfits \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Findings.}
+\begin{itemize}
+  \item \textbf{DTW is the best early-stopping metric}: highest rank correlation ($\rho{=}+0.47$) and
+        the lowest regret ($0.02$), selecting step $22{,}000$ at $66\%$ success --- essentially the
+        top of the plateau.
+  \item \textbf{NLL/FM is the worst, and is anti-correlated} ($\rho{=}-0.22$). Because it overfits, it
+        selects step $13{,}000$ (only $42\%$ success, before the plateau), and its highest-loss late
+        checkpoints coincide with the \emph{highest} success (Fig.~\ref{fig:success}, bottom-center).
+        Using the flow-matching validation loss for early stopping here is actively misleading.
+  \item \textbf{All five action-space metrics are positively correlated} ($\rho \in [0.28, 0.47]$);
+        only the loss surrogate is negative. Among them, Spearman is the robust ranking
+        (DTW $>$ L2 $>$ L1 $>$ OT $>$ COS), while \emph{regret is noise-sensitive}: because $Q(k)$ is
+        a $\pm5\%$-noisy plateau, whether a late-firing selection ($k_m^\star$ for L1, OT) lands on a
+        good or a dip checkpoint is partly luck. Regret should be read together with $\rho$, not alone.
+\end{itemize}
+
+\section{Conclusion}
+
+Under this validation protocol, and consistent with the required minimal-claims framing:
+\begin{quote}
+Among the evaluated offline metrics, \textbf{DTW on AC-Chunk predictions} was the best early-stopping
+signal for SmolVLA, having the highest rank correlation with LIBERO success and the lowest
+checkpoint-selection regret; the flow-matching validation loss (NLL/FM surrogate) was the worst,
+being negatively correlated with downstream success.
+\end{quote}
+The experiment also illustrates the guiding distinction directly:
+\begin{equation}
+  \boxed{\ \text{low validation \emph{loss}} \neq \text{high closed-loop \emph{success}}\ }
+\end{equation}
+The training objective overfits while action quality plateaus, so a loss-based stop would trigger far
+too early. We do \emph{not} claim DTW proves real-world success without robot evaluation; we claim
+only that it was the best-validated offline proxy of downstream quality here.
+
+\paragraph{Caveats.} $Q(k)$ is measured at $18$ checkpoints ($500$--$85{,}500$) over a noisy $100$-episode
+estimate; the NLL/FM curve is stochastic (random denoising timestep, $8$ batches), which sharpens the
+apparent $U$; and validation is in-distribution (held-out trajectories of the same $10$ tasks), which
+suppresses overtraining and likely inflates the plateau. Turning off augmentation, shrinking the data
+further, or a held-out-\emph{task} split would stress-test whether any action metric eventually
+turns up.
+
+\end{document}

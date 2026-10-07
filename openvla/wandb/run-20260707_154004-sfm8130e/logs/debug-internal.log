@@ -1,0 +1,8 @@
+{"time":"2026-07-07T15:40:04.718918065+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-07T15:40:04.719061732+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260707_154004-sfm8130e/logs/debug-core.log"}
+{"time":"2026-07-07T15:40:04.984381012+03:00","level":"INFO","msg":"created new stream","id":"sfm8130e"}
+{"time":"2026-07-07T15:40:04.984439569+03:00","level":"INFO","msg":"stream: started","id":"sfm8130e"}
+{"time":"2026-07-07T15:40:04.984492455+03:00","level":"INFO","msg":"sender: started","stream_id":"sfm8130e"}
+{"time":"2026-07-07T15:40:04.984492939+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"sfm8130e"}}
+{"time":"2026-07-07T15:40:04.984492253+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"sfm8130e"}}
+{"time":"2026-07-07T15:40:05.536891652+03:00","level":"INFO","msg":"Starting system monitor"}

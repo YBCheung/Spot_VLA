@@ -1,0 +1,546 @@
+
+  0%|          | 0/30000 [00:00<?, ?it/s]
+
+
+
+
+
+
+  0%|          | 10/30000 [00:13<10:20:53,  1.24s/it]
+
+
+
+
+
+
+  0%|          | 20/30000 [00:25<10:18:38,  1.24s/it]
+
+
+
+
+
+
+  0%|          | 30/30000 [00:38<10:21:19,  1.24s/it]
+
+
+
+
+
+
+
+  0%|          | 41/30000 [00:51<10:23:05,  1.25s/it]
+
+
+
+
+
+
+  0%|          | 50/30000 [01:03<10:25:43,  1.25s/it]
+
+
+
+
+
+
+  0%|          | 60/30000 [01:15<10:18:25,  1.24s/it]
+
+
+
+
+
+
+  0%|          | 70/30000 [01:28<10:20:12,  1.24s/it]
+
+
+
+
+
+
+
+  0%|          | 81/30000 [01:41<10:25:30,  1.25s/it]
+
+
+
+
+
+
+  0%|          | 91/30000 [01:54<10:30:58,  1.27s/it]
+
+
+
+
+
+  0%|          | 98/30000 [02:03<10:20:26,  1.24s/it]
+
+  0%|          | 100/30000 [02:05<10:23:44,  1.25s/it]
+step: 99, CE loss: [3.545320404747318, 2.904766156938341, 3.077753274337105], acc: [0.26011560874522766, 0.37777777910232546, 0.34006210902462836], L1 loss: [0.2163566111484704, 0.1614316976732678, 0.17005237872185913], L2 loss: [0.11480095775830264, 0.09445657084385554, 0.08748580644959988], cosine distance: [0.7294203590795484, 0.7208115458488464, 0.772430463977482], DTW_seg: [0.8276039502189967, 0.6857010057419989, 0.7084030229382744], OT_seg: [0.003140175223700235, 0.0028307586215314015, 0.002903406318480788], DTW: [0.8155626470334264, 0.6729521290461764, 0.6974665894835244], OT: [0.00015422876010233778, 0.00039428167296935663, 0.0003962154193379787]
+New best validation loss: 3.1759
+Saving Model Checkpoint for Step 99
+07/27 [11:38:49] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_loss/dat
+                          aset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1826
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l1/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0989
+Saving Model Checkpoint for Step 99
+07/27 [11:38:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l2/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.7409
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_cosine_d
+                          istance/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation accuracy: 0.3260
+Saving Model Checkpoint for Step 99
+07/27 [11:38:51] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_accuracy
+                          /dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.7287
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw/data
+                          set_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation normalized OT: 0.0003
+Saving Model Checkpoint for Step 99
+07/27 [11:38:52] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_ot/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+New best validation DTW segment: 0.7406
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw_seg/
+                          dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0030
+Saving Model Checkpoint for Step 99
+07/27 [11:38:53] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_ot_seg/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+  0%|          | 101/30000 [02:26<58:53:42,  7.09s/it]
+
+
+
+
+
+
+  0%|          | 110/30000 [02:37<12:16:34,  1.48s/it]
+
+
+
+
+
+
+  0%|          | 120/30000 [02:50<10:22:42,  1.25s/it]
+
+
+
+
+
+
+  0%|          | 129/30000 [03:01<10:26:43,  1.26s/it]
+
+
+
+
+
+
+
+  0%|          | 140/30000 [03:14<10:18:51,  1.24s/it]
+
+
+
+
+
+
+  0%|          | 150/30000 [03:27<10:17:39,  1.24s/it]
+
+
+
+
+
+
+  1%|          | 160/30000 [03:39<10:13:15,  1.23s/it]
+
+
+
+
+
+
+  1%|          | 169/30000 [03:51<10:16:26,  1.24s/it]
+
+
+
+
+
+
+
+  1%|          | 180/30000 [04:04<10:20:49,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 190/30000 [04:17<10:22:43,  1.25s/it]
+
+
+
+
+
+  1%|          | 198/30000 [04:27<10:17:44,  1.24s/it]
+
+  1%|          | 200/30000 [04:29<10:18:57,  1.25s/it]
+step: 199, CE loss: [3.2911075471521736, 3.0489477761294865, 2.8753632916344536], acc: [0.2982731520474612, 0.37614678707691507, 0.38571428722805445], L1 loss: [0.21136455966548606, 0.1745432239333424, 0.14660443001323276], L2 loss: [0.12209612708334085, 0.09261533816199784, 0.07080022253923945], cosine distance: [0.7023748513106461, 0.7802873231949062, 0.7785829650031195], DTW_seg: [0.8374799053641249, 0.739350620367266, 0.6219322512588992], OT_seg: [0.003709733264849428, 0.0029623212147576452, 0.002193055174139372], DTW: [0.7714711755549861, 0.6877725048208102, 0.6068668856426513], OT: [0.00013359574516163874, 0.00028259219704722085, 0.00032859102488732076]
+New best validation loss: 3.0718
+Saving Model Checkpoint for Step 199
+07/27 [11:41:13] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_loss/dat
+                          aset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1775
+Saving Model Checkpoint for Step 199
+07/27 [11:41:14] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l1/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0952
+Saving Model Checkpoint for Step 199
+07/27 [11:41:15] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l2/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.7537
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_cosine_d
+                          istance/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation accuracy: 0.3534
+Saving Model Checkpoint for Step 199
+07/27 [11:41:16] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_accuracy
+                          /dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.6887
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw/data
+                          set_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation normalized OT: 0.0002
+Saving Model Checkpoint for Step 199
+07/27 [11:41:17] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_ot/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+New best validation DTW segment: 0.7329
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw_seg/
+                          dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0030
+Saving Model Checkpoint for Step 199
+07/27 [11:41:18] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_ot_seg/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 199 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+  1%|          | 211/30000 [05:03<11:42:23,  1.41s/it]
+
+
+
+
+
+
+  1%|          | 220/30000 [05:15<10:31:48,  1.27s/it]
+
+
+
+
+
+
+  1%|          | 230/30000 [05:27<10:22:13,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 239/30000 [05:38<10:14:45,  1.24s/it]
+
+
+
+
+
+
+  1%|          | 249/30000 [05:51<10:11:54,  1.23s/it]
+
+
+
+
+
+
+
+  1%|          | 260/30000 [06:05<10:21:53,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 270/30000 [06:17<10:16:51,  1.24s/it]
+
+
+
+
+
+
+  1%|          | 279/30000 [06:28<10:16:50,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 289/30000 [06:41<10:15:14,  1.24s/it]
+
+
+
+
+
+
+  1%|          | 299/30000 [06:53<10:22:55,  1.26s/it]
+
+  1%|          | 300/30000 [06:55<10:19:28,  1.25s/it]
+step: 299, CE loss: [3.271109966131357, 2.8585794555897617, 3.0062524650407876], acc: [0.31711145547720104, 0.3833819250671231, 0.3571428643620532], L1 loss: [0.1994767256981724, 0.15320415399512466, 0.16638656414073447], L2 loss: [0.11438065357915647, 0.08150837406972233, 0.08911126690066379], cosine distance: [0.7179433402124342, 0.7604656462766686, 0.7587164303530818], DTW_seg: [0.7853920038163785, 0.6539185650839477, 0.6973223602231207], OT_seg: [0.00268393833149147, 0.002951382233565695, 0.0032272963177882694], DTW: [0.7427280645315824, 0.6291347626700413, 0.6760519983968044], OT: [5.362528217824172e-05, 0.00040375150803475727, 0.00047866464870539963]
+New best validation loss: 3.0453
+Saving Model Checkpoint for Step 299
+07/27 [11:43:38] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_loss/dat
+                          aset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1730
+Saving Model Checkpoint for Step 299
+07/27 [11:43:39] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l1/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0950
+Saving Model Checkpoint for Step 299
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_l2/datas
+                          et_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation normalized DTW: 0.6826
+Saving Model Checkpoint for Step 299
+07/27 [11:43:40] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw/data
+                          set_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.7122
+Saving Model Checkpoint for Step 299
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_dtw_seg/
+                          dataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0030
+Saving Model Checkpoint for Step 299
+07/27 [11:43:41] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/default+dataset+libero_goal_no_
+                          noops+b40+lr-0.0005+shf1000+lora-r32
+                          +dropout-0.0--image_aug/val_ot_seg/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 299 at: runs/default+dataset+libero_goal_no_noops+b40+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+  1%|          | 310/30000 [07:25<12:02:05,  1.46s/it]
+
+
+
+
+
+
+  1%|          | 320/30000 [07:37<10:13:05,  1.24s/it]
+
+
+
+
+
+
+  1%|          | 329/30000 [07:49<10:16:21,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 339/30000 [08:01<10:12:09,  1.24s/it]
+
+
+
+
+
+
+
+  1%|          | 350/30000 [08:15<10:22:00,  1.26s/it]
+
+
+
+
+
+
+  1%|          | 360/30000 [08:27<10:18:25,  1.25s/it]
+
+
+
+
+
+
+  1%|          | 369/30000 [08:39<10:28:39,  1.27s/it]
+
+
+
+
+
+
+  1%|▏         | 379/30000 [08:51<10:10:01,  1.24s/it]
+
+
+
+
+
+
+
+  1%|▏         | 390/30000 [09:05<10:17:01,  1.25s/it]
+
+
+
+
+
+  1%|▏         | 398/30000 [09:15<10:16:48,  1.25s/it]
+
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 757, in <module>
+    finetune()
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/draccus/argparsing.py", line 203, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 614, in finetune
+    chunk_l1, chunk_l2, chunk_cos_distance, chunk_dtw_seg, chunk_ot_seg = action_eval(action_7_pred, action_7_gt, traj=True)
+ValueError: not enough values to unpack (expected 5, got 3)

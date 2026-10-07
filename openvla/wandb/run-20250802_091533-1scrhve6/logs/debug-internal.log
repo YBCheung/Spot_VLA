@@ -1,0 +1,142 @@
+2025-08-02 09:15:33,126 INFO    StreamThr :3651980 [internal.py:wandb_internal():85] W&B internal server running at pid: 3651980, started at: 2025-08-02 09:15:33.126028
+2025-08-02 09:15:33,127 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status
+2025-08-02 09:15:33,132 INFO    WriterThread:3651980 [datastore.py:open_for_write():87] open: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/run-1scrhve6.wandb
+2025-08-02 09:15:33,133 DEBUG   SenderThread:3651980 [sender.py:send():379] send: header
+2025-08-02 09:15:33,137 DEBUG   SenderThread:3651980 [sender.py:send():379] send: run
+2025-08-02 09:15:33,605 INFO    SenderThread:3651980 [dir_watcher.py:__init__():211] watching files in: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files
+2025-08-02 09:15:33,605 INFO    SenderThread:3651980 [sender.py:_start_run_threads():1188] run started: 1scrhve6 with start time 1754115333.126501
+2025-08-02 09:15:33,609 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: check_version
+2025-08-02 09:15:33,610 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: check_version
+2025-08-02 09:15:33,677 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: run_start
+2025-08-02 09:15:33,682 DEBUG   HandlerThread:3651980 [system_info.py:__init__():26] System info init
+2025-08-02 09:15:33,683 DEBUG   HandlerThread:3651980 [system_info.py:__init__():41] System info init done
+2025-08-02 09:15:33,683 INFO    HandlerThread:3651980 [system_monitor.py:start():194] Starting system monitor
+2025-08-02 09:15:33,683 INFO    SystemMonitor:3651980 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2025-08-02 09:15:33,683 INFO    HandlerThread:3651980 [system_monitor.py:probe():214] Collecting system info
+2025-08-02 09:15:33,683 INFO    SystemMonitor:3651980 [interfaces.py:start():188] Started cpu monitoring
+2025-08-02 09:15:33,683 INFO    SystemMonitor:3651980 [interfaces.py:start():188] Started disk monitoring
+2025-08-02 09:15:33,684 INFO    SystemMonitor:3651980 [interfaces.py:start():188] Started gpu monitoring
+2025-08-02 09:15:33,684 INFO    SystemMonitor:3651980 [interfaces.py:start():188] Started memory monitoring
+2025-08-02 09:15:33,685 INFO    SystemMonitor:3651980 [interfaces.py:start():188] Started network monitoring
+2025-08-02 09:15:33,703 DEBUG   HandlerThread:3651980 [system_info.py:probe():152] Probing system
+2025-08-02 09:15:33,704 DEBUG   HandlerThread:3651980 [system_info.py:_probe_git():137] Probing git
+2025-08-02 09:15:33,711 DEBUG   HandlerThread:3651980 [system_info.py:_probe_git():145] Probing git done
+2025-08-02 09:15:33,711 DEBUG   HandlerThread:3651980 [system_info.py:probe():200] Probing system done
+2025-08-02 09:15:33,711 DEBUG   HandlerThread:3651980 [system_monitor.py:probe():223] {'os': 'Linux-5.14.0-503.26.1.el9_5.x86_64-x86_64-with-glibc2.34', 'python': '3.10.14', 'heartbeatAt': '2025-08-02T06:15:33.703151', 'startedAt': '2025-08-02T06:15:33.118564', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py', 'codePathLocal': 'vla-scripts/finetune_early_stop.py', 'codePath': 'openvla/vla-scripts/finetune_early_stop.py', 'git': {'remote': 'https://github.com/YBCheung/Spot_VLA.git', 'commit': '499ede76127c4c57f84a3f32f346431748b6ccdb'}, 'email': 'zhangy50@triton.aalto.fi', 'root': '/scratch/work/zhangy50/RL/Spot_VLA', 'host': 'gpu50.int.triton.aalto.fi', 'username': 'zhangy50', 'executable': '/scratch/work/zhangy50/.conda_envs/openvla/bin/python', 'cpu_count': 64, 'cpu_count_logical': 128, 'cpu_freq': {'current': 4037.0536015625007, 'min': 800.0, 'max': 4100.0}, 'cpu_freq_per_core': [{'current': 3795.399, 'min': 800.0, 'max': 4100.0}, {'current': 3255.304, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3563.894, 'min': 800.0, 'max': 4100.0}, {'current': 3800.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3800.0, 'min': 800.0, 'max': 4100.0}, {'current': 3614.384, 'min': 800.0, 'max': 4100.0}, {'current': 3785.384, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3808.983, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3527.06, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3515.331, 'min': 800.0, 'max': 4100.0}, {'current': 3218.554, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3506.79, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3800.038, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3799.961, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3799.961, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3799.961, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 3800.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}, {'current': 4100.0, 'min': 800.0, 'max': 4100.0}], 'disk': {'/': {'total': 1006.1671028137207, 'used': 4.156715393066406}}, 'gpu': 'NVIDIA H200', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA H200', 'memory_total': 150754820096}], 'memory': {'total': 2015.383243560791}}
+2025-08-02 09:15:33,711 INFO    HandlerThread:3651980 [system_monitor.py:probe():224] Finished collecting system info
+2025-08-02 09:15:33,711 INFO    HandlerThread:3651980 [system_monitor.py:probe():227] Publishing system info
+2025-08-02 09:15:33,711 DEBUG   HandlerThread:3651980 [system_info.py:_save_conda():209] Saving list of conda packages installed into the current environment
+2025-08-02 09:15:34,607 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/conda-environment.yaml
+2025-08-02 09:15:37,530 DEBUG   HandlerThread:3651980 [system_info.py:_save_conda():224] Saving conda packages done
+2025-08-02 09:15:37,532 INFO    HandlerThread:3651980 [system_monitor.py:probe():229] Finished publishing system info
+2025-08-02 09:15:37,538 DEBUG   SenderThread:3651980 [sender.py:send():379] send: files
+2025-08-02 09:15:37,539 INFO    SenderThread:3651980 [sender.py:_save_file():1454] saving file wandb-metadata.json with policy now
+2025-08-02 09:15:37,607 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/conda-environment.yaml
+2025-08-02 09:15:37,608 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/wandb-metadata.json
+2025-08-02 09:15:37,633 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: python_packages
+2025-08-02 09:15:37,634 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: python_packages
+2025-08-02 09:15:37,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: stop_status
+2025-08-02 09:15:37,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:37,635 DEBUG   SenderThread:3651980 [sender.py:send():379] send: telemetry
+2025-08-02 09:15:37,635 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: stop_status
+2025-08-02 09:15:38,201 INFO    wandb-upload_0:3651980 [upload_job.py:push():130] Uploaded file /tmp/tmp2uhcftanwandb/2xmynjin-wandb-metadata.json
+2025-08-02 09:15:38,610 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:38,611 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/requirements.txt
+2025-08-02 09:15:38,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:38,887 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:15:39,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:40,611 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:40,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:41,310 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: partial_history
+2025-08-02 09:15:41,311 DEBUG   SenderThread:3651980 [sender.py:send():379] send: telemetry
+2025-08-02 09:15:41,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:42,614 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:42,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:43,614 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:43,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:44,104 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:15:44,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:45,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:46,615 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:46,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:47,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:48,616 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:48,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:49,524 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:15:49,635 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:50,617 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:50,636 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:51,636 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:52,617 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:52,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: stop_status
+2025-08-02 09:15:52,634 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: stop_status
+2025-08-02 09:15:52,636 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:53,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:54,618 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:54,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:54,988 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:15:55,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:56,619 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:56,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:57,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:58,619 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:15:58,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:15:59,553 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: partial_history
+2025-08-02 09:15:59,554 DEBUG   SenderThread:3651980 [sender.py:send():379] send: history
+2025-08-02 09:15:59,555 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: summary_record
+2025-08-02 09:15:59,555 INFO    SenderThread:3651980 [sender.py:_save_file():1454] saving file wandb-summary.json with policy end
+2025-08-02 09:15:59,624 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_created():271] file/dir created: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/wandb-summary.json
+2025-08-02 09:15:59,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:00,556 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:16:00,625 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:00,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:01,627 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:01,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:02,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:03,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:04,628 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:04,637 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:05,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:06,006 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:16:06,630 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:06,630 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/config.yaml
+2025-08-02 09:16:06,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:07,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: stop_status
+2025-08-02 09:16:07,634 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: stop_status
+2025-08-02 09:16:07,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:08,630 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:08,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:09,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:10,632 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:10,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:11,481 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:16:11,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:12,632 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:12,638 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:13,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:14,633 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:14,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:15,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:16,633 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:16,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:16,849 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:16:17,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:17,698 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: partial_history
+2025-08-02 09:16:17,699 DEBUG   SenderThread:3651980 [sender.py:send():379] send: history
+2025-08-02 09:16:17,700 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: summary_record
+2025-08-02 09:16:17,700 INFO    SenderThread:3651980 [sender.py:_save_file():1454] saving file wandb-summary.json with policy end
+2025-08-02 09:16:18,634 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:18,635 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/wandb-summary.json
+2025-08-02 09:16:18,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:19,635 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:19,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:20,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:21,639 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:22,370 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: status_report
+2025-08-02 09:16:22,634 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: stop_status
+2025-08-02 09:16:22,634 DEBUG   SenderThread:3651980 [sender.py:send_request():406] send_request: stop_status
+2025-08-02 09:16:22,636 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:22,674 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:23,640 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages
+2025-08-02 09:16:24,636 INFO    Thread-12 :3651980 [dir_watcher.py:_on_file_modified():288] file/dir modified: /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20250802_091533-1scrhve6/files/output.log
+2025-08-02 09:16:24,640 DEBUG   HandlerThread:3651980 [handler.py:handle_request():158] handle_request: internal_messages

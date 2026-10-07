@@ -1,0 +1,87 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"python/3.9"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "python/3.9"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"cuda/11.8"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "cuda/11.8"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+2025-07-28 03:48:57.690477: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-07-28 03:48:57.711785: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2025-07-28 03:48:57.734955: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1753663737.747755  179637 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1753663737.751419  179637 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1753663737.762870  179637 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1753663737.762915  179637 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1753663737.762920  179637 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1753663737.762924  179637 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-07-28 03:48:57.766663: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1510, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 55, in <module>
+    from flash_attn import flash_attn_func, flash_attn_varlen_func
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/flash_attn/__init__.py", line 3, in <module>
+    from flash_attn.flash_attn_interface import (
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/flash_attn/flash_attn_interface.py", line 10, in <module>
+    import flash_attn_2_cuda as flash_attn_cuda
+ImportError: libcudart.so.12: cannot open shared object file: No such file or directory
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/experiments/robot/libero/run_libero_eval.py", line 39, in <module>
+    from experiments.robot.libero.libero_utils import (
+  File "/scratch/work/zhangy50/RL/openvla/experiments/robot/libero/libero_utils.py", line 12, in <module>
+    from experiments.robot.robot_utils import (
+  File "/scratch/work/zhangy50/RL/openvla/experiments/robot/robot_utils.py", line 10, in <module>
+    from experiments.robot.openvla_utils import (
+  File "/scratch/work/zhangy50/RL/openvla/experiments/robot/openvla_utils.py", line 13, in <module>
+    from prismatic.extern.hf.configuration_prismatic import OpenVLAConfig
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/__init__.py", line 1, in <module>
+    from .models import available_model_names, available_models, get_model_description, load
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/models/__init__.py", line 1, in <module>
+    from .load import available_model_names, available_models, get_model_description, load, load_vla
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/models/load.py", line 16, in <module>
+    from prismatic.models.materialize import get_llm_backbone_and_tokenizer, get_vision_backbone_and_transform
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/models/materialize.py", line 12, in <module>
+    from prismatic.models.backbones.llm import LLaMa2LLMBackbone, LLMBackbone, MistralLLMBackbone, PhiLLMBackbone
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/models/backbones/llm/__init__.py", line 2, in <module>
+    from .llama2 import LLaMa2LLMBackbone
+  File "/scratch/work/zhangy50/RL/openvla/prismatic/models/backbones/llm/llama2.py", line 11, in <module>
+    from transformers import LlamaForCausalLM
+  File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1501, in __getattr__
+    value = getattr(module, name)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1500, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1512, in _get_module
+    raise RuntimeError(
+RuntimeError: Failed to import transformers.models.llama.modeling_llama because of the following error (look up to see its traceback):
+libcudart.so.12: cannot open shared object file: No such file or directory

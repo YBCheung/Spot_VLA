@@ -1,0 +1,423 @@
+Task suite: libero_goal
+
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+Saved trajectory 1 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_000.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=1--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 1
+# successes: 1 (100.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 2...
+Saved trajectory 2 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_001.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=2--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 2
+# successes: 1 (50.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 3...
+Saved trajectory 3 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_002.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=3--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 3
+# successes: 2 (66.7%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 4...
+Saved trajectory 4 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_003.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=4--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 4
+# successes: 2 (50.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 5...
+Saved trajectory 5 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_004.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=5--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 5
+# successes: 2 (40.0%)
+Current task success rate: 0.4
+Current total success rate: 0.4
+
+Task: put the bowl on the stove
+Starting episode 1...
+Saved trajectory 6 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_005.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=6--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 6
+# successes: 2 (33.3%)
+
+Task: put the bowl on the stove
+Starting episode 2...
+Saved trajectory 7 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_006.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=7--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 7
+# successes: 3 (42.9%)
+
+Task: put the bowl on the stove
+Starting episode 3...
+Saved trajectory 8 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_007.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=8--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 8
+# successes: 4 (50.0%)
+
+Task: put the bowl on the stove
+Starting episode 4...
+Saved trajectory 9 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_008.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=9--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 9
+# successes: 4 (44.4%)
+
+Task: put the bowl on the stove
+Starting episode 5...
+Saved trajectory 10 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_009.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=10--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 10
+# successes: 4 (40.0%)
+Current task success rate: 0.4
+Current total success rate: 0.4
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 1...
+Saved trajectory 11 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_010.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=11--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 11
+# successes: 4 (36.4%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 2...
+Saved trajectory 12 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_011.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=12--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 12
+# successes: 4 (33.3%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 3...
+Saved trajectory 13 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_012.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=13--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 13
+# successes: 4 (30.8%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 4...
+Saved trajectory 14 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_013.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=14--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 14
+# successes: 4 (28.6%)
+
+Task: put the wine bottle on top of the cabinet
+Starting episode 5...
+Saved trajectory 15 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_014.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=15--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 15
+# successes: 4 (26.7%)
+Current task success rate: 0.0
+Current total success rate: 0.26666666666666666
+
+Task: open the top drawer and put the bowl inside
+Starting episode 1...
+Saved trajectory 16 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_015.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=16--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 16
+# successes: 4 (25.0%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 2...
+Saved trajectory 17 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_016.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=17--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 17
+# successes: 4 (23.5%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 3...
+Saved trajectory 18 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_017.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=18--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 18
+# successes: 4 (22.2%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 4...
+Saved trajectory 19 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_018.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=19--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 19
+# successes: 4 (21.1%)
+
+Task: open the top drawer and put the bowl inside
+Starting episode 5...
+Saved trajectory 20 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_019.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=20--success=False--task=open_the_top_drawer_and_put_the_bowl_inside.mp4
+Success: False
+# episodes completed so far: 20
+# successes: 4 (20.0%)
+Current task success rate: 0.0
+Current total success rate: 0.2
+
+Task: put the bowl on top of the cabinet
+Starting episode 1...
+Saved trajectory 21 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_020.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=21--success=False--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 21
+# successes: 4 (19.0%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 2...
+Saved trajectory 22 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_021.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=22--success=True--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 22
+# successes: 5 (22.7%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 3...
+Saved trajectory 23 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_022.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=23--success=False--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 23
+# successes: 5 (21.7%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 4...
+Saved trajectory 24 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_023.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=24--success=False--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 24
+# successes: 5 (20.8%)
+
+Task: put the bowl on top of the cabinet
+Starting episode 5...
+Saved trajectory 25 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_024.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=25--success=False--task=put_the_bowl_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 25
+# successes: 5 (20.0%)
+Current task success rate: 0.2
+Current total success rate: 0.2
+
+Task: push the plate to the front of the stove
+Starting episode 1...
+Saved trajectory 26 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_025.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=26--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 26
+# successes: 5 (19.2%)
+
+Task: push the plate to the front of the stove
+Starting episode 2...
+Saved trajectory 27 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_026.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=27--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 27
+# successes: 5 (18.5%)
+
+Task: push the plate to the front of the stove
+Starting episode 3...
+Saved trajectory 28 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_027.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=28--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 28
+# successes: 5 (17.9%)
+
+Task: push the plate to the front of the stove
+Starting episode 4...
+Saved trajectory 29 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_028.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=29--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 29
+# successes: 5 (17.2%)
+
+Task: push the plate to the front of the stove
+Starting episode 5...
+Saved trajectory 30 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_029.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=30--success=False--task=push_the_plate_to_the_front_of_the_stove.mp4
+Success: False
+# episodes completed so far: 30
+# successes: 5 (16.7%)
+Current task success rate: 0.0
+Current total success rate: 0.16666666666666666
+
+Task: put the cream cheese in the bowl
+Starting episode 1...
+Saved trajectory 31 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_030.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=31--success=False--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: False
+# episodes completed so far: 31
+# successes: 5 (16.1%)
+
+Task: put the cream cheese in the bowl
+Starting episode 2...
+Saved trajectory 32 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_031.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=32--success=False--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: False
+# episodes completed so far: 32
+# successes: 5 (15.6%)
+
+Task: put the cream cheese in the bowl
+Starting episode 3...
+Saved trajectory 33 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_032.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=33--success=False--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: False
+# episodes completed so far: 33
+# successes: 5 (15.2%)
+
+Task: put the cream cheese in the bowl
+Starting episode 4...
+Saved trajectory 34 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_033.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=34--success=False--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: False
+# episodes completed so far: 34
+# successes: 5 (14.7%)
+
+Task: put the cream cheese in the bowl
+Starting episode 5...
+Saved trajectory 35 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_034.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=35--success=False--task=put_the_cream_cheese_in_the_bowl.mp4
+Success: False
+# episodes completed so far: 35
+# successes: 5 (14.3%)
+Current task success rate: 0.0
+Current total success rate: 0.14285714285714285
+
+Task: turn on the stove
+Starting episode 1...
+Saved trajectory 36 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_035.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=36--success=False--task=turn_on_the_stove.mp4
+Success: False
+# episodes completed so far: 36
+# successes: 5 (13.9%)
+
+Task: turn on the stove
+Starting episode 2...
+Saved trajectory 37 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_036.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=37--success=False--task=turn_on_the_stove.mp4
+Success: False
+# episodes completed so far: 37
+# successes: 5 (13.5%)
+
+Task: turn on the stove
+Starting episode 3...
+Saved trajectory 38 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_037.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=38--success=False--task=turn_on_the_stove.mp4
+Success: False
+# episodes completed so far: 38
+# successes: 5 (13.2%)
+
+Task: turn on the stove
+Starting episode 4...
+Saved trajectory 39 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_038.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=39--success=False--task=turn_on_the_stove.mp4
+Success: False
+# episodes completed so far: 39
+# successes: 5 (12.8%)
+
+Task: turn on the stove
+Starting episode 5...
+Saved trajectory 40 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_039.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=40--success=False--task=turn_on_the_stove.mp4
+Success: False
+# episodes completed so far: 40
+# successes: 5 (12.5%)
+Current task success rate: 0.0
+Current total success rate: 0.125
+
+Task: put the bowl on the plate
+Starting episode 1...
+Saved trajectory 41 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_040.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=41--success=False--task=put_the_bowl_on_the_plate.mp4
+Success: False
+# episodes completed so far: 41
+# successes: 5 (12.2%)
+
+Task: put the bowl on the plate
+Starting episode 2...
+Saved trajectory 42 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_041.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=42--success=False--task=put_the_bowl_on_the_plate.mp4
+Success: False
+# episodes completed so far: 42
+# successes: 5 (11.9%)
+
+Task: put the bowl on the plate
+Starting episode 3...
+Saved trajectory 43 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_042.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=43--success=False--task=put_the_bowl_on_the_plate.mp4
+Success: False
+# episodes completed so far: 43
+# successes: 5 (11.6%)
+
+Task: put the bowl on the plate
+Starting episode 4...
+Saved trajectory 44 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_043.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=44--success=False--task=put_the_bowl_on_the_plate.mp4
+Success: False
+# episodes completed so far: 44
+# successes: 5 (11.4%)
+
+Task: put the bowl on the plate
+Starting episode 5...
+Saved trajectory 45 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_044.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=45--success=False--task=put_the_bowl_on_the_plate.mp4
+Success: False
+# episodes completed so far: 45
+# successes: 5 (11.1%)
+Current task success rate: 0.0
+Current total success rate: 0.1111111111111111
+
+Task: put the wine bottle on the rack
+Starting episode 1...
+Saved trajectory 46 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_045.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=46--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 46
+# successes: 5 (10.9%)
+
+Task: put the wine bottle on the rack
+Starting episode 2...
+Saved trajectory 47 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_046.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=47--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 47
+# successes: 5 (10.6%)
+
+Task: put the wine bottle on the rack
+Starting episode 3...
+Saved trajectory 48 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_047.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=48--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 48
+# successes: 5 (10.4%)
+
+Task: put the wine bottle on the rack
+Starting episode 4...
+Saved trajectory 49 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_048.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=49--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 49
+# successes: 5 (10.2%)
+
+Task: put the wine bottle on the rack
+Starting episode 5...
+Saved trajectory 50 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_049.pkl
+Saved rollout MP4 at path ./rollouts/2025_07_28/2025_07_28-03_18_04--episode=50--success=False--task=put_the_wine_bottle_on_the_rack.mp4
+Success: False
+# episodes completed so far: 50
+# successes: 5 (10.0%)
+Current task success rate: 0.0
+Current total success rate: 0.1
+Saved trajectory summary to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_07_28-03_18_04/trajectory_summary.json
+Total trajectories saved: 50

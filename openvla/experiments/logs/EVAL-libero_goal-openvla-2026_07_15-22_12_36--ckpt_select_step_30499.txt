@@ -1,0 +1,45 @@
+Task suite: libero_goal
+
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+Saved trajectory 1 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_000.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-22_12_36--episode=1--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 1
+# successes: 1 (100.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 2...
+Saved trajectory 2 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_001.pkl
+Saved rollout MP4 at path ./rollouts/2026_07_15/2026_07_15-22_12_36--episode=2--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 2
+# successes: 2 (100.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 3...
+Saved trajectory 3 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_002.pkl
+Success: False
+# episodes completed so far: 3
+# successes: 2 (66.7%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 4...
+Saved trajectory 4 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_003.pkl
+Success: False
+# episodes completed so far: 4
+# successes: 2 (50.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 5...
+Saved trajectory 5 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_004.pkl
+Success: False
+# episodes completed so far: 5
+# successes: 2 (40.0%)
+
+Task: open the middle drawer of the cabinet
+Starting episode 6...
+Saved trajectory 6 to: ./trajectory_logs/time2026-07-13_23-55-23+openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+adapter-None+lora-r32+dropout-0.0--image_aug/step_30499/EVAL-libero_goal-openvla-2026_07_15-22_12_36--ckpt_select_step_30499/trajectory_005.pkl
+Success: True
+# episodes completed so far: 6
+# successes: 3 (50.0%)

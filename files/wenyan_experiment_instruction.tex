@@ -1,0 +1,627 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2em, topsep=0.2em}
+\setlist[enumerate]{leftmargin=1.7em, itemsep=0.25em, topsep=0.25em}
+
+\title{Offline Metrics for Early Stopping in VLA Fine-Tuning}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Goal}
+
+We want to choose an early-stopping checkpoint for fine-tuning a Vision--Language--Action (VLA) policy without running expensive real-world robot evaluation at every checkpoint.
+
+For each checkpoint, we compute offline validation metrics and ask:
+\begin{equation}
+\textit{Which metric best predicts the checkpoint with the best downstream execution quality?}
+\end{equation}
+
+The candidate metrics are:
+\begin{enumerate}
+    \item Dynamic Time Warping distance, denoted $D_{\mathrm{DTW}}$;
+    \item Optimal Transport or Sinkhorn distance, denoted $D_{\mathrm{OT}}$;
+    \item Cosine distance, denoted $D_{\mathrm{cos}}$;
+    \item negative log-likelihood or a model-specific likelihood surrogate, denoted $\mathrm{NLL}$.
+\end{enumerate}
+
+There are two evaluation settings:
+\begin{enumerate}
+    \item \textbf{Action-chunk evaluation}: compare predicted action chunks with held-out demonstration action chunks.
+    \item \textbf{State-action rollout evaluation}: use a world model to roll out the policy, then compare generated state-action chunks with held-out successful state-action chunks.
+\end{enumerate}
+
+\section{Notation}
+
+Let
+\begin{equation}
+\mathcal{D}=\{\tau_i\}_{i=1}^{N}
+\end{equation}
+be a dataset of robot demonstration trajectories. A trajectory is
+\begin{equation}
+\tau_i = (s_{i,0},h_{i,0},a_{i,0},s_{i,1},h_{i,1},a_{i,1},\ldots,s_{i,T_i}).
+\end{equation}
+
+The symbols are defined as follows.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$s_t$ & environment or robot state \\
+$o_t$ & visual observation \\
+$q_t$ & robot proprioception \\
+$\ell$ & language instruction \\
+$h_t=(o_t,q_t,\ell)$ & policy input context \\
+$a_t\in\mathbb{R}^{d_a}$ & robot action \\
+$A_{t,H}=(a_t,\ldots,a_{t+H-1})$ & action chunk of horizon $H$ \\
+$\theta_k$ & VLA checkpoint after $k$ training steps \\
+$\pi_k=\pi_{\theta_k}$ & policy at checkpoint $k$ \\
+$\widehat{P}_{\phi}(s_{t+1}\mid s_t,a_t,\ell)$ & learned or simulated world model \\
+$\psi_s(s_t)$ & state or observation embedding for comparison \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The data should be split into training, validation, and test sets:
+\begin{equation}
+\mathcal{D}=\mathcal{D}_{\mathrm{train}}\cup\mathcal{D}_{\mathrm{val}}\cup\mathcal{D}_{\mathrm{test}}.
+\end{equation}
+The policy is fine-tuned on $\mathcal{D}_{\mathrm{train}}$, checkpoints are selected using $\mathcal{D}_{\mathrm{val}}$, and final conclusions are reported on $\mathcal{D}_{\mathrm{test}}$.
+
+\section{Action Normalization}
+
+Before computing distances, normalize every action dimension using statistics from the training set:
+\begin{equation}
+\bar{a}_{t,d} = \frac{a_{t,d}-\mu_d}{\sigma_d+\epsilon},
+\qquad d=1,\ldots,d_a,
+\end{equation}
+where
+\begin{equation}
+\mu_d = \mathbb{E}_{\mathcal{D}_{\mathrm{train}}}[a_{t,d}],
+\qquad
+\sigma_d^2 = \operatorname{Var}_{\mathcal{D}_{\mathrm{train}}}(a_{t,d}).
+\end{equation}
+
+This is important because translation, rotation, and gripper commands may have very different numerical scales.
+
+
+\section{\textcolor{red}{What models to be used}}
+
+\begin{enumerate}
+    \item  \textbf{\textcolor{red}{World models:} a pretrained light-weighted model: \url{https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/opensora.html}}
+
+
+    \item \textbf{\textcolor{blue}{VLA models:} OpenVLA, Pi0.5-fast, SmoVLA}
+\end{enumerate}
+
+
+\section{Evaluation Mode A: Action-Chunk Evaluation}
+
+For a held-out validation trajectory $\tau_i$ and a window starting at time $t$, define the reference action chunk
+\begin{equation}
+A^{\star}_{i,t,H}=(a^{\star}_{i,t},a^{\star}_{i,t+1},\ldots,a^{\star}_{i,t+H-1}).
+\end{equation}
+
+The model produces a predicted chunk
+\begin{equation}
+\widehat{A}_{i,t,H}(\theta_k).
+\end{equation}
+
+We compare $\widehat{A}_{i,t,H}(\theta_k)$ with $A^{\star}_{i,t,H}$ using DTW, OT, cosine distance, and NLL.
+
+\subsection{One-Step VLA Policy (e.g., OpenVLA)}
+
+For OpenVLA-like models that output only one action at a time, the policy has the form
+\begin{equation}
+\pi_k(a_t\mid h_t).
+\end{equation}
+
+\paragraph{Without a world model}, we form a teacher-forced pseudo-chunk by feeding the held-out state sequence into the model:
+\begin{equation}
+\widehat{A}^{\mathrm{TF}}_{i,t,H}(\theta_k)
+=
+(\hat{a}_{i,t},\hat{a}_{i,t+1},\ldots,\hat{a}_{i,t+H-1}),
+\end{equation}
+where
+\begin{equation}
+\hat{a}_{i,t+j}=\operatorname{dec}\bigl(\pi_k(\cdot\mid h^{\star}_{i,t+j})\bigr),
+\qquad j=0,\ldots,H-1.
+\end{equation}
+Here $\operatorname{dec}(\cdot)$ denotes the model's action decoder, for example mean action, mode action, or decoded action token. This is a \textbf{teacher-forced action sequence}. It measures action quality on expert states. It does not measure closed-loop compounding error.
+
+
+\paragraph{With a world model.}
+With a world model, a one-step VLA policy can be evaluated in a closed-loop manner.
+The policy still outputs only one action at a time. The action chunk is generated by
+unrolling the policy together with the learned transition model.
+
+Let the learned world model be
+\begin{equation}
+\widehat{P}_{\phi}(h_{t+1}\mid h_t,a_t),
+\end{equation}
+where $h_t$ denotes the policy input at time $t$, including the visual observation,
+robot state, language instruction, and any required history.
+
+Starting from the held-out initial state $h^{\star}_{i,t}$, we set
+\begin{equation}
+\widehat{h}_{i,t}=h^{\star}_{i,t}.
+\end{equation}
+Then, for $j=0,\ldots,H-1$, we recursively generate
+\begin{align}
+\widehat{a}_{i,t+j}
+&=
+\operatorname{dec}\bigl(\pi_k(\cdot\mid \widehat{h}_{i,t+j})\bigr),
+\\
+\widehat{h}_{i,t+j+1}
+&\sim
+\widehat{P}_{\phi}(\cdot\mid \widehat{h}_{i,t+j},\widehat{a}_{i,t+j}).
+\end{align}
+
+The resulting world-model action chunk is
+\begin{equation}
+\widehat{A}^{\mathrm{WM}}_{i,t,H}(\theta_k)
+=
+(\widehat{a}_{i,t},\widehat{a}_{i,t+1},\ldots,\widehat{a}_{i,t+H-1}).
+\end{equation}
+
+The corresponding imagined state-action chunk is
+\begin{equation}
+\widehat{Z}^{\mathrm{WM}}_{i,t,H}(\theta_k)
+=
+\bigl(
+(\widehat{h}_{i,t},\widehat{a}_{i,t}),
+(\widehat{h}_{i,t+1},\widehat{a}_{i,t+1}),
+\ldots,
+(\widehat{h}_{i,t+H-1},\widehat{a}_{i,t+H-1})
+\bigr).
+\end{equation}
+
+This is different from the teacher-forced pseudo-chunk. In the teacher-forced case,
+the model receives the expert states $h^{\star}_{i,t+j}$ at every step. In the
+world-model case, only the initial state is taken from the held-out trajectory; all
+future states are generated by the world model. Therefore, this setting can measure
+closed-loop compounding error.
+
+\subsection{Chunking VLA Policy (Pi 0.5, SmoVLA)}
+
+For chunking models such as $\pi_{0.5}$-style or SmolVLA-style policies, the model directly predicts an action chunk:
+\begin{equation}
+\pi_k(A_{t,H}\mid h_t).
+\end{equation}
+
+The predicted chunk is
+\begin{equation}
+\widehat{A}^{\mathrm{chunk}}_{i,t,H}(\theta_k)
+=
+\operatorname{dec}\bigl(\pi_k(\cdot\mid h^{\star}_{i,t})\bigr).
+\end{equation}
+
+This is a native chunk prediction from one initial context $h^{\star}_{i,t}$.
+
+\section{Evaluation Mode B: State-Action Rollout with a World Model}
+
+If a world model is available, use it to evaluate the policy in a closed loop.
+
+Start from a held-out initial state:
+\begin{equation}
+\hat{s}_0=s^{\star}_{i,t}.
+\end{equation}
+
+For $j=0,\ldots,H-1$, run
+\begin{align}
+\hat{h}_j &= \mathcal{O}(\hat{s}_j,\ell_i), \\
+\hat{a}_j &= \operatorname{dec}\bigl(\pi_k(\cdot\mid \hat{h}_j)\bigr), \\
+\hat{s}_{j+1} &\sim \widehat{P}_{\phi}(\cdot\mid \hat{s}_j,\hat{a}_j,\ell_i).
+\end{align}
+
+This produces a generated state-action sequence
+\begin{equation}
+\widehat{Z}_{i,t,H}(\theta_k)
+=
+(\hat{z}_0,\hat{z}_1,\ldots,\hat{z}_{H-1}),
+\end{equation}
+where
+\begin{equation}
+\hat{z}_j = [\alpha_s\psi_s(\hat{s}_j),\alpha_a\bar{a}_j].
+\end{equation}
+Here $\alpha_s$ and $\alpha_a$ are fixed weights for state and action features.
+
+The reference state-action chunk is
+\begin{equation}
+Z^{\star}_{i,t,H}
+=
+(z^{\star}_{i,t},z^{\star}_{i,t+1},\ldots,z^{\star}_{i,t+H-1}),
+\end{equation}
+where
+\begin{equation}
+ z^{\star}_{i,t+j}=[\alpha_s\psi_s(s^{\star}_{i,t+j}),\alpha_a\bar{a}^{\star}_{i,t+j}].
+\end{equation}
+
+Then compute DTW, OT, and cosine distance between $\widehat{Z}_{i,t,H}(\theta_k)$ and $Z^{\star}_{i,t,H}$.
+
+\paragraph{Important note.}
+The transition model must be written as
+\begin{equation}
+\widehat{P}_{\phi}(s_{t+1}\mid s_t,a_t,\ell),
+\end{equation}
+not as $T(s\mid a)$, because the next state depends on the current state, action, and task context.
+
+\section{Metric Definitions}
+
+Let
+\begin{equation}
+X=(x_0,\ldots,x_{H_x-1}),
+\qquad
+Y=(y_0,\ldots,y_{H_y-1})
+\end{equation}
+be two sequences. In action-chunk evaluation, $x_j$ and $y_j$ are normalized actions. In state-action rollout evaluation, they are state-action features.
+
+Use the pointwise cost
+\begin{equation}
+c(x,y)=\|x-y\|_2^2.
+\end{equation}
+
+\subsection{Dynamic Time Warping}
+
+Let $\mathcal{W}$ be the set of valid monotone warping paths between $X$ and $Y$. The DTW distance is
+\begin{equation}
+D_{\mathrm{DTW}}(X,Y)
+=
+\frac{1}{|\Gamma^{\star}|}
+\min_{\Gamma\in\mathcal{W}}
+\sum_{(r,u)\in\Gamma} c(x_r,y_u),
+\end{equation}
+where $\Gamma^{\star}$ is the minimizing path.
+
+Use DTW when the same behavior may occur at slightly different speeds.
+
+\subsection{Optimal Transport}
+
+Let $p\in\Delta^{H_x}$ and $q\in\Delta^{H_y}$ be uniform distributions over sequence elements. Define
+\begin{equation}
+\Pi(p,q)=\{\Gamma\in\mathbb{R}_{+}^{H_x\times H_y}:\Gamma\mathbf{1}=p,\Gamma^{\top}\mathbf{1}=q\}.
+\end{equation}
+
+The entropic OT distance is
+\begin{equation}
+D^{\varepsilon}_{\mathrm{OT}}(X,Y)
+=
+\min_{\Gamma\in\Pi(p,q)}
+\sum_{r,u}\Gamma_{ru}c(x_r,y_u)
++
+\varepsilon_{\mathrm{ot}}
+\sum_{r,u}\Gamma_{ru}(\log\Gamma_{ru}-1).
+\end{equation}
+
+If temporal order matters, use the temporally regularized cost
+\begin{equation}
+c_t(x_r,y_u)
+=
+\|x_r-y_u\|_2^2
++
+\lambda_t\left(\frac{r}{H_x-1}-\frac{u}{H_y-1}\right)^2.
+\end{equation}
+
+\subsection{Cosine Distance}
+
+For equal-length sequences, define
+\begin{equation}
+D_{\mathrm{cos}}(X,Y)
+=
+1-rac{1}{H}
+\sum_{j=0}^{H-1}
+\frac{x_j^{\top}y_j}{\|x_j\|_2\|y_j\|_2+\epsilon}.
+\end{equation}
+
+Cosine distance measures directional similarity. It should not be used alone because it ignores action magnitude.
+
+\subsection{Log-Likelihood and NLL}
+
+The correct likelihood term is
+\begin{equation}
+\sum_t \log \pi_k(a_t^{\star}\mid h_t^{\star}),
+\end{equation}
+not $\sum_t \log(a_t\mid s_t)$.
+
+For a one-step policy under teacher forcing,
+\begin{equation}
+\mathrm{LL}_{\mathrm{1step}}(k)
+=
+\sum_{i,t}
+\log \pi_k(a^{\star}_{i,t}\mid h^{\star}_{i,t}).
+\end{equation}
+
+For a chunking policy with tractable chunk likelihood,
+\begin{equation}
+\mathrm{LL}_{\mathrm{chunk}}(k)
+=
+\sum_{i,t}
+\log \pi_k(A^{\star}_{i,t,H}\mid h^{\star}_{i,t}).
+\end{equation}
+
+Use normalized negative log-likelihood:
+\begin{equation}
+\mathrm{NLL}(k)
+=
+-rac{1}{N_{\mathrm{act}}}
+\sum \log \pi_k(a^{\star}\mid h^{\star}),
+\end{equation}
+where $N_{\mathrm{act}}$ is the number of evaluated action tokens or scalar action dimensions.
+
+If the model does not provide a tractable likelihood, report the correct validation surrogate instead:
+\begin{itemize}
+    \item discrete action-token policy: token NLL;
+    \item deterministic continuous policy: L1 or L2 error, or Gaussian-assumed NLL;
+    \item diffusion or flow-matching policy: validation diffusion loss or flow-matching loss.
+\end{itemize}
+
+\paragraph{World-model rollout likelihood.}
+For state-action rollouts, do not use the likelihood of the policy's own sampled actions as the main metric. A bad but overconfident policy can assign high likelihood to its own bad actions.
+
+A better optional metric is matched-reference likelihood. First align the generated rollout with a successful reference rollout using DTW. If $\Gamma^{\star}$ is the alignment path, define
+\begin{equation}
+\mathrm{LL}^{\mathrm{match}}_{\mathrm{SA}}(k)
+=
+\sum_{(r,u)\in\Gamma^{\star}}
+\log \pi_k(a^{\star}_{u}\mid \hat{h}_{r}).
+\end{equation}
+This asks whether the policy assigns high probability to the reference action at the generated state.
+
+\section{Aggregating Metrics over Validation Data}
+
+Let $m_{i,t}(k)$ be a lower-is-better metric value for checkpoint $k$ on validation window $(i,t)$. Aggregate over validation windows:
+\begin{equation}
+\bar{m}(k)
+=
+\frac{1}{|\mathcal{I}_{\mathrm{val}}|}
+\sum_{(i,t)\in\mathcal{I}_{\mathrm{val}}}m_{i,t}(k).
+\end{equation}
+
+Use the same validation windows for every checkpoint and every metric.
+
+All metrics should be converted so that lower is better:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Metric & Lower-is-better form \\
+\midrule
+DTW & $D_{\mathrm{DTW}}$ \\
+OT & $D_{\mathrm{OT}}$ \\
+Cosine similarity & $D_{\mathrm{cos}}=1-\mathrm{cos}$ \\
+Log-likelihood & $\mathrm{NLL}=-\mathrm{LL}/N_{\mathrm{act}}$ \\
+Flow-matching validation objective & $\mathcal{L}_{\mathrm{FM}}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+If combining metrics, normalize each metric first:
+\begin{equation}
+z_m(k)=
+\frac{\bar{m}(k)-\operatorname{median}(m_{\mathrm{ref}})}
+{\operatorname{IQR}(m_{\mathrm{ref}})+\epsilon},
+\end{equation}
+where $m_{\mathrm{ref}}$ is the distribution of the same metric between held-out successful reference demonstrations.
+
+A simple combined score is
+\begin{equation}
+\mathcal{E}(k)
+=
+ w_{\mathrm{DTW}}z_{\mathrm{DTW}}(k)
++w_{\mathrm{OT}}z_{\mathrm{OT}}(k)
++w_{\mathrm{cos}}z_{\mathrm{cos}}(k)
++w_{\mathrm{NLL}}z_{\mathrm{NLL}}(k).
+\end{equation}
+Lower $\mathcal{E}(k)$ is better.
+
+\section{Early-Stopping Rule}
+
+For each metric $m$, select the earliest checkpoint that is close to the best validation value:
+\begin{equation}
+ k_m^{\star}
+ =
+ \min\left\{
+ k:
+ \bar{m}(k)
+ \le
+ \min_j \bar{m}(j)+\eta_m
+ \right\}.
+\end{equation}
+
+Here $\eta_m\ge 0$ is a tolerance. A simple choice is
+\begin{equation}
+\eta_m = 0.01\left|\bar{m}(0)-\min_j \bar{m}(j)\right|.
+\end{equation}
+This selects the earliest checkpoint within one percent of the best observed metric improvement.
+
+For online training, use patience. Stop when $\bar{m}(k)$ has not improved by at least $\eta_m$ for $P$ consecutive evaluations. Use $P=3$ or $P=5$ as a default.
+
+\section{How to Decide Which Metric Is Best}
+
+To decide which offline metric is best, compare each metric with a trusted downstream quality signal $Q(k)$. Examples of $Q(k)$ are:
+\begin{itemize}
+    \item simulator success rate;
+    \item small real-world validation success rate;
+    \item human progress score;
+    \item validated world-model success score.
+\end{itemize}
+
+For each metric $m$, compute rank correlation:
+\begin{equation}
+\rho_m = \operatorname{SpearmanCorr}(-\bar{m}(k), Q(k)).
+\end{equation}
+The negative sign appears because lower metric value should imply higher downstream quality.
+
+Also compute checkpoint-selection regret:
+\begin{equation}
+\operatorname{Regret}(m)
+=
+\max_k Q(k)-Q(k_m^{\star}).
+\end{equation}
+
+A good early-stopping metric should have high $\rho_m$ and low regret.
+
+If no trusted $Q(k)$ is available, do not claim that one metric is best. You can only report metric smoothness, checkpoint stability, and qualitative agreement.
+
+\section{Experiment Procedure}
+
+\subsection*{Step 1: Prepare Data}
+
+\begin{enumerate}
+    \item Split data into training, validation, and test sets.
+    \item Compute action normalization statistics using training data only.
+    \item Choose the evaluation horizon $H$ and window stride.
+    \item Save the same validation windows for all checkpoints.
+\end{enumerate}
+
+\subsection*{Step 2: Fine-Tune and Save Checkpoints}
+
+Fine-tune each VLA model and save checkpoints at fixed training intervals:
+\begin{equation}
+\theta_0,\theta_1,\ldots,\theta_K.
+\end{equation}
+
+\subsection*{Step 3: Action-Chunk Evaluation}
+
+For each checkpoint $\theta_k$:
+\begin{enumerate}
+    \item Generate action chunks on validation windows.
+    \item For one-step VLAs, use teacher-forced pseudo-chunks.
+    \item For chunking VLAs, use native chunk outputs.
+    \item Compute DTW, OT, cosine distance, and NLL or the correct likelihood surrogate.
+    \item Aggregate metrics over validation windows.
+\end{enumerate}
+
+\subsection*{Step 4: World-Model Rollout Evaluation}
+
+If a world model is available:
+\begin{enumerate}
+    \item Validate the world model on held-out trajectories.
+    \item Roll out each checkpoint from the same held-out initial states.
+    \item Construct state-action sequences $\widehat{Z}_{i,t,H}(\theta_k)$.
+    \item Compare them with successful reference sequences using DTW, OT, and cosine distance.
+    \item Optionally compute matched-reference likelihood.
+\end{enumerate}
+
+World-model validation is necessary. At minimum, report the one-step prediction error:
+\begin{equation}
+E_{\mathrm{WM}}^{1}
+=
+\mathbb{E}
+\left[
+\left\|\psi_s(s^{\star}_{t+1})-\psi_s(\hat{s}_{t+1})\right\|_2^2
+\right],
+\end{equation}
+where
+\begin{equation}
+\hat{s}_{t+1}\sim \widehat{P}_{\phi}(\cdot\mid s^{\star}_t,a^{\star}_t,\ell).
+\end{equation}
+
+Do not use rollout horizons longer than the horizon where the world model is reliable.
+
+\subsection*{Step 5: Choose Checkpoints}
+
+For each metric $m$, compute
+\begin{equation}
+k_m^{\star}.
+\end{equation}
+Then compare selected checkpoints across metrics.
+
+\subsection*{Step 6: Rank Metrics}
+
+If downstream quality $Q(k)$ is available, rank metrics by:
+\begin{enumerate}
+    \item Spearman correlation $\rho_m$;
+    \item regret $\operatorname{Regret}(m)$;
+    \item stability under bootstrap over trajectories or tasks.
+\end{enumerate}
+
+\section{Recommended Output Tables}
+
+\subsection*{Metric Curve Table}
+
+\begin{center}
+\begin{tabular}{llllr}
+\toprule
+Model & Checkpoint & Mode & Metric & Value \\
+\midrule
+OpenVLA& 12200& AC-TF & NLL& 0.71\\
+OpenVLA& 13400& AC-TF & OT & 0.73\\
+ OpenVLA& 13400& AC-TF & DTW&0.73\\
+OpenVLA& 15800& AC-TF & Max iteration& 0.63\\
+Chunk VLA & $k$ & AC-Chunk & DTW & \\
+Chunk VLA & $k$ & AC-Chunk & OT & \\
+Chunk VLA & $k$ & AC-Chunk & NLL/FM & \\
+Any VLA & $k$ & SA-WM & DTW & \\
+Any VLA & $k$ & SA-WM & OT & \\
+Any VLA & $k$ & SA-WM & COS & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Metric Ranking Table}
+
+\begin{center}
+\begin{tabular}{llllrrr}
+\toprule
+Metric & Mode & Selected ckpt & External quality & Spearman $\rho$ & Regret & Comment \\
+\midrule
+DTW & AC-TF & & & & & \\
+OT & AC-TF & & & & & \\
+COS & AC-TF & & & & & \\
+NLL/FM & AC-TF & & & & & \\
+DTW & SA-WM & & & & & \\
+OT & SA-WM & & & & & \\
+COS & SA-WM & & & & & \\
+Combined & SA-WM & & & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Minimal Claims to Make}
+
+The correct claim is:
+\begin{quote}
+Among the evaluated offline metrics, metric $m$ was the best early-stopping signal because it had the highest rank correlation with downstream quality and the lowest checkpoint-selection regret under our validation protocol.
+\end{quote}
+
+Avoid the stronger claim:
+\begin{quote}
+Metric $m$ proves real-world success without robot evaluation.
+\end{quote}
+
+The clean distinction is:
+\begin{equation}
+\boxed{
+\text{teacher-forced action similarity}
+\neq
+\text{closed-loop state-action quality}
+}
+\end{equation}
+
+The final early-stopping principle is:
+\begin{equation}
+\boxed{
+\text{choose the earliest checkpoint selected by a validated offline proxy of downstream quality.}
+}
+\end{equation}
+
+\end{document}

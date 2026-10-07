@@ -5,6 +5,7 @@ Core interface script for configuring and initializing RLDS datasets.
 """
 
 import copy
+import hashlib
 import inspect
 import json
 from functools import partial
@@ -51,6 +52,8 @@ def make_dataset_from_rlds(
     dataset_statistics: Optional[Union[dict, str]] = None,
     absolute_action_mask: Optional[List[bool]] = None,
     action_normalization_mask: Optional[List[bool]] = None,
+    split_indices: Optional[Dict[str, List[int]]] = None,
+    split_name: Optional[str] = None,
     num_parallel_reads: int = tf.data.AUTOTUNE,
     num_parallel_calls: int = tf.data.AUTOTUNE,
 ) -> Tuple[dl.DLataset, dict]:
@@ -110,6 +113,12 @@ def make_dataset_from_rlds(
         action_normalization_mask (Sequence[bool], optional): If provided, indicates which action dimensions
             should be normalized. For example, you might not want to normalize the gripper action dimension if
             it's always exactly 0 or 1. By default, all action dimensions are normalized.
+        split_indices (Dict[str, List[int]], optional): if provided, overrides the default 95/5 (or native
+            train/val) split with an explicit {"train"/"val"/"test": [indices]} assignment over the native
+            "train" split (see `compute_stratified_split_indices`). When provided, dataset statistics are
+            always computed from `split_indices["train"]` only, regardless of `split_name`.
+        split_name (str, optional): which key of `split_indices` to load for this dataset instance
+            ("train", "val", or "test"). Required if `split_indices` is provided.
         num_parallel_reads (int): number of parallel read workers. Default to AUTOTUNE.
         num_parallel_calls (int): number of parallel calls for traj_map operations. Default to AUTOTUNE.
     Returns:
@@ -201,14 +210,34 @@ def make_dataset_from_rlds(
 
     builder = tfds.builder(name, data_dir=data_dir)
 
+    def _filter_by_indices(ds: dl.DLataset, indices: List[int]) -> dl.DLataset:
+        index_tensor = tf.constant(sorted(indices), dtype=tf.int64)
+        return (
+            ds.enumerate()
+            .filter(lambda i, traj: tf.reduce_any(tf.equal(i, index_tensor)))
+            .map(lambda i, traj: traj)
+        )
+
     # load or compute dataset statistics
     if isinstance(dataset_statistics, str):
         with tf.io.gfile.GFile(dataset_statistics, "r") as f:
             dataset_statistics = json.load(f)
     elif dataset_statistics is None:
-        full_dataset = dl.DLataset.from_rlds(
-            builder, split="all", shuffle=False, num_parallel_reads=num_parallel_reads
-        ).traj_map(restructure, num_parallel_calls)
+        stats_hash_extra = ""
+        if split_indices is not None:
+            # Statistics must always come from the training data only, regardless of which split
+            # (train/val/test) this particular dataset instance is loading.
+            full_dataset = _filter_by_indices(
+                dl.DLataset.from_rlds(builder, split="train", shuffle=False, num_parallel_reads=num_parallel_reads),
+                split_indices["train"],
+            ).traj_map(restructure, num_parallel_calls)
+            stats_hash_extra = hashlib.sha256(
+                json.dumps(sorted(split_indices["train"])).encode("utf-8"), usedforsecurity=False
+            ).hexdigest()
+        else:
+            full_dataset = dl.DLataset.from_rlds(
+                builder, split="all", shuffle=False, num_parallel_reads=num_parallel_reads
+            ).traj_map(restructure, num_parallel_calls)
         # tries to load from cache, otherwise computes on the fly
         dataset_statistics = get_dataset_statistics(
             full_dataset,
@@ -216,6 +245,7 @@ def make_dataset_from_rlds(
                 str(builder.info),
                 str(state_obs_keys),
                 inspect.getsource(standardize_fn) if standardize_fn is not None else "",
+                stats_hash_extra,
             ),
             save_dir=builder.data_dir,
         )
@@ -231,12 +261,19 @@ def make_dataset_from_rlds(
         dataset_statistics["action"]["mask"] = np.array(action_normalization_mask)
 
     # construct the dataset
-    if "val" not in builder.info.splits:
-        split = "train[:95%]" if train else "train[95%:]"
+    if split_indices is not None:
+        assert split_name in split_indices, f"split_name `{split_name}` not in split_indices keys {list(split_indices.keys())}"
+        dataset = _filter_by_indices(
+            dl.DLataset.from_rlds(builder, split="train", shuffle=shuffle, num_parallel_reads=num_parallel_reads),
+            split_indices[split_name],
+        )
     else:
-        split = "train" if train else "val"
+        if "val" not in builder.info.splits:
+            split = "train[:95%]" if train else "train[95%:]"
+        else:
+            split = "train" if train else "val"
 
-    dataset = dl.DLataset.from_rlds(builder, split=split, shuffle=shuffle, num_parallel_reads=num_parallel_reads)
+        dataset = dl.DLataset.from_rlds(builder, split=split, shuffle=shuffle, num_parallel_reads=num_parallel_reads)
 
     dataset = dataset.traj_map(restructure, num_parallel_calls)
     dataset = dataset.traj_map(

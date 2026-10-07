@@ -1,0 +1,8065 @@
+
+
+  0%|          | 1/30000 [00:17<144:40:52, 17.36s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 11/30000 [00:34<15:26:02,  1.85s/it]
+
+
+
+
+
+
+
+
+  0%|          | 21/30000 [00:51<14:23:58,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 31/30000 [01:09<14:09:31,  1.70s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 41/30000 [01:26<14:35:02,  1.75s/it]
+
+
+
+
+
+
+
+
+  0%|          | 51/30000 [01:44<14:25:31,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 61/30000 [02:01<14:29:40,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 71/30000 [02:18<14:25:10,  1.73s/it]
+
+
+
+
+
+
+
+
+  0%|          | 81/30000 [02:36<14:40:12,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 91/30000 [02:53<14:22:36,  1.73s/it]
+
+
+
+
+
+
+
+
+  0%|          | 100/30000 [03:09<14:30:12,  1.75s/it]
+Validating at step 99...
+step: 99, CE loss: [3.6734546785769253, 2.5971093903417173, 2.9701254864533744], acc: [0.31521738976564095, 0.40993788838386536, 0.3764880895614624], L1 loss: [0.17996591297180756, 0.08196322717096495, 0.10724790735791127], L2 loss: [0.09640354276432292, 0.022680625157511753, 0.03616914882635077], cosine distance: [0.7966196964616361, 0.9119606976923735, 0.8909580508867899], DTW_seg: [0.7340757327786172, 0.3395335588706567, 0.4158798403088932], OT_seg: [0.00411651276026182, 0.0012358839528991477, 0.0023378485381080542], DTW: [0.6892746119915235, 0.33707317310788965, 0.4095725612889638], OT: [5.708351022680467e-05, 3.4943663517521594e-05, 4.2645189884232553e-05]
+New best validation loss: 3.0802
+Saving Model Checkpoint for Step 99
+07/28 [02:33:15] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss/
+                          dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.1231
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0518
+Saving Model Checkpoint for Step 99
+07/28 [02:33:16] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.8665
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation accuracy: 0.3672
+Saving Model Checkpoint for Step 99
+07/28 [02:33:17] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_accur
+                          acy/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.4786
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+New best validation DTW segment: 0.4965
+Saving Model Checkpoint for Step 99
+07/28 [02:33:18] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_s
+                          eg/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0026
+Saving Model Checkpoint for Step 99
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_se
+                          g/dataset_statistics.json
+Saved Model Checkpoint for Step 99 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+  0%|          | 101/30000 [03:32<68:12:08,  8.21s/it]
+
+
+
+
+
+
+
+
+  0%|          | 111/30000 [03:50<15:44:53,  1.90s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 121/30000 [04:07<14:24:58,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 131/30000 [04:25<14:36:15,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  0%|          | 141/30000 [04:42<14:25:37,  1.74s/it]
+
+
+
+
+
+
+
+
+  0%|          | 150/30000 [04:58<14:15:58,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 161/30000 [05:17<14:28:54,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 171/30000 [05:35<14:41:10,  1.77s/it]
+
+
+
+
+
+
+
+
+  1%|          | 181/30000 [05:52<14:23:27,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 191/30000 [06:10<14:33:52,  1.76s/it]
+
+
+
+
+
+
+
+
+  1%|          | 200/30000 [06:25<14:37:04,  1.77s/it]
+Validating at step 199...
+step: 199, CE loss: [2.6659972253053086, 3.64689650334103, 3.677853201166054], acc: [0.41459626607272937, 0.2826961780517874, 0.2634186618073138], L1 loss: [0.09458044754422229, 0.15599479788625745, 0.14363758007570498], L2 loss: [0.029337213941566322, 0.06920304490436971, 0.05348862332932522], cosine distance: [0.9086991237557452, 0.8894362768656771, 0.884515216240304], DTW_seg: [0.3913445650775549, 0.6312279850972721, 0.548167950424263], OT_seg: [0.0014236282748393474, 0.003601717958655431, 0.003369418673056891], DTW: [0.38633765420983973, 0.6078431749772136, 0.5303691950106484], OT: [3.588432667258676e-05, 2.066299056584247e-05, 1.3174843155971518e-05]
+New best validation l2 loss: 0.0507
+Saving Model Checkpoint for Step 199
+07/28 [02:36:30] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.8942
+Saving Model Checkpoint for Step 199
+07/28 [02:36:31] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  1%|          | 201/30000 [06:45<58:37:16,  7.08s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 212/30000 [07:04<15:16:03,  1.85s/it]
+
+
+
+
+
+
+
+
+  1%|          | 221/30000 [07:20<14:30:02,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 231/30000 [07:37<14:26:38,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 241/30000 [07:55<14:28:45,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 251/30000 [08:13<14:34:36,  1.76s/it]
+
+
+
+
+
+
+
+
+  1%|          | 261/30000 [08:30<14:18:59,  1.73s/it]
+
+
+
+
+
+
+
+
+  1%|          | 271/30000 [08:48<14:28:05,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 281/30000 [09:05<14:34:32,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 291/30000 [09:23<14:34:15,  1.77s/it]
+
+
+
+
+
+
+
+
+  1%|          | 300/30000 [09:39<14:13:32,  1.72s/it]
+Validating at step 299...
+step: 299, CE loss: [2.9587467338727866, 3.2073172421395024, 3.4494007774021314], acc: [0.4285714328289032, 0.38155514907233323, 0.36956521479979804], L1 loss: [0.09482402451660323, 0.12130625630858578, 0.11144806558023328], L2 loss: [0.02820912461079981, 0.052784490340118166, 0.03925189141022122], cosine distance: [0.9261174487031024, 0.8258333817312989, 0.890129224113796], DTW_seg: [0.3848379897774207, 0.4995717858092821, 0.4401233122962343], OT_seg: [0.0016580221176279548, 0.0036192645338105453, 0.0020216185365876955], DTW: [0.3834717705925134, 0.4783567344216459, 0.4079124359447701], OT: [2.929137851070591e-05, 7.049272169037706e-05, 5.8646090854148024e-05]
+New best validation l1 loss: 0.1092
+Saving Model Checkpoint for Step 299
+07/28 [02:39:40] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0401
+Saving Model Checkpoint for Step 299
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation accuracy: 0.3932
+Saving Model Checkpoint for Step 299
+07/28 [02:39:41] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_accur
+                          acy/dataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy
+New best validation normalized DTW: 0.4232
+Saving Model Checkpoint for Step 299
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.4415
+Saving Model Checkpoint for Step 299
+07/28 [02:39:42] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_s
+                          eg/dataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0024
+Saving Model Checkpoint for Step 299
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_se
+                          g/dataset_statistics.json
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+  1%|          | 311/30000 [10:14<15:23:15,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 321/30000 [10:31<14:29:06,  1.76s/it]
+
+
+
+
+
+
+
+
+  1%|          | 330/30000 [10:47<14:20:34,  1.74s/it]
+
+
+
+
+
+
+
+
+
+
+  1%|          | 341/30000 [11:06<14:18:21,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 351/30000 [11:23<14:20:39,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 361/30000 [11:41<14:30:45,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  1%|          | 371/30000 [11:59<14:27:29,  1.76s/it]
+
+
+
+
+
+
+
+
+  1%|▏         | 380/30000 [12:14<14:18:51,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 391/30000 [12:34<14:31:51,  1.77s/it]
+
+
+
+
+
+
+
+
+  1%|▏         | 400/30000 [12:50<14:34:37,  1.77s/it]
+Validating at step 399...
+
+  1%|▏         | 401/30000 [13:08<55:34:56,  6.76s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 411/30000 [13:25<15:22:27,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 421/30000 [13:43<14:24:42,  1.75s/it]
+
+
+
+
+
+
+
+
+  1%|▏         | 430/30000 [13:59<14:28:55,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  1%|▏         | 441/30000 [14:18<14:31:08,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 451/30000 [14:35<14:27:41,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 461/30000 [14:53<14:20:48,  1.75s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 471/30000 [15:10<14:29:42,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 481/30000 [15:27<14:13:14,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 491/30000 [15:45<14:12:29,  1.73s/it]
+
+
+
+
+
+
+
+  2%|▏         | 499/30000 [15:59<14:13:53,  1.74s/it]
+
+  2%|▏         | 500/30000 [16:00<14:06:07,  1.72s/it]
+step: 499, CE loss: [4.5855045649357615, 3.7590983535932456, 3.502484655380249], acc: [0.24607762444570574, 0.3695652186870575, 0.34135338413087946], L1 loss: [0.1472061735529431, 0.11266594299155733, 0.10829427250121769], L2 loss: [0.05587144531955609, 0.04092654620256761, 0.03219620391334358], cosine distance: [0.8852211540144992, 0.8973760449368021, 0.8938578787602877], DTW_seg: [0.5572057924888543, 0.44702456439867616, 0.41863060344842234], OT_seg: [0.0035192702038312775, 0.002185005289413293, 0.001547597780082105], DTW: [0.5454391517463811, 0.4177383711539175, 0.40496586459550954], OT: [1.1697040936136295e-05, 8.2557208360938e-05, 1.9560100396684692e-05]
+New best validation OT segment: 0.0024
+Saving Model Checkpoint for Step 499
+07/28 [02:46:04] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_se
+                          g/dataset_statistics.json
+Saved Model Checkpoint for Step 499 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 499 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+  2%|▏         | 511/30000 [16:36<15:18:34,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 521/30000 [16:53<14:31:57,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 531/30000 [17:11<14:19:31,  1.75s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 541/30000 [17:28<14:14:29,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 551/30000 [17:46<14:23:51,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 561/30000 [18:04<14:28:42,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 571/30000 [18:21<14:21:12,  1.76s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 580/30000 [18:37<14:13:34,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 591/30000 [18:56<14:11:12,  1.74s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 600/30000 [19:12<14:31:16,  1.78s/it]
+Validating at step 599...
+step: 599, CE loss: [3.4724346411348592, 3.0806499707071406, 3.3391404255576758], acc: [0.3405483410213933, 0.3909774428919742, 0.3773291862529257], L1 loss: [0.10431486518696101, 0.09092142852513414, 0.11747656211904857], L2 loss: [0.03641170776928916, 0.026334351261979656, 0.050386548933127655], cosine distance: [0.8834653779713795, 0.9405568035025346, 0.8721090840256732], DTW_seg: [0.43191213743410056, 0.36858249272131666, 0.47736828136775067], OT_seg: [0.0019464708046022926, 0.0016377952625838779, 0.0024267661028605815], DTW: [0.389398632305808, 0.3248976916392194, 0.4372702797761314], OT: [3.372119737620172e-05, 1.809075593737577e-05, 9.557802141576448e-05]
+New best validation l1 loss: 0.1042
+Saving Model Checkpoint for Step 599
+07/28 [02:49:13] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0377
+Saving Model Checkpoint for Step 599
+07/28 [02:49:14] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.8987
+Saving Model Checkpoint for Step 599
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance/dataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation normalized DTW: 0.3839
+Saving Model Checkpoint for Step 599
+07/28 [02:49:15] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.4260
+Saving Model Checkpoint for Step 599
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_s
+                          eg/dataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0020
+Saving Model Checkpoint for Step 599
+07/28 [02:49:16] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_se
+                          g/dataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+  2%|▏         | 601/30000 [19:30<54:26:37,  6.67s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 611/30000 [19:47<15:21:34,  1.88s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 620/30000 [20:03<14:15:15,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 631/30000 [20:22<14:24:07,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 641/30000 [20:40<14:08:32,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 651/30000 [20:57<14:17:53,  1.75s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 660/30000 [21:13<14:25:20,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 671/30000 [21:33<14:13:11,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 681/30000 [21:50<14:16:20,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 691/30000 [22:07<13:57:18,  1.71s/it]
+
+
+
+
+
+
+
+  2%|▏         | 699/30000 [22:21<14:09:54,  1.74s/it]
+
+  2%|▏         | 700/30000 [22:23<14:16:46,  1.75s/it]
+
+  2%|▏         | 701/30000 [22:40<51:34:25,  6.34s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 711/30000 [22:57<15:19:07,  1.88s/it]
+
+
+
+
+
+
+
+
+  2%|▏         | 720/30000 [23:13<14:13:39,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 731/30000 [23:32<14:08:14,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  2%|▏         | 741/30000 [23:50<13:54:48,  1.71s/it]
+
+
+
+
+
+
+
+
+  2%|▎         | 750/30000 [24:05<14:10:00,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 761/30000 [24:25<14:07:08,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 771/30000 [24:42<14:25:41,  1.78s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 781/30000 [25:00<14:04:48,  1.73s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 790/30000 [25:16<14:15:45,  1.76s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 800/30000 [25:33<14:07:20,  1.74s/it]
+Validating at step 799...
+step: 799, CE loss: [3.059575825026541, 2.78579128415961, 3.013975183169047], acc: [0.35786435730529553, 0.38045112490653993, 0.3764880945285161], L1 loss: [0.10257194680396957, 0.08610939752114447, 0.0988212013617158], L2 loss: [0.033949339461296496, 0.022982765459700634, 0.027570259058848023], cosine distance: [0.881917270747098, 0.9454583833092137, 0.9222132911284765], DTW_seg: [0.41705094924278335, 0.33874483245215137, 0.3887821870255183], OT_seg: [0.001620204165379098, 0.0013053758138962498, 0.0017642138554768312], DTW: [0.4070427406286153, 0.31269472357236094, 0.38320093859714666], OT: [2.1851665858050343e-05, 2.077043516336521e-05, 4.96918538657293e-05]
+New best validation loss: 2.9531
+Saving Model Checkpoint for Step 799
+07/28 [02:55:35] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss/
+                          dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss
+New best validation l1 loss: 0.0958
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1
+New best validation l2 loss: 0.0282
+Saving Model Checkpoint for Step 799
+07/28 [02:55:36] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2
+New best validation cosine distance: 0.9165
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance
+New best validation normalized DTW: 0.3676
+Saving Model Checkpoint for Step 799
+07/28 [02:55:37] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw
+New best validation DTW segment: 0.3815
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_s
+                          eg/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg
+New best validation OT segment: 0.0016
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_se
+                          g/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_seg
+
+
+
+
+
+
+
+
+
+
+  3%|▎         | 811/30000 [26:09<15:29:19,  1.91s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 821/30000 [26:27<14:24:58,  1.78s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 831/30000 [26:44<14:05:34,  1.74s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 840/30000 [27:00<14:05:03,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 851/30000 [27:19<14:13:10,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 861/30000 [27:36<14:25:41,  1.78s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 871/30000 [27:54<14:00:38,  1.73s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 880/30000 [28:10<14:11:29,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 891/30000 [28:29<14:11:45,  1.76s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 900/30000 [28:45<14:13:11,  1.76s/it]
+Validating at step 899...
+
+  3%|▎         | 901/30000 [29:00<46:54:22,  5.80s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 911/30000 [29:18<15:07:16,  1.87s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 921/30000 [29:35<13:59:25,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 931/30000 [29:52<14:03:40,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 941/30000 [30:10<14:07:22,  1.75s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 950/30000 [30:26<14:02:17,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 961/30000 [30:45<14:04:33,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 971/30000 [31:02<13:56:19,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 981/30000 [31:20<14:08:03,  1.75s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 990/30000 [31:36<14:07:44,  1.75s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 1000/30000 [31:53<14:18:51,  1.78s/it]
+Validating at step 999...
+
+  3%|▎         | 1001/30000 [32:11<51:54:41,  6.44s/it]
+1.5037070512771606 <class 'float'>
+Saving Model Checkpoint for Step 1000
+07/28 [03:01:59] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 1000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1011/30000 [32:28<15:00:06,  1.86s/it]
+
+
+
+
+
+
+
+
+  3%|▎         | 1020/30000 [32:44<14:10:33,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1031/30000 [33:03<13:40:52,  1.70s/it]
+
+
+
+
+
+
+
+
+
+  3%|▎         | 1041/30000 [33:21<14:01:10,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1051/30000 [33:38<14:01:12,  1.74s/it]
+
+
+
+
+
+
+
+
+  4%|▎         | 1060/30000 [33:54<14:04:42,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1071/30000 [34:13<13:53:21,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1081/30000 [34:31<13:57:36,  1.74s/it]
+
+
+
+
+
+
+
+
+  4%|▎         | 1090/30000 [34:46<13:55:59,  1.74s/it]
+
+
+
+
+
+
+
+
+  4%|▎         | 1099/30000 [35:02<14:16:12,  1.78s/it]
+
+  4%|▎         | 1100/30000 [35:04<14:06:20,  1.76s/it]
+
+  4%|▎         | 1101/30000 [35:20<50:09:06,  6.25s/it]
+
+
+
+
+
+
+
+
+
+  4%|▎         | 1111/30000 [35:38<15:17:49,  1.91s/it]
+
+
+
+
+
+
+
+
+  4%|▎         | 1121/30000 [35:56<14:08:45,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1131/30000 [36:13<14:05:50,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1141/30000 [36:30<13:29:31,  1.68s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1151/30000 [36:48<14:05:06,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1161/30000 [37:05<14:08:28,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1171/30000 [37:23<13:57:59,  1.74s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1180/30000 [37:38<13:58:10,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1191/30000 [37:58<13:58:02,  1.75s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1200/30000 [38:13<13:59:58,  1.75s/it]
+Validating at step 1199...
+step: 1199, CE loss: [4.024851431373421, 3.064177287252326, 2.880129206029675], acc: [0.2693565958783827, 0.3759398535678261, 0.38517179142070723], L1 loss: [0.14169821308086847, 0.08584992379734391, 0.08940893777092046], L2 loss: [0.06533711149805148, 0.022812558553720774, 0.025100935038320626], cosine distance: [0.8269798769295671, 0.9463287353515625, 0.9395190069947061], DTW_seg: [0.5416459892680265, 0.3302962569451834, 0.34795501599084117], OT_seg: [0.0029243568903887453, 0.0017406987562826992, 0.001239896306003166], DTW: [0.533742562323661, 0.3046765629433584, 0.33931744713300566], OT: [4.479124773007527e-05, 1.0394467927847907e-05, 2.7077383259212468e-05]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1211/30000 [38:48<14:59:10,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1221/30000 [39:05<13:59:56,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1231/30000 [39:23<13:58:10,  1.75s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1240/30000 [39:38<14:00:09,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1251/30000 [39:57<13:33:58,  1.70s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1261/30000 [40:15<14:07:19,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1271/30000 [40:32<14:11:57,  1.78s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1281/30000 [40:50<13:46:55,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1291/30000 [41:07<13:53:08,  1.74s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1300/30000 [41:23<13:49:39,  1.73s/it]
+Validating at step 1299...
+
+  4%|▍         | 1301/30000 [41:41<52:43:32,  6.61s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1311/30000 [41:59<15:08:28,  1.90s/it]
+
+
+
+
+
+
+
+
+  4%|▍         | 1321/30000 [42:16<13:45:18,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1331/30000 [42:33<13:43:24,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  4%|▍         | 1341/30000 [42:51<14:02:47,  1.76s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1351/30000 [43:08<13:50:48,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1361/30000 [43:26<13:55:32,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1371/30000 [43:43<13:59:13,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1381/30000 [44:01<13:59:28,  1.76s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1390/30000 [44:17<13:53:14,  1.75s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1400/30000 [44:34<13:56:59,  1.76s/it]
+Validating at step 1399...
+step: 1399, CE loss: [4.143715025304438, 4.008455551995171, 4.4661088997209575], acc: [0.26059654436923646, 0.3190476169188817, 0.24044265818427984], L1 loss: [0.150761855336336, 0.12974790450599458, 0.16280428309675674], L2 loss: [0.06924273693872678, 0.04958073819677035, 0.06919518653565729], cosine distance: [0.8084784359722347, 0.8544102960162693, 0.8997397439580568], DTW_seg: [0.5723359029107828, 0.5171349326176161, 0.6263659625454426], OT_seg: [0.003479348501592693, 0.0019114015976761072, 0.003713597746932705], DTW: [0.5505967836661764, 0.4892057748062778, 0.625672378510817], OT: [9.831788117763133e-06, 3.963419306236175e-05, 2.1322382802536133e-05]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1411/30000 [45:10<15:05:27,  1.90s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1421/30000 [45:28<14:01:12,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1431/30000 [45:45<13:53:15,  1.75s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1441/30000 [46:02<13:40:37,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1451/30000 [46:20<13:46:48,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1461/30000 [46:37<13:49:39,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1471/30000 [46:55<13:52:56,  1.75s/it]
+
+
+
+
+
+
+
+
+  5%|▍         | 1480/30000 [47:11<14:01:37,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  5%|▍         | 1491/30000 [47:30<13:44:55,  1.74s/it]
+
+
+
+
+
+
+
+
+  5%|▌         | 1500/30000 [47:46<13:49:25,  1.75s/it]
+Validating at step 1499...
+
+  5%|▌         | 1501/30000 [48:02<47:35:36,  6.01s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1511/30000 [48:19<14:57:52,  1.89s/it]
+
+
+
+
+
+
+
+
+  5%|▌         | 1521/30000 [48:36<13:44:33,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1531/30000 [48:54<13:46:48,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1541/30000 [49:11<13:50:32,  1.75s/it]
+
+
+
+
+
+
+
+
+  5%|▌         | 1550/30000 [49:27<13:56:05,  1.76s/it]
+
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1560/30000 [49:45<13:54:25,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1571/30000 [50:04<13:47:33,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1581/30000 [50:21<13:32:27,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1591/30000 [50:39<13:48:48,  1.75s/it]
+
+
+
+
+
+
+
+  5%|▌         | 1600/30000 [50:55<13:44:06,  1.74s/it]
+Validating at step 1599...
+
+  5%|▌         | 1601/30000 [51:11<49:12:33,  6.24s/it]
+
+
+
+
+
+
+
+
+  5%|▌         | 1610/30000 [51:27<15:18:53,  1.94s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1621/30000 [51:47<13:50:47,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1631/30000 [52:04<13:45:15,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  5%|▌         | 1641/30000 [52:22<13:56:07,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1651/30000 [52:40<13:53:38,  1.76s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1660/30000 [52:55<13:51:08,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1671/30000 [53:15<13:51:10,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1681/30000 [53:32<13:57:40,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1691/30000 [53:50<13:38:56,  1.74s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1700/30000 [54:06<13:49:02,  1.76s/it]
+Validating at step 1699...
+
+  6%|▌         | 1701/30000 [54:23<49:53:47,  6.35s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1711/30000 [54:40<14:43:59,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1721/30000 [54:58<13:41:04,  1.74s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1731/30000 [55:15<13:43:48,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1741/30000 [55:33<13:34:58,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1751/30000 [55:50<13:41:17,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1761/30000 [56:08<14:03:03,  1.79s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1771/30000 [56:26<13:45:10,  1.75s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1781/30000 [56:43<13:43:43,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1791/30000 [57:01<13:34:46,  1.73s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1800/30000 [57:16<13:45:27,  1.76s/it]
+Validating at step 1799...
+
+  6%|▌         | 1801/30000 [57:34<50:22:22,  6.43s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1811/30000 [57:51<14:29:28,  1.85s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1821/30000 [58:08<13:30:37,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1831/30000 [58:26<13:54:37,  1.78s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1841/30000 [58:44<13:34:55,  1.74s/it]
+
+
+
+
+
+
+
+
+  6%|▌         | 1851/30000 [59:01<13:33:57,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1861/30000 [59:19<13:43:15,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  6%|▌         | 1871/30000 [59:36<13:21:37,  1.71s/it]
+
+
+
+
+
+
+
+
+  6%|▋         | 1881/30000 [59:53<13:40:59,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1891/30000 [1:00:10<13:12:16,  1.69s/it]
+
+
+
+
+
+
+
+
+  6%|▋         | 1900/30000 [1:00:26<13:32:43,  1.74s/it]
+Validating at step 1899...
+
+  6%|▋         | 1901/30000 [1:00:44<51:23:47,  6.58s/it]
+
+
+
+
+
+
+
+
+  6%|▋         | 1911/30000 [1:01:01<14:34:50,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1921/30000 [1:01:19<13:45:20,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1931/30000 [1:01:36<13:33:05,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  6%|▋         | 1941/30000 [1:01:54<13:29:22,  1.73s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 1951/30000 [1:02:11<13:37:16,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1961/30000 [1:02:29<13:41:07,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1971/30000 [1:02:46<13:35:43,  1.75s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 1981/30000 [1:03:03<13:28:03,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 1991/30000 [1:03:21<13:45:36,  1.77s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2000/30000 [1:03:37<13:30:21,  1.74s/it]
+Validating at step 1999...
+
+  7%|▋         | 2001/30000 [1:03:55<51:32:56,  6.63s/it]
+1.0508428812026978 <class 'float'>
+Saving Model Checkpoint for Step 2000
+07/28 [03:33:43] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 2000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2011/30000 [1:04:13<14:32:29,  1.87s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2021/30000 [1:04:30<13:45:31,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2031/30000 [1:04:48<13:43:48,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2041/30000 [1:05:07<14:42:50,  1.89s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2051/30000 [1:05:24<13:37:28,  1.75s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2060/30000 [1:05:40<13:27:36,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2071/30000 [1:05:59<13:26:40,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2081/30000 [1:06:17<13:39:50,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2091/30000 [1:06:34<13:36:14,  1.75s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2100/30000 [1:06:50<13:41:11,  1.77s/it]
+Validating at step 2099...
+step: 2099, CE loss: [5.084637404866301, 3.9436579378027665, 4.040394648261692], acc: [0.2510322067951191, 0.3022556411592584, 0.29968944321507995], L1 loss: [0.14531501223241663, 0.11677429652527758, 0.11402996953414835], L2 loss: [0.05403920818615511, 0.03301236098142047, 0.03706544200363367], cosine distance: [0.8814460032248084, 0.8977998325699255, 0.9157079406406569], DTW_seg: [0.5464337062224364, 0.43127028175302357, 0.4526212457019939], OT_seg: [0.0029618818398945207, 0.0016367166061471033, 0.002209040478936673], DTW: [0.5393537344162815, 0.4212031644544969, 0.4376224079280181], OT: [1.0150824665591477e-05, 1.7627264908461916e-05, 3.23116755505345e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2099
+07/28 [03:36:54] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 2099 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  7%|▋         | 2101/30000 [1:07:08<51:27:42,  6.64s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2110/30000 [1:07:24<15:09:12,  1.96s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2121/30000 [1:07:43<13:27:32,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2131/30000 [1:08:01<13:29:52,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2141/30000 [1:08:19<13:46:44,  1.78s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2151/30000 [1:08:36<13:18:47,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2161/30000 [1:08:53<13:28:00,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2171/30000 [1:09:11<13:22:35,  1.73s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2180/30000 [1:09:26<13:29:33,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2191/30000 [1:09:46<13:35:50,  1.76s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2200/30000 [1:10:01<13:36:27,  1.76s/it]
+Validating at step 2199...
+
+  7%|▋         | 2201/30000 [1:10:18<48:50:37,  6.33s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2211/30000 [1:10:36<14:55:40,  1.93s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2221/30000 [1:10:54<13:28:09,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  7%|▋         | 2231/30000 [1:11:11<13:17:29,  1.72s/it]
+
+
+
+
+
+
+
+
+  7%|▋         | 2240/30000 [1:11:26<13:23:00,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2251/30000 [1:11:46<13:33:30,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2261/30000 [1:12:03<13:33:55,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2272/30000 [1:12:22<13:16:58,  1.72s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2281/30000 [1:12:38<13:28:04,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2291/30000 [1:12:55<13:27:02,  1.75s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2300/30000 [1:13:11<13:34:09,  1.76s/it]
+Validating at step 2299...
+step: 2299, CE loss: [5.177285953306816, 5.1933957193628215, 5.475909662246704], acc: [0.24949698276083235, 0.2469033889171016, 0.2473214291036129], L1 loss: [0.15148144624602627, 0.14118943126559946, 0.18331934083253146], L2 loss: [0.07023654211784752, 0.05293067236770095, 0.0968758246395737], cosine distance: [0.8936562445801748, 0.8843628881294603, 0.8596101775765419], DTW_seg: [0.61631080571885, 0.5355875138026851, 0.6980983442263458], OT_seg: [0.0036000676621564583, 0.003122379088777072, 0.004790067007195035], DTW: [0.603306680689845, 0.5178017233204939, 0.6715351675130989], OT: [1.54758878552491e-05, 1.1088948665665663e-05, 3.256851760311957e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2299
+07/28 [03:43:17] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 2299 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+  8%|▊         | 2301/30000 [1:13:31<55:10:23,  7.17s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2310/30000 [1:13:47<15:10:59,  1.97s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2322/30000 [1:14:08<13:20:19,  1.73s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2331/30000 [1:14:24<13:25:09,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2341/30000 [1:14:42<13:33:50,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2351/30000 [1:14:59<13:20:39,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2361/30000 [1:15:17<13:25:04,  1.75s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2371/30000 [1:15:34<13:24:06,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2381/30000 [1:15:52<13:19:37,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2391/30000 [1:16:09<13:20:04,  1.74s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2400/30000 [1:16:25<13:23:45,  1.75s/it]
+Validating at step 2399...
+
+  8%|▊         | 2401/30000 [1:16:41<47:29:50,  6.20s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2412/30000 [1:17:01<13:58:27,  1.82s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2421/30000 [1:17:16<13:33:38,  1.77s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2431/30000 [1:17:34<13:08:22,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2441/30000 [1:17:51<13:34:15,  1.77s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2451/30000 [1:18:09<13:17:03,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2461/30000 [1:18:26<13:15:26,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2471/30000 [1:18:44<13:17:40,  1.74s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2482/30000 [1:19:03<13:18:57,  1.74s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2491/30000 [1:19:18<13:10:36,  1.72s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2500/30000 [1:19:34<13:29:41,  1.77s/it]
+Validating at step 2499...
+
+  8%|▊         | 2501/30000 [1:19:51<48:54:03,  6.40s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2511/30000 [1:20:09<14:22:37,  1.88s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2521/30000 [1:20:26<13:24:49,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  8%|▊         | 2531/30000 [1:20:44<13:09:49,  1.73s/it]
+
+
+
+
+
+
+
+
+  8%|▊         | 2540/30000 [1:20:59<13:10:47,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2551/30000 [1:21:18<13:00:06,  1.71s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2561/30000 [1:21:35<13:18:26,  1.75s/it]
+
+
+
+
+
+
+
+
+  9%|▊         | 2571/30000 [1:21:53<13:12:15,  1.73s/it]
+
+
+
+
+
+
+
+
+  9%|▊         | 2580/30000 [1:22:08<13:17:47,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2590/30000 [1:22:25<13:02:32,  1.71s/it]
+
+
+
+
+
+
+
+  9%|▊         | 2599/30000 [1:22:41<13:03:42,  1.72s/it]
+
+  9%|▊         | 2600/30000 [1:22:43<13:10:30,  1.73s/it]
+step: 2599, CE loss: [3.2109724646029263, 3.9043690580310244, 4.610797202948368], acc: [0.3944099351115849, 0.34343434433744413, 0.2972582980538859], L1 loss: [0.08403362301380737, 0.11270125044716729, 0.13756614547185222], L2 loss: [0.023909201238142407, 0.03887380805863726, 0.04752058671279387], cosine distance: [0.9207762687102609, 0.8725416588060784, 0.8820729117200832], DTW_seg: [0.35406036060916185, 0.45568160702722216, 0.5283520749085616], OT_seg: [0.0012097353860555304, 0.0019108053863916995, 0.0027599108567966696], DTW: [0.34797327789740196, 0.4200761959797192, 0.4891467707821619], OT: [2.080049188584587e-05, 2.0188425114269508e-05, 7.404066355751636e-05]
+
+
+
+
+
+
+
+
+  9%|▊         | 2610/30000 [1:23:13<14:20:42,  1.89s/it]
+
+
+
+
+
+
+
+
+
+  9%|▊         | 2620/30000 [1:23:30<13:09:34,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2630/30000 [1:23:47<13:10:42,  1.73s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2640/30000 [1:24:05<13:15:57,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2650/30000 [1:24:22<13:21:13,  1.76s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2660/30000 [1:24:40<13:16:37,  1.75s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2669/30000 [1:24:56<13:08:07,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2680/30000 [1:25:14<13:05:12,  1.72s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2690/30000 [1:25:32<13:21:30,  1.76s/it]
+
+
+
+
+
+
+
+  9%|▉         | 2698/30000 [1:25:46<12:49:59,  1.69s/it]
+
+  9%|▉         | 2700/30000 [1:25:49<12:50:26,  1.69s/it]
+step: 2699, CE loss: [5.49434688823675, 3.994917166601751, 4.25898413128323], acc: [0.2539682549978393, 0.3622974977665341, 0.31428571475876704], L1 loss: [0.18454441452532813, 0.09978919983217396, 0.10392779658238092], L2 loss: [0.10143108206977641, 0.02754712799928852, 0.03222712003108528], cosine distance: [0.8488666610000959, 0.9268878378818944, 0.8976267841127183], DTW_seg: [0.7272012705612867, 0.40721953736459293, 0.3948946439076822], OT_seg: [0.0038124535883813987, 0.001297824955735276, 0.0018173962395415682], DTW: [0.7225530536720446, 0.3864134847478856, 0.37446243604164986], OT: [1.5339752349783554e-05, 2.0359855590866492e-05, 9.486515497024279e-06]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2699
+07/28 [03:55:53] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 2699 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 2699 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2710/30000 [1:26:22<14:36:13,  1.93s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2719/30000 [1:26:38<13:08:16,  1.73s/it]
+
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2730/30000 [1:26:57<13:07:16,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2740/30000 [1:27:14<13:06:18,  1.73s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2750/30000 [1:27:32<13:34:38,  1.79s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2760/30000 [1:27:49<12:55:47,  1.71s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2770/30000 [1:28:06<13:04:45,  1.73s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2779/30000 [1:28:22<12:54:34,  1.71s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2790/30000 [1:28:41<13:01:31,  1.72s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2799/30000 [1:28:56<13:11:04,  1.74s/it]
+
+  9%|▉         | 2800/30000 [1:28:58<13:04:59,  1.73s/it]
+step: 2799, CE loss: [4.139097723207976, 4.923711326144157, 5.956764173507691], acc: [0.34736842387600947, 0.30799475804381415, 0.2616071440279484], L1 loss: [0.08375055872296032, 0.13105132977623457, 0.19129553213715553], L2 loss: [0.021095324788046512, 0.04832411510442648, 0.09304130943492055], cosine distance: [0.9462321783366956, 0.8887228528293994, 0.870031812787056], DTW_seg: [0.3332481380178232, 0.5137445313386957, 0.7283373485661234], OT_seg: [0.0011491506819446048, 0.001973238440906134, 0.004372487230186193], DTW: [0.3116181562491546, 0.47355322665722793, 0.7012110626948209], OT: [1.871588459402011e-05, 1.8461023520131906e-05, 2.932972208491241e-05]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2810/30000 [1:29:30<14:17:18,  1.89s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2820/30000 [1:29:48<13:10:23,  1.74s/it]
+
+
+
+
+
+
+
+
+  9%|▉         | 2830/30000 [1:30:05<13:11:09,  1.75s/it]
+
+
+
+
+
+
+
+
+
+  9%|▉         | 2840/30000 [1:30:23<13:08:28,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2850/30000 [1:30:40<13:16:36,  1.76s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2860/30000 [1:30:58<13:06:52,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2870/30000 [1:31:15<12:57:45,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2880/30000 [1:31:32<13:04:12,  1.73s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2889/30000 [1:31:48<13:02:32,  1.73s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2899/30000 [1:32:05<13:12:02,  1.75s/it]
+
+ 10%|▉         | 2900/30000 [1:32:07<13:05:08,  1.74s/it]
+step: 2899, CE loss: [5.525091420049253, 5.655145838081492, 6.03830453157425], acc: [0.2934782615174418, 0.24277456518198023, 0.2562499985098839], L1 loss: [0.17463160338609116, 0.15179806921867967, 0.19831933975219726], L2 loss: [0.09078916700799829, 0.0597200590492673, 0.10111188935115933], cosine distance: [0.8049359308636707, 0.8685719288153455, 0.8546226471662521], DTW_seg: [0.7081157159048572, 0.5744474184136801, 0.7581094028381121], OT_seg: [0.0038804711995625188, 0.003279006899144106, 0.005009350799143187], DTW: [0.693235847353314, 0.555942557877393, 0.7376137349219425], OT: [4.741316074967734e-05, 2.0703324959383697e-05, 4.7679463942439644e-05]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2910/30000 [1:32:43<14:43:27,  1.96s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2919/30000 [1:32:58<13:04:31,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2930/30000 [1:33:18<13:20:29,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2940/30000 [1:33:35<13:11:15,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2950/30000 [1:33:52<13:06:50,  1.75s/it]
+
+
+
+
+
+
+
+ 10%|▉         | 2960/30000 [1:34:10<13:08:53,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2970/30000 [1:34:27<13:02:08,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|▉         | 2980/30000 [1:34:44<12:57:19,  1.73s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2990/30000 [1:35:02<12:56:27,  1.72s/it]
+
+
+
+
+
+
+
+
+ 10%|▉         | 2999/30000 [1:35:17<12:58:02,  1.73s/it]
+
+ 10%|█         | 3000/30000 [1:35:19<12:54:06,  1.72s/it]
+step: 2999, CE loss: [5.125596077887566, 3.917547034311898, 4.233614137437608], acc: [0.2480376755798256, 0.3508137426798857, 0.32857142289479574], L1 loss: [0.1512543574630559, 0.11523597909114029, 0.09350763079192903], L2 loss: [0.07250002971185106, 0.04973010882688097, 0.023852805896765656], cosine distance: [0.7919458013314468, 0.8429850385158877, 0.9287802815437317], DTW_seg: [0.5891345791777746, 0.4714154523578732, 0.3696295059265954], OT_seg: [0.003645671441024876, 0.001956628767168322, 0.0011405503377821717], DTW: [0.5475876115379292, 0.42276289029120423, 0.35935996799423464], OT: [8.180024367494846e-06, 2.4648444823323692e-05, 1.213696807699115e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 2999
+07/28 [04:05:23] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 2999 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+Saved Model Checkpoint for Step 2999 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+0.9247151613235474 <class 'float'>
+Saving Model Checkpoint for Step 3000
+07/28 [04:05:25] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 3000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3010/30000 [1:35:53<14:18:50,  1.91s/it]
+
+
+
+
+
+
+
+
+ 10%|█         | 3020/30000 [1:36:10<13:02:49,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3030/30000 [1:36:27<12:47:00,  1.71s/it]
+
+
+
+
+
+
+
+
+ 10%|█         | 3039/30000 [1:36:42<12:55:21,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3050/30000 [1:37:01<12:58:12,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3060/30000 [1:37:19<12:57:52,  1.73s/it]
+
+
+
+
+
+
+
+
+ 10%|█         | 3070/30000 [1:37:36<13:01:46,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3080/30000 [1:37:53<13:03:37,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3090/30000 [1:38:11<12:56:00,  1.73s/it]
+
+
+
+
+
+
+
+ 10%|█         | 3098/30000 [1:38:25<12:56:07,  1.73s/it]
+
+ 10%|█         | 3100/30000 [1:38:28<12:58:22,  1.74s/it]
+step: 3099, CE loss: [5.950315265094533, 5.602377582836702, 4.808380603790283], acc: [0.24743230475319755, 0.2394715121198941, 0.2919254639874334], L1 loss: [0.1947309776069292, 0.14583313792427152, 0.12076483278170876], L2 loss: [0.10784890222990143, 0.05313746527784822, 0.04140768078682215], cosine distance: [0.8360436348354116, 0.8846692194828408, 0.9049864489099254], DTW_seg: [0.7652335380337151, 0.541122417821, 0.47662616430621735], OT_seg: [0.004126984629556039, 0.0027344015244089247, 0.0023264582900508883], DTW: [0.7536312274520789, 0.5253252814740537, 0.46025785501730704], OT: [1.358624094001804e-05, 1.4219845758871031e-05, 3.987954943273132e-05]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3110/30000 [1:39:02<14:24:16,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3120/30000 [1:39:19<13:13:02,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3130/30000 [1:39:37<12:53:57,  1.73s/it]
+
+
+
+
+
+
+
+
+ 10%|█         | 3140/30000 [1:39:54<13:02:43,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 10%|█         | 3150/30000 [1:40:11<12:58:27,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3160/30000 [1:40:29<13:06:10,  1.76s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3170/30000 [1:40:46<12:59:29,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3180/30000 [1:41:03<12:50:45,  1.72s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3189/30000 [1:41:19<12:46:37,  1.72s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3199/30000 [1:41:36<12:54:39,  1.73s/it]
+
+ 11%|█         | 3200/30000 [1:41:38<13:04:29,  1.76s/it]
+step: 3199, CE loss: [5.466661458487039, 3.855098226796026, 5.94749735683375], acc: [0.26687598359453807, 0.4177018572454867, 0.23534269286373447], L1 loss: [0.1442300090259248, 0.09535989132912262, 0.14988747695622417], L2 loss: [0.06225008587097074, 0.028505427317450874, 0.05919151776873997], cosine distance: [0.8275755211547181, 0.8876478594282399, 0.8777811871787716], DTW_seg: [0.5497508229059789, 0.3905813907964707, 0.5647337522605176], OT_seg: [0.0028745837198630077, 0.001378566771977333, 0.0030565389478924283], DTW: [0.5320832010159733, 0.37977272519893107, 0.5375563870763018], OT: [7.111657418839124e-06, 2.8691264489041834e-05, 9.898896530360276e-06]
+
+
+
+
+
+
+
+
+ 11%|█         | 3209/30000 [1:42:11<15:24:19,  2.07s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3220/30000 [1:42:30<12:57:23,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3230/30000 [1:42:47<12:54:45,  1.74s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3240/30000 [1:43:04<12:45:28,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3250/30000 [1:43:22<12:51:36,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3260/30000 [1:43:39<13:00:56,  1.75s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3270/30000 [1:43:56<13:00:20,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3280/30000 [1:44:14<12:58:19,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3290/30000 [1:44:31<12:59:33,  1.75s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3299/30000 [1:44:47<12:58:05,  1.75s/it]
+
+ 11%|█         | 3300/30000 [1:44:49<12:54:29,  1.74s/it]
+step: 3299, CE loss: [4.9167903476291235, 5.001694236138855, 4.507022598515386], acc: [0.3, 0.3073593069507618, 0.34006211161613464], L1 loss: [0.13587302482790417, 0.12708599428937892, 0.13002070995128673], L2 loss: [0.05449489553769429, 0.040882139720700005, 0.05459362681469192], cosine distance: [0.8703452004326715, 0.9014970341114082, 0.8599507523619611], DTW_seg: [0.5454424166785766, 0.4907206852499237, 0.515219548699985], OT_seg: [0.0025114760501150353, 0.002514698623887397, 0.002798016052115646], DTW: [0.5284789970619571, 0.47088260125573866, 0.48142110088432943], OT: [2.7628499959654674e-05, 5.652776964510221e-05, 0.00012048794461259065]
+
+
+
+
+
+
+
+
+ 11%|█         | 3309/30000 [1:45:19<14:46:48,  1.99s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3320/30000 [1:45:38<12:49:57,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3330/30000 [1:45:56<12:56:02,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3340/30000 [1:46:13<12:50:58,  1.74s/it]
+
+
+
+
+
+
+
+
+ 11%|█         | 3350/30000 [1:46:30<12:47:11,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3360/30000 [1:46:48<12:58:28,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█         | 3370/30000 [1:47:05<13:00:31,  1.76s/it]
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3379/30000 [1:47:21<12:55:57,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3390/30000 [1:47:40<12:43:44,  1.72s/it]
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3399/30000 [1:47:56<12:55:34,  1.75s/it]
+
+ 11%|█▏        | 3400/30000 [1:47:58<12:57:05,  1.75s/it]
+
+ 11%|█▏        | 3401/30000 [1:48:15<47:07:23,  6.38s/it]
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3410/30000 [1:48:30<14:28:23,  1.96s/it]
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3420/30000 [1:48:48<12:49:22,  1.74s/it]
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3429/30000 [1:49:03<12:42:31,  1.72s/it]
+
+
+
+
+
+
+
+
+
+
+ 11%|█▏        | 3440/30000 [1:49:22<12:40:41,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3450/30000 [1:49:40<12:39:05,  1.72s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3460/30000 [1:49:57<12:51:32,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3470/30000 [1:50:14<12:44:18,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3480/30000 [1:50:31<12:54:12,  1.75s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3490/30000 [1:50:49<12:43:52,  1.73s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3499/30000 [1:51:04<12:43:13,  1.73s/it]
+
+ 12%|█▏        | 3500/30000 [1:51:06<12:56:55,  1.76s/it]
+step: 3499, CE loss: [5.623154484707376, 4.014602099792866, 4.7545222717782725], acc: [0.27329192715494527, 0.3453887867022164, 0.34472049448801123], L1 loss: [0.1816283159929773, 0.10797433616428435, 0.11714773576544679], L2 loss: [0.09227732178228705, 0.03735839811306965, 0.045798060241276806], cosine distance: [0.81178552430609, 0.9001321339909034, 0.8500615099202031], DTW_seg: [0.7160036119666924, 0.42742175455943676, 0.47078727348889154], OT_seg: [0.003639122315592903, 0.002654853949522226, 0.001814185179613192], DTW: [0.6894360852525572, 0.4113645541749044, 0.45354656108669467], OT: [3.52522861696665e-05, 4.693835522339297e-05, 3.651870325950167e-05]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3510/30000 [1:51:39<14:01:43,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3520/30000 [1:51:57<13:00:11,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3530/30000 [1:52:14<12:37:29,  1.72s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3540/30000 [1:52:31<12:34:05,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3550/30000 [1:52:48<12:32:20,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3560/30000 [1:53:05<12:46:35,  1.74s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3570/30000 [1:53:23<12:41:41,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3580/30000 [1:53:40<12:35:46,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3590/30000 [1:53:58<12:40:56,  1.73s/it]
+
+
+
+
+
+
+
+ 12%|█▏        | 3599/30000 [1:54:13<12:42:17,  1.73s/it]
+
+ 12%|█▏        | 3600/30000 [1:54:15<12:44:24,  1.74s/it]
+step: 3599, CE loss: [4.097250855487326, 6.421935890235153, 4.5291664575275625], acc: [0.3959627294022104, 0.24369747849071727, 0.3729323362049304], L1 loss: [0.09623676246922949, 0.1938009290815958, 0.09191214120701739], L2 loss: [0.030894188817752445, 0.10524201772960962, 0.025474623531887407], cosine distance: [0.8855925176454627, 0.8404562352529539, 0.9376059074150889], DTW_seg: [0.3871477923770734, 0.7578397275384126, 0.37049650018960706], OT_seg: [0.0015890806450457424, 0.003682804394345205, 0.001407139532799704], DTW: [0.3783693298010785, 0.7458287723811438, 0.3337012744578741], OT: [3.872915784794955e-05, 1.1341701287055469e-05, 1.3134517834074047e-05]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3610/30000 [1:54:48<14:10:58,  1.93s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3620/30000 [1:55:05<12:45:06,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3630/30000 [1:55:23<12:43:50,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3640/30000 [1:55:40<12:45:32,  1.74s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3650/30000 [1:55:57<12:27:04,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3660/30000 [1:56:15<12:41:34,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3670/30000 [1:56:32<12:39:33,  1.73s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3680/30000 [1:56:49<12:41:15,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3690/30000 [1:57:07<12:43:21,  1.74s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3699/30000 [1:57:22<12:47:24,  1.75s/it]
+
+ 12%|█▏        | 3700/30000 [1:57:24<12:44:07,  1.74s/it]
+step: 3699, CE loss: [5.709480296240913, 5.1000257309037025, 5.365884884544041], acc: [0.30317459967401295, 0.3304473285121147, 0.30124223361844604], L1 loss: [0.13943356109990013, 0.10973602473133742, 0.11104616360819858], L2 loss: [0.05693380994101365, 0.03540377000422038, 0.03297709463083226], cosine distance: [0.8522470408015781, 0.8832315182445025, 0.9214790126551753], DTW_seg: [0.5608279890065274, 0.43761511857999447, 0.4230447674552504], OT_seg: [0.0025344830742754622, 0.0016245093138595637, 0.0017468436650022326], DTW: [0.5492258017870136, 0.4159501480948472, 0.4108500325648477], OT: [4.481792717086835e-05, 2.2487373506212392e-05, 3.52281466350579e-05]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3710/30000 [1:57:56<14:11:15,  1.94s/it]
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3719/30000 [1:58:12<12:39:07,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3730/30000 [1:58:31<12:51:08,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 12%|█▏        | 3740/30000 [1:58:48<12:43:05,  1.74s/it]
+
+
+
+
+
+
+
+
+ 12%|█▎        | 3750/30000 [1:59:06<12:36:25,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3760/30000 [1:59:23<12:40:52,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3770/30000 [1:59:40<12:35:45,  1.73s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3779/30000 [1:59:56<12:38:28,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3790/30000 [2:00:15<12:31:18,  1.72s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3799/30000 [2:00:30<12:32:35,  1.72s/it]
+
+ 13%|█▎        | 3800/30000 [2:00:32<12:36:14,  1.73s/it]
+step: 3799, CE loss: [6.060339119123376, 6.009587751307958, 4.39048427650609], acc: [0.2872670819254025, 0.2525150908130995, 0.36082473919563685], L1 loss: [0.17262210470178854, 0.1482858013519099, 0.09795258877818118], L2 loss: [0.08455430256688724, 0.06337367874425902, 0.03310692533082569], cosine distance: [0.8332893407863119, 0.9097396672611505, 0.923874839679482], DTW_seg: [0.6757634378826924, 0.5834153818679699, 0.4186055653431145], OT_seg: [0.00371565164855371, 0.0031614678459066584, 0.00193319857152483], DTW: [0.6524568628466312, 0.5796588687416887, 0.40457188467128385], OT: [2.8699051435689683e-05, 1.835446401080861e-05, 1.2788070221117658e-05]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3810/30000 [2:01:06<14:05:34,  1.94s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3820/30000 [2:01:24<12:45:24,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3830/30000 [2:01:41<12:22:31,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3840/30000 [2:01:58<12:24:08,  1.71s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3850/30000 [2:02:16<12:52:27,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3860/30000 [2:02:33<12:40:01,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3870/30000 [2:02:50<12:40:11,  1.75s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3880/30000 [2:03:07<12:25:03,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3890/30000 [2:03:25<12:33:58,  1.73s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3899/30000 [2:03:40<12:20:05,  1.70s/it]
+
+ 13%|█▎        | 3900/30000 [2:03:42<12:21:35,  1.70s/it]
+step: 3899, CE loss: [5.014365095080751, 6.292145674465266, 4.536425514319508], acc: [0.3174603193095236, 0.24754634681548782, 0.3652430016969897], L1 loss: [0.11076593158221004, 0.15459619923174836, 0.09437177729668077], L2 loss: [0.03270821369281321, 0.07398956886115875, 0.02845390599950687], cosine distance: [0.8967201667602616, 0.8102210801066333, 0.929266066280837], DTW_seg: [0.42645600103815584, 0.5835366688270337, 0.4013950307866488], OT_seg: [0.0014210762538328858, 0.0031150561307195135, 0.0017092788034963335], DTW: [0.4172145715633562, 0.5416517711097445, 0.3827928688726047], OT: [2.0928141348026474e-05, 3.1334772774937853e-05, 1.1392702348611821e-05]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3910/30000 [2:04:14<14:01:06,  1.93s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3920/30000 [2:04:31<12:20:06,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3930/30000 [2:04:49<12:24:54,  1.71s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3940/30000 [2:05:06<12:29:52,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3950/30000 [2:05:23<12:43:27,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3960/30000 [2:05:41<12:36:23,  1.74s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3969/30000 [2:05:56<12:35:12,  1.74s/it]
+
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3980/30000 [2:06:15<12:26:15,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3990/30000 [2:06:33<12:41:51,  1.76s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 3999/30000 [2:06:49<12:58:10,  1.80s/it]
+
+ 13%|█▎        | 4000/30000 [2:06:51<12:50:33,  1.78s/it]
+step: 3999, CE loss: [5.6157129287719725, 5.426704137012212, 6.33766090791989], acc: [0.2904761874013477, 0.31024531086887974, 0.2521008412822399], L1 loss: [0.13952070408397252, 0.13228079977661672, 0.19941049424651403], L2 loss: [0.04835718249281248, 0.049967421802005384, 0.11370578482503595], cosine distance: [0.8788416425387064, 0.873310614715923, 0.82700939233007], DTW_seg: [0.5393566664198459, 0.53073751419662, 0.7861382164102193], OT_seg: [0.002190915581919042, 0.002349723410853745, 0.003800650328053816], DTW: [0.5346109688319121, 0.498730350876643, 0.7612994401311031], OT: [5.062548863651003e-05, 3.5621147314784845e-05, 1.1784677836728628e-05]
+0.6875113248825073 <class 'float'>
+Saving Model Checkpoint for Step 4000
+07/28 [04:36:55] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 4000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4010/30000 [2:07:22<13:48:12,  1.91s/it]
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4020/30000 [2:07:40<12:26:34,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4030/30000 [2:07:57<12:30:25,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 13%|█▎        | 4040/30000 [2:08:14<12:36:16,  1.75s/it]
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4050/30000 [2:08:32<12:26:28,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4060/30000 [2:08:49<12:26:28,  1.73s/it]
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4070/30000 [2:09:08<13:32:52,  1.88s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4080/30000 [2:09:25<12:18:56,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4090/30000 [2:09:43<12:35:47,  1.75s/it]
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4100/30000 [2:10:00<12:29:58,  1.74s/it]
+Validating at step 4099...
+step: 4099, CE loss: [5.485131941901313, 4.393625153993305, 4.966521657031516], acc: [0.296825396683481, 0.3654135352686832, 0.34627329137014307], L1 loss: [0.13282291607724295, 0.08195784146848478, 0.11798806974421376], L2 loss: [0.04877079559697045, 0.01964634992182255, 0.044951084272369095], cosine distance: [0.8686031977335612, 0.9523145863884374, 0.875811447267947], DTW_seg: [0.5374069651701989, 0.31353581460797125, 0.47067616924772127], OT_seg: [0.002206733673861702, 0.0011213930360585928, 0.0019635782701827535], DTW: [0.5218557234223106, 0.298424745612911, 0.4590382403379851], OT: [2.346133321399243e-05, 1.6117997902544856e-05, 6.712970966213674e-05]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4110/30000 [2:10:31<13:46:59,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▎        | 4120/30000 [2:10:49<12:44:24,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4130/30000 [2:11:07<12:40:56,  1.76s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4140/30000 [2:11:24<12:16:43,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4150/30000 [2:11:41<12:24:51,  1.73s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4160/30000 [2:11:58<12:18:54,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4170/30000 [2:12:16<12:20:15,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4180/30000 [2:12:33<12:24:13,  1.73s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4190/30000 [2:12:50<12:26:02,  1.73s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4199/30000 [2:13:05<12:16:16,  1.71s/it]
+
+ 14%|█▍        | 4200/30000 [2:13:07<12:15:56,  1.71s/it]
+step: 4199, CE loss: [5.3687093840705025, 5.38850883522419, 5.002334511798361], acc: [0.28730158507823944, 0.2972582938394161, 0.2950310564559439], L1 loss: [0.1367818342314826, 0.12633903174087255, 0.11288515899492346], L2 loss: [0.05198108702898026, 0.04214953841886135, 0.033778411781658295], cosine distance: [0.8635954406526354, 0.8949288165930546, 0.9203259659850079], DTW_seg: [0.5556335828355178, 0.489245061316804, 0.4289377030676596], OT_seg: [0.0022064651568688477, 0.0023510401057498325, 0.001757804571103804], DTW: [0.532718507383599, 0.45866656687258245, 0.4158959060353294], OT: [6.213645952208038e-05, 4.992681096277614e-05, 2.7512839896327726e-05]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4210/30000 [2:13:39<13:39:02,  1.91s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4220/30000 [2:13:56<12:26:01,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4230/30000 [2:14:14<12:19:08,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4240/30000 [2:14:31<12:20:52,  1.73s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4250/30000 [2:14:49<12:15:08,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4260/30000 [2:15:06<12:26:05,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4270/30000 [2:15:23<12:24:52,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4281/30000 [2:15:43<12:28:22,  1.75s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4290/30000 [2:15:58<12:24:52,  1.74s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4299/30000 [2:16:14<12:27:40,  1.75s/it]
+
+ 14%|█▍        | 4300/30000 [2:16:16<12:26:50,  1.74s/it]
+step: 4299, CE loss: [5.687347710734666, 3.977119168148765, 5.2465931228969405], acc: [0.3088023089098208, 0.3833634679830527, 0.2872670837070631], L1 loss: [0.13398976608960314, 0.08552282421460634, 0.12039947250614995], L2 loss: [0.045247470038105746, 0.022352902071338287, 0.04020412930327913], cosine distance: [0.8946689939258075, 0.9409204268757301, 0.9097457683604696], DTW_seg: [0.514609459987692, 0.3458019910949488, 0.4695459621719912], OT_seg: [0.00282702900926661, 0.0011257697419995549, 0.002277110332624099], DTW: [0.4780056540973856, 0.3295063458011421, 0.46280359588607295], OT: [6.283104858244976e-05, 1.8434586668206453e-05, 5.657268652670301e-05]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4310/30000 [2:16:47<13:42:12,  1.92s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4320/30000 [2:17:05<12:15:49,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4330/30000 [2:17:22<12:08:57,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4340/30000 [2:17:39<12:25:16,  1.74s/it]
+
+
+
+
+
+
+
+
+ 14%|█▍        | 4350/30000 [2:17:56<12:24:13,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4360/30000 [2:18:14<12:16:48,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4371/30000 [2:18:33<12:17:33,  1.73s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4380/30000 [2:18:48<12:12:33,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4390/30000 [2:19:06<12:29:22,  1.76s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4399/30000 [2:19:22<12:33:41,  1.77s/it]
+
+ 15%|█▍        | 4400/30000 [2:19:23<12:25:17,  1.75s/it]
+step: 4399, CE loss: [5.738503311619614, 6.141268641962482, 4.5005783041318255], acc: [0.2914862920238514, 0.24277456828279992, 0.3601190472642581], L1 loss: [0.14238746991061202, 0.15028255058161785, 0.10880019174267848], L2 loss: [0.05349151970762195, 0.06012470436664675, 0.03513154560156787], cosine distance: [0.8710410968221799, 0.8743303776476424, 0.8917570660511652], DTW_seg: [0.5563099657031195, 0.559587012655577, 0.4265558571688037], OT_seg: [0.0030368680118776237, 0.002943076902074442, 0.0014508842752787388], DTW: [0.5210924646088029, 0.5371143725873861, 0.4039817894866811], OT: [6.488432152221162e-05, 1.3851349477151741e-05, 2.9470121381886056e-05]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4410/30000 [2:19:56<13:30:34,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4420/30000 [2:20:13<12:25:36,  1.75s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4430/30000 [2:20:31<12:15:50,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4440/30000 [2:20:48<12:15:47,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4450/30000 [2:21:05<12:10:08,  1.71s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4460/30000 [2:21:23<12:16:35,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4470/30000 [2:21:40<12:15:19,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4481/30000 [2:21:59<12:21:08,  1.74s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4490/30000 [2:22:15<12:15:57,  1.73s/it]
+
+
+
+
+
+
+
+
+ 15%|█▍        | 4499/30000 [2:22:30<12:04:31,  1.70s/it]
+
+ 15%|█▌        | 4500/30000 [2:22:32<12:11:38,  1.72s/it]
+step: 4499, CE loss: [5.973231296346645, 6.328376453341418, 6.708293628692627], acc: [0.3174603128373021, 0.24863686020137699, 0.24910714402794837], L1 loss: [0.12431316950706521, 0.15599034595808, 0.19385154955089093], L2 loss: [0.04134398653651729, 0.07096420683478581, 0.09509936519898474], cosine distance: [0.9044187622840958, 0.8093788182462445, 0.8657894700765609], DTW_seg: [0.48898056762906456, 0.5763770863260007, 0.7336512305775905], OT_seg: [0.0027564378890791805, 0.002977757485272211, 0.004316567803592026], DTW: [0.45092069631354104, 0.5671025710727639, 0.7211915200240329], OT: [5.706126195914515e-05, 2.0094074025405032e-05, 2.2242818696105922e-05]
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4510/30000 [2:23:05<13:25:58,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4520/30000 [2:23:22<12:18:15,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4531/30000 [2:23:41<12:09:09,  1.72s/it]
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4540/30000 [2:23:57<12:12:42,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4550/30000 [2:24:14<12:13:00,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4561/30000 [2:24:33<12:10:34,  1.72s/it]
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4570/30000 [2:24:49<12:23:36,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4580/30000 [2:25:06<12:13:09,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4591/30000 [2:25:25<12:06:20,  1.72s/it]
+
+
+
+
+
+
+
+ 15%|█▌        | 4599/30000 [2:25:39<12:11:53,  1.73s/it]
+
+ 15%|█▌        | 4600/30000 [2:25:41<12:08:20,  1.72s/it]
+step: 4599, CE loss: [6.237757540841139, 4.971996180865229, 5.629119404959022], acc: [0.2529989065787264, 0.338192417305343, 0.32110091715777683], L1 loss: [0.1516967182623521, 0.10023438550379811, 0.12634339214328233], L2 loss: [0.0693008249184785, 0.027156635206572865, 0.044589850355213116], cosine distance: [0.8249774793632157, 0.9194475558339333, 0.8960997877864663], DTW_seg: [0.567570398954525, 0.40106891474468254, 0.49151281578629635], OT_seg: [0.002960782776414463, 0.0017595721762094195, 0.0022036932060105928], DTW: [0.5390256799268717, 0.38131842176795966, 0.4740677552940183], OT: [1.8494331740609808e-05, 1.8961909350717905e-05, 2.6222952316167968e-05]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4610/30000 [2:26:14<13:28:43,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4621/30000 [2:26:33<12:13:19,  1.73s/it]
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4630/30000 [2:26:49<12:09:41,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 15%|█▌        | 4640/30000 [2:27:06<12:21:11,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4650/30000 [2:27:24<12:14:14,  1.74s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4660/30000 [2:27:41<12:05:47,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4670/30000 [2:27:59<12:10:52,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4680/30000 [2:28:16<12:08:43,  1.73s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4690/30000 [2:28:33<12:11:56,  1.74s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4699/30000 [2:28:49<12:06:10,  1.72s/it]
+
+ 16%|█▌        | 4700/30000 [2:28:51<12:08:13,  1.73s/it]
+step: 4699, CE loss: [6.287017239464654, 7.28647090017406, 5.368274231346286], acc: [0.30476190547148385, 0.2474323070906346, 0.3148688047516103], L1 loss: [0.13007159564230178, 0.19251937165953756, 0.10627108538637356], L2 loss: [0.046996924860609905, 0.11036704324818904, 0.02826354310524707], cosine distance: [0.8787204265594483, 0.8307537689707638, 0.9163319723946708], DTW_seg: [0.5225672076529541, 0.7660300427040251, 0.4198118904638981], OT_seg: [0.002199166376790368, 0.003810572533511675, 0.0019035961723625023], DTW: [0.5133927479013974, 0.7596290736314832, 0.4101974055910571], OT: [3.731681004524786e-05, 1.405249252874182e-05, 1.5746537567751006e-05]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4710/30000 [2:29:24<13:33:56,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4720/30000 [2:29:41<12:15:52,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4730/30000 [2:29:58<12:16:43,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4741/30000 [2:30:18<12:14:45,  1.75s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4750/30000 [2:30:33<12:20:23,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4760/30000 [2:30:51<12:08:42,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4770/30000 [2:31:09<12:25:36,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4781/30000 [2:31:28<12:15:31,  1.75s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4790/30000 [2:31:43<12:13:13,  1.75s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4799/30000 [2:31:59<12:05:24,  1.73s/it]
+
+ 16%|█▌        | 4800/30000 [2:32:00<11:53:51,  1.70s/it]
+step: 4799, CE loss: [6.283669181492018, 4.400124301081118, 4.752405673642702], acc: [0.2903726682390856, 0.3819875743078149, 0.359855332706548], L1 loss: [0.1744854602476825, 0.09713799117699913, 0.09489771377153788], L2 loss: [0.09211756406432908, 0.03566445005328759, 0.026837254021187088], cosine distance: [0.8134096407372019, 0.8814205216324847, 0.9237541397915611], DTW_seg: [0.6980697668493206, 0.4058709799488981, 0.3803660536064322], OT_seg: [0.0031717495182216103, 0.0015055843309190688, 0.001212815729419095], DTW: [0.6734762586400098, 0.3883295999020125, 0.35913897190521377], OT: [2.6331300524954374e-05, 3.3153704048059726e-05, 1.9272394418556485e-05]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4810/30000 [2:32:34<13:45:40,  1.97s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4820/30000 [2:32:51<12:13:29,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4830/30000 [2:33:08<12:02:46,  1.72s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4840/30000 [2:33:25<11:53:08,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4850/30000 [2:33:43<12:06:16,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4860/30000 [2:34:00<12:01:13,  1.72s/it]
+
+
+
+
+
+
+
+
+ 16%|█▌        | 4870/30000 [2:34:18<11:59:32,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4880/30000 [2:34:35<11:58:49,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4890/30000 [2:34:52<12:05:41,  1.73s/it]
+
+
+
+
+
+
+
+ 16%|█▋        | 4899/30000 [2:35:08<11:52:58,  1.70s/it]
+
+ 16%|█▋        | 4900/30000 [2:35:10<11:58:12,  1.72s/it]
+
+ 16%|█▋        | 4901/30000 [2:35:26<42:52:40,  6.15s/it]
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4910/30000 [2:35:42<13:32:41,  1.94s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4920/30000 [2:35:59<12:13:49,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4930/30000 [2:36:16<12:08:08,  1.74s/it]
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4940/30000 [2:36:34<11:52:33,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 16%|█▋        | 4950/30000 [2:36:51<11:59:23,  1.72s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4960/30000 [2:37:08<12:01:12,  1.73s/it]
+
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4970/30000 [2:37:26<12:07:36,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4980/30000 [2:37:43<12:00:17,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 4991/30000 [2:38:02<12:01:59,  1.73s/it]
+
+
+
+
+
+
+
+ 17%|█▋        | 4999/30000 [2:38:16<11:46:02,  1.69s/it]
+
+ 17%|█▋        | 5000/30000 [2:38:17<11:55:18,  1.72s/it]
+step: 4999, CE loss: [6.313461679807851, 6.466299228085816, 5.568592180899524], acc: [0.25653923712146115, 0.24754634499549866, 0.32634338025653037], L1 loss: [0.14938257855009024, 0.14885710708740105, 0.12230361034290506], L2 loss: [0.06178277563041364, 0.06453875929316263, 0.042856390160773326], cosine distance: [0.9082605183964044, 0.8350911308790891, 0.8992479224817469], DTW_seg: [0.595592702629439, 0.5663410223427284, 0.48361516407321614], OT_seg: [0.0030568132619889533, 0.0037090759069680875, 0.0020016013600979163], DTW: [0.5865795401254912, 0.550194835646874, 0.45740979364954765], OT: [1.680251704790966e-05, 2.417638692373661e-05, 2.0834573120520684e-05]
+0.6083776354789734 <class 'float'>
+Saving Model Checkpoint for Step 5000
+07/28 [05:08:23] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 5000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5010/30000 [2:38:51<13:22:26,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5020/30000 [2:39:09<12:01:21,  1.73s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5030/30000 [2:39:26<12:03:09,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5040/30000 [2:39:43<12:02:40,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5051/30000 [2:40:02<11:47:51,  1.70s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5060/30000 [2:40:18<11:59:36,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5070/30000 [2:40:35<12:04:17,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5080/30000 [2:40:53<12:13:44,  1.77s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5090/30000 [2:41:10<12:08:16,  1.75s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5099/30000 [2:41:25<11:57:19,  1.73s/it]
+
+ 17%|█▋        | 5100/30000 [2:41:27<11:53:11,  1.72s/it]
+step: 5099, CE loss: [5.193950527846211, 5.701839235093859, 5.193164690681126], acc: [0.33189033287944214, 0.30303029926738356, 0.3493788799513941], L1 loss: [0.10593328963626515, 0.13033416144775622, 0.11489465865104095], L2 loss: [0.03168376594913578, 0.04515488701637345, 0.03784421414298856], cosine distance: [0.8947434870883672, 0.8871147319523975, 0.8967931762985561], DTW_seg: [0.4073812197189379, 0.5039342288258184, 0.4395541616752082], OT_seg: [0.001554103122730574, 0.0024256552822489, 0.0016309422319652496], DTW: [0.39695047852067755, 0.4627706649142963, 0.43601375321245045], OT: [2.1013320793125764e-05, 4.589468501949706e-05, 4.606965288802795e-05]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5110/30000 [2:41:59<13:05:54,  1.89s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5121/30000 [2:42:18<12:03:40,  1.75s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5130/30000 [2:42:34<12:10:14,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5140/30000 [2:42:51<11:59:14,  1.74s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5150/30000 [2:43:08<11:59:33,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5160/30000 [2:43:26<11:53:10,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5170/30000 [2:43:43<12:01:42,  1.74s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5180/30000 [2:44:00<11:48:40,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5190/30000 [2:44:18<12:13:01,  1.77s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5199/30000 [2:44:34<12:03:33,  1.75s/it]
+
+ 17%|█▋        | 5200/30000 [2:44:35<12:04:09,  1.75s/it]
+step: 5199, CE loss: [5.016893752897628, 6.213862711294538, 6.476016330718994], acc: [0.3304473309203832, 0.24525185721802573, 0.24821428433060647], L1 loss: [0.10703110303541627, 0.14332022823694812, 0.19172970429062844], L2 loss: [0.038897508040371565, 0.0554948387979772, 0.09744236334227026], cosine distance: [0.8596282685645903, 0.8815679091938659, 0.8627655625343322], DTW_seg: [0.42067196003354523, 0.5444847624914563, 0.7264073752259682], OT_seg: [0.0017462777016794705, 0.002832435342945973, 0.004539812984017137], DTW: [0.40930383663404507, 0.533375891866446, 0.7005525012653449], OT: [1.894121871286833e-05, 1.9948421421295836e-05, 3.190908716427744e-05]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5210/30000 [2:45:09<13:07:08,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5220/30000 [2:45:26<12:02:06,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5230/30000 [2:45:43<12:00:42,  1.75s/it]
+
+
+
+
+
+
+
+
+ 17%|█▋        | 5240/30000 [2:46:00<11:48:37,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5250/30000 [2:46:18<11:51:14,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5261/30000 [2:46:37<11:51:46,  1.73s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5270/30000 [2:46:52<11:40:37,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5280/30000 [2:47:09<11:48:38,  1.72s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5290/30000 [2:47:27<11:44:02,  1.71s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5299/30000 [2:47:42<11:46:28,  1.72s/it]
+
+ 18%|█▊        | 5300/30000 [2:47:44<11:48:26,  1.72s/it]
+step: 5299, CE loss: [5.269883199171587, 5.57863367150683, 4.665617565313975], acc: [0.32034631901317173, 0.3328964636413329, 0.3571428544819355], L1 loss: [0.10641995042261451, 0.1231053968840236, 0.1045051400239269], L2 loss: [0.03355255507572432, 0.043780645218874335, 0.03137291898019612], cosine distance: [0.8879926258867438, 0.8995522452056954, 0.8970240453879038], DTW_seg: [0.41806606689821574, 0.4933155437826614, 0.3998839700709449], OT_seg: [0.0015220105339290267, 0.002131453624803043, 0.0014773850716757293], DTW: [0.40363193408376713, 0.47095201254257785, 0.38958986826941316], OT: [1.6176024937224065e-05, 2.6566891413762473e-05, 3.2189618766896736e-05]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5310/30000 [2:48:16<13:06:56,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5320/30000 [2:48:33<11:50:39,  1.73s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5330/30000 [2:48:51<11:39:18,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5340/30000 [2:49:08<12:00:22,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5350/30000 [2:49:25<11:48:31,  1.72s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5360/30000 [2:49:43<11:36:35,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5370/30000 [2:50:00<11:52:49,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5380/30000 [2:50:17<11:57:33,  1.75s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5390/30000 [2:50:35<11:49:21,  1.73s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5399/30000 [2:50:50<11:46:49,  1.72s/it]
+
+ 18%|█▊        | 5400/30000 [2:50:52<11:52:33,  1.74s/it]
+step: 5399, CE loss: [6.976803919848273, 5.293431593447315, 5.2892134401533335], acc: [0.24276377134073793, 0.3148688029269783, 0.33333333399560716], L1 loss: [0.1798063147496554, 0.10017722008787856, 0.09281046208408143], L2 loss: [0.09742056213173211, 0.027626963484348083, 0.025789448680977028], cosine distance: [0.8475585108488993, 0.9245061509463252, 0.9174712869856093], DTW_seg: [0.7368591471724513, 0.39600581288461006, 0.3662312114556622], OT_seg: [0.003959857930100143, 0.0016640157463545643, 0.0015568981405198246], DTW: [0.7171550213385611, 0.3800353888409955, 0.34909121456358244], OT: [1.4469190808519126e-05, 2.426260620294532e-05, 2.0167524768319336e-05]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5410/30000 [2:51:25<13:15:18,  1.94s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5420/30000 [2:51:42<11:56:11,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5430/30000 [2:52:00<11:47:36,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5441/30000 [2:52:19<11:57:51,  1.75s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5450/30000 [2:52:35<11:49:56,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5460/30000 [2:52:52<11:34:27,  1.70s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5470/30000 [2:53:09<11:42:41,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5480/30000 [2:53:26<11:48:44,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5491/30000 [2:53:45<11:39:30,  1.71s/it]
+
+
+
+
+
+
+
+ 18%|█▊        | 5499/30000 [2:53:59<11:36:48,  1.71s/it]
+
+ 18%|█▊        | 5500/30000 [2:54:01<11:39:23,  1.71s/it]
+step: 5499, CE loss: [4.4731122721796455, 6.332099860822651, 5.1804103056589765], acc: [0.4083850940932398, 0.25452716480678234, 0.348214282343785], L1 loss: [0.09247351923714513, 0.1411685863850822, 0.10723623478164275], L2 loss: [0.035483059959243175, 0.05514035064359786, 0.033807146401765444], cosine distance: [0.8839646059533824, 0.9178466973170428, 0.8717411756515503], DTW_seg: [0.3901717539326554, 0.5599127677580007, 0.4171757933056451], OT_seg: [0.0017076805146611076, 0.0028337963188589436, 0.001681404587978983], DTW: [0.3795300709798733, 0.5516032386751957, 0.3894255603796479], OT: [2.760005369878407e-05, 1.167773627376512e-05, 1.9465574900984363e-05]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5511/30000 [2:54:35<12:46:42,  1.88s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5520/30000 [2:54:51<11:57:00,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5530/30000 [2:55:08<12:00:13,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5540/30000 [2:55:26<11:56:38,  1.76s/it]
+
+
+
+
+
+
+
+
+ 18%|█▊        | 5550/30000 [2:55:43<11:48:22,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5560/30000 [2:56:01<11:53:27,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5570/30000 [2:56:18<11:48:56,  1.74s/it]
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5580/30000 [2:56:35<11:36:42,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5590/30000 [2:56:52<11:38:08,  1.72s/it]
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5599/30000 [2:57:08<11:51:59,  1.75s/it]
+
+ 19%|█▊        | 5600/30000 [2:57:10<11:48:59,  1.74s/it]
+step: 5599, CE loss: [5.4228532049391, 4.9666637136966365, 5.103685418355096], acc: [0.32756132278779543, 0.3562387024300008, 0.3696612654273043], L1 loss: [0.11102623891348791, 0.09774847328662872, 0.09474140874196574], L2 loss: [0.040084574028209904, 0.028754668381017975, 0.026455535121338882], cosine distance: [0.8699458879653854, 0.9302919823912126, 0.9354567478612527], DTW_seg: [0.4396387300919147, 0.36620645600250323, 0.3842367327173484], OT_seg: [0.001616013672914865, 0.002150596649679976, 0.0015347226256583087], DTW: [0.432699256847389, 0.35264916984985856, 0.3606768951085862], OT: [2.064929074354356e-05, 2.4984976003716394e-05, 1.0774406812066412e-05]
+
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5611/30000 [2:57:43<12:40:35,  1.87s/it]
+
+
+
+
+
+
+
+
+ 19%|█▊        | 5620/30000 [2:57:59<11:57:21,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5630/30000 [2:58:16<11:38:04,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5641/30000 [2:58:35<11:44:28,  1.74s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5650/30000 [2:58:51<11:34:29,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5660/30000 [2:59:08<11:40:32,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5671/30000 [2:59:27<11:40:37,  1.73s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5680/30000 [2:59:43<11:32:59,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5690/30000 [3:00:00<11:36:44,  1.72s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5700/30000 [3:00:18<11:39:38,  1.73s/it]
+Validating at step 5699...
+step: 5699, CE loss: [6.53163723893218, 5.3452625858540435, 5.284653748964009], acc: [0.25745682909593476, 0.3250728821267887, 0.32781955505672256], L1 loss: [0.15127898286004643, 0.10345853317757042, 0.10081674997743807], L2 loss: [0.06950443896086334, 0.028309814707965265, 0.02923812611322654], cosine distance: [0.7999988990825612, 0.9213782634053912, 0.9067492867770948], DTW_seg: [0.5897382706256272, 0.40604709815071793, 0.38938115673436546], OT_seg: [0.0031964178330960336, 0.0018432246848319163, 0.0017066442676141663], DTW: [0.5617478833282055, 0.3839202534262503, 0.37501135351651], OT: [7.518363783946951e-06, 1.9208964097843967e-05, 1.4002102932314084e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 5699
+07/28 [05:30:22] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 5699 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+ 19%|█▉        | 5701/30000 [3:00:36<44:46:40,  6.63s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5710/30000 [3:00:51<13:18:26,  1.97s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5720/30000 [3:01:09<11:40:41,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5731/30000 [3:01:28<11:26:38,  1.70s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5740/30000 [3:01:44<11:54:00,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5750/30000 [3:02:01<11:54:31,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5760/30000 [3:02:18<11:47:04,  1.75s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5770/30000 [3:02:36<11:42:46,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5780/30000 [3:02:53<11:48:31,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5790/30000 [3:03:11<11:38:19,  1.73s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5799/30000 [3:03:27<11:46:22,  1.75s/it]
+
+ 19%|█▉        | 5800/30000 [3:03:28<11:47:57,  1.76s/it]
+
+ 19%|█▉        | 5801/30000 [3:03:46<43:20:01,  6.45s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5810/30000 [3:04:01<12:53:23,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5820/30000 [3:04:19<11:46:59,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5831/30000 [3:04:38<11:30:17,  1.71s/it]
+
+
+
+
+
+
+
+
+ 19%|█▉        | 5840/30000 [3:04:53<11:36:23,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5850/30000 [3:05:11<11:31:36,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5861/30000 [3:05:30<11:35:31,  1.73s/it]
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5870/30000 [3:05:46<11:45:41,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5880/30000 [3:06:03<11:46:15,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5891/30000 [3:06:22<11:31:50,  1.72s/it]
+
+
+
+
+
+
+
+ 20%|█▉        | 5899/30000 [3:06:36<11:32:42,  1.72s/it]
+
+ 20%|█▉        | 5900/30000 [3:06:38<11:34:01,  1.73s/it]
+step: 5899, CE loss: [4.535892963409424, 5.613060941599836, 5.816162337427554], acc: [0.38354036989419354, 0.3318903312237576, 0.31521739000859467], L1 loss: [0.09693095411943353, 0.11384433387505888, 0.11109487939140071], L2 loss: [0.037644100294488926, 0.03711633037568794, 0.03700364032841247], cosine distance: [0.8507671926332556, 0.8768028183416887, 0.9184233209361201], DTW_seg: [0.4025860363030463, 0.4450577049949304, 0.4349579856415452], OT_seg: [0.0019189107868211222, 0.0015954754516846021, 0.0023147809848577117], DTW: [0.38704106241749264, 0.438969604208649, 0.4267227667841969], OT: [4.7113103738845335e-05, 2.139617998320362e-05, 3.1907792584397254e-05]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5911/30000 [3:07:10<12:25:51,  1.86s/it]
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5920/30000 [3:07:26<11:53:43,  1.78s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5930/30000 [3:07:43<11:32:45,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5940/30000 [3:08:01<11:29:49,  1.72s/it]
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5950/30000 [3:08:18<11:23:58,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5960/30000 [3:08:35<11:29:34,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5971/30000 [3:08:54<11:34:46,  1.73s/it]
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5980/30000 [3:09:10<11:47:22,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5990/30000 [3:09:28<11:34:16,  1.73s/it]
+
+
+
+
+
+
+
+
+ 20%|█▉        | 5999/30000 [3:09:43<11:22:29,  1.71s/it]
+
+ 20%|██        | 6000/30000 [3:09:45<11:21:54,  1.70s/it]
+
+ 20%|██        | 6001/30000 [3:10:02<42:48:28,  6.42s/it]
+0.6200603246688843 <class 'float'>
+Saving Model Checkpoint for Step 6000
+07/28 [05:39:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 6000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+
+
+
+
+
+
+
+
+ 20%|██        | 6010/30000 [3:10:18<12:48:32,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6020/30000 [3:10:36<11:39:32,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6030/30000 [3:10:53<11:30:20,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6041/30000 [3:11:12<11:35:19,  1.74s/it]
+
+
+
+
+
+
+
+
+ 20%|██        | 6050/30000 [3:11:28<11:26:34,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6060/30000 [3:11:45<11:27:07,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6071/30000 [3:12:04<11:33:32,  1.74s/it]
+
+
+
+
+
+
+
+
+ 20%|██        | 6080/30000 [3:12:20<11:31:38,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6090/30000 [3:12:37<11:26:48,  1.72s/it]
+
+
+
+
+
+
+
+
+ 20%|██        | 6099/30000 [3:12:53<11:38:29,  1.75s/it]
+
+ 20%|██        | 6100/30000 [3:12:55<11:36:49,  1.75s/it]
+
+ 20%|██        | 6101/30000 [3:13:13<43:39:44,  6.58s/it]
+
+
+
+
+
+
+
+
+ 20%|██        | 6110/30000 [3:13:28<12:49:50,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6121/30000 [3:13:48<12:07:45,  1.83s/it]
+
+
+
+
+
+
+
+
+ 20%|██        | 6130/30000 [3:14:04<11:30:55,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 20%|██        | 6140/30000 [3:14:21<11:20:34,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6151/30000 [3:14:40<11:32:33,  1.74s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6160/30000 [3:14:56<11:27:35,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6171/30000 [3:15:15<11:15:03,  1.70s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6180/30000 [3:15:30<11:39:08,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6190/30000 [3:15:48<11:34:50,  1.75s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6199/30000 [3:16:03<11:28:03,  1.73s/it]
+
+ 21%|██        | 6200/30000 [3:16:05<11:25:57,  1.73s/it]
+step: 6199, CE loss: [7.053187748858037, 4.928008746497238, 7.368560457229615], acc: [0.2464558343395932, 0.37432188248332543, 0.25535714328289033], L1 loss: [0.16039516014679697, 0.090160629181545, 0.18970589600503446], L2 loss: [0.07644385326198722, 0.027956977878591117, 0.09458275130018592], cosine distance: [0.8099633732824835, 0.9172357207612146, 0.8648701071739197], DTW_seg: [0.5939785905212639, 0.3509283522146095, 0.7323521982373532], OT_seg: [0.0032240319168130253, 0.001681548270834767, 0.004649997253803482], DTW: [0.5854107374100309, 0.34285239421846975, 0.7074186648114008], OT: [3.193493217243462e-05, 1.5977486627263858e-05, 3.1370489372219464e-05]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6210/30000 [3:16:37<12:34:32,  1.90s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6221/30000 [3:16:56<11:34:53,  1.75s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6230/30000 [3:17:12<11:40:24,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6240/30000 [3:17:29<11:12:19,  1.70s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6250/30000 [3:17:47<11:31:42,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6260/30000 [3:18:04<11:23:33,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6270/30000 [3:18:21<11:34:42,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6281/30000 [3:18:41<11:31:09,  1.75s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6290/30000 [3:18:56<11:19:50,  1.72s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6299/30000 [3:19:12<11:21:47,  1.73s/it]
+
+ 21%|██        | 6300/30000 [3:19:13<11:20:04,  1.72s/it]
+step: 6299, CE loss: [7.048390919925603, 5.401173902812757, 5.271391159371484], acc: [0.2562704458263994, 0.3578947362146879, 0.35623869488510906], L1 loss: [0.16206300389448194, 0.08719446455177508, 0.10851328961456878], L2 loss: [0.08225381760395893, 0.023394589949595302, 0.03791926355584513], cosine distance: [0.7927195732375137, 0.9436485641881039, 0.8955206388159643], DTW_seg: [0.6020644678852248, 0.34571705596104024, 0.42265119477489393], OT_seg: [0.0031132644645943995, 0.0012867578403910583, 0.0020162922453667493], DTW: [0.5775641108507901, 0.3175266199899119, 0.40126426910472923], OT: [1.4253273609152e-05, 2.4283619264880482e-05, 1.1573011596852174e-05]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6310/30000 [3:19:46<12:40:15,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6321/30000 [3:20:05<11:21:37,  1.73s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6330/30000 [3:20:21<11:19:52,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6340/30000 [3:20:38<11:20:17,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6351/30000 [3:20:57<11:33:49,  1.76s/it]
+
+
+
+
+
+
+
+
+ 21%|██        | 6360/30000 [3:21:13<11:21:46,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██        | 6370/30000 [3:21:30<11:15:52,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6381/30000 [3:21:49<11:19:59,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6391/30000 [3:22:07<11:27:45,  1.75s/it]
+
+
+
+
+
+
+
+ 21%|██▏       | 6399/30000 [3:22:21<11:24:09,  1.74s/it]
+
+ 21%|██▏       | 6400/30000 [3:22:22<11:32:39,  1.76s/it]
+step: 6399, CE loss: [6.212106249067518, 6.705278570001775, 5.1821752190589905], acc: [0.31428571773899927, 0.3001442995637354, 0.3616071405510108], L1 loss: [0.13482727375295428, 0.13697762772290392, 0.09740896817917626], L2 loss: [0.0498076612336768, 0.04950131250150276, 0.02952729134509961], cosine distance: [0.8598010288344489, 0.8826897927004882, 0.9049075096845627], DTW_seg: [0.5452767288710592, 0.5281582060895001, 0.3855591399751224], OT_seg: [0.0014678237307995093, 0.0027184645562192654, 0.0013930081836656231], DTW: [0.543181122209133, 0.4815720469158639, 0.37648192736403513], OT: [2.9169082302492537e-05, 5.957271065096744e-05, 2.1233438909332796e-05]
+
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6410/30000 [3:22:54<12:32:19,  1.91s/it]
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6420/30000 [3:23:12<11:48:32,  1.80s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6430/30000 [3:23:30<11:27:53,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 21%|██▏       | 6441/30000 [3:23:49<11:31:32,  1.76s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6450/30000 [3:24:05<11:09:38,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6460/30000 [3:24:22<11:10:25,  1.71s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6470/30000 [3:24:39<11:19:15,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6480/30000 [3:24:56<11:17:04,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6491/30000 [3:25:15<11:21:43,  1.74s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6500/30000 [3:25:31<11:16:24,  1.73s/it]
+Validating at step 6499...
+step: 6499, CE loss: [6.621360884772407, 7.160462331771851, 5.509488889906142], acc: [0.29725829564561745, 0.2669642850756645, 0.31269841260380216], L1 loss: [0.13133011773379163, 0.19004902690649034, 0.09974479410383437], L2 loss: [0.043857129460031334, 0.09968337123282253, 0.02696360084745619], cosine distance: [0.891887037440984, 0.8622594356536866, 0.9209958222177294], DTW_seg: [0.5050649922361674, 0.7273551807043247, 0.39287371888752404], OT_seg: [0.0025201725240171988, 0.004723753226780908, 0.0015134838249025102], DTW: [0.4681502227412155, 0.7142555521376003, 0.38261475236152], OT: [5.7475503050049114e-05, 2.4386568352831334e-05, 1.3101459416979098e-05]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6511/30000 [3:26:05<12:04:10,  1.85s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6521/30000 [3:26:23<11:09:39,  1.71s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6530/30000 [3:26:38<11:06:39,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6541/30000 [3:26:57<11:28:21,  1.76s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6550/30000 [3:27:13<11:12:32,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6561/30000 [3:27:32<11:20:31,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6571/30000 [3:27:49<11:13:54,  1.73s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6580/30000 [3:28:04<11:10:35,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6591/30000 [3:28:24<11:20:32,  1.74s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6600/30000 [3:28:40<11:32:24,  1.78s/it]
+Validating at step 6599...
+
+ 22%|██▏       | 6601/30000 [3:28:57<42:18:04,  6.51s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6610/30000 [3:29:13<12:30:38,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6620/30000 [3:29:30<11:19:07,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6631/30000 [3:29:49<11:05:05,  1.71s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6640/30000 [3:30:05<11:12:52,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6650/30000 [3:30:22<11:33:48,  1.78s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6661/30000 [3:30:41<11:14:11,  1.73s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6670/30000 [3:30:57<11:09:31,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6680/30000 [3:31:14<11:13:11,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6691/30000 [3:31:33<11:14:31,  1.74s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6700/30000 [3:31:49<11:10:07,  1.73s/it]
+Validating at step 6699...
+step: 6699, CE loss: [6.4651881364675665, 5.627003530059198, 5.091908565320467], acc: [0.24960753452646864, 0.32467532368621443, 0.3473684213663402], L1 loss: [0.1464647486969665, 0.11287101591476287, 0.08851541072914475], L2 loss: [0.06367018935526465, 0.04092403497979647, 0.022023318727549753], cosine distance: [0.8156887178237622, 0.8621955038321139, 0.9430276770340769], DTW_seg: [0.5516187591107158, 0.4431950507092162, 0.34861131953064084], OT_seg: [0.0030994660307561935, 0.0013670880645121322, 0.001170094456771357], DTW: [0.5311096643047585, 0.422805730502687, 0.31253255933461516], OT: [5.132777590176871e-06, 1.5907037215857822e-05, 1.5917411448855235e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 6699
+07/28 [06:01:53] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 6699 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+ 22%|██▏       | 6701/30000 [3:32:07<43:03:53,  6.65s/it]
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6710/30000 [3:32:23<12:42:01,  1.96s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6721/30000 [3:32:42<11:26:23,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6731/30000 [3:33:00<11:26:15,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 22%|██▏       | 6741/30000 [3:33:17<11:12:59,  1.74s/it]
+
+
+
+
+
+
+
+
+ 22%|██▎       | 6750/30000 [3:33:33<11:16:54,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6760/30000 [3:33:50<11:14:41,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6771/30000 [3:34:09<11:16:54,  1.75s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6780/30000 [3:34:25<11:06:32,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6791/30000 [3:34:44<11:13:01,  1.74s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6800/30000 [3:35:00<11:14:33,  1.74s/it]
+Validating at step 6799...
+
+ 23%|██▎       | 6801/30000 [3:35:17<41:37:20,  6.46s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6810/30000 [3:35:33<12:23:55,  1.92s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6821/30000 [3:35:52<11:14:21,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6831/30000 [3:36:09<10:50:35,  1.68s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6840/30000 [3:36:25<11:15:31,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6851/30000 [3:36:44<11:11:46,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6861/30000 [3:37:02<11:10:21,  1.74s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6870/30000 [3:37:17<10:57:30,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6881/30000 [3:37:36<11:05:20,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6891/30000 [3:37:53<11:02:04,  1.72s/it]
+
+
+
+
+
+
+
+ 23%|██▎       | 6899/30000 [3:38:07<11:14:50,  1.75s/it]
+
+ 23%|██▎       | 6900/30000 [3:38:09<11:12:26,  1.75s/it]
+
+ 23%|██▎       | 6901/30000 [3:38:26<40:27:18,  6.30s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6910/30000 [3:38:41<12:14:54,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6920/30000 [3:38:59<11:14:38,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6931/30000 [3:39:18<11:12:36,  1.75s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6940/30000 [3:39:33<11:02:12,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6950/30000 [3:39:51<11:16:49,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6961/30000 [3:40:10<10:51:34,  1.70s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6970/30000 [3:40:25<11:09:14,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6981/30000 [3:40:45<11:06:39,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 6991/30000 [3:41:02<11:14:22,  1.76s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 7000/30000 [3:41:17<10:56:11,  1.71s/it]
+Validating at step 6999...
+step: 6999, CE loss: [6.516099835490133, 6.062129635281033, 6.153247837626606], acc: [0.24960753763770008, 0.2968253953589333, 0.3237221503476484], L1 loss: [0.1508172617836313, 0.13140368130471972, 0.12371187824585023], L2 loss: [0.06564470137991421, 0.04754909119672245, 0.04353643986268328], cosine distance: [0.8100731326983526, 0.8796502881579928, 0.9001090854679773], DTW_seg: [0.5706065889073102, 0.5225889793516735, 0.4878511216283706], OT_seg: [0.003410389796944418, 0.0015126416579703777, 0.0021085387563912054], DTW: [0.556636524021676, 0.5222715391109146, 0.4693114951277785], OT: [8.764482372930288e-06, 2.6388439665384458e-05, 2.2901905975954352e-05]
+0.45330122113227844 <class 'float'>
+Saving Model Checkpoint for Step 7000
+07/28 [06:11:24] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+
+ 23%|██▎       | 7001/30000 [3:41:35<41:52:39,  6.56s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 7010/30000 [3:41:51<12:26:49,  1.95s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 7020/30000 [3:42:09<11:01:31,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 23%|██▎       | 7031/30000 [3:42:28<11:03:20,  1.73s/it]
+
+
+
+
+
+
+
+
+ 23%|██▎       | 7040/30000 [3:42:43<10:54:10,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7051/30000 [3:43:03<11:16:11,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7061/30000 [3:43:20<11:00:21,  1.73s/it]
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7070/30000 [3:43:36<11:03:30,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7081/30000 [3:43:55<10:56:48,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7091/30000 [3:44:12<10:56:26,  1.72s/it]
+
+
+
+
+
+
+
+ 24%|██▎       | 7099/30000 [3:44:26<10:41:14,  1.68s/it]
+
+ 24%|██▎       | 7100/30000 [3:44:27<10:48:42,  1.70s/it]
+
+ 24%|██▎       | 7101/30000 [3:44:46<43:38:52,  6.86s/it]
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7110/30000 [3:45:02<12:20:28,  1.94s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▎       | 7120/30000 [3:45:19<11:13:40,  1.77s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7131/30000 [3:45:38<11:05:19,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7141/30000 [3:45:56<11:11:40,  1.76s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7150/30000 [3:46:12<11:09:47,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7160/30000 [3:46:29<11:02:29,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7171/30000 [3:46:48<11:03:09,  1.74s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7180/30000 [3:47:04<10:57:21,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7191/30000 [3:47:23<10:55:39,  1.72s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7200/30000 [3:47:39<11:07:22,  1.76s/it]
+Validating at step 7199...
+
+ 24%|██▍       | 7201/30000 [3:47:57<41:49:36,  6.60s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7211/30000 [3:48:14<11:58:16,  1.89s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7220/30000 [3:48:30<11:08:07,  1.76s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7231/30000 [3:48:49<10:53:33,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7241/30000 [3:49:06<10:56:59,  1.73s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7250/30000 [3:49:22<10:56:05,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7261/30000 [3:49:41<10:57:39,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7271/30000 [3:49:58<11:03:52,  1.75s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7280/30000 [3:50:14<10:48:16,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7291/30000 [3:50:33<10:49:56,  1.72s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7300/30000 [3:50:48<10:57:57,  1.74s/it]
+Validating at step 7299...
+step: 7299, CE loss: [6.837996257530464, 5.936738105735394, 6.279151377470597], acc: [0.25117739691184116, 0.32467532669655, 0.2919254652831865], L1 loss: [0.14631699606939985, 0.11121863608408455, 0.12041165064210477], L2 loss: [0.06390842911019758, 0.034380032248192964, 0.04114796107877856], cosine distance: [0.8063170523433895, 0.88404582726835, 0.9018920867339425], DTW_seg: [0.5534686267423046, 0.4363621522615826, 0.47686558070938134], OT_seg: [0.003228309926283233, 0.0014103207797940595, 0.0024691649890987936], DTW: [0.5375792776547008, 0.4186271080019946, 0.46932665454618355], OT: [9.618486149369982e-06, 1.568108752991027e-05, 3.603072126956717e-05]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7311/30000 [3:51:23<11:36:42,  1.84s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7321/30000 [3:51:41<11:29:16,  1.82s/it]
+
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7331/30000 [3:51:59<10:52:24,  1.73s/it]
+
+
+
+
+
+
+
+
+ 24%|██▍       | 7340/30000 [3:52:14<10:42:14,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7351/30000 [3:52:33<10:58:44,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7361/30000 [3:52:50<10:53:07,  1.73s/it]
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7370/30000 [3:53:06<10:54:32,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7381/30000 [3:53:25<11:01:17,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7391/30000 [3:53:43<10:53:41,  1.73s/it]
+
+
+
+
+
+
+
+ 25%|██▍       | 7399/30000 [3:53:56<10:35:55,  1.69s/it]
+
+ 25%|██▍       | 7400/30000 [3:53:58<10:45:43,  1.71s/it]
+
+ 25%|██▍       | 7401/30000 [3:54:14<38:20:56,  6.11s/it]
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7410/30000 [3:54:30<11:59:47,  1.91s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7421/30000 [3:54:49<10:46:41,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7431/30000 [3:55:07<10:51:22,  1.73s/it]
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7440/30000 [3:55:22<10:44:34,  1.71s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7451/30000 [3:55:41<10:55:52,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7461/30000 [3:55:58<11:02:59,  1.76s/it]
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7470/30000 [3:56:14<10:44:11,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7481/30000 [3:56:33<10:51:50,  1.74s/it]
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7490/30000 [3:56:49<10:49:31,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▍       | 7499/30000 [3:57:04<10:46:53,  1.72s/it]
+
+ 25%|██▌       | 7500/30000 [3:57:06<10:49:43,  1.73s/it]
+step: 7499, CE loss: [6.933207169385024, 7.112040844955885, 5.3924145102500916], acc: [0.2505030168194166, 0.2386457490266403, 0.366071426620086], L1 loss: [0.13700241459087587, 0.15287318300305075, 0.1036181195328633], L2 loss: [0.048499350291742405, 0.05894388482405271, 0.030697353300638497], cosine distance: [0.9262986048846178, 0.8734196076503379, 0.8881987283627192], DTW_seg: [0.5314886499293136, 0.5758561927829389, 0.40649787548247057], OT_seg: [0.002488827621631365, 0.0032229743308408026, 0.0012166337123084528], DTW: [0.5295212018523584, 0.5574163992775087, 0.3940489886572829], OT: [1.0225591572731869e-05, 1.0821752158602277e-05, 1.2081357597505232e-05]
+New best validation normalized OT: 0.0000
+Saving Model Checkpoint for Step 7499
+07/28 [06:27:11] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot/da
+                          taset_statistics.json
+Saved Model Checkpoint for Step 7499 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot
+
+ 25%|██▌       | 7501/30000 [3:57:25<42:54:16,  6.87s/it]
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7510/30000 [3:57:40<12:05:06,  1.93s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7521/30000 [3:57:59<10:49:33,  1.73s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7531/30000 [3:58:17<10:47:52,  1.73s/it]
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7540/30000 [3:58:33<10:56:56,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7550/30000 [3:58:50<11:11:27,  1.79s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7561/30000 [3:59:10<10:55:59,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7571/30000 [3:59:27<10:50:23,  1.74s/it]
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7580/30000 [3:59:42<10:34:15,  1.70s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7591/30000 [4:00:01<10:48:12,  1.74s/it]
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7600/30000 [4:00:17<10:42:45,  1.72s/it]
+Validating at step 7599...
+
+ 25%|██▌       | 7601/30000 [4:00:33<37:52:40,  6.09s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7611/30000 [4:00:51<11:38:10,  1.87s/it]
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7620/30000 [4:01:06<10:48:51,  1.74s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7631/30000 [4:01:26<10:43:02,  1.72s/it]
+
+
+
+
+
+
+
+
+
+ 25%|██▌       | 7641/30000 [4:01:43<10:43:36,  1.73s/it]
+
+
+
+
+
+
+
+
+ 26%|██▌       | 7651/30000 [4:02:00<10:28:00,  1.69s/it]
+
+
+
+
+
+
+
+
+
+ 26%|██▌       | 7661/30000 [4:02:17<10:44:52,  1.73s/it]
+
+
+
+
+
+
+
+
+ 26%|██▌       | 7670/30000 [4:02:32<10:51:02,  1.75s/it]
+
+
+
+
+
+
+
+
+
+ 26%|██▌       | 7681/30000 [4:02:52<10:54:49,  1.76s/it]
+
+
+
+
+

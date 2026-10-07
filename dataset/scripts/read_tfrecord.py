@@ -4,7 +4,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # Path to your TFRecord file
-tfrecord_path = 'bridge/bridge.tfrecord'
+tfrecord_path = '/scratch/work/zhangy50/RL/Spot_VLA/dataset/tensorflow_datasets/spot_carrot_all/1.0.0/spot_carrot-val.tfrecord-00000-of-00001'
 
 # Load the TFRecord dataset
 raw_dataset = tf.data.TFRecordDataset(tfrecord_path)

@@ -1,0 +1,996 @@
+  1%|          | 200/30000 [06:05<14:43:14,  1.78s/it]
+0.5213144421577454 <class 'float'>
+0.6441780924797058 <class 'float'>
+0.6120012998580933 <class 'float'>
+0.527665913105011 <class 'float'>
+0.4616275429725647 <class 'float'>
+0.6298282742500305 <class 'float'>
+0.6517318487167358 <class 'float'>
+0.5760466456413269 <class 'float'>
+0.6544228196144104 <class 'float'>
+0.5880953669548035 <class 'float'>
+0.5056866407394409 <class 'float'>
+0.6163221001625061 <class 'float'>
+0.6444255709648132 <class 'float'>
+0.6531270146369934 <class 'float'>
+0.6035196185112 <class 'float'>
+0.6102446913719177 <class 'float'>
+0.6036992073059082 <class 'float'>
+0.7246428728103638 <class 'float'>
+0.5723853707313538 <class 'float'>
+0.6167057156562805 <class 'float'>
+Validating at step 199...
+step: 199, CE loss: [4.172133829282678, 5.901380559088478, 5.224899569782642, 5.950467026991651, 4.745742082595825], acc: [0.39906831539195514, 0.2545271637574048, 0.3211009228995087, 0.25681255120417973, 0.3511904738843441], L1 loss: [0.08858847886980879, 0.14651043515997947, 0.1269909798781898, 0.15324881397645762, 0.11619981325863679], L2 loss: [0.027992673625289843, 0.058761241033281585, 0.04734269458817886, 0.0633716245196934, 0.045798685487266795], cosine distance: [0.10994654893875122, 0.08651220798492432, 0.11396849155426025, 0.13774436712265015, 0.17056334018707275], DTW: [0.29691804811316025, 0.5348000453968575, 0.4146156587869675, 0.5064037677081399, 0.4032400715052724], OT: [0.35443772893443465, 0.5143204736051951, 0.450215494195965, 0.5230242556638748, 0.3972080566713639], log_likelihood: [-3070.6905212402344, -6703.968231201172, -4556.112411499023, -8235.446166992188, -3644.729766845703], nll: [4.768152983292289, 6.7444348402426275, 5.971313776538694, 6.800533581331286, 5.423705010187058]
+Saving Model Checkpoint for Step 199
+06/29 [02:28:48] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss_
+                          best/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+New best validation loss: 5.1989
+Saving Model Checkpoint for Step 199
+06/29 [02:28:49] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+New best validation l1 loss: 0.1263
+Saving Model Checkpoint for Step 199
+06/29 [02:28:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+New best validation l2 loss: 0.0487
+Saving Model Checkpoint for Step 199
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance_best/dataset_statistics.j
+                          son
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+New best validation cosine distance: 0.1237
+Saving Model Checkpoint for Step 199
+06/29 [02:28:51] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_accur
+                          acy_best/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy_best
+New best validation accuracy: 0.3165
+Saving Model Checkpoint for Step 199
+06/29 [02:28:52] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+New best validation normalized DTW: 0.4312
+Saving Model Checkpoint for Step 199
+06/29 [02:28:53] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+New best validation normalized OT: 0.4478
+Saving Model Checkpoint for Step 199
+06/29 [02:28:54] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_nll_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+Saved Model Checkpoint for Step 199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+New best validation NLL: 5.9416
+0.5682329535484314 <class 'float'>
+0.5072808861732483 <class 'float'>
+0.6378242373466492 <class 'float'>
+0.6129101514816284 <class 'float'>
+0.6460970044136047 <class 'float'>
+0.684201717376709 <class 'float'>
+0.6568900942802429 <class 'float'>
+0.6482898592948914 <class 'float'>
+0.7072041630744934 <class 'float'>
+0.7263684272766113 <class 'float'>
+0.6891605257987976 <class 'float'>
+0.6542983055114746 <class 'float'>
+0.7035955190658569 <class 'float'>
+0.6734245419502258 <class 'float'>
+0.6912180781364441 <class 'float'>
+0.9345956444740295 <class 'float'>
+0.7132843136787415 <class 'float'>
+0.7472668290138245 <class 'float'>
+0.6992089152336121 <class 'float'>
+0.7483072280883789 <class 'float'>
+Validating at step 399...
+step: 399, CE loss: [5.426701440915957, 5.321510950724284, 5.787129393891792, 4.640485028425853, 5.193906618201214], acc: [0.2613814753162992, 0.319047615925471, 0.2411230396845437, 0.3556547574698925, 0.2950310538644376], L1 loss: [0.15479422538246068, 0.12332399626517272, 0.15808681854244588, 0.11314192343604108, 0.12025331871879186], L2 loss: [0.070182498338702, 0.0434587429743139, 0.062257500529396846, 0.03736310210358653, 0.04099503057830122], cosine distance: [0.1969587802886963, 0.11685806512832642, 0.13636386394500732, 0.11706650257110596, 0.08744370937347412], DTW: [0.5079079144197413, 0.46408541474573645, 0.5551434663510366, 0.4135342438549775, 0.43346093886137826], OT: [0.49037865915239637, 0.4747338413820304, 0.5332522181425772, 0.3888868472980339, 0.42938035452372125], log_likelihood: [-7901.277374267578, -3831.487922668457, -8009.387191772461, -3563.8924560546875, -3822.7152786254883], nll: [6.201944563789308, 6.081726861378503, 6.613862255798894, 5.303411392938523, 5.935893289791131]
+0.8376036286354065 <class 'float'>
+0.7813645601272583 <class 'float'>
+0.8217938542366028 <class 'float'>
+0.7246979475021362 <class 'float'>
+0.744082510471344 <class 'float'>
+0.7756618857383728 <class 'float'>
+0.8836411237716675 <class 'float'>
+0.8819931745529175 <class 'float'>
+0.6914825439453125 <class 'float'>
+0.7311274409294128 <class 'float'>
+0.6491990089416504 <class 'float'>
+0.721924364566803 <class 'float'>
+0.7422028183937073 <class 'float'>
+0.7506495118141174 <class 'float'>
+0.7593347430229187 <class 'float'>
+0.8196080327033997 <class 'float'>
+0.7329546213150024 <class 'float'>
+0.6378335356712341 <class 'float'>
+0.8649808764457703 <class 'float'>
+0.9331516623497009 <class 'float'>
+Validating at step 599...
+step: 599, CE loss: [5.144100681766049, 5.412359002610327, 5.587312803103056, 4.491891145706177, 4.529497955156409], acc: [0.2535321822205743, 0.2525150945908587, 0.23451692839233862, 0.3586309514939785, 0.3385093134382497], L1 loss: [0.15007233662695849, 0.14778080246182979, 0.1538770421463383, 0.11049253034547152, 0.11633175009134089], L2 loss: [0.06906581637179758, 0.059341052079489635, 0.06133513407629854, 0.03562759744420644, 0.04252640527651811], cosine distance: [0.1857784390449524, 0.08898413181304932, 0.12662112712860107, 0.12808239459991455, 0.1279810667037964], DTW: [0.5223896667118486, 0.5001600438328354, 0.5027768540916244, 0.38354559379719994, 0.42026534204505844], OT: [0.4895530249044558, 0.5327789561442978, 0.5017204849275371, 0.39157530778239197, 0.4163108596872244], log_likelihood: [-7489.810455322266, -6148.439880371094, -7732.841064453125, -3449.7726135253906, -3333.7103424072266], nll: [5.878972099938984, 6.1855531995685045, 6.3855004661049755, 5.1335901986984975, 5.176568854669607]
+Saving Model Checkpoint for Step 599
+06/29 [02:41:50] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss_
+                          best/dataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+New best validation loss: 5.0330
+Saving Model Checkpoint for Step 599
+06/29 [02:41:51] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_nll_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+Saved Model Checkpoint for Step 599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+New best validation NLL: 5.7520
+0.7519258260726929 <class 'float'>
+0.8789040446281433 <class 'float'>
+0.7671871185302734 <class 'float'>
+0.8034065961837769 <class 'float'>
+0.8513108491897583 <class 'float'>
+0.9034746885299683 <class 'float'>
+0.7788746953010559 <class 'float'>
+0.8305698037147522 <class 'float'>
+0.7326388955116272 <class 'float'>
+0.648568332195282 <class 'float'>
+0.6031107902526855 <class 'float'>
+0.874977171421051 <class 'float'>
+0.7309709191322327 <class 'float'>
+0.7588709592819214 <class 'float'>
+0.6770557165145874 <class 'float'>
+0.6994820237159729 <class 'float'>
+0.6575226187705994 <class 'float'>
+0.7651263475418091 <class 'float'>
+0.7767524123191833 <class 'float'>
+0.7886413931846619 <class 'float'>
+Validating at step 799...
+step: 799, CE loss: [5.812336568613999, 4.526440824781146, 5.65601565245259, 4.597928504149119, 4.511432748370701], acc: [0.2595419858703176, 0.3236151574825754, 0.2369942200838486, 0.3556547587116559, 0.32222221891085306], L1 loss: [0.15674300254452925, 0.10006288229577545, 0.14267903693269215, 0.11477591036414565, 0.09867413632119515], L2 loss: [0.07638099095348362, 0.02564360197860657, 0.0532054780429683, 0.036960692773841564, 0.028726045538040923], cosine distance: [0.19498801231384277, 0.07624155282974243, 0.11702287197113037, 0.12406855821609497, 0.09710180759429932], DTW: [0.5405620822696581, 0.32852443156995464, 0.4775480312344663, 0.38677653001802537, 0.3560271205207777], OT: [0.4537793151826221, 0.37120852601502785, 0.47012486130061765, 0.42564583611515394, 0.3703222069484111], log_likelihood: [-6091.328796386719, -3548.7296752929688, -7827.925689697266, -3531.2091217041016, -3248.2315826416016], nll: [6.642670443169814, 5.173075328415407, 6.464017910567519, 5.254775478726342, 5.155923147050161]
+Saving Model Checkpoint for Step 799
+06/29 [02:48:19] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss_
+                          best/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+New best validation loss: 5.0208
+Saving Model Checkpoint for Step 799
+06/29 [02:48:20] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+New best validation l1 loss: 0.1226
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+New best validation l2 loss: 0.0442
+Saving Model Checkpoint for Step 799
+06/29 [02:48:21] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance_best/dataset_statistics.j
+                          son
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+New best validation cosine distance: 0.1219
+Saving Model Checkpoint for Step 799
+06/29 [02:48:22] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+New best validation normalized DTW: 0.4179
+Saving Model Checkpoint for Step 799
+06/29 [02:48:23] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+New best validation normalized OT: 0.4182
+Saving Model Checkpoint for Step 799
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_nll_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+Saved Model Checkpoint for Step 799 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+New best validation NLL: 5.7381
+0.7944915890693665 <class 'float'>
+0.7734857201576233 <class 'float'>
+0.9244369864463806 <class 'float'>
+0.8281955122947693 <class 'float'>
+0.7872980237007141 <class 'float'>
+0.7056189775466919 <class 'float'>
+0.7114686965942383 <class 'float'>
+0.7940908670425415 <class 'float'>
+0.677682101726532 <class 'float'>
+0.7571382522583008 <class 'float'>
+0.794593334197998 <class 'float'>
+0.7242960333824158 <class 'float'>
+0.711163341999054 <class 'float'>
+0.586674153804779 <class 'float'>
+0.6295985579490662 <class 'float'>
+0.6269112229347229 <class 'float'>
+0.5929365754127502 <class 'float'>
+0.6322826147079468 <class 'float'>
+0.5648546814918518 <class 'float'>
+0.6800976395606995 <class 'float'>
+Validating at step 999...
+step: 999, CE loss: [5.720313569773799, 4.6055033712676074, 5.654547060039682, 5.992416993352293, 6.002407295251984], acc: [0.2973602475679439, 0.3088023111675725, 0.2595573437045997, 0.2519084011552898, 0.24463118525112376], L1 loss: [0.16872488125685056, 0.10870610870610872, 0.1438434528741074, 0.1545961896208865, 0.17981362479632373], L2 loss: [0.08492920782976447, 0.03218413608263666, 0.06086549284171, 0.07628727647322961, 0.09627221592212433], cosine distance: [0.17391353845596313, 0.10754561424255371, 0.09087449312210083, 0.18808883428573608, 0.1360912322998047], DTW: [0.6115794400693015, 0.3879297361175197, 0.5345281156988824, 0.49960893578194443, 0.6396512775187951], OT: [0.546224979207428, 0.39329384577666326, 0.5132839420360603, 0.43123581647804865, 0.571087656353887], log_likelihood: [-8420.301635742188, -3647.5585174560547, -6423.565216064453, -6280.053009033203, -7346.946529388428], nll: [6.53750126998617, 5.263432204121291, 6.462339251573897, 6.848476563831192, 6.8598940517165525]
+0.7128655314445496 <class 'float'>
+Saving Model Checkpoint for Step 1000
+06/29 [02:54:54] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 1000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+Saved Model Checkpoint for Step 1000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+0.7234005331993103 <class 'float'>
+0.6292976140975952 <class 'float'>
+0.6498574614524841 <class 'float'>
+0.6225365400314331 <class 'float'>
+0.6534237265586853 <class 'float'>
+0.6733132004737854 <class 'float'>
+0.628537118434906 <class 'float'>
+0.6527547240257263 <class 'float'>
+0.5579485297203064 <class 'float'>
+0.6312379837036133 <class 'float'>
+0.6348214745521545 <class 'float'>
+0.7272714972496033 <class 'float'>
+0.5011518597602844 <class 'float'>
+0.5515794157981873 <class 'float'>
+0.5821929574012756 <class 'float'>
+0.5543555617332458 <class 'float'>
+0.607183575630188 <class 'float'>
+0.6528453230857849 <class 'float'>
+0.6129440069198608 <class 'float'>
+Validating at step 1199...
+step: 1199, CE loss: [5.646197732289632, 6.1506812874699985, 5.0717088932893715, 6.286045658588409, 5.061709382798937], acc: [0.32380952272150254, 0.2645875249110477, 0.3163265318286662, 0.2785714276134968, 0.3349206335014767], L1 loss: [0.13747899159663865, 0.14066358937941373, 0.09984565254673299, 0.18322128851540617, 0.09795206971677559], L2 loss: [0.05058342639888199, 0.058280324004774516, 0.02728324943422747, 0.09239017960125227, 0.02771349236862501], cosine distance: [0.1341698169708252, 0.08754336833953857, 0.07237082719802856, 0.13322865962982178, 0.08229124546051025], DTW: [0.5172576957666958, 0.5050789445885604, 0.357322264043919, 0.5976581814063875, 0.3420302216491571], OT: [0.5127064434307345, 0.48468403566617557, 0.37627369647583764, 0.570282062548586, 0.38308855796641195], log_likelihood: [-4065.2623901367188, -6987.173919677734, -3976.2196884155273, -8046.138427734375, -3644.430694580078], nll: [6.452797444661458, 7.029350019796514, 5.796238612850623, 7.184052167619978, 5.784810626317585]
+Saving Model Checkpoint for Step 1199
+06/29 [03:01:11] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance_best/dataset_statistics.j
+                          son
+Saved Model Checkpoint for Step 1199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+Saved Model Checkpoint for Step 1199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+New best validation cosine distance: 0.1019
+0.6200161576271057 <class 'float'>
+0.5649937987327576 <class 'float'>
+0.6124788522720337 <class 'float'>
+0.6037973165512085 <class 'float'>
+0.6444854736328125 <class 'float'>
+0.6539164185523987 <class 'float'>
+0.5131055116653442 <class 'float'>
+0.5500952005386353 <class 'float'>
+0.6883780360221863 <class 'float'>
+0.6392582654953003 <class 'float'>
+0.6462154388427734 <class 'float'>
+0.5741211175918579 <class 'float'>
+0.6107196807861328 <class 'float'>
+0.6109288334846497 <class 'float'>
+0.6532193422317505 <class 'float'>
+0.7451009154319763 <class 'float'>
+0.7054623961448669 <class 'float'>
+0.6544318795204163 <class 'float'>
+0.47885626554489136 <class 'float'>
+0.6243441700935364 <class 'float'>
+Validating at step 1399...
+step: 1399, CE loss: [5.47990638083154, 5.121049423410435, 4.989948739810866, 4.42320794093458, 4.857097645809776], acc: [0.2409733132674144, 0.32323232533955815, 0.32653060920384464, 0.3743218779563904, 0.3172932317382411], L1 loss: [0.15268876781481822, 0.10987182751888633, 0.10383582004230262, 0.10679714923944261, 0.10832964764853309], L2 loss: [0.06885659844631668, 0.036712708454346286, 0.02862949101209111, 0.03796097341890342, 0.030152705870790008], cosine distance: [0.1959795355796814, 0.12592792510986328, 0.0794033408164978, 0.12358593940734863, 0.09754955768585205], DTW: [0.522471304479383, 0.3785203675155633, 0.3754865830162322, 0.3677988321430888, 0.3797767212430005], OT: [0.4968273477416946, 0.40404035121130927, 0.3887690200331394, 0.39202968509058356, 0.3884395292061915], log_likelihood: [-7978.743713378906, -4055.871192932129, -3912.1198654174805, -2795.46728515625, -3691.3943481445312], nll: [6.262750167487368, 5.852627984029046, 5.702798637634811, 5.055094548202984, 5.550968944578242]
+Saving Model Checkpoint for Step 1399
+06/29 [03:07:37] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_loss_
+                          best/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_best
+New best validation loss: 4.9742
+Saving Model Checkpoint for Step 1399
+06/29 [03:07:38] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+New best validation l1 loss: 0.1163
+Saving Model Checkpoint for Step 1399
+06/29 [03:07:39] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+New best validation l2 loss: 0.0405
+Saving Model Checkpoint for Step 1399
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+New best validation normalized DTW: 0.4048
+Saving Model Checkpoint for Step 1399
+06/29 [03:07:40] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+New best validation normalized OT: 0.4140
+Saving Model Checkpoint for Step 1399
+06/29 [03:07:41] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_nll_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+Saved Model Checkpoint for Step 1399 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_nll_best
+New best validation NLL: 5.6848
+0.6005796790122986 <class 'float'>
+0.5779485702514648 <class 'float'>
+0.6664267778396606 <class 'float'>
+0.5858096480369568 <class 'float'>
+0.6060728430747986 <class 'float'>
+0.60588538646698 <class 'float'>
+0.6201069951057434 <class 'float'>
+0.6086055040359497 <class 'float'>
+0.5849171876907349 <class 'float'>
+0.5276284217834473 <class 'float'>
+0.5173197984695435 <class 'float'>
+0.5784745216369629 <class 'float'>
+0.5219634175300598 <class 'float'>
+0.6035899519920349 <class 'float'>
+0.5777182579040527 <class 'float'>
+0.6135760545730591 <class 'float'>
+0.6352086067199707 <class 'float'>
+0.536619246006012 <class 'float'>
+0.5884725451469421 <class 'float'>
+0.5671485066413879 <class 'float'>
+Validating at step 1599...
+step: 1599, CE loss: [5.9163289876051355, 6.160056358075324, 6.630563256787319, 5.337183090524936, 4.984101406733195], acc: [0.2655935616980136, 0.2497273748385087, 0.2502334285405726, 0.331585844448947, 0.29841269387139213], L1 loss: [0.13992188424665641, 0.1556824256420125, 0.1884403434576445, 0.12118315215994656, 0.10540927482103953], L2 loss: [0.06105096553948837, 0.07640916567195655, 0.10549001658846288, 0.042473028067136195, 0.02958032014548739], cosine distance: [0.0976783037185669, 0.198020339012146, 0.16193044185638428, 0.1074749231338501, 0.09216392040252686], DTW: [0.5396977002042924, 0.5246106173549625, 0.6842615355844103, 0.4110498485291931, 0.37853701480569496], OT: [0.4971548022167119, 0.4465462547999823, 0.5913671787752994, 0.4115967252870345, 0.3852070085294758], log_likelihood: [-6720.94970703125, -6455.739166259766, -8115.809610366821, -4654.023635864258, -3588.553009033203], nll: [6.761518819950956, 7.040064521548272, 7.577786751042783, 6.099637792744768, 5.69611588735429]
+0.5198904275894165 <class 'float'>
+0.5736751556396484 <class 'float'>
+0.5231518149375916 <class 'float'>
+0.5759699940681458 <class 'float'>
+0.6410209536552429 <class 'float'>
+0.7059518694877625 <class 'float'>
+0.6317986845970154 <class 'float'>
+0.5387869477272034 <class 'float'>
+0.6395664215087891 <class 'float'>
+0.6065846681594849 <class 'float'>
+0.7840446829795837 <class 'float'>
+0.7291802763938904 <class 'float'>
+0.8017821311950684 <class 'float'>
+0.7697658538818359 <class 'float'>
+0.7141957879066467 <class 'float'>
+0.7334027290344238 <class 'float'>
+0.5189632773399353 <class 'float'>
+0.49087148904800415 <class 'float'>
+0.4176452159881592 <class 'float'>
+0.3709203600883484 <class 'float'>
+Validating at step 1799...
+step: 1799, CE loss: [6.000206443625436, 6.512034182455025, 6.196446416005923, 5.096980741343548, 4.848946661698191], acc: [0.26458752805918034, 0.2511671333531149, 0.2378199821434958, 0.3622974962303319, 0.32631578759143226], L1 loss: [0.14565826330532214, 0.18403910583841382, 0.15754278590048737, 0.10618845476334862, 0.10915524104378595], L2 loss: [0.058381136492155546, 0.09723778579738956, 0.0625043724845713, 0.03521156188369829, 0.03268878077546808], cosine distance: [0.08716994524002075, 0.1457303762435913, 0.13810008764266968, 0.07980144023895264, 0.10306096076965332], DTW: [0.5034966425862907, 0.6380277806388615, 0.5420116049812868, 0.40132522746863347, 0.3599865318685665], OT: [0.529299290811241, 0.5720135437957741, 0.5146921293430884, 0.4023660584272293, 0.3756236997780309], log_likelihood: [-6816.234619140625, -7970.730113983154, -8575.881958007812, -3955.2568893432617, -3685.199432373047], nll: [6.857378892495599, 7.442325036398837, 7.081653144515122, 5.825120602861946, 5.54165328176398]
+0.3937346041202545 <class 'float'>
+0.3055473864078522 <class 'float'>
+0.4239594340324402 <class 'float'>
+0.42215365171432495 <class 'float'>
+0.3726983070373535 <class 'float'>
+0.39646604657173157 <class 'float'>
+0.4155527651309967 <class 'float'>
+0.44081902503967285 <class 'float'>
+0.4331880509853363 <class 'float'>
+0.5324050784111023 <class 'float'>
+0.5448501706123352 <class 'float'>
+0.5507751107215881 <class 'float'>
+0.4640119671821594 <class 'float'>
+0.4824180603027344 <class 'float'>
+0.515254557132721 <class 'float'>
+0.5283139944076538 <class 'float'>
+0.4368398189544678 <class 'float'>
+0.4330165386199951 <class 'float'>
+0.4387919008731842 <class 'float'>
+0.427640438079834 <class 'float'>
+Validating at step 1999...
+step: 1999, CE loss: [4.563992147860319, 5.93419896713411, 6.619860208034515, 5.260585647159153, 5.722202052240786], acc: [0.38975155094395514, 0.2972582962476846, 0.2642857126891613, 0.31904762122366165, 0.29658384685931], L1 loss: [0.09611496772622093, 0.13614011261070083, 0.18914565826330532, 0.09908496732026144, 0.11098526367068566], L2 loss: [0.03232832092768906, 0.049276907039306116, 0.09739166254737189, 0.026637178618724177, 0.033989698181062705], cosine distance: [0.10487419366836548, 0.11114561557769775, 0.133270263671875, 0.07797050476074219, 0.08292412757873535], DTW: [0.3636251304411319, 0.42930687747943097, 0.6530948667014244, 0.35319955474858233, 0.37059446795678547], OT: [0.3862635589726031, 0.46515036525504183, 0.6049887361924677, 0.37014541017148417, 0.3891963172666062], log_likelihood: [-3359.098175048828, -4699.8856201171875, -8473.421157836914, -3787.6216049194336, -4211.54084777832], nll: [5.215990955044764, 6.781941731770833, 7.56555460521153, 6.012097785586403, 6.539659701519131]
+0.4734574854373932 <class 'float'>
+Saving Model Checkpoint for Step 2000
+06/29 [03:27:04] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 2000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+Saved Model Checkpoint for Step 2000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+0.46606990694999695 <class 'float'>
+0.5407112836837769 <class 'float'>
+0.4483676254749298 <class 'float'>
+0.40962862968444824 <class 'float'>
+0.4144550859928131 <class 'float'>
+0.43345195055007935 <class 'float'>
+0.4869730770587921 <class 'float'>
+0.45122194290161133 <class 'float'>
+0.45823144912719727 <class 'float'>
+0.486826092004776 <class 'float'>
+0.425189733505249 <class 'float'>
+0.43004342913627625 <class 'float'>
+0.4715726673603058 <class 'float'>
+0.48905444145202637 <class 'float'>
+0.5432557463645935 <class 'float'>
+0.5550121068954468 <class 'float'>
+0.3997417092323303 <class 'float'>
+0.51494300365448 <class 'float'>
+0.6094390749931335 <class 'float'>
+Validating at step 2199...
+step: 2199, CE loss: [5.427442940798673, 6.139781499149824, 6.310717864775322, 4.720925795881054, 5.271717789246864], acc: [0.31601731193186056, 0.28860029051400193, 0.24849094492448887, 0.3707052461708648, 0.34904270534662857], L1 loss: [0.11167133520074697, 0.12886285827462296, 0.15580542075985324, 0.09349359997163423, 0.09951196973634814], L2 loss: [0.036786828020968734, 0.0448337275096214, 0.0710889558806124, 0.02720378099117532, 0.027414130398470283], cosine distance: [0.12081718444824219, 0.10214757919311523, 0.10887998342514038, 0.07990562915802002, 0.06685429811477661], DTW: [0.3577927771899278, 0.43654818485419805, 0.5400276219418345, 0.32543641575295945, 0.35627791665516184], OT: [0.4024539179837438, 0.44087848841098787, 0.5497016947146562, 0.34179687495078903, 0.3845340154285717], log_likelihood: [-4298.534866333008, -4862.706924438477, -7168.975372314453, -2983.6251068115234, -4090.8529891967773], nll: [6.202792014910545, 7.016893108857831, 7.212248865507498, 5.395343773619391, 6.024820308095401]
+Saving Model Checkpoint for Step 2199
+06/29 [03:33:32] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance_best/dataset_statistics.j
+                          son
+Saved Model Checkpoint for Step 2199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+Saved Model Checkpoint for Step 2199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+New best validation cosine distance: 0.0957
+Saving Model Checkpoint for Step 2199
+06/29 [03:33:34] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 2199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+Saved Model Checkpoint for Step 2199 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+New best validation normalized DTW: 0.4032
+0.5876245498657227 <class 'float'>
+0.4872632324695587 <class 'float'>
+0.4439693093299866 <class 'float'>
+0.5115953087806702 <class 'float'>
+0.5963101387023926 <class 'float'>
+0.5007883906364441 <class 'float'>
+0.5475757718086243 <class 'float'>
+0.5027311444282532 <class 'float'>
+0.4948139786720276 <class 'float'>
+0.5118764042854309 <class 'float'>
+0.5187784433364868 <class 'float'>
+0.5817264318466187 <class 'float'>
+0.47057023644447327 <class 'float'>
+0.47816213965415955 <class 'float'>
+0.4902733266353607 <class 'float'>
+0.47489720582962036 <class 'float'>
+0.6050322651863098 <class 'float'>
+0.5391365885734558 <class 'float'>
+0.4975604712963104 <class 'float'>
+0.4686785340309143 <class 'float'>
+Validating at step 2399...
+step: 2399, CE loss: [4.83615315478781, 6.27351764222266, 6.910454703312294, 5.585922788042541, 6.737613236904144], acc: [0.3664596275143001, 0.2585513088065134, 0.23716153233659035, 0.3197902996058858, 0.23749999850988388], L1 loss: [0.09574960418950189, 0.1424783998106285, 0.1956097471668406, 0.12513041914013312, 0.19664565826330532], L2 loss: [0.02751316383330826, 0.06252187480902331, 0.109687669505839, 0.04637563030248977, 0.10573312462239796], cosine distance: [0.08464229106903076, 0.09644007682800293, 0.16371524333953857, 0.11533528566360474, 0.14719825983047485], DTW: [0.3563451263929421, 0.5074603552608793, 0.7479828972257917, 0.4407149258055267, 0.698576161045506], OT: [0.37858496790474294, 0.5065992965252717, 0.619915648753508, 0.4236946693506849, 0.6205102458193417], log_likelihood: [-3559.40869140625, -7126.715911865234, -8458.396709442139, -4870.9244384765625, -8624.145050048828], nll: [5.52703212951281, 7.169734317771866, 7.8976626605435465, 6.383911452787107, 7.700129508972168]
+0.5035938024520874 <class 'float'>
+0.5727437734603882 <class 'float'>
+0.5287010073661804 <class 'float'>
+0.5134615302085876 <class 'float'>
+0.5048882365226746 <class 'float'>
+0.5049285888671875 <class 'float'>
+0.49608156085014343 <class 'float'>
+0.43662604689598083 <class 'float'>
+0.6294546127319336 <class 'float'>
+0.5429678559303284 <class 'float'>
+0.5475095510482788 <class 'float'>
+0.5952835083007812 <class 'float'>
+0.4979272484779358 <class 'float'>
+0.48388567566871643 <class 'float'>
+0.5366043448448181 <class 'float'>
+0.5263282656669617 <class 'float'>
+0.5299412608146667 <class 'float'>
+0.48412805795669556 <class 'float'>
+0.526178777217865 <class 'float'>
+0.5534201264381409 <class 'float'>
+Validating at step 2599...
+step: 2599, CE loss: [4.583752528480861, 5.994242167232012, 5.189259310157931, 4.5689377784729, 5.026522922515869], acc: [0.3913043452345807, 0.3001442971554669, 0.31195335424676235, 0.3815551641621167, 0.33233082733656233], L1 loss: [0.09219339909876995, 0.1358684888096653, 0.10359572400388727, 0.09763500336843599, 0.1041780922895474], L2 loss: [0.025838127237254666, 0.048827218746480563, 0.028418493447799287, 0.031207916276463427, 0.02895904120161997], cosine distance: [0.08298051357269287, 0.11203628778457642, 0.07914656400680542, 0.09720444679260254, 0.10072791576385498], DTW: [0.3462690374515333, 0.4551239057881336, 0.3688348397368703, 0.36126269028457925, 0.35277508541414887], OT: [0.361645023926437, 0.47172695308021084, 0.3893609204867002, 0.37368777400878983, 0.379098037663548], log_likelihood: [-3373.641876220703, -4747.439636230469, -4068.3793983459473, -2887.5686645507812, -3820.1573333740234], nll: [5.238574341957613, 6.850562245642812, 5.9305822133322845, 5.22164315470304, 5.744597493795524]
+Saving Model Checkpoint for Step 2599
+06/29 [03:46:29] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l1_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l1_best
+New best validation l1 loss: 0.1067
+Saving Model Checkpoint for Step 2599
+06/29 [03:46:30] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_l2_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_l2_best
+New best validation l2 loss: 0.0327
+Saving Model Checkpoint for Step 2599
+                 INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_cosin
+                          e_distance_best/dataset_statistics.j
+                          son
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_cosine_distance_best
+New best validation cosine distance: 0.0944
+Saving Model Checkpoint for Step 2599
+06/29 [03:46:31] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_accur
+                          acy_best/dataset_statistics.json
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_accuracy_best
+New best validation accuracy: 0.3435
+Saving Model Checkpoint for Step 2599
+06/29 [03:46:32] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_dtw_b
+                          est/dataset_statistics.json
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_best
+New best validation normalized DTW: 0.3769
+Saving Model Checkpoint for Step 2599
+06/29 [03:46:33] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/val_ot_be
+                          st/dataset_statistics.json
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+Saved Model Checkpoint for Step 2599 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_ot_best
+New best validation normalized OT: 0.3951
+0.6798519492149353 <class 'float'>
+0.616951048374176 <class 'float'>
+0.5185760259628296 <class 'float'>
+0.47283226251602173 <class 'float'>
+0.46834293007850647 <class 'float'>
+0.4474470317363739 <class 'float'>
+0.46847572922706604 <class 'float'>
+0.4588589668273926 <class 'float'>
+0.37134405970573425 <class 'float'>
+0.38819000124931335 <class 'float'>
+0.40358075499534607 <class 'float'>
+0.43415865302085876 <class 'float'>
+0.4770919382572174 <class 'float'>
+0.3567705750465393 <class 'float'>
+0.44988951086997986 <class 'float'>
+0.3379592299461365 <class 'float'>
+0.3662264943122864 <class 'float'>
+0.4811219871044159 <class 'float'>
+0.4198629558086395 <class 'float'>
+0.4491185247898102 <class 'float'>
+Validating at step 2799...
+step: 2799, CE loss: [5.655583935554581, 6.5703601098396405, 6.8908388050457905, 5.821787688196922, 6.077697745156945], acc: [0.32178932037016356, 0.2605633792323126, 0.24536532402493572, 0.3017492683566346, 0.3145478381476271], L1 loss: [0.11969555498967265, 0.13805184045449165, 0.15331323369042274, 0.11043274452638198, 0.12975612263253924], L2 loss: [0.04604769061516467, 0.05502591868009286, 0.06970794304849615, 0.03165044168928075, 0.04589415402786407], cosine distance: [0.15884089469909668, 0.08152967691421509, 0.17766815423965454, 0.09004539251327515, 0.1106690764427185], DTW: [0.43164925896263545, 0.5034664988554374, 0.5018157353735829, 0.38755608209390324, 0.45333242177891214], OT: [0.42528768160751734, 0.5047285981070463, 0.4453438068146077, 0.391648352143771, 0.4425605843484848], log_likelihood: [-4479.222457885742, -7463.929168701172, -7221.5992431640625, -4564.281463623047, -5299.752456665039], nll: [6.4635244702535966, 7.508983067103794, 7.87524453998262, 6.653471521316395, 6.945940310176985]
+0.4102732539176941 <class 'float'>
+0.44382238388061523 <class 'float'>
+0.3278743624687195 <class 'float'>
+0.43595418334007263 <class 'float'>
+0.41331619024276733 <class 'float'>
+0.4013754725456238 <class 'float'>
+0.40275755524635315 <class 'float'>
+0.3639753758907318 <class 'float'>
+0.34029796719551086 <class 'float'>
+0.4794608950614929 <class 'float'>
+0.39976927638053894 <class 'float'>
+0.47524508833885193 <class 'float'>
+0.442232221364975 <class 'float'>
+0.38503336906433105 <class 'float'>
+0.4652789235115051 <class 'float'>
+0.48695746064186096 <class 'float'>
+0.5081233978271484 <class 'float'>
+0.5287628769874573 <class 'float'>
+0.4691859185695648 <class 'float'>
+0.3959442675113678 <class 'float'>
+Validating at step 2999...
+step: 2999, CE loss: [6.194232983059353, 6.501423171072295, 6.652950075746492, 7.232193960863001, 7.148511052131653], acc: [0.31428571111626097, 0.27994227936171523, 0.26390403338516033, 0.2446311864198423, 0.25803571492433547], L1 loss: [0.12667289137877374, 0.1367286308462779, 0.15579361515598608, 0.18740045037622893, 0.19553221288515407], L2 loss: [0.04446787865472986, 0.047116876459437004, 0.0795008043630564, 0.10609471111269062, 0.1043758993793596], cosine distance: [0.12503039836883545, 0.09936726093292236, 0.20321756601333618, 0.15784329175949097, 0.14823585748672485], DTW: [0.48079919724065034, 0.45031816798334534, 0.5208162832899266, 0.7052609998811612, 0.653063080264483], OT: [0.47615571353988945, 0.4592209430723523, 0.4433121206160612, 0.5893763037930795, 0.6059491457049239], log_likelihood: [-4459.8477783203125, -5149.127258300781, -6972.291885375977, -8852.205286026001, -9150.094177246094], nll: [7.079123457651289, 7.430198063926091, 7.60337173977751, 8.26536441272269, 8.169726943969726]
+0.5003317594528198 <class 'float'>
+Saving Model Checkpoint for Step 3000
+06/29 [03:59:42] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 3000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+Saved Model Checkpoint for Step 3000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+0.46294131875038147 <class 'float'>
+0.4325129985809326 <class 'float'>
+0.43620920181274414 <class 'float'>
+0.4380653500556946 <class 'float'>
+0.38231679797172546 <class 'float'>
+0.3751949667930603 <class 'float'>
+0.5310716032981873 <class 'float'>
+0.5107910633087158 <class 'float'>
+0.406888484954834 <class 'float'>
+0.37791991233825684 <class 'float'>
+0.41419461369514465 <class 'float'>
+0.45558983087539673 <class 'float'>
+0.45233669877052307 <class 'float'>
+0.5197954773902893 <class 'float'>
+0.38464784622192383 <class 'float'>
+0.44666996598243713 <class 'float'>
+0.42432087659835815 <class 'float'>
+0.4162541925907135 <class 'float'>
+0.5158398747444153 <class 'float'>
+Validating at step 3199...
+step: 3199, CE loss: [6.305531946818034, 6.571313298266867, 5.566377986561168, 5.671785841182786, 5.357198398991635], acc: [0.32539682653215196, 0.27484472079769423, 0.31024531011629586, 0.30612244715495984, 0.33233082859139695], L1 loss: [0.12659819483348894, 0.18117768846669102, 0.10987182751888633, 0.09985708569141942, 0.10683178534571725], L2 loss: [0.045483361100431455, 0.09705063269979772, 0.03610572690157465, 0.025449014339629407, 0.030969788947570766], cosine distance: [0.12704569101333618, 0.19255858659744263, 0.11676126718521118, 0.06976562738418579, 0.11235010623931885], DTW: [0.4764961210848413, 0.6418544944175859, 0.3665512141973227, 0.34247804822977035, 0.3726187327922025], OT: [0.47895128862560055, 0.5597315004083026, 0.39701002295794247, 0.3653932452729074, 0.37213242651626854], log_likelihood: [-4539.983009338379, -9672.973175048828, -4408.571304321289, -4446.680328369141, -4071.4708709716797], nll: [7.206322237045046, 7.51007234087642, 6.361574753710374, 6.482041294998747, 6.122512587927337]
+0.4857518970966339 <class 'float'>
+0.39855748414993286 <class 'float'>
+0.46559569239616394 <class 'float'>
+0.4145868420600891 <class 'float'>
+0.3598781228065491 <class 'float'>
+0.42482849955558777 <class 'float'>
+0.39091047644615173 <class 'float'>
+0.419676810503006 <class 'float'>
+0.377411425113678 <class 'float'>
+0.45356664061546326 <class 'float'>
+0.40581807494163513 <class 'float'>
+0.5013333559036255 <class 'float'>
+0.5360421538352966 <class 'float'>
+0.3928794860839844 <class 'float'>
+0.4260863959789276 <class 'float'>
+0.42363888025283813 <class 'float'>
+0.48667287826538086 <class 'float'>
+0.4304971694946289 <class 'float'>
+0.4738542139530182 <class 'float'>
+0.516572892665863 <class 'float'>
+Validating at step 3399...
+step: 3399, CE loss: [6.678117959395699, 6.408449336735889, 4.739071499673944, 5.623516362646352, 5.442689969804552], acc: [0.2849378869261431, 0.29148629081971716, 0.37293232836221396, 0.3369565152603647, 0.3238095243771871], L1 loss: [0.175130921933991, 0.12976827094474155, 0.08215833701901815, 0.12345633905736207, 0.1042016806722689], L2 loss: [0.0885079556119123, 0.042831700317282784, 0.021335183402566394, 0.052409560584677176, 0.03319475415438506], cosine distance: [0.17999881505966187, 0.10485339164733887, 0.0501745343208313, 0.1531074047088623, 0.10803943872451782], DTW: [0.6049684577606133, 0.41768436330565595, 0.2687768872475931, 0.44795125942265224, 0.36737067008849666], OT: [0.5581199248947258, 0.44757590994822916, 0.32618276131695667, 0.4196010989854967, 0.37757635302379694], log_likelihood: [-9830.18978881836, -5075.491836547852, -3601.6944885253906, -4138.9080810546875, -3918.736686706543], nll: [7.632134929206801, 7.323942044080594, 5.416081937632167, 6.426875902258831, 6.2202169630262585]
+0.45913174748420715 <class 'float'>
+0.49812063574790955 <class 'float'>
+0.4444303512573242 <class 'float'>
+0.3918435573577881 <class 'float'>
+0.45170074701309204 <class 'float'>
+0.4364457130432129 <class 'float'>
+0.4334511458873749 <class 'float'>
+0.5028446316719055 <class 'float'>
+0.48420047760009766 <class 'float'>
+0.4634503424167633 <class 'float'>
+0.4305601716041565 <class 'float'>
+0.3953327536582947 <class 'float'>
+0.5047001838684082 <class 'float'>
+0.4336671233177185 <class 'float'>
+0.40767693519592285 <class 'float'>
+0.4094586968421936 <class 'float'>
+0.3780979514122009 <class 'float'>
+0.3178665041923523 <class 'float'>
+0.31499168276786804 <class 'float'>
+0.3395419120788574 <class 'float'>
+Validating at step 3599...
+step: 3599, CE loss: [5.1515925863514775, 6.84278920684198, 7.5043393256617525, 5.9755247053892715, 7.367627632617951], acc: [0.36956521998281067, 0.2929292903705077, 0.24276377231467003, 0.3385093173255091, 0.2669642850756645], L1 loss: [0.09880647911338447, 0.12653142064906772, 0.18626535581552883, 0.11484593837535013, 0.1871078431372549], L2 loss: [0.033792354111294984, 0.04176562128119221, 0.10356387383865502, 0.044131521321230965, 0.09802235403965508], cosine distance: [0.11328810453414917, 0.09389978647232056, 0.1498962640762329, 0.12654739618301392, 0.13771039247512817], DTW: [0.3485484616787911, 0.401719956543808, 0.6627996075666339, 0.42385299957678096, 0.6248034896815189], OT: [0.37753339345840464, 0.42142714677144955, 0.567641202721843, 0.3998531089419134, 0.5932035962603219], log_likelihood: [-3791.5721130371094, -5419.489044189453, -9185.311182022095, -4397.986358642578, -9430.563598632812], nll: [5.887534337014145, 7.820330511095892, 8.576387658283934, 6.829171364351829, 8.420146070207869]
+0.35920724272727966 <class 'float'>
+0.4010389447212219 <class 'float'>
+0.3310651481151581 <class 'float'>
+0.359434574842453 <class 'float'>
+0.3800506889820099 <class 'float'>
+0.32338646054267883 <class 'float'>
+0.4109010100364685 <class 'float'>
+0.44200703501701355 <class 'float'>
+0.42257386445999146 <class 'float'>
+0.4213424324989319 <class 'float'>
+0.39278286695480347 <class 'float'>
+0.4076170027256012 <class 'float'>
+0.43258923292160034 <class 'float'>
+0.4123835563659668 <class 'float'>
+0.49708861112594604 <class 'float'>
+0.3691159188747406 <class 'float'>
+0.33876553177833557 <class 'float'>
+0.4235706925392151 <class 'float'>
+0.45581406354904175 <class 'float'>
+0.384743869304657 <class 'float'>
+Validating at step 3799...
+step: 3799, CE loss: [6.592707580990261, 6.981966502229932, 7.7923852088404635, 5.22105889984324, 7.526380860805512], acc: [0.30952380531364015, 0.25150905339650703, 0.23622782596575667, 0.36528028717523886, 0.25892857015132903], L1 loss: [0.13175225645813882, 0.14090030378348523, 0.1888284725654968, 0.10278339183774775, 0.19175770308123247], L2 loss: [0.04708001196121149, 0.05823205283217953, 0.1046745864820361, 0.03633300031355308, 0.10266924809139343], cosine distance: [0.13257890939712524, 0.08956438302993774, 0.1531246304512024, 0.10198229551315308, 0.1430249810218811], DTW: [0.46968894041004106, 0.48763019659604395, 0.6463750689313114, 0.35865253784984774, 0.632810675296799], OT: [0.4708723576102565, 0.5021015178830961, 0.5771643976855324, 0.3693915165550319, 0.5966347779193609], log_likelihood: [-4746.749298095703, -7931.51416015625, -9537.879341125488, -3299.709197998047, -9633.767669677734], nll: [7.534522695390005, 7.979390503175302, 8.905582951564416, 5.9669244086763955, 8.601578276497976]
+0.38509124517440796 <class 'float'>
+0.3224372863769531 <class 'float'>
+0.3652702867984772 <class 'float'>
+0.3358548581600189 <class 'float'>
+0.3939097821712494 <class 'float'>
+0.42461517453193665 <class 'float'>
+0.3884856104850769 <class 'float'>
+0.44604435563087463 <class 'float'>
+0.4542531371116638 <class 'float'>
+0.3806343078613281 <class 'float'>
+0.3707970082759857 <class 'float'>
+0.4142189621925354 <class 'float'>
+0.35539117455482483 <class 'float'>
+0.350159615278244 <class 'float'>
+0.36138296127319336 <class 'float'>
+0.42041516304016113 <class 'float'>
+0.5344706773757935 <class 'float'>
+0.3927995264530182 <class 'float'>
+0.35863474011421204 <class 'float'>
+0.39001795649528503 <class 'float'>
+Validating at step 3999...
+step: 3999, CE loss: [5.040038689323094, 7.6640728595210055, 5.348778969124902, 5.826637803893728, 5.878487067752414], acc: [0.3881987553575765, 0.24276377095116508, 0.36528028792972805, 0.3284241523324829, 0.32380952172809174], L1 loss: [0.092680550481062, 0.1845297596162648, 0.1096053611317945, 0.10082878512229633, 0.10264550264550264], L2 loss: [0.029861615575471453, 0.10401331671974184, 0.04211795018329992, 0.027112807524465213, 0.03386526549617668], cosine distance: [0.10590660572052002, 0.1498609185218811, 0.137140154838562, 0.06910920143127441, 0.09911847114562988], DTW: [0.3210781850658113, 0.7115509887629662, 0.3868953811290627, 0.3637369675568372, 0.3780604598937344], OT: [0.35541396399263814, 0.5674719218484522, 0.40582096199473044, 0.38924246840396015, 0.3783028396533063], log_likelihood: [-3709.4684143066406, -9380.825210571289, -3380.4283599853516, -4521.470798492432, -4232.510772705078], nll: [5.760044121594163, 8.75894043937562, 6.112890343553981, 6.659014430769413, 6.718271067785838]
+0.3926921784877777 <class 'float'>
+Saving Model Checkpoint for Step 4000
+06/29 [04:32:07] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 4000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+Saved Model Checkpoint for Step 4000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+0.3519522547721863 <class 'float'>
+0.42814114689826965 <class 'float'>
+0.4241844117641449 <class 'float'>
+0.42391446232795715 <class 'float'>
+0.41069087386131287 <class 'float'>
+0.3350963294506073 <class 'float'>
+0.4117436110973358 <class 'float'>
+0.40115609765052795 <class 'float'>
+0.46038833260536194 <class 'float'>
+0.3770431876182556 <class 'float'>
+0.39680010080337524 <class 'float'>
+0.37407177686691284 <class 'float'>
+0.35709813237190247 <class 'float'>
+0.4242231547832489 <class 'float'>
+0.3934011161327362 <class 'float'>
+0.34065181016921997 <class 'float'>
+0.3777011036872864 <class 'float'>
+0.33989962935447693 <class 'float'>
+0.4570157825946808 <class 'float'>
+Validating at step 4199...
+step: 4199, CE loss: [6.3672017474750895, 7.053360112140633, 5.256362617015839, 5.702273252275255, 6.288382799729057], acc: [0.2715855586332279, 0.23947151177535855, 0.3601190447807312, 0.32857142753071256, 0.2981366463329481], L1 loss: [0.15403084310647336, 0.1562021340328039, 0.11225490196078432, 0.10115157173980703, 0.11350627207404701], L2 loss: [0.07098074222147381, 0.0647660954895389, 0.04092125739184563, 0.029139756992121468, 0.0350798665587292], cosine distance: [0.20912134647369385, 0.1355961561203003, 0.15078020095825195, 0.09436118602752686, 0.08358240127563477], DTW: [0.5294218849464498, 0.5444780733476375, 0.36252527939685053, 0.3581282181964174, 0.3904489087731432], OT: [0.5234407846843452, 0.5133665603755189, 0.4153815750208335, 0.36837949669153286, 0.40005898361648967], log_likelihood: [-9270.645782470703, -9761.850341796875, -4036.886444091797, -4105.636707305908, -4628.249862670898], nll: [7.276802027057067, 8.060982941203035, 6.007271494184222, 6.51688366239033, 7.186723389240526]
+0.4850153625011444 <class 'float'>
+0.43124136328697205 <class 'float'>
+0.3806205689907074 <class 'float'>
+0.37870389223098755 <class 'float'>
+0.3808005452156067 <class 'float'>
+0.3898884952068329 <class 'float'>
+0.39273008704185486 <class 'float'>
+0.40100353956222534 <class 'float'>
+0.3811667859554291 <class 'float'>
+0.36761829257011414 <class 'float'>
+0.4092474579811096 <class 'float'>
+0.4639129042625427 <class 'float'>
+0.418996661901474 <class 'float'>
+0.381670206785202 <class 'float'>
+0.3692914545536041 <class 'float'>
+0.41257980465888977 <class 'float'>
+0.49285224080085754 <class 'float'>
+0.39284420013427734 <class 'float'>
+0.40733465552330017 <class 'float'>
+0.4225917458534241 <class 'float'>
+Validating at step 4399...
+step: 4399, CE loss: [7.250185137480692, 5.161327352021869, 5.6970757562287, 7.056863145332116, 6.121403466100278], acc: [0.2539682548030529, 0.3398496260768489, 0.3206997069777275, 0.25020643784476154, 0.28726707722829736], L1 loss: [0.18560626865125135, 0.08857437711926877, 0.10403018350197221, 0.15145480157380872, 0.11568627450980391], L2 loss: [0.09951331654025188, 0.02383536696412311, 0.028861113072680054, 0.061028525203575705, 0.03818588646029597], cosine distance: [0.1429702639579773, 0.05642205476760864, 0.07770538330078125, 0.12746983766555786, 0.08964842557907104], DTW: [0.676573212573392, 0.29913036584083585, 0.3817403631737879, 0.5168365398223118, 0.41758136163299564], OT: [0.5808394271744806, 0.344107817007997, 0.39498652960101155, 0.4910769623637103, 0.42615288707995436], log_likelihood: [-8874.226547241211, -3922.6087799072266, -4466.5074462890625, -9766.698425292969, -4505.35302734375], nll: [8.285925814417563, 5.898659819409363, 6.510943799255193, 8.064986313206415, 6.995889794012034]
+0.3678172528743744 <class 'float'>
+0.3725442588329315 <class 'float'>
+0.37890639901161194 <class 'float'>
+0.3257215917110443 <class 'float'>
+0.367125928401947 <class 'float'>
+0.3298555910587311 <class 'float'>
+0.2981419563293457 <class 'float'>
+0.363189160823822 <class 'float'>
+0.37813612818717957 <class 'float'>
+0.42439156770706177 <class 'float'>
+0.36354532837867737 <class 'float'>
+0.35369640588760376 <class 'float'>
+0.28900447487831116 <class 'float'>
+0.3466159701347351 <class 'float'>
+0.35358884930610657 <class 'float'>
+0.32715490460395813 <class 'float'>
+0.3765326142311096 <class 'float'>
+0.32073572278022766 <class 'float'>
+0.3581344187259674 <class 'float'>
+0.3414480984210968 <class 'float'>
+Validating at step 4599...
+step: 4599, CE loss: [6.57267853977916, 6.950739394293891, 7.174529648929662, 5.636942744255066, 5.950510567112973], acc: [0.2480376749248295, 0.3047619018289778, 0.23534269355280552, 0.3630952363212903, 0.34436090651311374], L1 loss: [0.15862960568842924, 0.13552443199502023, 0.1558718285001862, 0.10443510737628385, 0.10191360754828248], L2 loss: [0.07438477049945166, 0.04471481664561249, 0.06281860086208348, 0.03293458559894546, 0.02692655514218071], cosine distance: [0.20728057622909546, 0.11830270290374756, 0.13370800018310547, 0.11235427856445312, 0.08117389678955078], DTW: [0.5008731512139989, 0.47191017080470204, 0.5333994341251166, 0.3435278821884302, 0.3592166120130332], OT: [0.5193221580479112, 0.5048128768150348, 0.5067743399425271, 0.35770869666266475, 0.38353963477099934], log_likelihood: [-9569.819793701172, -5004.532669067383, -9929.54916381836, -4329.171890258789, -4522.387908935547], nll: [7.511632491131218, 7.943702649313306, 8.19946256302094, 6.442220074789865, 6.800583321707589]
+0.33756640553474426 <class 'float'>
+0.3405681550502777 <class 'float'>
+0.37585800886154175 <class 'float'>
+0.37306538224220276 <class 'float'>
+0.3265743553638458 <class 'float'>
+0.34355655312538147 <class 'float'>
+0.34173712134361267 <class 'float'>
+0.3394426703453064 <class 'float'>
+0.3325965106487274 <class 'float'>
+0.29619497060775757 <class 'float'>
+0.3660731315612793 <class 'float'>
+0.34207990765571594 <class 'float'>
+0.31776079535484314 <class 'float'>
+0.3621574938297272 <class 'float'>
+0.3473045229911804 <class 'float'>
+0.31682494282722473 <class 'float'>
+0.2826470732688904 <class 'float'>
+0.3643839359283447 <class 'float'>
+0.32008838653564453 <class 'float'>
+0.35644006729125977 <class 'float'>
+Validating at step 4799...
+step: 4799, CE loss: [6.627202421754271, 6.885959402720133, 7.959519423690497, 6.594774731802284, 5.878804275670002], acc: [0.2645211935370833, 0.319047615925471, 0.24463118680941512, 0.32634338517801476, 0.3549337261116382], L1 loss: [0.1548557884692338, 0.12685963274198567, 0.18490324234268868, 0.11892169711921463, 0.10455976204914956], L2 loss: [0.07296157678757778, 0.0445763595198428, 0.10457717368633986, 0.04137366261489306, 0.035880614627091995], cosine distance: [0.20518583059310913, 0.12300360202789307, 0.15038585662841797, 0.10322451591491699, 0.0913698673248291], DTW: [0.5380988306516543, 0.4773779058078548, 0.6409472742937403, 0.4115649659631494, 0.40447361664137677], OT: [0.5054369372546801, 0.48057265105727853, 0.5690069259962548, 0.41288899446880356, 0.41622451530194127], log_likelihood: [-9649.206848144531, -4957.8907470703125, -9742.4515914917, -5750.6435546875, -4561.952178955078], nll: [7.573945720678596, 7.86966785249256, 9.09659345610803, 7.536885392775229, 6.718633547798348]
+0.2991519868373871 <class 'float'>
+0.3466692566871643 <class 'float'>
+0.29895487427711487 <class 'float'>
+0.43996042013168335 <class 'float'>
+0.36194199323654175 <class 'float'>
+0.4274432063102722 <class 'float'>
+0.29311603307724 <class 'float'>
+0.2892129719257355 <class 'float'>
+0.3368324935436249 <class 'float'>
+0.37858882546424866 <class 'float'>
+0.31390830874443054 <class 'float'>
+0.3059254586696625 <class 'float'>
+0.36273470520973206 <class 'float'>
+0.3421452045440674 <class 'float'>
+0.36369872093200684 <class 'float'>
+0.3688056766986847 <class 'float'>
+0.4501674771308899 <class 'float'>
+0.3864693343639374 <class 'float'>
+0.38646170496940613 <class 'float'>
+0.36237969994544983 <class 'float'>
+Validating at step 4999...
+step: 4999, CE loss: [6.85804280605945, 5.377803408581277, 7.586204275230452, 6.248402211977088, 5.944195540909915], acc: [0.26844583975744774, 0.40683229591535486, 0.23947151108628753, 0.3322981375715007, 0.34167893737861793], L1 loss: [0.15609320651337458, 0.09567653148215809, 0.1532811968718123, 0.12648885641213006, 0.09891131710416125], L2 loss: [0.07417975334930352, 0.03354696354245024, 0.0593248039326804, 0.05216684457244108, 0.02702184896598623], cosine distance: [0.20025497674942017, 0.11126458644866943, 0.1365683674812317, 0.15011811256408691, 0.07069432735443115], DTW: [0.5403887190505803, 0.35878725499129, 0.5232173079590996, 0.42978398564761866, 0.343244406250672], OT: [0.5023984509023809, 0.3850957260745156, 0.49586270947656674, 0.43280369783443995, 0.3880980475465117], log_likelihood: [-9985.310302734375, -3958.0633544921875, -10499.306671142578, -4598.824035644531, -4612.695724487305], nll: [7.837763188959478, 6.146061109459919, 8.669947705320048, 7.141031111249272, 6.79336630999603]
+0.46909651160240173 <class 'float'>
+Saving Model Checkpoint for Step 5000
+06/29 [05:04:41] INFO     | >> [*] Saved dataset statistics    data_utils.py:293
+                          file at path
+                          runs/openvla-7b+dataset+libero_goal_
+                          no_noops+b56+lr-0.0005+shf1000+lora-
+                          r32+dropout-0.0--image_aug/default/d
+                          ataset_statistics.json
+Saved Model Checkpoint for Step 5000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+Saved Model Checkpoint for Step 5000 at: runs/openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default
+0.3828650414943695 <class 'float'>
+0.4171479642391205 <class 'float'>
+0.35302430391311646 <class 'float'>
+0.33647242188453674 <class 'float'>
+0.34775373339653015 <class 'float'>
+0.35854190587997437 <class 'float'>
+0.40269583463668823 <class 'float'>
+0.42419344186782837 <class 'float'>
+0.37252408266067505 <class 'float'>
+0.3063361644744873 <class 'float'>
+0.3722458481788635 <class 'float'>
+0.4075922667980194 <class 'float'>
+0.3760547935962677 <class 'float'>
+0.34806913137435913 <class 'float'>
+0.3507627844810486 <class 'float'>
+0.31073489785194397 <class 'float'>
+0.30866312980651855 <class 'float'>
+0.3403182327747345 <class 'float'>
+0.40012404322624207 <class 'float'>
+Validating at step 5199...
+step: 5199, CE loss: [7.181705282192038, 6.62566838570691, 7.416886627329567, 5.820164183775584, 5.967775507071583], acc: [0.2886002869015992, 0.3145478397881219, 0.2402972759022189, 0.3660714253783226, 0.3460972011089325], L1 loss: [0.12372464137170018, 0.12874874720530413, 0.15570991402341283, 0.11146125116713353, 0.10407461953853706], L2 loss: [0.03723944559007996, 0.045511843161441586, 0.06492925448542786, 0.03632778601636733, 0.032840931804296404], cosine distance: [0.08463621139526367, 0.10933166742324829, 0.1340232491493225, 0.11875420808792114, 0.08130186796188354], DTW: [0.41612474684536976, 0.44277743731499136, 0.5356657844918339, 0.37649285852609343, 0.38451603484216273], OT: [0.4532848679797932, 0.4513284770252749, 0.5013151273797049, 0.40608113318336714, 0.40372811092716154], log_likelihood: [-5687.9107666015625, -5777.582824707031, -10264.97119140625, -4469.886077880859, -4630.993751525879], nll: [8.207663443869498, 7.572192430808691, 8.476441941706234, 6.651616187322707, 6.820314803425448]
+0.3920927345752716 <class 'float'>
+0.3707876205444336 <class 'float'>
+0.3446081578731537 <class 'float'>
+0.38990095257759094 <class 'float'>
+0.41477036476135254 <class 'float'>
+0.35628291964530945 <class 'float'>
+0.3567284941673279 <class 'float'>
+0.3831544816493988 <class 'float'>
+0.38453057408332825 <class 'float'>
+0.3250165581703186 <class 'float'>
+0.3199833929538727 <class 'float'>
+0.32355859875679016 <class 'float'>
+0.3241535723209381 <class 'float'>
+0.3305106461048126 <class 'float'>
+0.2928820252418518 <class 'float'>
+0.26886191964149475 <class 'float'>
+0.305436909198761 <class 'float'>
+0.3717353045940399 <class 'float'>
+0.29819706082344055 <class 'float'>
+0.3371787369251251 <class 'float'>
+Validating at step 5399...
+step: 5399, CE loss: [7.18779378467136, 7.559662798176641, 6.5523216218659375, 7.666567352456107, 6.342782402038575], acc: [0.31428571144739786, 0.30124223604798317, 0.3174603144929867, 0.26659959890473056, 0.31269841459062364], L1 loss: [0.12506691565515093, 0.17088661551577153, 0.11635684576861047, 0.13500611512210517, 0.0954746342981637], L2 loss: [0.04166270604102207, 0.08763237264215148, 0.03890229809491631, 0.05461140545696323, 0.02806432202510634], cosine distance: [0.11261051893234253, 0.17689228057861328, 0.1311429738998413, 0.08326077461242676, 0.09595292806625366], DTW: [0.45251010596670427, 0.5778489584801053, 0.3790800841507614, 0.48716975058094497, 0.3350154651873707], OT: [0.46723443770280215, 0.550407232729718, 0.4039411846211167, 0.48025685976380283, 0.3602509459517633], log_likelihood: [-5175.211463928223, -11127.823638916016, -5189.438690185547, -8709.220336914062, -4566.803359985352], nll: [8.214621371314639, 8.63961462648759, 7.488367518305262, 8.76179108341455, 7.248894222198971]
+0.3241085410118103 <class 'float'>
+0.2721330523490906 <class 'float'>
+0.3882767856121063 <class 'float'>
+0.36859625577926636 <class 'float'>
+0.30524563789367676 <class 'float'>
+0.31035199761390686 <class 'float'>
+0.3284229636192322 <class 'float'>
+0.26465922594070435 <class 'float'>
+0.30268022418022156 <class 'float'>
+0.3290691077709198 <class 'float'>
+0.3784797489643097 <class 'float'>
+0.2679798901081085 <class 'float'>
+0.2513062059879303 <class 'float'>
+0.24966709315776825 <class 'float'>
+0.33435961604118347 <class 'float'>
+0.3146173059940338 <class 'float'>
+0.33075612783432007 <class 'float'>
+0.30129411816596985 <class 'float'>
+0.33213669061660767 <class 'float'>
+0.3670216202735901 <class 'float'>
+Validating at step 5599...
+step: 5599, CE loss: [5.369063377380371, 7.537038064338792, 7.637910468040864, 5.518890664547304, 7.043587580971096], acc: [0.3913043413473212, 0.2716297817901826, 0.23286540186129553, 0.38336347854590114, 0.2919254613959271], L1 loss: [0.0958470344659603, 0.13665522547046985, 0.15004938391541586, 0.09635854341736695, 0.11320180246011449], L2 loss: [0.029495392359842484, 0.05622100151853064, 0.059362850659928496, 0.030179629061850607, 0.034416289960144335], cosine distance: [0.09535771608352661, 0.08478063344955444, 0.12614136934280396, 0.09025019407272339, 0.07937437295913696], DTW: [0.33080086442599427, 0.5321890824595039, 0.5216722939615245, 0.37030869306919384, 0.39098878210411553], OT: [0.38181539569496914, 0.49243874478692595, 0.5078310946392199, 0.35995162213271714, 0.40380109718211654], log_likelihood: [-3951.630645751953, -8562.07504272461, -10570.868103027344, -3487.938919067383, -5184.080535888672], nll: [6.136072431291852, 8.613757588254135, 8.729040547503999, 6.307303651116425, 8.04981449672154]
+0.27643367648124695 <class 'float'>
+0.38906627893447876 <class 'float'>
+0.32913610339164734 <class 'float'>
+0.3021349310874939 <class 'float'>
+0.26174357533454895 <class 'float'>
+0.277432382106781 <class 'float'>
+0.3467722237110138 <class 'float'>
+0.39722687005996704 <class 'float'>
+0.3317386209964752 <class 'float'>

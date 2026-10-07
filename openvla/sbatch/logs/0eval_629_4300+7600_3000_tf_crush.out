@@ -1,0 +1,123 @@
+Hello zhangy50! You are on node gpu46.  The time is Mon Jun 29 02:15:24 EEST 2026.
+
+----------------------------------------------------------------------------
+  cuda:
+----------------------------------------------------------------------------
+     Versions:
+        cuda/12.2.1
+        cuda/12.6.2
+
+----------------------------------------------------------------------------
+  For detailed information about a specific "cuda" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+
+     $ module spider cuda/12.6.2
+----------------------------------------------------------------------------
+
+ 
+
+Mon Jun 29 02:15:25 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.20             Driver Version: 580.126.20     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:DB:00.0 Off |                    0 |
+| N/A   30C    P0             71W /  700W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/scratch/work/zhangy50/RL/Spot_VLA/openvla
+CUDA_VISIBLE_DEVICES: 0
+SLURM partition: gpu-h100-80g
+2026-06-29 02:15:58.996838: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-06-29 02:16:02.824904: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-06-29 02:16:02.840790: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-06-29 02:16:03.290352: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-06-29 02:16:04.618177: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-06-29 02:16:09.723386: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-06-29 02:16:41.167750: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2348] TensorFlow was not built with CUDA kernel binaries compatible with compute capability 9.0. CUDA kernels will be jit-compiled from PTX, which could take 30 minutes or longer.
+Running LIBERO evaluation with config:
+GenerateConfig(model_family='openvla', load_in_8bit=False, load_in_4bit=False, center_crop=True, load_from_adapter=True, vla_path='openvla/openvla-7b', adapter_dir='/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/val_loss_4300+7600+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/default', task_suite_name='libero_goal', num_steps_wait=10, num_trials_per_task=10, run_id_note=None, local_log_dir='./experiments/logs', trajectory_save_dir='./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss', use_wandb=False, wandb_project='YOUR_WANDB_PROJECT', wandb_entity='YOUR_WANDB_ENTITY', seed=7)
+[*] Instantiating Pretrained VLA model
+[*] Loading in BF16 with Flash-Attention Enabled
+[*] Loading base VLA model and adapter
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:04<00:08,  4.14s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:05<00:02,  2.47s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.51s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.93s/it]
+Loaded model: <class 'prismatic.extern.hf.modeling_prismatic.OpenVLAForActionPrediction'>
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Logging to local log file: ./experiments/logs/EVAL-libero_goal-openvla-2026_06_29-02_16_53.txt
+Saving trajectories to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2026_06_29-02_16_53
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task suite: libero_goal
+  0%|          | 0/10 [00:00<?, ?it/s]
+  0%|          | 0/10 [00:00<?, ?it/s][A
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+[2026-06-29 02:20:21,855] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: -6) local_rank: 0 (pid: 4127227) of binary: /scratch/work/zhangy50/.conda_envs/openvla-spot/bin/python3.10
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scratch/work/zhangy50/.conda_envs/openvla-spot/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+experiments/robot/libero/run_libero_eval.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-06-29_02:20:21
+  host      : gpu46.int.triton.aalto.fi
+  rank      : 0 (local_rank: 0)
+  exitcode  : -6 (pid: 4127227)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 4127227
+========================================================
+Mon Jun 29 02:20:26 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.20             Driver Version: 580.126.20     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:DB:00.0 Off |                    0 |
+| N/A   29C    P0             70W /  700W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+

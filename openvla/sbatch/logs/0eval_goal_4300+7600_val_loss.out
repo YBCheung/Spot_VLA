@@ -1,0 +1,1581 @@
+Hello zhangy50! You are on node gpu50.  The time is Sat Aug  2 08:36:12 EEST 2025.
+
+----------------------------------------------------------------------------
+  cuda:
+----------------------------------------------------------------------------
+     Versions:
+        cuda/12.2.1
+        cuda/12.6.2
+
+----------------------------------------------------------------------------
+  For detailed information about a specific "cuda" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+
+     $ module spider cuda/12.6.2
+----------------------------------------------------------------------------
+
+ 
+
+Sat Aug  2 08:36:15 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.124.06             Driver Version: 570.124.06     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200                    On  |   00000000:3B:00.0 Off |                    0 |
+| N/A   27C    P0             76W /  700W |       1MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/scratch/work/zhangy50/RL/Spot_VLA/openvla
+CUDA_VISIBLE_DEVICES: 0
+SLURM partition: gpu-h200-141g-short
+2025-08-02 08:36:18.192482: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-08-02 08:36:18.204373: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1754112978.217485 3639376 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1754112978.221220 3639376 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1754112978.232174 3639376 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754112978.232211 3639376 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754112978.232216 3639376 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754112978.232220 3639376 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-08-02 08:36:18.235709: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+W0000 00:00:1754112990.781147 3639376 gpu_device.cc:2341] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Running LIBERO evaluation with config:
+GenerateConfig(model_family='openvla', pretrained_checkpoint='/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_4300+7600', load_in_8bit=False, load_in_4bit=False, center_crop=True, load_from_adapter=True, vla_path='openvla/openvla-7b', adapter_dir='/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss_4300+7600', task_suite_name='libero_goal', num_steps_wait=10, num_trials_per_task=50, run_id_note=None, local_log_dir='./experiments/logs', trajectory_save_dir='./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss', use_wandb=False, wandb_project='YOUR_WANDB_PROJECT', wandb_entity='YOUR_WANDB_ENTITY', seed=7)
+[*] Instantiating Pretrained VLA model
+[*] Loading in BF16 with Flash-Attention Enabled
+[*] Loading base VLA model and adapter
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:05<00:11,  5.73s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:08<00:03,  3.87s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:08<00:00,  2.27s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:08<00:00,  2.89s/it]
+Loaded model: <class 'transformers_modules.openvla.openvla-7b.31f090d05236101ebfc381b61c674dd4746d4ce0.modeling_prismatic.OpenVLAForActionPrediction'>
+Logging to local log file: ./experiments/logs/EVAL-libero_goal-openvla-2025_08_02-08_36_40.txt
+Saving trajectories to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task suite: libero_goal
+  0%|          | 0/10 [00:00<?, ?it/s]
+  0%|          | 0/50 [00:00<?, ?it/s][A
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+Saved trajectory 1 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_000.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=1--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 1
+# successes: 1 (100.0%)
+
+  2%|▏         | 1/50 [00:51<42:04, 51.51s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 2...
+Saved trajectory 2 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_001.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=2--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 2
+# successes: 1 (50.0%)
+
+  4%|▍         | 2/50 [01:47<43:18, 54.13s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 3...
+Saved trajectory 3 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_002.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=3--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 3
+# successes: 1 (33.3%)
+
+  6%|▌         | 3/50 [02:42<42:33, 54.33s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 4...
+Saved trajectory 4 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_003.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=4--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 4
+# successes: 2 (50.0%)
+
+  8%|▊         | 4/50 [03:07<32:49, 42.81s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 5...
+Saved trajectory 5 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_004.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=5--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 5
+# successes: 2 (40.0%)
+
+ 10%|█         | 5/50 [04:01<35:18, 47.07s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 6...
+Saved trajectory 6 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_005.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=6--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 6
+# successes: 2 (33.3%)
+
+ 12%|█▏        | 6/50 [04:56<36:28, 49.75s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 7...
+Saved trajectory 7 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_006.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=7--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 7
+# successes: 2 (28.6%)
+
+ 14%|█▍        | 7/50 [05:50<36:41, 51.19s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 8...
+Saved trajectory 8 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_007.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=8--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 8
+# successes: 2 (25.0%)
+
+ 16%|█▌        | 8/50 [06:44<36:27, 52.08s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 9...
+Saved trajectory 9 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_008.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=9--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 9
+# successes: 2 (22.2%)
+
+ 18%|█▊        | 9/50 [07:39<36:07, 52.86s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 10...
+Saved trajectory 10 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_009.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=10--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 10
+# successes: 2 (20.0%)
+
+ 20%|██        | 10/50 [08:35<35:57, 53.93s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 11...
+Saved trajectory 11 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_010.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=11--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 11
+# successes: 2 (18.2%)
+
+ 22%|██▏       | 11/50 [09:30<35:12, 54.15s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 12...
+Saved trajectory 12 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_011.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=12--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 12
+# successes: 2 (16.7%)
+
+ 24%|██▍       | 12/50 [10:24<34:20, 54.21s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 13...
+Saved trajectory 13 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_012.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=13--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 13
+# successes: 2 (15.4%)
+
+ 26%|██▌       | 13/50 [11:20<33:39, 54.58s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 14...
+Saved trajectory 14 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_013.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=14--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 14
+# successes: 2 (14.3%)
+
+ 28%|██▊       | 14/50 [12:14<32:46, 54.63s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 15...
+Saved trajectory 15 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_014.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=15--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 15
+# successes: 2 (13.3%)
+
+ 30%|███       | 15/50 [13:09<31:51, 54.63s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 16...
+Saved trajectory 16 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_015.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=16--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 16
+# successes: 2 (12.5%)
+
+ 32%|███▏      | 16/50 [14:03<30:52, 54.48s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 17...
+Saved trajectory 17 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_016.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=17--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 17
+# successes: 2 (11.8%)
+
+ 34%|███▍      | 17/50 [14:58<30:04, 54.67s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 18...
+Saved trajectory 18 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_017.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=18--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 18
+# successes: 2 (11.1%)
+
+ 36%|███▌      | 18/50 [15:53<29:04, 54.51s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 19...
+Saved trajectory 19 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_018.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=19--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 19
+# successes: 2 (10.5%)
+
+ 38%|███▊      | 19/50 [16:47<28:10, 54.53s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 20...
+Saved trajectory 20 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_019.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=20--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 20
+# successes: 2 (10.0%)
+
+ 40%|████      | 20/50 [17:43<27:24, 54.81s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 21...
+Saved trajectory 21 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_020.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=21--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 21
+# successes: 2 (9.5%)
+
+ 42%|████▏     | 21/50 [18:37<26:23, 54.61s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 22...
+Saved trajectory 22 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_021.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=22--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 22
+# successes: 2 (9.1%)
+
+ 44%|████▍     | 22/50 [19:31<25:24, 54.44s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 23...
+Saved trajectory 23 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_022.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=23--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 23
+# successes: 2 (8.7%)
+
+ 46%|████▌     | 23/50 [20:25<24:32, 54.53s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 24...
+Saved trajectory 24 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_023.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=24--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 24
+# successes: 2 (8.3%)
+
+ 48%|████▊     | 24/50 [21:19<23:33, 54.38s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 25...
+Saved trajectory 25 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_024.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=25--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 25
+# successes: 2 (8.0%)
+
+ 50%|█████     | 25/50 [22:14<22:40, 54.44s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 26...
+Saved trajectory 26 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_025.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=26--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 26
+# successes: 2 (7.7%)
+
+ 52%|█████▏    | 26/50 [23:09<21:48, 54.52s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 27...
+Saved trajectory 27 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_026.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=27--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 27
+# successes: 2 (7.4%)
+
+ 54%|█████▍    | 27/50 [24:03<20:51, 54.39s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 28...
+Saved trajectory 28 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_027.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=28--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 28
+# successes: 2 (7.1%)
+
+ 56%|█████▌    | 28/50 [24:57<19:55, 54.32s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 29...
+Saved trajectory 29 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_028.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=29--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 29
+# successes: 2 (6.9%)
+
+ 58%|█████▊    | 29/50 [25:51<19:01, 54.34s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 30...
+Saved trajectory 30 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_029.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=30--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 30
+# successes: 2 (6.7%)
+
+ 60%|██████    | 30/50 [26:47<18:13, 54.66s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 31...
+Saved trajectory 31 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_030.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=31--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 31
+# successes: 2 (6.5%)
+
+ 62%|██████▏   | 31/50 [27:41<17:16, 54.54s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 32...
+Saved trajectory 32 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_031.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=32--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 32
+# successes: 2 (6.2%)
+
+ 64%|██████▍   | 32/50 [28:36<16:24, 54.70s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 33...
+Saved trajectory 33 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_032.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=33--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 33
+# successes: 2 (6.1%)
+
+ 66%|██████▌   | 33/50 [29:32<15:36, 55.06s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 34...
+Saved trajectory 34 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_033.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=34--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 34
+# successes: 3 (8.8%)
+
+ 68%|██████▊   | 34/50 [29:59<12:25, 46.61s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 35...
+Saved trajectory 35 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_034.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=35--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 35
+# successes: 3 (8.6%)
+
+ 70%|███████   | 35/50 [30:54<12:15, 49.01s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 36...
+Saved trajectory 36 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_035.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=36--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 36
+# successes: 3 (8.3%)
+
+ 72%|███████▏  | 36/50 [31:49<11:53, 50.94s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 37...
+Saved trajectory 37 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_036.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=37--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 37
+# successes: 3 (8.1%)
+
+ 74%|███████▍  | 37/50 [32:44<11:19, 52.30s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 38...
+Saved trajectory 38 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_037.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=38--success=True--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 38
+# successes: 4 (10.5%)
+
+ 76%|███████▌  | 38/50 [33:20<09:28, 47.34s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 39...
+Saved trajectory 39 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_038.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=39--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 39
+# successes: 4 (10.3%)
+
+ 78%|███████▊  | 39/50 [34:15<09:05, 49.58s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 40...
+Saved trajectory 40 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_039.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=40--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 40
+# successes: 4 (10.0%)
+
+ 80%|████████  | 40/50 [35:10<08:31, 51.11s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 41...
+Saved trajectory 41 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_040.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=41--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 41
+# successes: 4 (9.8%)
+
+ 82%|████████▏ | 41/50 [36:06<07:53, 52.66s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 42...
+Saved trajectory 42 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_041.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=42--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 42
+# successes: 4 (9.5%)
+
+ 84%|████████▍ | 42/50 [37:00<07:05, 53.16s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 43...
+Saved trajectory 43 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_042.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=43--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 43
+# successes: 4 (9.3%)
+
+ 86%|████████▌ | 43/50 [37:56<06:17, 53.99s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 44...
+Saved trajectory 44 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_043.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=44--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 44
+# successes: 4 (9.1%)
+
+ 88%|████████▊ | 44/50 [38:51<05:24, 54.09s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 45...
+Saved trajectory 45 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_044.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=45--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 45
+# successes: 4 (8.9%)
+
+ 90%|█████████ | 45/50 [39:46<04:32, 54.48s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 46...
+Saved trajectory 46 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_045.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=46--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 46
+# successes: 4 (8.7%)
+
+ 92%|█████████▏| 46/50 [40:40<03:37, 54.44s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 47...
+Saved trajectory 47 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_046.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=47--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 47
+# successes: 4 (8.5%)
+
+ 94%|█████████▍| 47/50 [41:35<02:43, 54.43s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 48...
+Saved trajectory 48 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_047.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=48--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 48
+# successes: 4 (8.3%)
+
+ 96%|█████████▌| 48/50 [42:29<01:48, 54.49s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 49...
+Saved trajectory 49 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_048.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=49--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 49
+# successes: 4 (8.2%)
+
+ 98%|█████████▊| 49/50 [43:24<00:54, 54.52s/it][A
+Task: open the middle drawer of the cabinet
+Starting episode 50...
+Saved trajectory 50 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_049.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=50--success=False--task=open_the_middle_drawer_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 50
+# successes: 4 (8.0%)
+
+100%|██████████| 50/50 [44:18<00:00, 54.43s/it][A100%|██████████| 50/50 [44:18<00:00, 53.17s/it]
+Current task success rate: 0.08
+Current total success rate: 0.08
+ 10%|█         | 1/10 [44:29<6:40:25, 2669.45s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][A
+Task: put the bowl on the stove
+Starting episode 1...
+Saved trajectory 51 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_050.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=51--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 51
+# successes: 5 (9.8%)
+
+  2%|▏         | 1/50 [00:15<12:40, 15.53s/it][A
+Task: put the bowl on the stove
+Starting episode 2...
+Saved trajectory 52 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_051.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=52--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 52
+# successes: 6 (11.5%)
+
+  4%|▍         | 2/50 [00:33<13:43, 17.16s/it][A
+Task: put the bowl on the stove
+Starting episode 3...
+Saved trajectory 53 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_052.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=53--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 53
+# successes: 6 (11.3%)
+
+  6%|▌         | 3/50 [01:30<27:23, 34.98s/it][A
+Task: put the bowl on the stove
+Starting episode 4...
+Saved trajectory 54 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_053.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=54--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 54
+# successes: 6 (11.1%)
+
+  8%|▊         | 4/50 [02:24<32:35, 42.51s/it][A
+Task: put the bowl on the stove
+Starting episode 5...
+Saved trajectory 55 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_054.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=55--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 55
+# successes: 6 (10.9%)
+
+ 10%|█         | 5/50 [03:18<35:02, 46.73s/it][A
+Task: put the bowl on the stove
+Starting episode 6...
+Saved trajectory 56 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_055.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=56--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 56
+# successes: 6 (10.7%)
+
+ 12%|█▏        | 6/50 [04:12<36:05, 49.21s/it][A
+Task: put the bowl on the stove
+Starting episode 7...
+Saved trajectory 57 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_056.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=57--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 57
+# successes: 6 (10.5%)
+
+ 14%|█▍        | 7/50 [05:06<36:22, 50.76s/it][A
+Task: put the bowl on the stove
+Starting episode 8...
+Saved trajectory 58 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_057.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=58--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 58
+# successes: 7 (12.1%)
+
+ 16%|█▌        | 8/50 [05:21<27:38, 39.48s/it][A
+Task: put the bowl on the stove
+Starting episode 9...
+Saved trajectory 59 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_058.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=59--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 59
+# successes: 7 (11.9%)
+
+ 18%|█▊        | 9/50 [06:15<30:02, 43.97s/it][A
+Task: put the bowl on the stove
+Starting episode 10...
+Saved trajectory 60 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_059.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=60--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 60
+# successes: 7 (11.7%)
+
+ 20%|██        | 10/50 [07:09<31:24, 47.12s/it][A
+Task: put the bowl on the stove
+Starting episode 11...
+Saved trajectory 61 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_060.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=61--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 61
+# successes: 8 (13.1%)
+
+ 22%|██▏       | 11/50 [07:26<24:39, 37.94s/it][A
+Task: put the bowl on the stove
+Starting episode 12...
+Saved trajectory 62 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_061.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=62--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 62
+# successes: 8 (12.9%)
+
+ 24%|██▍       | 12/50 [08:20<27:09, 42.89s/it][A
+Task: put the bowl on the stove
+Starting episode 13...
+Saved trajectory 63 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_062.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=63--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 63
+# successes: 8 (12.7%)
+
+ 26%|██▌       | 13/50 [09:15<28:32, 46.28s/it][A
+Task: put the bowl on the stove
+Starting episode 14...
+Saved trajectory 64 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_063.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=64--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 64
+# successes: 9 (14.1%)
+
+ 28%|██▊       | 14/50 [09:32<22:30, 37.52s/it][A
+Task: put the bowl on the stove
+Starting episode 15...
+Saved trajectory 65 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_064.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=65--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 65
+# successes: 10 (15.4%)
+
+ 30%|███       | 15/50 [09:48<18:04, 30.97s/it][A
+Task: put the bowl on the stove
+Starting episode 16...
+Saved trajectory 66 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_065.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=66--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 66
+# successes: 10 (15.2%)
+
+ 32%|███▏      | 16/50 [10:42<21:28, 37.91s/it][A
+Task: put the bowl on the stove
+Starting episode 17...
+Saved trajectory 67 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_066.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=67--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 67
+# successes: 11 (16.4%)
+
+ 34%|███▍      | 17/50 [11:04<18:13, 33.13s/it][A
+Task: put the bowl on the stove
+Starting episode 18...
+Saved trajectory 68 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_067.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=68--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 68
+# successes: 11 (16.2%)
+
+ 36%|███▌      | 18/50 [11:58<21:02, 39.45s/it][A
+Task: put the bowl on the stove
+Starting episode 19...
+Saved trajectory 69 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_068.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=69--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 69
+# successes: 11 (15.9%)
+
+ 38%|███▊      | 19/50 [12:52<22:38, 43.83s/it][A
+Task: put the bowl on the stove
+Starting episode 20...
+Saved trajectory 70 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_069.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=70--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 70
+# successes: 12 (17.1%)
+
+ 40%|████      | 20/50 [13:09<17:58, 35.95s/it][A
+Task: put the bowl on the stove
+Starting episode 21...
+Saved trajectory 71 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_070.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=71--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 71
+# successes: 12 (16.9%)
+
+ 42%|████▏     | 21/50 [14:04<20:00, 41.41s/it][A
+Task: put the bowl on the stove
+Starting episode 22...
+Saved trajectory 72 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_071.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=72--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 72
+# successes: 12 (16.7%)
+
+ 44%|████▍     | 22/50 [14:58<21:06, 45.24s/it][A
+Task: put the bowl on the stove
+Starting episode 23...
+Saved trajectory 73 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_072.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=73--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 73
+# successes: 12 (16.4%)
+
+ 46%|████▌     | 23/50 [15:51<21:29, 47.77s/it][A
+Task: put the bowl on the stove
+Starting episode 24...
+Saved trajectory 74 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_073.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=74--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 74
+# successes: 12 (16.2%)
+
+ 48%|████▊     | 24/50 [16:46<21:35, 49.83s/it][A
+Task: put the bowl on the stove
+Starting episode 25...
+Saved trajectory 75 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_074.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=75--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 75
+# successes: 12 (16.0%)
+
+ 50%|█████     | 25/50 [17:40<21:19, 51.16s/it][A
+Task: put the bowl on the stove
+Starting episode 26...
+Saved trajectory 76 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_075.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=76--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 76
+# successes: 12 (15.8%)
+
+ 52%|█████▏    | 26/50 [18:34<20:49, 52.05s/it][A
+Task: put the bowl on the stove
+Starting episode 27...
+Saved trajectory 77 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_076.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=77--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 77
+# successes: 13 (16.9%)
+
+ 54%|█████▍    | 27/50 [18:50<15:45, 41.09s/it][A
+Task: put the bowl on the stove
+Starting episode 28...
+Saved trajectory 78 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_077.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=78--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 78
+# successes: 14 (17.9%)
+
+ 56%|█████▌    | 28/50 [19:07<12:27, 33.97s/it][A
+Task: put the bowl on the stove
+Starting episode 29...
+Saved trajectory 79 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_078.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=79--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 79
+# successes: 14 (17.7%)
+
+ 58%|█████▊    | 29/50 [20:02<14:00, 40.04s/it][A
+Task: put the bowl on the stove
+Starting episode 30...
+Saved trajectory 80 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_079.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=80--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 80
+# successes: 14 (17.5%)
+
+ 60%|██████    | 30/50 [20:57<14:53, 44.65s/it][A
+Task: put the bowl on the stove
+Starting episode 31...
+Saved trajectory 81 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_080.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=81--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 81
+# successes: 14 (17.3%)
+
+ 62%|██████▏   | 31/50 [21:52<15:05, 47.64s/it][A
+Task: put the bowl on the stove
+Starting episode 32...
+Saved trajectory 82 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_081.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=82--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 82
+# successes: 14 (17.1%)
+
+ 64%|██████▍   | 32/50 [22:46<14:52, 49.61s/it][A
+Task: put the bowl on the stove
+Starting episode 33...
+Saved trajectory 83 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_082.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=83--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 83
+# successes: 14 (16.9%)
+
+ 66%|██████▌   | 33/50 [23:40<14:25, 50.90s/it][A
+Task: put the bowl on the stove
+Starting episode 34...
+Saved trajectory 84 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_083.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=84--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 84
+# successes: 14 (16.7%)
+
+ 68%|██████▊   | 34/50 [24:34<13:50, 51.90s/it][A
+Task: put the bowl on the stove
+Starting episode 35...
+Saved trajectory 85 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_084.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=85--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 85
+# successes: 15 (17.6%)
+
+ 70%|███████   | 35/50 [24:54<10:36, 42.41s/it][A
+Task: put the bowl on the stove
+Starting episode 36...
+Saved trajectory 86 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_085.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=86--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 86
+# successes: 16 (18.6%)
+
+ 72%|███████▏  | 36/50 [25:11<08:06, 34.72s/it][A
+Task: put the bowl on the stove
+Starting episode 37...
+Saved trajectory 87 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_086.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=87--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 87
+# successes: 17 (19.5%)
+
+ 74%|███████▍  | 37/50 [25:30<06:29, 29.94s/it][A
+Task: put the bowl on the stove
+Starting episode 38...
+Saved trajectory 88 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_087.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=88--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 88
+# successes: 17 (19.3%)
+
+ 76%|███████▌  | 38/50 [26:25<07:29, 37.42s/it][A
+Task: put the bowl on the stove
+Starting episode 39...
+Saved trajectory 89 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_088.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=89--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 89
+# successes: 17 (19.1%)
+
+ 78%|███████▊  | 39/50 [27:19<07:46, 42.43s/it][A
+Task: put the bowl on the stove
+Starting episode 40...
+Saved trajectory 90 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_089.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=90--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 90
+# successes: 18 (20.0%)
+
+ 80%|████████  | 40/50 [27:36<05:48, 34.85s/it][A
+Task: put the bowl on the stove
+Starting episode 41...
+Saved trajectory 91 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_090.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=91--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 91
+# successes: 18 (19.8%)
+
+ 82%|████████▏ | 41/50 [28:30<06:06, 40.69s/it][A
+Task: put the bowl on the stove
+Starting episode 42...
+Saved trajectory 92 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_091.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=92--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 92
+# successes: 19 (20.7%)
+
+ 84%|████████▍ | 42/50 [28:46<04:26, 33.35s/it][A
+Task: put the bowl on the stove
+Starting episode 43...
+Saved trajectory 93 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_092.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=93--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 93
+# successes: 19 (20.4%)
+
+ 86%|████████▌ | 43/50 [29:40<04:37, 39.57s/it][A
+Task: put the bowl on the stove
+Starting episode 44...
+Saved trajectory 94 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_093.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=94--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 94
+# successes: 20 (21.3%)
+
+ 88%|████████▊ | 44/50 [30:07<03:34, 35.76s/it][A
+Task: put the bowl on the stove
+Starting episode 45...
+Saved trajectory 95 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_094.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=95--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 95
+# successes: 20 (21.1%)
+
+ 90%|█████████ | 45/50 [31:01<03:26, 41.27s/it][A
+Task: put the bowl on the stove
+Starting episode 46...
+Saved trajectory 96 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_095.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=96--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 96
+# successes: 20 (20.8%)
+
+ 92%|█████████▏| 46/50 [31:56<03:00, 45.23s/it][A
+Task: put the bowl on the stove
+Starting episode 47...
+Saved trajectory 97 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_096.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=97--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 97
+# successes: 20 (20.6%)
+
+ 94%|█████████▍| 47/50 [32:50<02:23, 47.98s/it][A
+Task: put the bowl on the stove
+Starting episode 48...
+Saved trajectory 98 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_097.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=98--success=True--task=put_the_bowl_on_the_stove.mp4
+Success: True
+# episodes completed so far: 98
+# successes: 21 (21.4%)
+
+ 96%|█████████▌| 48/50 [33:08<01:17, 38.92s/it][A
+Task: put the bowl on the stove
+Starting episode 49...
+Saved trajectory 99 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_098.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=99--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 99
+# successes: 21 (21.2%)
+
+ 98%|█████████▊| 49/50 [34:02<00:43, 43.51s/it][A
+Task: put the bowl on the stove
+Starting episode 50...
+Saved trajectory 100 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_099.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=100--success=False--task=put_the_bowl_on_the_stove.mp4
+Success: False
+# episodes completed so far: 100
+# successes: 21 (21.0%)
+
+100%|██████████| 50/50 [34:59<00:00, 47.60s/it][A100%|██████████| 50/50 [34:59<00:00, 42.00s/it]
+Current task success rate: 0.34
+Current total success rate: 0.21
+ 20%|██        | 2/10 [1:19:29<5:11:17, 2334.75s/it]
+  0%|          | 0/50 [00:00<?, ?it/s][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 1...
+Saved trajectory 101 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_100.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=101--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 101
+# successes: 22 (21.8%)
+
+  2%|▏         | 1/50 [00:20<16:30, 20.22s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 2...
+Saved trajectory 102 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_101.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=102--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 102
+# successes: 22 (21.6%)
+
+  4%|▍         | 2/50 [01:17<33:43, 42.16s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 3...
+Saved trajectory 103 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_102.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=103--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 103
+# successes: 22 (21.4%)
+
+  6%|▌         | 3/50 [02:15<38:32, 49.20s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 4...
+Saved trajectory 104 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_103.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=104--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 104
+# successes: 22 (21.2%)
+
+  8%|▊         | 4/50 [03:10<39:38, 51.71s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 5...
+Saved trajectory 105 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_104.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=105--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 105
+# successes: 22 (21.0%)
+
+ 10%|█         | 5/50 [04:09<40:34, 54.11s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 6...
+Saved trajectory 106 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_105.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=106--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 106
+# successes: 23 (21.7%)
+
+ 12%|█▏        | 6/50 [05:03<39:43, 54.16s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 7...
+Saved trajectory 107 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_106.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=107--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 107
+# successes: 24 (22.4%)
+
+ 14%|█▍        | 7/50 [05:24<31:05, 43.38s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 8...
+Saved trajectory 108 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_107.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=108--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 108
+# successes: 24 (22.2%)
+
+ 16%|█▌        | 8/50 [06:22<33:31, 47.89s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 9...
+Saved trajectory 109 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_108.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=109--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 109
+# successes: 24 (22.0%)
+
+ 18%|█▊        | 9/50 [07:19<34:46, 50.88s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 10...
+Saved trajectory 110 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_109.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=110--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 110
+# successes: 24 (21.8%)
+
+ 20%|██        | 10/50 [08:13<34:36, 51.92s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 11...
+Saved trajectory 111 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_110.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=111--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 111
+# successes: 25 (22.5%)
+
+ 22%|██▏       | 11/50 [08:33<27:19, 42.04s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 12...
+Saved trajectory 112 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_111.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=112--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 112
+# successes: 25 (22.3%)
+
+ 24%|██▍       | 12/50 [09:29<29:14, 46.17s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 13...
+Saved trajectory 113 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_112.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=113--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 113
+# successes: 26 (23.0%)
+
+ 26%|██▌       | 13/50 [09:47<23:16, 37.73s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 14...
+Saved trajectory 114 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_113.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=114--success=False--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: False
+# episodes completed so far: 114
+# successes: 26 (22.8%)
+
+ 28%|██▊       | 14/50 [10:41<25:36, 42.69s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 15...
+Saved trajectory 115 to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_36_40/trajectory_114.pkl
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Saved rollout MP4 at path ./rollouts/2025_08_02/2025_08_02-08_36_40--episode=115--success=True--task=put_the_wine_bottle_on_top_of_the_cabinet.mp4
+Success: True
+# episodes completed so far: 115
+# successes: 27 (23.5%)
+
+ 30%|███       | 15/50 [11:01<20:53, 35.80s/it][A
+Task: put the wine bottle on top of the cabinet
+Starting episode 16...
+slurmstepd: error: *** JOB 9595911 ON gpu50 CANCELLED AT 2025-08-02T10:11:31 DUE TO TIME LIMIT ***

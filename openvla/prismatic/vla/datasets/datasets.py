@@ -7,7 +7,7 @@ format to OpenVLA, IterableDataset shim.
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 import numpy as np
 import torch
@@ -77,8 +77,15 @@ class RLDSDataset(IterableDataset):
         shuffle_buffer_size: int = 256_000,
         train: bool = True,
         image_aug: bool = False,
+        split_indices: Optional[Dict[str, List[int]]] = None,
+        split_name: Optional[str] = None,
     ) -> None:
-        """Lightweight wrapper around RLDS TFDS Pipeline for use with PyTorch/OpenVLA Data Loaders."""
+        """Lightweight wrapper around RLDS TFDS Pipeline for use with PyTorch/OpenVLA Data Loaders.
+
+        `split_indices`/`split_name`: optional explicit {"train"/"val"/"test": [indices]} assignment
+        (see `compute_stratified_split_indices`) that overrides the default 95/5 train/val split. Only
+        supported for single-dataset mixes (asserted below), which is the case for LIBERO fine-tuning.
+        """
         self.data_root_dir, self.data_mix, self.batch_transform = data_root_dir, data_mix, batch_transform
 
         # Configure RLDS Dataset(s)
@@ -98,6 +105,13 @@ class RLDSDataset(IterableDataset):
             load_language=True,
             action_proprio_normalization_type=NormalizationType.BOUNDS_Q99,
         )
+
+        if split_indices is not None:
+            assert len(per_dataset_kwargs) == 1, "`split_indices` only supported for single-dataset mixes."
+            assert split_name is not None, "`split_name` must be provided alongside `split_indices`."
+            per_dataset_kwargs[0]["split_indices"] = split_indices
+            per_dataset_kwargs[0]["split_name"] = split_name
+
         rlds_config = dict(
             traj_transform_kwargs=dict(
                 window_size=1,                                      # If we wanted to feed / predict more than one step

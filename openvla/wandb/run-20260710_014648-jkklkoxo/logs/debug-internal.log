@@ -1,0 +1,8 @@
+{"time":"2026-07-10T01:46:48.281712625+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-10T01:46:48.281837639+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260710_014648-jkklkoxo/logs/debug-core.log"}
+{"time":"2026-07-10T01:46:48.490061747+03:00","level":"INFO","msg":"created new stream","id":"jkklkoxo"}
+{"time":"2026-07-10T01:46:48.49011968+03:00","level":"INFO","msg":"stream: started","id":"jkklkoxo"}
+{"time":"2026-07-10T01:46:48.490166763+03:00","level":"INFO","msg":"sender: started","stream_id":"jkklkoxo"}
+{"time":"2026-07-10T01:46:48.490162871+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"jkklkoxo"}}
+{"time":"2026-07-10T01:46:48.490162435+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"jkklkoxo"}}
+{"time":"2026-07-10T01:46:48.992458462+03:00","level":"INFO","msg":"Starting system monitor"}

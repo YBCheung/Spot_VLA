@@ -1,0 +1,8 @@
+{"time":"2026-07-13T23:56:30.623817368+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-13T23:56:30.623949284+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260713_235630-7iqg20ei/logs/debug-core.log"}
+{"time":"2026-07-13T23:56:30.731479167+03:00","level":"INFO","msg":"created new stream","id":"7iqg20ei"}
+{"time":"2026-07-13T23:56:30.731543828+03:00","level":"INFO","msg":"stream: started","id":"7iqg20ei"}
+{"time":"2026-07-13T23:56:30.731591086+03:00","level":"INFO","msg":"sender: started","stream_id":"7iqg20ei"}
+{"time":"2026-07-13T23:56:30.731587776+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"7iqg20ei"}}
+{"time":"2026-07-13T23:56:30.731588085+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"7iqg20ei"}}
+{"time":"2026-07-13T23:56:31.298652455+03:00","level":"INFO","msg":"Starting system monitor"}

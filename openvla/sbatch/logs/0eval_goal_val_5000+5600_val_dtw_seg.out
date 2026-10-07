@@ -1,0 +1,127 @@
+Hello zhangy50! You are on node gpu50.  The time is Sat Aug  2 08:42:05 EEST 2025.
+
+----------------------------------------------------------------------------
+  cuda:
+----------------------------------------------------------------------------
+     Versions:
+        cuda/12.2.1
+        cuda/12.6.2
+
+----------------------------------------------------------------------------
+  For detailed information about a specific "cuda" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+
+     $ module spider cuda/12.6.2
+----------------------------------------------------------------------------
+
+ 
+
+Sat Aug  2 08:42:08 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.124.06             Driver Version: 570.124.06     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200                    On  |   00000000:4C:00.0 Off |                    0 |
+| N/A   27C    P0             75W /  700W |       1MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+/scratch/work/zhangy50/RL/Spot_VLA/openvla
+CUDA_VISIBLE_DEVICES: 0
+SLURM partition: gpu-h200-141g-short
+2025-08-02 08:42:11.314486: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-08-02 08:42:11.326294: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1754113331.339045 3641487 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1754113331.342735 3641487 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1754113331.353478 3641487 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754113331.353512 3641487 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754113331.353517 3641487 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754113331.353521 3641487 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-08-02 08:42:11.356939: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:242: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.
+  interpolation: int = Image.BILINEAR,
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:288: DeprecationWarning: NEAREST is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.NEAREST or Dither.NONE instead.
+  interpolation: int = Image.NEAREST,
+/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torchvision/transforms/_functional_pil.py:321: DeprecationWarning: BICUBIC is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BICUBIC instead.
+  interpolation: int = Image.BICUBIC,
+W0000 00:00:1754113336.258386 3641487 gpu_device.cc:2341] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Running LIBERO evaluation with config:
+GenerateConfig(model_family='openvla', pretrained_checkpoint='/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg_5000+5599', load_in_8bit=False, load_in_4bit=False, center_crop=True, load_from_adapter=True, vla_path='openvla/openvla-7b', adapter_dir='/scratch/work/zhangy50/RL/Spot_VLA/openvla/runs/4300+7499_openvla-7b+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_dtw_seg_5000+5599', task_suite_name='libero_goal', num_steps_wait=10, num_trials_per_task=50, run_id_note=None, local_log_dir='./experiments/logs', trajectory_save_dir='./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss', use_wandb=False, wandb_project='YOUR_WANDB_PROJECT', wandb_entity='YOUR_WANDB_ENTITY', seed=7)
+[*] Instantiating Pretrained VLA model
+[*] Loading in BF16 with Flash-Attention Enabled
+[*] Loading base VLA model and adapter
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:00,  4.37it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  4.82it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00,  5.07it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00,  4.94it/s]
+Loaded model: <class 'transformers_modules.openvla.openvla-7b.31f090d05236101ebfc381b61c674dd4746d4ce0.modeling_prismatic.OpenVLAForActionPrediction'>
+Logging to local log file: ./experiments/logs/EVAL-libero_goal-openvla-2025_08_02-08_42_25.txt
+Saving trajectories to: ./trajectory_logs/5800_seg_+dataset+libero_goal_no_noops+b56+lr-0.0005+shf1000+lora-r32+dropout-0.0--image_aug/val_loss/EVAL-libero_goal-openvla-2025_08_02-08_42_25
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task suite: libero_goal
+  0%|          | 0/10 [00:00<?, ?it/s]
+  0%|          | 0/50 [00:00<?, ?it/s][A
+Task: open the middle drawer of the cabinet
+Starting episode 1...
+[2025-08-02 08:43:14,694] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: -6) local_rank: 0 (pid: 3641487) of binary: /scratch/work/zhangy50/.conda_envs/openvla/bin/python
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/.conda_envs/openvla/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.2.0', 'console_scripts', 'torchrun')())
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+experiments/robot/libero/run_libero_eval.py FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-08-02_08:43:14
+  host      : gpu50.int.triton.aalto.fi
+  rank      : 0 (local_rank: 0)
+  exitcode  : -6 (pid: 3641487)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 3641487
+========================================================
+Sat Aug  2 08:43:14 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.124.06             Driver Version: 570.124.06     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200                    On  |   00000000:4C:00.0 Off |                    0 |
+| N/A   29C    P0             75W /  700W |       1MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+

@@ -38,7 +38,7 @@ class openvla():
         inputs = self.processor(prompt, image).to(self.device, dtype=torch.bfloat16)
 
         # Predict Action (7-DoF; un-normalize for BridgeData V2)
-        action = self.vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
+        action, _ = self.vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
         return action
 
 def main():

@@ -1,0 +1,350 @@
+\section{Fine-tuning Methodology}
+
+\subsection{Model Architecture and Adaptation Strategy}
+
+We present a specialized adaptation of the OpenVLA-7B vision-language-action (VLA) transformer for goal-conditioned robotic manipulation tasks. The fine-tuning process incorporates advanced evaluation methodologies including Dynamic Time Warping (DTW) for trajectory similarity assessment and multi-metric early stopping mechanisms.
+
+\textbf{Base Architecture:} OpenVLA-7B is a 7-billion parameter transformer-based vision-language-action model that processes RGB observations and language instructions to generate discretized robotic actions. The model employs a unified encoder-decoder architecture capable of handling multimodal inputs and producing action sequences for 7-DOF robotic manipulation.
+
+\textbf{Adaptation Strategy:} We employ Low-Rank Adaptation (LoRA) \cite{hu2021lora} for parameter-efficient fine-tuning, targeting all linear layers in the transformer architecture. This approach enables efficient adaptation while preserving the pre-trained representations from the base model.
+
+\subsection{Dataset and Data Preprocessing}
+
+\textbf{Dataset:} The model was fine-tuned on the LIBERO Goal dataset (\texttt{libero\_goal\_no\_noops}), which contains goal-conditioned robotic manipulation demonstrations. The dataset follows the RLDS (Reinforcement Learning Datasets) format and includes RGB observations, language instructions, and action sequences.
+
+\textbf{Data Splits:} The training protocol employed a 95/5 train-validation split when no dedicated validation set was available, or used the dedicated validation split when present. This ensures robust evaluation during training while maintaining sufficient training data.
+
+\textbf{Data Augmentation:} Image augmentations were enabled during training (\texttt{image\_aug=True}) to improve model robustness and generalization. The data pipeline utilized a shuffle buffer of 1,000 examples to ensure proper randomization during training.
+
+\subsection{Training Hyperparameters and Configuration}
+
+\textbf{Optimization Setup:}
+\begin{itemize}
+    \item \textbf{Optimizer:} AdamW with constant learning rate
+    \item \textbf{Learning Rate:} $5 \times 10^{-4}$
+    \item \textbf{Batch Size:} 16 (effective batch size accounting for gradient accumulation)
+    \item \textbf{Gradient Accumulation Steps:} 1
+    \item \textbf{Maximum Training Steps:} 1,000
+    \item \textbf{Precision:} Mixed precision training with bfloat16
+\end{itemize}
+
+\textbf{LoRA Configuration:}
+\begin{itemize}
+    \item \textbf{LoRA Rank ($r$):} 32
+    \item \textbf{LoRA Alpha:} $\min(\text{rank}, 16) = 16$
+    \item \textbf{LoRA Dropout:} 0.0
+    \item \textbf{Target Modules:} all-linear layers
+    \item \textbf{Initialization:} Gaussian initialization for LoRA weights
+\end{itemize}
+
+\textbf{Infrastructure:}
+\begin{itemize}
+    \item \textbf{Framework:} PyTorch with Distributed Data Parallel (DDP)
+    \item \textbf{Distributed Training:} Single-node multi-GPU setup with NCCL backend
+    \item \textbf{Memory Optimization:} Gradient checkpointing and optimized memory usage
+\end{itemize}
+
+\subsection{Advanced Evaluation Framework}
+
+\textbf{Multi-Metric Validation:} The training incorporates a comprehensive evaluation framework that assesses model performance across multiple dimensions:
+
+\begin{enumerate}
+    \item \textbf{Standard Metrics:}
+    \begin{itemize}
+        \item Cross-entropy loss on action token predictions
+        \item Action prediction accuracy (token-level)
+        \item L1 and L2 losses on continuous action values
+        \item Cosine similarity between predicted and ground truth actions
+    \end{itemize}
+    
+    \item \textbf{Trajectory-Level Evaluation:}
+    \begin{itemize}
+        \item \textbf{Dynamic Time Warping (DTW):} Length-normalized DTW distance between predicted and ground truth action trajectories
+        \item \textbf{Reservoir Sampling:} Efficient random sampling of validation trajectories (5 trajectories per evaluation)
+        \item \textbf{Normalization:} DTW distances are normalized by trajectory length to ensure fair comparison across sequences of different lengths
+    \end{itemize}
+\end{enumerate}
+
+The DTW distance is computed as:
+\begin{equation}
+\text{DTW}_{\text{normalized}} = \frac{\text{DTW}(\mathbf{a}_{\text{pred}}, \mathbf{a}_{\text{gt}})}{\min(|\mathbf{a}_{\text{pred}}|, |\mathbf{a}_{\text{gt}}|)}
+\end{equation}
+where $\mathbf{a}_{\text{pred}}$ and $\mathbf{a}_{\text{gt}}$ represent the predicted and ground truth action trajectories, respectively.
+
+\textbf{Early Stopping Mechanism:} The training employs a sophisticated multi-criteria early stopping approach:
+\begin{itemize}
+    \item \textbf{Validation Interval:} Every 10 optimizer steps
+    \item \textbf{Patience:} 5 validation checks without improvement
+    \item \textbf{Multiple Model Checkpoints:} Separate best model saves for each metric (validation loss, L1/L2 loss, accuracy, cosine similarity, DTW distance)
+\end{itemize}
+
+\subsection{Training Procedure}
+
+\textbf{Preprocessing:} Action sequences are tokenized using the OpenVLA action tokenizer, which discretizes continuous 7-DOF actions into tokens. Image observations undergo standard normalization and augmentation transformations.
+
+\textbf{Loss Computation:} The model is trained using next-token prediction on action sequences, with masking applied to focus learning on action tokens while ignoring padding and instruction tokens. The training loss is formulated as:
+
+\begin{equation}
+\label{eq:ce-loss}
+\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{T_i} \mathbb{I}[\text{token}_t \text{ is action}] \log p(\text{token}_t | \text{context}_{<t})
+\end{equation}
+
+where $N$ is the batch size, $T_i$ is the sequence length for sample $i$, and $\mathbb{I}[\cdot]$ is the indicator function for action tokens.
+
+\textbf{Regularization:} The training incorporates LoRA-specific regularization through the low-rank constraint and optional dropout (set to 0.0 in this configuration).
+
+\subsection{Computational Requirements and Reproducibility}
+
+\textbf{Hardware Requirements:}
+\begin{itemize}
+    \item \textbf{GPU Memory:} Optimized for single H100 80GB GPU (batch size 16) or smaller GPUs (batch size 2 in debug mode)
+    \item \textbf{Training Time:} Approximately 1,000 steps with validation every 10 steps
+    \item \textbf{Checkpoint Strategy:} Continuous overwriting of latest checkpoint with separate best model saves
+\end{itemize}
+
+\textbf{Reproducibility Information:}
+\begin{itemize}
+    \item \textbf{Random Seeding:} DTW trajectory evaluation uses step-dependent random seeding to ensure different trajectory sampling across validation steps while maintaining reproducibility within each step
+    \item \textbf{Dependencies:} PEFT 0.11.1 for LoRA implementation, fastdtw for trajectory similarity computation, OpenVLA prismatic framework for model architecture, Weights \& Biases for experiment tracking
+    \item \textbf{Experiment Identifier:} \texttt{openvla-7b+dataset+libero\_goal\_no\_noops+b2+lr-0.0005+shf1000+lora-r32+dropout-0.0--image\_aug}
+\end{itemize}
+
+\subsection{Evaluation Protocol}
+
+The model evaluation employs both step-level and trajectory-level metrics to comprehensively assess performance:
+
+\textbf{Step-Level Metrics:}
+\begin{itemize}
+    \item Action token prediction accuracy
+    \item L1/L2 regression losses on continuous actions
+    \item Cosine similarity between predicted and target action vectors
+\end{itemize}
+
+\textbf{Trajectory-Level Metrics:}
+\begin{itemize}
+    \item Length-normalized DTW distance for sequence similarity assessment
+    \item Random trajectory sampling (5 trajectories per validation) to ensure diverse evaluation coverage
+\end{itemize}
+
+\textbf{Performance Tracking:} All metrics are logged to Weights \& Biases with the following keys:
+\begin{itemize}
+    \item \texttt{train\_loss}, \texttt{val\_loss}: Cross-entropy losses
+    \item \texttt{action\_accuracy}, \texttt{val\_action\_accuracy}: Token prediction accuracy
+    \item \texttt{l1\_loss}, \texttt{l2\_loss}: Regression losses on continuous actions
+    \item \texttt{cosine\_distance}, \texttt{val\_cosine\_distance}: Action vector similarity
+    \item \texttt{val\_normalized\_dtw\_distance}: Trajectory-level similarity metric
+\end{itemize}
+
+\subsection{Technical Specifications}
+
+\textbf{Model Architecture:}
+\begin{itemize}
+    \item \textbf{Base Model:} OpenVLA-7B transformer with vision encoder and language decoder
+    \item \textbf{Action Space:} 7-DOF continuous actions (discretized via tokenization)
+    \item \textbf{Input Modalities:} RGB images (224×224) + natural language instructions
+    \item \textbf{Output:} Sequence of discretized action tokens
+\end{itemize}
+
+\textbf{Software Stack:}
+\begin{itemize}
+    \item PyTorch with CUDA support
+    \item HuggingFace Transformers and PEFT libraries
+    \item Custom OpenVLA framework components
+    \item PEFT 0.11.1, PyTorch 2.0+, Transformers 4.30+, fastdtw 0.3.4
+\end{itemize}
+
+\section{Offline Checkpoint Selection via Validation Metrics}
+\label{sec:ckpt-selection}
+
+\subsection{Motivation}
+
+Each closed-loop evaluation of a fine-tuned checkpoint in the LIBERO simulator is
+expensive: a single \texttt{libero\_goal} evaluation (10 tasks $\times$ 10 trials
+$= 100$ rollouts) takes $40$--$75$ minutes on one H200 GPU. It is therefore
+infeasible to roll out every saved checkpoint. Instead, we ask whether a
+\emph{cheap offline validation metric}---computed on a held-out demonstration
+split every $500$ optimizer steps without any environment interaction---can serve
+as an \emph{early-stopping signal} that selects, from among all checkpoints, the
+one that maximizes downstream task success. Our central hypothesis is that a
+\emph{shape-aware trajectory metric} (Dynamic Time Warping) is a near-optimal,
+zero-regret early-stopping signal, whereas a conventional \emph{per-step loss}
+is not.
+
+\subsection{Experimental Setup}
+
+We study the run \texttt{MERGED\_33999\_continuous\_7\_8}, a continual LoRA
+fine-tuning of OpenVLA-7B on \texttt{libero\_goal\_no\_noops} carried out as four
+sequential segments to $34{,}000$ optimizer steps, with a checkpoint persisted
+every $500$ steps ($68$ checkpoints, $\theta_0,\dots,\theta_K$). Validation is run
+every $500$ steps on the \emph{full} fixed stratified $80/10/10$ split
+(\texttt{data\_split\_seed}$=0$, comparable across checkpoints), yielding for each
+checkpoint $k$ a vector of offline metrics $\bar m(k)$. A subset of
+$|\mathcal{K}_{\mathrm{eval}}| = 11$ checkpoints was additionally rolled out in the
+simulator, giving a measured success rate $Q(k)\in[0,1]$ per evaluated checkpoint.
+
+We consider two families of offline metrics:
+\begin{itemize}
+  \item \textbf{Shape / distributional metrics:} length-normalized DTW distance
+  (Eq.~\ref{eq:dtw-again}), entropic optimal-transport (OT) distance between the
+  predicted and ground-truth action sets, cosine distance
+  $1-\overline{\cos}(\mathbf a_{\mathrm{pred}},\mathbf a_{\mathrm{gt}})$, and the
+  per-token action negative log-likelihood (NLL).
+  \item \textbf{Per-step loss baselines:} the validation cross-entropy
+  $\mathrm{CE}$ (the training objective of Eq.~\ref{eq:ce-loss}, evaluated on the
+  validation split), and the $L_1$ and $L_2$ regression losses on the decoded
+  continuous actions.
+\end{itemize}
+For completeness we restate the trajectory metric:
+\begin{equation}
+\label{eq:dtw-again}
+\bar m_{\mathrm{DTW}}(k) \;=\; \mathbb{E}_{\tau\in\mathcal{V}}
+\!\left[\frac{\mathrm{DTW}\!\left(\mathbf a^{\tau}_{\mathrm{pred}}(k),\,
+\mathbf a^{\tau}_{\mathrm{gt}}\right)}{\min\!\left(|\mathbf a^{\tau}_{\mathrm{pred}}|,
+|\mathbf a^{\tau}_{\mathrm{gt}}|\right)}\right],
+\end{equation}
+averaged over the validation trajectories $\tau\in\mathcal{V}$. All offline metrics
+are oriented so that \emph{lower is better}.
+
+\subsection{Early-Stopping Selection Rule}
+
+Given the metric curve $\{\bar m(k)\}_{k}$ over all checkpoints, metric $m$ selects a
+checkpoint by a tolerance-based early-stopping rule: it returns the \emph{earliest}
+checkpoint whose metric comes within a small band of the global optimum,
+\begin{align}
+\eta_m &= \tau\,\bigl|\bar m(0) - \min_j \bar m(j)\bigr|, \qquad \tau = 0.01, \\
+k^*_m &= \min\Bigl\{\,k \;:\; \bar m(k) \le \min_j \bar m(j) + \eta_m \,\Bigr\}.
+\label{eq:earlystop}
+\end{align}
+The ``earliest-within-tolerance'' criterion (rather than the global $\arg\min$)
+rewards a metric that reaches its plateau \emph{early}, which is the operationally
+relevant behaviour for early stopping. It also explains why DTW selects step
+$21{,}499$ rather than the marginally lower-DTW final checkpoint $33{,}999$.
+
+\subsection{Metric Quality: Rank Correlation and Regret}
+
+We score each offline metric against the downstream success rate on the evaluated
+checkpoints $\mathcal{K}_{\mathrm{eval}}$ using two complementary criteria. The
+first is the rank correlation between the (better-is-lower) metric and success,
+\begin{equation}
+\rho_m \;=\; \operatorname{SpearmanCorr}\bigl(-\bar m(k),\, Q(k)\bigr)_{k\in\mathcal{K}_{\mathrm{eval}}},
+\label{eq:rho}
+\end{equation}
+so that $\rho_m>0$ means the metric ranks checkpoints in the same order as task
+success. The second is the \emph{regret} incurred by trusting the metric's pick,
+\begin{equation}
+R_m \;=\; \max_{k\in\mathcal{K}_{\mathrm{eval}}} Q(k)\; -\; Q\!\left(k^*_m\right),
+\label{eq:regret}
+\end{equation}
+i.e. the success rate lost relative to the best evaluated checkpoint; $R_m = 0$
+means the metric selected a genuinely optimal checkpoint.
+
+\subsection{Robustness Protocol}
+
+To test whether the headline conclusion is an artifact of a single degenerate data
+point or of naive statistics, we harden the analysis in four ways.
+\begin{enumerate}
+  \item \textbf{Outlier removal.} The step-$499$ checkpoint is effectively untrained
+  ($Q=0.00$) and dominates any rank statistic. We recompute $\rho_m$ and $R_m$ both
+  on all $11$ checkpoints and on the reduced set with step $499$ removed---which,
+  because the next-lowest success rate is $0.48$, is identical to the restriction
+  $Q>0.4$ ($n=10$)---and additionally on the tight ``good-checkpoint cluster''
+  $Q>0.6$ ($n=8$).
+  \item \textbf{Loss baseline.} We add the per-step $\mathrm{CE}$, $L_1$, and $L_2$
+  losses as parallel rows so that the shape metrics are compared against, not merely
+  reported alongside, a conventional loss-based early-stopping signal. These losses
+  are recovered from the four continual runs' Weights \& Biases records and aligned
+  to global training steps by exact DTW matching against the local metric history.
+  \item \textbf{Tie-corrected Spearman.} We use average-rank Spearman correlation,
+  which correctly handles ties in the success rate (e.g. $Q=0.73$ occurs twice); this
+  lowers the point estimates by $\approx 0.02$ relative to the ordinal-rank
+  implementation.
+  \item \textbf{Bootstrap confidence intervals.} For every metric and subset we
+  report a percentile $95\%$ confidence interval on $\rho_m$ obtained by resampling
+  the paired $(\bar m(k),Q(k))$ checkpoints with replacement ($B=10{,}000$).
+\end{enumerate}
+
+\subsection{Results}
+
+Table~\ref{tab:metric-ranking} reports the selection and correlation results on the
+robustness-focused set ($Q>0.4$, $n=10$). On the full $11$-checkpoint set the
+procedure reproduces the original selection report exactly (selected checkpoints
+$21{,}499$, $28{,}499$, $33{,}999$ and regrets $0.00$, $0.05$, $0.04$).
+
+\begin{table}[h]
+\centering
+\caption{Offline metric ranking on the $Q>0.4$ checkpoint set ($n=10$). $k^*_m$ is
+the early-stopping selection (Eq.~\ref{eq:earlystop}), $R_m$ the regret
+(Eq.~\ref{eq:regret}), $\rho_m$ the tie-corrected Spearman correlation
+(Eq.~\ref{eq:rho}) with its $95\%$ bootstrap interval. $^{\dagger}$: the selected
+checkpoint was never rolled out, so its regret is unknown.}
+\label{tab:metric-ranking}
+\begin{tabular}{llcccc}
+\hline
+Metric & Type & $k^*_m$ & $R_m$ & $\rho_m$ & $95\%$ CI \\
+\hline
+Cosine distance & shape & $28{,}499$ & $0.05$ & $0.84$ & $[0.41,\,0.99]$ \\
+DTW distance    & shape & $21{,}499$ & $\mathbf{0.00}$ & $0.78$ & $[0.33,\,0.97]$ \\
+OT distance     & shape & $33{,}999$ & $0.04$ & $0.78$ & $[0.32,\,0.96]$ \\
+Action NLL      & prob. & $33{,}999$ & $0.04$ & $0.75$ & $[0.24,\,0.95]$ \\
+CE loss         & loss  & $33{,}999$ & $0.04$ & $0.75$ & $[0.24,\,0.96]$ \\
+$L_1$ loss      & loss  & $29{,}999^{\dagger}$ & --- & $0.78$ & $[0.31,\,0.96]$ \\
+$L_2$ loss      & loss  & $21{,}499$ & $\mathbf{0.00}$ & $0.78$ & $[0.32,\,0.96]$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+% figures generated in runs/MERGED_33999_continuous_7_8/{spearman_forest.png, regret_selection.png}
+\includegraphics[width=\linewidth]{spearman_forest.png}
+\caption{Spearman correlation $\rho_m$ (point) with $95\%$ bootstrap confidence
+interval (bar) between each offline metric and LIBERO success, on the
+$11$-, $10$- ($Q>0.4$), and $8$-checkpoint ($Q>0.6$) sets. Per-step loss baselines
+are marked with an asterisk. The intervals overlap heavily across all metrics; in
+the $Q>0.6$ cluster they include zero.}
+\label{fig:forest}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{regret_selection.png}
+\caption{Left: the checkpoint selected by each early-stopping signal, overlaid on
+the success-rate curve. DTW and the $L_2$ loss select the true-best checkpoint
+($21{,}499$, $Q=0.78$); the CE loss and NLL overshoot to the final checkpoint
+($33{,}999$). Right: the corresponding regret $R_m$.}
+\label{fig:regret}
+\end{figure}
+
+\subsection{Discussion}
+
+Three conclusions follow. \emph{(i)} DTW is a zero-regret selector: it identifies
+the genuinely best checkpoint ($21{,}499$, $Q=0.78$) in every subset
+(Fig.~\ref{fig:regret}), and it strictly dominates the conventional token-level
+losses, since both the cross-entropy and the NLL overshoot to the final checkpoint
+and incur $R=0.04$. This supports the hypothesis for the standard training-objective
+loss. \emph{(ii)} However, the stronger reading ``per-step loss is \emph{not} a good
+signal'' must be qualified: the $L_2$ regression loss on decoded actions also attains
+$R=0.00$, matching DTW, and the $L_1$ loss selects an un-evaluated checkpoint
+($29{,}999$) whose regret cannot be scored without an additional rollout.
+\emph{(iii)} Most importantly, with only $n=10$--$11$ rolled-out checkpoints the
+bootstrap intervals on $\rho_m$ are wide and mutually overlapping
+(Fig.~\ref{fig:forest}); DTW ($\rho=0.78$, CI $[0.33,0.97]$) is \emph{not}
+statistically separable from the CE-loss baseline ($\rho=0.75$, CI $[0.24,0.96]$),
+and within the $Q>0.6$ cluster no metric has an interval that excludes zero. The
+correlation evidence is therefore directionally consistent with the hypothesis but
+statistically underpowered---the limiting factor is the number of expensive
+rollouts, not the metric itself.
+
+\subsection{Limitations and Future Work}
+
+The analysis is bounded by the $11$ available closed-loop evaluations, each estimated
+from $100$ rollouts (binomial standard error $\approx 0.05$ at $Q\approx0.75$), so
+success-rate differences among the top checkpoints lie within noise. Tightening the
+confidence intervals requires either more evaluated checkpoints or more trials per
+checkpoint---preferably concentrated on a metric-shortlisted top-$k$ rather than a
+uniformly finer grid. A second direction is an \emph{executed-horizon} variant of the
+shape metrics, computing DTW/OT/cosine over only the first $h$ executed actions of
+each trajectory (e.g. $h=5$) rather than the full sequence, to better reflect the
+closed-loop replanning regime; because the per-trajectory action arrays are not
+persisted during training, this requires re-running validation inference on each
+checkpoint and is left to future work.

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 756, in <module>
+    finetune()
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/draccus/argparsing.py", line 203, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 488, in finetune
+    if distributed_state.is_main_process and gradient_step_idx % 10 == 0:
+UnboundLocalError: local variable 'gradient_step_idx' referenced before assignment

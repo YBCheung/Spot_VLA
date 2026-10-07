@@ -1,4 +1,16 @@
 experiments
+logs
 prismatic
+<<<<<<< HEAD
+=======
+rollouts
+runs
+sbatch
+>>>>>>> 0c594b1 (final thesis)
 scripts
+trajectory_logs
 vla-scripts
+<<<<<<< HEAD
+=======
+wandb
+>>>>>>> 0c594b1 (final thesis)

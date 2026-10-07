@@ -6,6 +6,14 @@ import time
 
 import numpy as np
 import tensorflow as tf
+
+# TF is only used here for CPU-side image preprocessing (center-crop). Without this, TF
+# grabs the GPU on first use and collides with PyTorch's existing CUDA context on the same
+# device, which aborts the process with an uncatchable SIGABRT (signal 6) instead of a
+# Python exception -- this is what was causing every eval episode to die with 0 steps and
+# no logged error.
+tf.config.set_visible_devices([], "GPU")
+
 import torch
 from PIL import Image
 from transformers import AutoConfig, AutoImageProcessor, AutoModelForVision2Seq, AutoProcessor
@@ -86,13 +94,25 @@ def get_vla(cfg):
     if cfg.load_from_adapter:
         # Load base VLA and adapter.
         print("[*] Loading base VLA model and adapter")
+        assert cfg.vla_path is not None, "cfg.vla_path must be set when load_from_adapter=True"
+        assert cfg.adapter_dir is not None, "cfg.adapter_dir must be set when load_from_adapter=True"
         
         # Load base VLA
+        # NOTE: trust_remote_code=False is intentional here. We've already registered our
+        # local (modified) OpenVLAConfig/OpenVLAForActionPrediction classes above, which
+        # include the `predict_action` change that also returns per-token log-likelihoods
+        # (needed for NLL). If trust_remote_code=True, transformers ignores the local
+        # registration and dynamically loads the original, unmodified modeling code cached
+        # from the HF Hub repo, whose `predict_action` returns only `actions` -- breaking the
+        # `action, token_log_likelihood = vla.predict_action(...)` unpacking in get_vla_action().
         base_vla = AutoModelForVision2Seq.from_pretrained(
-            cfg.vla_path,  # Use cfg.vla_path instead of cfg.pretrained_checkpoint
+            cfg.vla_path,
+            # attn_implementation="flash_attention_2",
             torch_dtype=torch.bfloat16,
+            load_in_8bit=cfg.load_in_8bit,
+            load_in_4bit=cfg.load_in_4bit,
             low_cpu_mem_usage=True,
-            trust_remote_code=True,
+            trust_remote_code=False,
         )
 
         # Merge adapter
@@ -102,15 +122,15 @@ def get_vla(cfg):
 
     else:
         vla = AutoModelForVision2Seq.from_pretrained(
-            cfg.pretrained_checkpoint,
-            attn_implementation="flash_attention_2",
+            cfg.vla_path,
+            # attn_implementation="flash_attention_2",
             torch_dtype=torch.bfloat16,
             load_in_8bit=cfg.load_in_8bit,
             load_in_4bit=cfg.load_in_4bit,
             low_cpu_mem_usage=True,
-            trust_remote_code=True,
+            trust_remote_code=False,
         )
-        dataset_statistics_path = os.path.join(cfg.pretrained_checkpoint, "dataset_statistics.json")
+        dataset_statistics_path = os.path.join(cfg.adapter_dir, "dataset_statistics.json")
         
 
     # Move model to device.
@@ -136,7 +156,8 @@ def get_vla(cfg):
 
 def get_processor(cfg):
     """Get VLA model's Hugging Face processor."""
-    processor = AutoProcessor.from_pretrained(cfg.pretrained_checkpoint, trust_remote_code=True)
+    processor_path = cfg.adapter_dir
+    processor = AutoProcessor.from_pretrained(processor_path, trust_remote_code=True)
     return processor
 
 
@@ -228,5 +249,13 @@ def get_vla_action(vla, processor, base_vla_name, obs, task_label, unnorm_key, c
     inputs = processor(prompt, image).to(DEVICE, dtype=torch.bfloat16)
 
     # Get action.
-    action = vla.predict_action(**inputs, unnorm_key=unnorm_key, do_sample=False)
-    return action
+    # NOTE: Depending on whether `trust_remote_code` resolved to the locally modified
+    # `OpenVLAForActionPrediction` (returns `(actions, token_log_likelihood)`) or the
+    # original Hub-cached modeling code (returns just `actions`), `predict_action` may
+    # or may not return a 2-tuple. Handle both so eval doesn't crash on every step.
+    result = vla.predict_action(**inputs, unnorm_key=unnorm_key, do_sample=False)
+    if isinstance(result, tuple):
+        action, token_log_likelihood = result
+    else:
+        action, token_log_likelihood = result, None
+    return action, token_log_likelihood

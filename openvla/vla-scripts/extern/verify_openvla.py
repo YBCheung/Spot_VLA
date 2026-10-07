@@ -81,7 +81,7 @@ def verify_openvla() -> None:
 
         # Run OpenVLA Inference
         start_time = time.time()
-        action = vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
+        action, _ = vla.predict_action(**inputs, unnorm_key="bridge_orig", do_sample=False)
         print(f"\t=>> Time: {time.time() - start_time:.4f} || Action: {action}")
 
 

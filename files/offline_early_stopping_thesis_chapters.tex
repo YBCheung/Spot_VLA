@@ -1,0 +1,918 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2em, topsep=0.2em}
+\setlist[enumerate]{leftmargin=1.7em, itemsep=0.3em, topsep=0.3em}
+
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+
+\begin{document}
+
+\begin{abstract}
+Vision-language-action models (VLAs) are typically fine-tuned for a fixed number of training steps
+without an explicit validation-based stopping criterion, because training loss is a poor proxy for
+closed-loop task performance and online rollout evaluation is too expensive to run at every checkpoint.
+This work benchmarks offline validation metrics --- Dynamic Time Warping, Optimal Transport, cosine
+distance, and an architecture-appropriate likelihood or loss surrogate --- as early-stopping signals
+across five LoRA fine-tuning runs of three VLA architectures: the discrete-token OpenVLA and the
+flow-matching SmolVLA and $\pi_{0.5}$. Each metric is scored against closed-loop LIBERO-goal success by
+rank correlation, selection regret, and bootstrap confidence interval. Trajectory-similarity metrics
+correlate positively with closed-loop success in every run ($\rho=0.28$--$0.90$), reliably identify the
+converged training region, and support low-regret early-stopping checkpoint selection. Likelihood- and
+loss-based surrogates are reliable only for the discrete-token architecture, and are weak or uninformative
+for the flow-matching policies. No catastrophic action-quality overtraining is observed in any run, and at
+the sample sizes available, statistical power rather than metric identity is usually the binding
+constraint on how finely individual metrics can be ranked.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Motivated by the capacity of foundation models to generalize across many tasks and domains, applying
+foundation models to robotic manipulation has become an active and rapidly growing area of research
+\cite{vlasurvey}. A Visual Language Model (VLA) is a large-scale generative model for robotic
+manipulation that perceives its environment and task from multimodal inputs --- images, proprioceptive
+state, and language instructions --- and outputs actions that interact with the environment to achieve a
+specified goal. Such models are designed to adapt to real-time changes in the environment and to
+generalize across tasks, environments, objects, and robot embodiments.
+
+Training an VLA is typically framed as an imitation-learning problem, a form of supervised learning in
+which a policy is trained to reproduce expert demonstrations. As in any supervised setting, each training
+step updates the model's parameters and thereby its performance, so training must be stopped at an
+appropriate point: too many steps risk overfitting, and too few risk underfitting \cite{ying2019overview}.
+The number of steps required for convergence is affected by several interacting factors ---
+dataset size, learning rate, batch size, etc. Thus, a fixed training budget chosen in
+advance is not guaranteed to coincide with the point of best generalization. State-of-the-art
+VLAs~\cite{kim2024openvla,shukor2025smolvla,black2024pi0} are typically fine-tuned for a fixed number of
+steps with no explicit validation-based stopping criterion. As a solution, early stopping is a widely used technique in supervised learning, 
+which involves monitoring a validation metric throughout training and retaining the checkpoint where the metric
+ is best \cite{goodfellow2016deep}. 
+
+Introducing early stopping for VLAs therefore requires validation metrics that can quantitatively track
+model performance throughout training without relying on training loss alone. The most direct ground
+truth is the task success rate observed by executing the policy online, in closed loop with the
+environment. Online evaluation is, however, expensive and slow, risks damaging physical hardware before a
+policy reaches an acceptable performance level, and is impractical to repeat at every one of the
+potentially hundreds of thousands of steps a fine-tuning run may take. Offline validation offers a
+middle ground: cheaper and faster than an online rollout, yet more predictive of downstream quality than
+training loss alone, because it measures the output action similarity to expert demonstrations on a different distribution with the training set following the standard evaluation
+setting of imitation learning, while avoid expensive interaction with the environment \cite{il}. Several such metrics are already used, in
+one form or another, by existing VLAs: (1)~cross-entropy loss measures the divergence between the
+predicted and ground-truth distributions over discrete action tokens; (2)~token-wise accuracy is
+the fraction of predicted action tokens that exactly match their ground-truth counterparts; and
+(3)~$L_1$/$L_2$ loss measures the absolute or squared difference between the predicted and
+ground-truth action. All three, however, score actions independently at each individual time step and therefore cannot capture the temporal structure of
+a trajectory: they are blind to the sequential dependencies and continuity that characterize a physically
+realizable robot motion. Addressing this limitation requires metrics that jointly consider the spatial and
+temporal structure of a trajectory as a whole. Dynamic Time Warping (DTW)~\cite{dtw_il}, Optimal Transport
+(OT)~\cite{ot_il}, and trajectory smoothness~\cite{smoothness_il} are three such metrics already used
+elsewhere in imitation-learning evaluation while not for VLA validation, each capturing temporal alignment, geometric similarity, or
+motion continuity over an entire trajectory rather than at a single step, and are consequently promising candidates for offline checkpoint
+selection in VLA fine-tuning. 
+
+This work benchmarks offline early-stopping metrics against the closed-loop success rate they are
+intended to predict, across three representative VLA architectures --- the discrete-token
+OpenVLA~\cite{kim2024openvla} and the flow-matching SmolVLA~\cite{shukor2025smolvla} and
+$\pi_{0.5}$~\cite{black2025pi05} --- fine-tuned with LoRA on the LIBERO-goal benchmark
+\cite{liu2023libero} under five training configurations spanning both architecture and training-set size
+(Table~\ref{tab:runs}, \S\ref{sec:implementation-runs}). Of the candidate metrics surveyed above, this
+study focuses on DTW, OT, and cosine distance --- which admit a natural, model-agnostic definition
+applicable identically to discrete-token and flow-matching policies alike --- together with each
+architecture's most appropriate likelihood or loss surrogate, such as token negative log-likelihood, $L_1$/$L_2$,
+or the flow-matching validation loss. Concretely, \S\ref{sec:method} formalizes these metrics together with the
+early-stopping rule, the rank-correlation and regret statistics used to score a metric against closed-loop
+success, and a bootstrap procedure for quantifying how much of any apparent metric ranking is attributable
+to sampling noise; \S\ref{sec:implementation} details how this protocol was instantiated for the three
+architectures; and \S\ref{sec:results} reports which offline metrics track closed-loop success most
+reliably, whether they can be trusted to detect training convergence and select a low-regret checkpoint,
+and where --- architecturally or statistically --- that trust breaks down.
+
+\bigskip
+\noindent\textit{Sections 2 and 3 (related work and background) are omitted from this excerpt. The
+remainder of this chapter presents method (\S\ref{sec:method}), implementation
+(\S\ref{sec:implementation}), and results (\S\ref{sec:results}).}
+
+\setcounter{section}{3}
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Problem Statement and Notation}
+\label{sec:method-notation}
+
+Fine-tuning a VLA policy produces a sequence of checkpoints $\theta_0,\theta_1,\dots,\theta_K$, each
+inducing a policy $\pi_k=\pi_{\theta_k}$. Selecting which checkpoint to deploy is an early-stopping
+problem: the only trustworthy signal of deployment quality is closed-loop task success $Q(k)$, but
+measuring $Q(k)$ for every checkpoint requires either a real robot or a costly simulator rollout. This
+chapter's central question is therefore
+\begin{quote}
+  \emph{which offline validation metric, computed cheaply from held-out demonstration data at every
+  checkpoint, best predicts the closed-loop success rate $Q(k)$ that would be observed only by
+  evaluating that checkpoint online?}
+\end{quote}
+We write $A^\star=(a^\star_0,\dots,a^\star_{H-1})$ for an expert action chunk of horizon $H$ drawn from
+a held-out validation trajectory, and $A_k$ for the corresponding chunk produced by checkpoint $k$. For
+a one-step (token-autoregressive) policy such as OpenVLA, $A_k$ is formed by \emph{teacher forcing}: the
+policy is queried at every expert state $h^\star_{t+j}$ along the window, $a_{k,j}=\pi_k(\,\cdot\mid
+h^\star_{t+j})$. For a chunking policy such as SmolVLA or $\pi_{0.5}$, $A_k=\pi_k(\cdot\mid h^\star_t)$
+is produced natively as a single forward pass. Both settings measure open-loop action quality on expert
+inputs; neither captures closed-loop compounding error, a scope limitation discussed in
+\S\ref{sec:implementation-deviations}.
+
+\subsection{Offline Validation Metrics}
+\label{sec:method-metrics}
+
+Four families of metric are considered, all normalized so that \emph{lower is better}. Actions are
+standardized per dimension using training-split statistics before any distance is computed,
+$\bar a_d=(a_d-\mu_d)/(\sigma_d+\epsilon)$, so that translation, rotation, and gripper channels
+contribute comparably.
+
+\paragraph{Dynamic Time Warping (DTW).} DTW admits nonlinear temporal alignment between two sequences,
+which is appropriate when the same underlying behavior may be executed at a slightly different pace
+\cite{sakoe1978dtw}. With pointwise cost $c(u,v)=\lVert u-v\rVert_2^2$ and $\Gamma$ ranging over
+monotone warping paths,
+\begin{equation}
+  D_{\mathrm{DTW}}(X,Y) = \frac{1}{|\Gamma^\star|}\min_{\Gamma}\sum_{(r,u)\in\Gamma} c(x_r,y_u).
+  \label{eq:dtw}
+\end{equation}
+
+\paragraph{Optimal Transport (OT).} Where DTW enforces a single monotone correspondence, entropic OT
+compares the two sequences as empirical distributions over their elements, admitting soft many-to-many
+correspondence \cite{cuturi2013sinkhorn}. With $p,q$ uniform over the sequence elements and $\Pi(p,q)$
+the transport polytope,
+\begin{equation}
+  D^{\varepsilon}_{\mathrm{OT}}(X,Y) = \min_{\Gamma\in\Pi(p,q)} \sum_{r,u}\Gamma_{ru}\,c(x_r,y_u)
+    + \varepsilon\sum_{r,u}\Gamma_{ru}\big(\log\Gamma_{ru}-1\big).
+  \label{eq:ot}
+\end{equation}
+
+\paragraph{Cosine distance.} Cosine distance discards magnitude and measures only directional
+agreement per timestep,
+\begin{equation}
+  D_{\cos}(X,Y) = 1-\frac{1}{H}\sum_{j=0}^{H-1}\frac{x_j^\top y_j}{\lVert x_j\rVert_2\lVert y_j\rVert_2+\epsilon}.
+  \label{eq:cos}
+\end{equation}
+Because it is magnitude-blind it is used only in conjunction with, never in place of, the metrics above.
+
+\paragraph{Likelihood and architecture-specific surrogates.} The methodologically correct quantity is
+the log-likelihood the policy assigns to the \emph{expert} action under the \emph{expert} state,
+$\log\pi_k(a^\star_t\mid h^\star_t)$, not the likelihood of the policy's own rollout (an overconfident
+but wrong policy can assign high likelihood to its own errors). Not every architecture exposes a
+tractable likelihood, so the correct surrogate is architecture-dependent: token negative log-likelihood
+for a discrete-token policy, $L_1$/$L_2$ validation error for a deterministic continuous policy, and the
+validation flow-matching (or diffusion) objective for a flow-matching policy. This distinction is
+load-bearing for the results in \S\ref{sec:results}: OpenVLA's NLL is a genuine token log-likelihood,
+whereas SmolVLA's and $\pi_{0.5}$'s ``NLL'' is the flow-matching validation loss standing in for one,
+reported under the same key so the two are visually comparable but are not the same statistical object.
+
+\subsection{Trajectory-Level Aggregation and Task-Discriminative Validity}
+\label{sec:method-taskdisc}
+
+A metric computed on a single $H$-step chunk is a high-variance, low-context sample of a trajectory that
+may span hundreds of steps. Two aggregation strategies were compared before adopting one for the
+checkpoint-level score $\bar m(k)$: \textbf{(A) single-chunk}, which scores one chunk in isolation, the
+atomic unit an online chunking rollout actually executes; and \textbf{(B) trajectory-level}, which
+represents a trajectory by its ordered sequence of non-overlapping $H$-step chunks and compares two
+trajectories \emph{window-by-window at aligned positions}, averaging the per-window distance.
+
+Neither estimator's quality can be assumed; both must first satisfy a prerequisite that is
+model-independent and precedes any question about success correlation: a validation distance is
+uninformative about action quality unless it can already tell that two \emph{ground-truth} trajectories
+of the \emph{same} task are more similar to one another than to trajectories of a \emph{different} task.
+This is measured directly. Held-out chunks are partitioned by task and source trajectory; for each metric
+we draw $N_{\mathrm{intra}}$ pairs of chunks from the same task but different trajectories, and
+$N_{\mathrm{inter}}$ pairs from different tasks, and compute
+\begin{equation}
+  \mathrm{AUROC} = \Pr\big(d_{\mathrm{inter}} > d_{\mathrm{intra}}\big),
+  \qquad
+  d_{\mathrm{Cohen}} = \frac{\mu_{\mathrm{inter}}-\mu_{\mathrm{intra}}}{\sigma_{\mathrm{pooled}}},
+  \label{eq:taskdisc}
+\end{equation}
+where $\mathrm{AUROC}=0.5$ indicates chance separation (no task information in the metric) and
+$\mathrm{AUROC}=1.0$ indicates perfect separation. This test is applied identically under estimators (A)
+and (B); whichever is more task-discriminative on ground truth is adopted for every $\bar m(k)$ reported
+in \S\ref{sec:results}.
+
+\subsection{Early-Stopping Selection Rule}
+\label{sec:method-selection}
+
+Given a checkpoint-level score $\bar m(k)$, the induced early-stopping rule selects the \emph{earliest}
+checkpoint within a small tolerance of the metric's best observed value, rather than the checkpoint that
+literally minimizes $\bar m$ (which would overfit to a single noisy point):
+\begin{equation}
+  k_m^\star = \min\Big\{k : \bar m(k) \le \min_j \bar m(j) + \eta_m\Big\}, \qquad
+  \eta_m = 0.01\,\big|\bar m(0)-\min_j \bar m(j)\big|.
+  \label{eq:selection}
+\end{equation}
+For a metric that is higher-is-better (token accuracy is the only such case in this study) the
+inequality and the arguments to $\min$/$\max$ in Eq.~\ref{eq:selection} are reversed.
+
+\subsection{Evaluating a Metric: Rank Correlation and Selection Regret}
+\label{sec:method-eval}
+
+A candidate metric $m$ is judged against the closed-loop success curve $Q(k)$ by two complementary
+statistics, computed only over the checkpoints at which both $\bar m(k)$ and $Q(k)$ are available:
+\begin{equation}
+  \rho_m = \mathrm{Spearman}\big(-\bar m(k),\,Q(k)\big),
+  \qquad
+  \mathrm{Regret}(m) = \max_k Q(k) - Q\big(k_m^\star\big).
+  \label{eq:rho-regret}
+\end{equation}
+Spearman rank correlation \cite{spearman1904} is preferred to a parametric correlation because the
+relationship between a validation distance and a bounded success rate is monotone but not linear.
+$\rho_m$ near $+1$ indicates that the metric ranks checkpoints in the same order as closed-loop success;
+$\mathrm{Regret}(m)$ is the success forgone, in absolute percentage points, by trusting the metric's
+selection $k_m^\star$ instead of the checkpoint that was in fact best. A good metric has high $\rho_m$
+and low regret; the two need not agree in every instance, since regret depends on where $Q$ happens to be
+noisy near $k_m^\star$, while $\rho_m$ aggregates over the whole curve.
+
+\subsection{The Plateau Regime: A Restriction-of-Range Diagnostic}
+\label{sec:method-plateau}
+
+A single $\rho_m$ computed over an entire training run conflates two qualitatively different regimes: an
+early regime in which both $\bar m(k)$ and $Q(k)$ change rapidly as the policy leaves initialization, and
+a later, converged regime in which $\bar m(k)$ has plateaued and any residual variation in $Q(k)$ is
+plausibly dominated by simulator evaluation noise. To separate the two, each run's \emph{knee} is defined
+as the first checkpoint at which DTW has completed $90\%$ of its total descent,
+\begin{equation}
+  k_{\mathrm{knee}} = \min\Big\{k : \bar m_{\mathrm{DTW}}(k) \le m_{\min} + 0.1\big(\bar
+  m_{\mathrm{DTW}}(0)-m_{\min}\big)\Big\}, \qquad m_{\min}=\min_j \bar m_{\mathrm{DTW}}(j).
+  \label{eq:knee}
+\end{equation}
+$\rho_{\mathrm{DTW}}$ is then recomputed twice: once over the full evaluated range, and once restricted
+to $\{k\ge k_{\mathrm{knee}}\}$, the \emph{converged plateau}. A metric that is only a coarse
+regime-separator (untrained vs. converged) will show a large drop between the two; a metric that retains
+fine-grained discriminative power inside the plateau will not. This diagnostic is what allows the
+results in \S\ref{sec:results-plateau} to distinguish ``the metric stopped tracking success'' from ``the
+evaluation schedule under-sampled a noisy, low-signal region.''
+
+\subsection{Statistical Inference: Bootstrap Confidence Intervals}
+\label{sec:method-bootstrap}
+
+Every $\rho_m$ above is a point estimate computed from as few as $11$ and at most $33$ simulator
+evaluations per run, each itself a $\pm5\%$-noisy $100$-episode Bernoulli success-rate estimate. Reading
+an ordering directly off point estimates (``metric $A$ beats metric $B$'') risks over-interpreting
+sampling noise. We attach a percentile bootstrap confidence interval to every $\rho_m$
+\cite{efron1979bootstrap,efron1993bootstrap}: for each run, its evaluated checkpoints are resampled with
+replacement $B=10{,}000$ times, a tie-corrected Spearman correlation is recomputed on each resample, and
+the central $95\%$ interval is reported together with $\Pr(\rho_m>0)$. To compare two metrics within a
+run without their mutual correlation confounding the test, the \emph{same} bootstrap resample is used for
+both and the paired difference $\Delta\rho=\rho_A-\rho_B$ is reported over the checkpoints they share.
+This yields three tiers of claim, from weakest to strongest: a metric's point-estimate $\rho_m$; whether
+that $\rho_m$'s CI excludes zero (a significant association with success); and whether a paired
+$\Delta\rho$ CI excludes zero (a significant \emph{ordering} between two metrics). Only the last licenses
+a claim of the form ``metric $A$ is better than metric $B$.''
+
+\section{Experiment Implementation}
+\label{sec:implementation}
+
+\subsection{Source Protocol}
+\label{sec:implementation-source}
+
+The methodology of \S\ref{sec:method} was specified, prior to implementation, in two internal protocol
+documents: an initial specification, \texttt{wenyan\_experiment\_instruction.tex}, and a subsequent
+refinement, \texttt{refined\_experiment\_instruction.tex}, which formalizes the same protocol with
+explicit dataset notation ($\mathcal D=\mathcal D_{\mathrm{train}}\cup\mathcal D_{\mathrm{val}}\cup
+\mathcal D_{\mathrm{test}}$), two evaluation modes (Mode~A, action-chunk comparison, and Mode~B,
+closed-loop state-action rollout against a learned world model), and two output-table templates (a
+per-checkpoint \emph{metric curve table} and a per-metric \emph{ranking table}). Table~\ref{tab:impl-steps}
+reproduces the refined protocol's six-step experimental procedure and states, for each step, how it was
+realized in this study; the subsections that follow (\S\ref{sec:implementation-models}--\S\ref{sec:implementation-sim})
+develop each realization in full.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{The six-step experimental procedure of the source protocol
+(\texttt{refined\_experiment\_instruction.tex}, \S\ref{sec:implementation-source}) and its realization in
+this study.}
+\label{tab:impl-steps}
+\begin{tabular}{p{1.6cm}p{5.6cm}p{6.3cm}}
+\toprule
+Step & Source protocol & Realized in this study \\
+\midrule
+1.\ Prepare data &
+Split the data into training, validation, and test sets; compute action-normalization statistics from
+the training set only; fix the evaluation horizon $H$ and window stride; save an identical set of
+validation windows for use with every checkpoint. &
+Stratified $80/10/10$ split by task under a fixed seed (\S\ref{sec:implementation-data}); $H{=}50$-step,
+phase-aligned, non-overlapping windows shared across every checkpoint and metric; actions normalized per
+dimension from training-split statistics only (\S\ref{sec:method-metrics}). \\
+2.\ Fine-tune and save checkpoints &
+Fine-tune each VLA model and save checkpoints $\theta_0,\theta_1,\ldots,\theta_K$ at fixed training
+intervals. &
+Five LoRA ($r{=}32$) fine-tuning runs across three architectures, logging $68$--$200$ checkpoints per run
+at fixed step intervals (Table~\ref{tab:runs}, \S\ref{sec:implementation-runs}). \\
+3.\ Action-chunk evaluation (Mode~A) &
+For each checkpoint, generate action chunks on the validation windows --- teacher-forced pseudo-chunks
+for one-step policies, native chunk outputs for chunking policies --- compute DTW, OT, cosine distance,
+and NLL or its architecture-correct surrogate, and aggregate over validation windows. &
+Implemented as specified for all three architectures (\S\ref{sec:implementation-mode}); DTW, OT, cosine,
+and NLL logged under identical keys across models, supplemented with cross-entropy, token accuracy, and
+$L_1$/$L_2$ where architecture-appropriate; aggregated at the trajectory level via the window-averaged
+estimator selected in \S\ref{sec:results-taskdisc}. \\
+4.\ World-model rollout evaluation (Mode~B) &
+If a world model is available, validate it on held-out trajectories, roll out each checkpoint from
+shared initial states, and compare the resulting state-action sequences with successful references using
+DTW, OT, and cosine distance. &
+\textbf{Not executed.} No world model was built or integrated; closed-loop rollout evaluation is
+therefore outside this study's scope (\S\ref{sec:implementation-deviations}). \\
+5.\ Choose checkpoints &
+For each metric, compute the selected checkpoint $k_m^\star$ and compare the selections across metrics. &
+$k_m^\star$ computed via Eq.~\ref{eq:selection} by \texttt{checkpoint\_selection.py} for every metric and
+run (\S\ref{sec:implementation-pipeline}); selections compared in \S\ref{sec:results-permodel}
+(Table~\ref{tab:rankings}). \\
+6.\ Rank metrics &
+Where downstream quality $Q(k)$ is available, rank metrics by Spearman correlation, selection regret,
+and stability under bootstrap resampling. &
+All three criteria computed for every run (\S\ref{sec:results-permodel}--\S\ref{sec:results-bootstrap});
+bootstrap stability (\S\ref{sec:method-bootstrap}) extends the source protocol's single-line request into
+a full paired-resampling analysis. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two components of this study fall outside the six-step procedure entirely, in the sense that neither
+document requests them: the task-discriminative-validity prerequisite of \S\ref{sec:method-taskdisc},
+established prior to Step~3 as a precondition for trusting any metric computed under it, and the
+combined multi-metric score of the source protocol's optional extension, which is not computed here
+since every metric in \S\ref{sec:results} is ranked individually.
+
+\subsection{Models}
+\label{sec:implementation-models}
+
+Three VLA architectures were fine-tuned, spanning both major action-generation paradigms in the current
+literature. \textbf{OpenVLA} \cite{kim2024openvla} is a $7$B-parameter discrete-token policy built on a
+Llama-2 backbone with a fused DINOv2/SigLIP visual encoder, autoregressively decoding actions as discrete
+tokens. \textbf{SmolVLA} \cite{shukor2025smolvla} is a $450$M-parameter flow-matching policy designed for
+efficient training and inference on consumer hardware. \textbf{$\pi_{0.5}$} \cite{black2025pi05} is a
+$3$B-parameter flow-matching policy from Physical Intelligence trained for open-world generalization. All
+three were adapted with Low-Rank Adaptation \cite{hu2021lora} at rank $r{=}32$, so that fine-tuning
+touches a small, comparable parameter budget across architectures of very different scale.
+
+\subsection{Benchmark and Task Suite}
+\label{sec:implementation-benchmark}
+
+All experiments use the LIBERO-goal task suite of the LIBERO benchmark \cite{liu2023libero}, ten
+manipulation tasks sharing a common scene and object set but differing in goal condition, in the
+MuJoCo-based LIBERO simulator. Closed-loop success $Q(k)$ is the fraction of successful rollouts over
+$100$ simulated episodes per checkpoint, spread across the ten tasks; at this sample size a single $Q(k)$
+estimate carries roughly $\pm5\%$ sampling noise, a figure used throughout \S\ref{sec:results} to
+interpret apparent differences between checkpoints.
+
+\subsection{Data Splits and Normalization}
+\label{sec:implementation-data}
+
+Each task's demonstrations are split $80/10/10$ into train/validation/test, stratified by task and fixed
+by a common random seed so that the same validation and test trajectories are held out across every
+run reported here, including the two runs deliberately trained on a $150$-trajectory subset of the
+training split (Table~\ref{tab:runs} below): capping only the \emph{training} split at $150$
+trajectories leaves the $44$ validation and $42$ test trajectories (on the $342$-trajectory task set)
+unchanged, so that validation-set metrics remain comparable between the $150$-trajectory and full-data
+runs. Actions are normalized per dimension using statistics computed on the training split only
+(\S\ref{sec:method-metrics}).
+
+\subsection{Fine-Tuning Configuration and the Five Runs}
+\label{sec:implementation-runs}
+
+Five fine-tuning runs are reported, summarized in Table~\ref{tab:runs}. The first four form a
+$2\times2$ design crossing architecture (discrete-token OpenVLA vs.\ flow-matching SmolVLA/$\pi_{0.5}$)
+with training-set size ($150$ vs.\ the full $342$ trajectories); the fifth, $\pi_{0.5}$-150, is a
+deliberate overtraining \emph{stress} run using an aggressive learning rate
+($3\times10^{-4}$, roughly $6\times$ the other runs') on the smaller $150$-trajectory subset, trained
+substantially past where the other runs stop.
+
+\begin{table}[h]
+\centering
+\caption{The five fine-tuning runs. All LIBERO-goal, LoRA $r{=}32$; $Q(k)$ is $100$-episode simulated
+success.}
+\label{tab:runs}
+\begin{tabular}{lllrrr}
+\toprule
+Run & Architecture & Train traj. & Checkpoints & Sim.\ evals & Peak $Q$ \\
+\midrule
+SmolVLA-150      & flow-matching (450M) & 150 & 200 (to 100k) & 18 & 0.68 \\
+OpenVLA-150      & discrete-token (7B)  & 150 & 79 (to 39.5k) & 19 & 0.83 \\
+OpenVLA-full     & discrete-token (7B)  & 342 & 68 (to 34k)   & 11 & 0.78 \\
+$\pi_{0.5}$-full & flow-matching (3B)   & 342 & 148 (to 73.5k)& 32 & 0.18$^\dagger$ \\
+$\pi_{0.5}$-150  & flow-matching (3B)   & 150 & 80 (to 40k)   & 28 & 0.38$^\dagger$ \\
+\bottomrule
+\end{tabular}
+\\[2pt]
+{\footnotesize $^\dagger$ Both $\pi_{0.5}$ runs' success is measured at the confounded open-loop action
+horizon $n_{\mathrm{action}}{=}50$ (the full predicted chunk is executed blind before replanning), which
+roughly halves LIBERO success relative to shorter replanning horizons; only the \emph{relative} ranking
+of metrics is meaningful for these two rows, not the absolute success level.}
+\end{table}
+
+\subsection{Evaluation Mode and Metric Instantiation}
+\label{sec:implementation-mode}
+
+Consistent with Mode~A of the source protocol (\S\ref{sec:implementation-source}), OpenVLA's action
+chunks are teacher-forced (AC-TF) and SmolVLA's and $\pi_{0.5}$'s are native chunk predictions
+(AC-Chunk). Every $\bar m(k)$ reported in \S\ref{sec:results} uses the trajectory-level, window-averaged
+estimator (B) of \S\ref{sec:method-taskdisc}, selected over the single-chunk estimator (A) on the basis
+of the task-discriminative-validity comparison reported in \S\ref{sec:results-taskdisc}.
+
+\subsection{Offline Metric Computation Pipeline}
+\label{sec:implementation-pipeline}
+
+Offline metrics are computed and logged during fine-tuning at fixed validation intervals by the
+fine-tuning scripts themselves, and cached per run in a \texttt{metrics\_history.json} record of
+$\{\text{step}, \{\text{metric}:\text{value}\}\}$. A dedicated \texttt{checkpoint\_selection.py} module
+(kept identical, i.e.\ ``in lockstep,'' between the OpenVLA and the SmolVLA/$\pi_{0.5}$ code paths) then
+implements Eq.~\ref{eq:selection} exactly, and a companion \texttt{select\_and\_eval\_checkpoints.py}
+script shells out to each framework's own simulator-evaluation entry point --- \texttt{run\_libero\_eval.py}
+for OpenVLA, the \texttt{lerobot-eval} CLI for the LoRA/PEFT SmolVLA and $\pi_{0.5}$ checkpoints --- to
+obtain $Q(k_m^\star)$ for the checkpoint each metric selects, caching results so that repeated analysis
+does not require repeated simulation.
+
+\subsection{Simulator Evaluation Protocol}
+\label{sec:implementation-sim}
+
+Because a full sweep of $Q(k)$ over every logged checkpoint is prohibitively expensive, simulator
+evaluation is sparse by design: only a subset of checkpoints per run (Table~\ref{tab:runs}, ``Sim.\
+evals'') are ever rolled out in simulation, each for $100$ episodes across the ten LIBERO-goal tasks.
+This sparsity is a first-order constraint on everything reported in \S\ref{sec:results}: it is the reason
+$\rho_m$ must be treated as an uncertain statistic (\S\ref{sec:method-bootstrap}) rather than a fact, and
+the reason the plateau diagnostic of \S\ref{sec:method-plateau} exists at all.
+
+\subsection{Deviations from and Extensions to the Source Protocol}
+\label{sec:implementation-deviations}
+
+Table~\ref{tab:impl-steps} realizes five of the source protocol's six steps; Step~4 is the one
+structural gap and warrants comment. No world model was built or integrated, so Mode~B (closed-loop
+rollout evaluation) is entirely out of scope: every result in this chapter is an open-loop,
+teacher-forced-or-native-chunk comparison, and the qualitative claim that ``open-loop action similarity
+is not the same thing as closed-loop rollout quality'' is asserted from the literature rather than
+measured directly in this study. Relatedly, the source protocol's optional combined multi-metric score
+is not computed; every metric in \S\ref{sec:results} is ranked individually, and no attempt is made to
+fuse metrics into a single decision rule.
+
+\section{Experimental Results}
+\label{sec:results}
+
+\subsection{Task-Discriminative Validity}
+\label{sec:results-taskdisc}
+
+Before any metric's correlation with success is evaluated, its ability to separate same-task from
+different-task motion (\S\ref{sec:method-taskdisc}) is checked on $428$ held-out ground-truth
+trajectories spanning the ten LIBERO-goal tasks, using $3{,}000$ intra-task and $3{,}000$ inter-task
+chunk pairs. Table~\ref{tab:taskdisc} reports both estimators' results side by side.
+
+\begin{table}[h]
+\centering
+\caption{Task-discriminative validity: single-chunk estimator (A) vs.\ trajectory-level, window-averaged
+estimator (B), $3{,}000$ cross-trajectory pairs each. Sorted by estimator-(B) AUROC.}
+\label{tab:taskdisc}
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{estimator (A): single chunk} & \multicolumn{2}{c}{estimator (B): trajectory-level} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Metric & AUROC & Cohen's $d$ & AUROC & Cohen's $d$ \\
+\midrule
+Cosine    & 0.657 & 0.66 & 0.927 & 2.19 \\
+OT        & 0.692 & 0.62 & 0.923 & 1.68 \\
+DTW       & 0.677 & 0.47 & 0.911 & 1.61 \\
+$L_2$     & 0.653 & 0.39 & 0.903 & 1.70 \\
+$L_1$     & 0.660 & 0.56 & 0.901 & 1.80 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every metric clears chance under both estimators, but the two differ sharply in strength. The single
+chunk (A) separates tasks only moderately (AUROC $0.65$--$0.69$), because LIBERO-goal's ten tasks share a
+large common motion vocabulary --- reach, grasp, transport --- so an arbitrary $50$-step window overlaps
+heavily across tasks. The trajectory-level, phase-aligned estimator (B) is decisively stronger: every
+metric rises to AUROC $\ge0.90$ and Cohen's $d$ roughly triples. The improvement is attributable
+specifically to phase alignment rather than variance reduction alone --- e.g.\ DTW's intra-task mean
+distance falls from $7.06$ to $1.84$ under (B) while its inter-task mean barely moves ($10.23\to8.27$),
+consistent with comparing corresponding motion phases rather than arbitrary ones. On this basis,
+estimator (B) is adopted for every $\bar m(k)$ in the remainder of this chapter; the precondition of
+\S\ref{sec:method-taskdisc} is satisfied for all five candidate metrics.
+
+\subsection{Cross-Model Correlation with Closed-Loop Success}
+\label{sec:results-crossmodel}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/crossmodel_early_stopping.png}
+  \caption{Spearman $\rho_m$ of every offline metric with LIBERO-goal success, by run (left), and the
+  corresponding success curve $Q(k)$ over training (right). Trajectory (DTW/OT/cosine) and regression
+  ($L_1$/$L_2$) metrics are positive in every run; the likelihood/loss family (NLL, or the flow-matching
+  loss standing in for it) splits by architecture, positive and significant for the two discrete-token
+  runs, weak or statistically indistinguishable from zero for the flow-matching runs
+  (\S\ref{sec:results-bootstrap}).}
+  \label{fig:crossmodel}
+\end{figure}
+
+Figure~\ref{fig:crossmodel} summarizes the headline result across all five runs and all applicable
+metrics. Ordering the five runs SmolVLA-150 / OpenVLA-150 / OpenVLA-full / $\pi_{0.5}$-full /
+$\pi_{0.5}$-150, the trajectory-similarity metrics are positive throughout: $\rho_{\mathrm{DTW}} =
+0.47/0.75/0.85/0.90/0.72$, $\rho_{\mathrm{OT}} = 0.34/0.84/0.66/0.89/0.68$, and $\rho_{\cos} =
+0.28/0.75/0.89/0.86/0.77$. DTW in particular is never negative across the five runs and its selection
+regret never exceeds $0.17$, a first empirical basis for the conclusion drawn in
+\S\ref{sec:results-conclusions}\ref{conc:correlation}.
+
+\subsection{Per-Model Metric Rankings}
+\label{sec:results-permodel}
+
+Table~\ref{tab:rankings} reports, per run, every applicable metric's selected checkpoint $k_m^\star$,
+Spearman correlation $\rho_m$, and selection regret, sorted by $\rho_m$.
+
+\begin{table}[h]
+\centering
+\caption{Per-run metric rankings: selected checkpoint, Spearman $\rho_m$, and selection regret
+(Eq.~\ref{eq:selection}--\ref{eq:rho-regret}).}
+\label{tab:rankings}
+\begin{minipage}[t]{0.48\textwidth}
+\centering \textbf{SmolVLA-150} (flow-matching)\\[2pt]
+\begin{tabular}{lrrr}
+\toprule
+Metric & $k_m^\star$ & $\rho$ & Regret \\ \midrule
+DTW    & 22000 & $+0.47$ & 0.02 \\
+$L_2$  & 24500 & $+0.46$ & 0.05 \\
+$L_1$  & 56000 & $+0.44$ & 0.24 \\
+OT     & 11000 & $+0.34$ & 0.26 \\
+Cosine & 33000 & $+0.28$ & 0.08 \\
+NLL/FM & 13000 & $-0.22$ & 0.19 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering \textbf{OpenVLA-150} (discrete-token)\\[2pt]
+\begin{tabular}{lrrr}
+\toprule
+Metric & $k_m^\star$ & $\rho$ & Regret \\ \midrule
+OT     & 33499 & $+0.84$ & 0.08 \\
+Acc.   & 37499 & $+0.78$ & 0.02 \\
+$L_1$  & 30999 & $+0.78$ & 0.06 \\
+DTW    & 23499 & $+0.75$ & 0.17 \\
+Cosine & 23499 & $+0.75$ & 0.17 \\
+$L_2$  & 23499 & $+0.75$ & 0.17 \\
+CE     & 30999 & $+0.72$ & 0.06 \\
+NLL    & 30999 & $+0.72$ & 0.06 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\vspace{1em}
+
+\begin{minipage}[t]{0.48\textwidth}
+\centering \textbf{OpenVLA-full} (342 traj.)\\[2pt]
+\begin{tabular}{lrrr}
+\toprule
+Metric & $k_m^\star$ & $\rho$ & Regret \\ \midrule
+Cosine & 28499 & $+0.89$ & 0.05 \\
+DTW    & 21499 & $+0.85$ & 0.00 \\
+$L_2$  & 21499 & $+0.85$ & 0.00 \\
+$L_1$  & 29999 & $+0.85$ & 0.05 \\
+CE     & 33999 & $+0.83$ & 0.04 \\
+Acc.   & 33999 & $+0.83$ & 0.04 \\
+NLL    & 33999 & $+0.83$ & 0.04 \\
+OT     & 33999 & $+0.66$ & 0.04 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering \textbf{$\pi_{0.5}$-full} (flow-matching, 342 traj.)\\[2pt]
+\begin{tabular}{lrrr}
+\toprule
+Metric & $k_m^\star$ & $\rho$ & Regret \\ \midrule
+DTW    & 57999 & $+0.90$ & 0.04 \\
+OT     & 60499 & $+0.89$ & 0.04 \\
+Cosine & 55999 & $+0.86$ & 0.04 \\
+$L_1$  & 55999 & $+0.84$ & 0.04 \\
+$L_2$  & 55999 & $+0.81$ & 0.04 \\
+NLL/FM & 31999 & $+0.46$ & 0.08 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\vspace{1em}
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering \textbf{$\pi_{0.5}$-150} (overtraining stress run)\\[2pt]
+\begin{tabular}{lrrr}
+\toprule
+Metric & $k_m^\star$ & $\rho$ & Regret \\ \midrule
+$L_1$  & 31999 & $+0.78$ & 0.05 \\
+Cosine & 39499 & $+0.77$ & 0.04 \\
+$L_2$  & 37999 & $+0.73$ & 0.08 \\
+DTW    & 33499 & $+0.72$ & 0.07 \\
+OT     & 24499 & $+0.68$ & 0.17 \\
+NLL/FM &  8999 & $-0.16$ & 0.20 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{table}
+
+Two mechanistic points follow from Table~\ref{tab:rankings}. First, the metrics available depend on
+architecture: only OpenVLA exposes cross-entropy loss and token accuracy, since only a discrete-token
+policy has them; the flow-matching policies retain $L_1$/$L_2$ regression error, which is on par with or
+above their own DTW score in every flow-matching run. Second, on OpenVLA-full, $L_2$ and DTW select the
+\emph{identical} checkpoint ($k^\star=21499$) with identical $\rho$ and zero regret, foreshadowing the
+statistical indistinguishability of the trajectory and regression families confirmed in
+\S\ref{sec:results-bootstrap}.
+
+\subsection{The Plateau Regime and Restriction of Range}
+\label{sec:results-plateau}
+
+\begin{table}[h]
+\centering
+\caption{DTW$\to$success Spearman $\rho$ over the full evaluated range vs.\ restricted to the converged
+plateau $\{k\ge k_{\mathrm{knee}}\}$ (Eq.~\ref{eq:knee}).}
+\label{tab:plateau}
+\begin{tabular}{lrrrrr}
+\toprule
+Run & $k_{\mathrm{knee}}$ & Plateau pts & $\rho_{\mathrm{full}}$ & $\rho_{\mathrm{plateau}}$ & Drop \\
+\midrule
+SmolVLA-150      &  4500 & 17/18 & $+0.47$ & $+0.38$ & 0.10 \\
+OpenVLA-150      &  6999 & 16/19 & $+0.75$ & $+0.59$ & 0.16 \\
+OpenVLA-full     &  8499 &  9/11 & $+0.86$ & $+0.73$ & 0.12 \\
+$\pi_{0.5}$-full & 18999 & 22/32 & $+0.91$ & $+0.80$ & 0.11 \\
+$\pi_{0.5}$-150  &  9999 & 22/28 & $+0.72$ & $\mathbf{+0.43}$ & $\mathbf{0.29}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/plateau_restriction.png}
+  \caption{\textbf{Left:} DTW$\to$success $\rho$, full range vs.\ converged plateau, all five runs.
+  \textbf{Right:} $\pi_{0.5}$-150's validation DTW (converges early, axis inverted) against its success
+  curve (a noisy, low-ceiling band that dips near $20$k training steps and recovers to a $38\%$ peak by
+  $34$k once training is extended to $40$k steps).}
+  \label{fig:plateau}
+\end{figure}
+
+$\rho_{\mathrm{full}}\ge\rho_{\mathrm{plateau}}$ holds for every run (Table~\ref{tab:plateau}): the
+offline metrics are, at minimum, reliable regime separators (untrained vs.\ converged), and fine-ranking
+already-converged checkpoints is strictly harder. For four of the five runs the plateau correlation
+remains healthy ($\rho_{\mathrm{plateau}}\ge0.59$, drop $\le0.16$), so the metric retains real
+discriminative power even inside the plateau. $\pi_{0.5}$-150 is the exception, dropping to
+$\rho_{\mathrm{plateau}}=+0.43$. Critically, this is a restriction-of-range artifact rather than genuine
+action-quality overtraining: an earlier $20{,}000$-step view of this run showed success falling from
+$31\%$ to $23\%$ after its peak, consistent with overtraining, but extending training to $40{,}000$
+steps shows success \emph{recovering} to a $38\%$ peak (Figure~\ref{fig:plateau}, right) --- so the
+apparent decline was an artifact of stopping mid-dip in a low-ceiling, noisy success band whose spread is
+comparable to the $\pm5\%$ sampling noise of a $100$-episode evaluation, not a monotone downturn. The
+practical implication, developed into a conclusion in \S\ref{sec:results-conclusions}\ref{conc:plateau},
+is that these metrics support a coarse but robust early-stopping decision (do not stop before the knee)
+even where they cannot reliably fine-rank checkpoints once training has converged.
+
+\subsection{Statistical Power: Bootstrap Confidence Intervals}
+\label{sec:results-bootstrap}
+
+\begin{table}[h]
+\centering
+\caption{Bootstrap $95\%$ confidence intervals on $\rho$ ($B{=}10{,}000$ resamples, tie-corrected
+Spearman, paired checkpoint resampling per Eq.~\ref{eq:rho-regret}\S\ref{sec:method-bootstrap}). ``\#sig''
+counts metrics whose interval excludes $0$; ``best $L$'' is the stronger of $L_1$/$L_2$.}
+\label{tab:bootstrap}
+\begin{tabular}{lccccc}
+\toprule
+Run & $n$ & \#sig & DTW $\rho$ [95\% CI] & best $L$ $\rho$ [95\% CI] & NLL $\rho$ [95\% CI] \\
+\midrule
+SmolVLA-150      & 18 & 0/6 & $0.47\,[-0.09,\,0.87]$ & $0.45\,[-0.12,\,0.84]$ & $-0.21\,[-0.74,\,0.35]$ \\
+OpenVLA-150      & 19 & 8/8 & $0.75\,[0.34,\,0.94]$  & $0.78\,[0.42,\,0.95]$  & $0.72\,[0.33,\,0.92]$ \\
+OpenVLA-full     & 11 & 8/8 & $0.84\,[0.46,\,0.99]$  & $0.84\,[0.42,\,0.98]$  & $0.81\,[0.40,\,0.97]$ \\
+$\pi_{0.5}$-full & 33 & 6/6 & $0.90\,[0.79,\,0.95]$  & $0.83\,[0.64,\,0.93]$  & $0.41\,[0.01,\,0.70]$ \\
+$\pi_{0.5}$-150  & 28 & 5/6 & $0.71\,[0.37,\,0.90]$  & $0.78\,[0.50,\,0.93]$  & $-0.17\,[-0.57,\,0.25]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Statistical power, not the metric family, is the binding constraint on how strong a claim the data
+support. Only $\pi_{0.5}$-full ($n{=}33$) is powered enough to resolve within-run structure; at the
+other extreme, no metric on SmolVLA-150 ($n{=}18$) clears zero at $95\%$, including DTW itself
+($0.47$, CI $[-0.09,0.87]$) --- consistent with \S\ref{sec:results-plateau}'s finding that this run's
+evaluation schedule sampled almost only the post-knee plateau. Within every run, DTW's interval overlaps
+OT's, cosine's, $L_1$'s, and $L_2$'s: the paired-resampling test finds DTW rank-\emph{identical} to
+$L_2$ on OpenVLA-full ($\Delta\rho\equiv0$) and finds $\Pr(\rho_{\mathrm{DTW}}>\rho_{L_2})$
+indistinguishable from a coin flip on the three intermediate runs ($0.63/0.44/0.33$). DTW significantly
+outperforms a loss-based metric in exactly one comparison: against the flow-matching surrogate NLL/FM on
+$\pi_{0.5}$-full ($\Pr=1.00$, $\Delta\rho$ CI $[0.26,0.92]$). The architecture split in NLL's validity is
+statistically confirmed for OpenVLA (significantly positive in both OpenVLA runs) and, more weakly, for
+$\pi_{0.5}$-full; for SmolVLA-150 and $\pi_{0.5}$-150 the NLL/FM interval spans zero, so the negative
+point estimates in those two rows should be read as \emph{uninformative}, not as evidence of a reliably
+anti-correlated surrogate.
+
+\subsection{Conclusions}
+\label{sec:results-conclusions}
+
+The results of \S\ref{sec:results-taskdisc}--\S\ref{sec:results-bootstrap} support the following
+conclusions.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Offline trajectory-similarity metrics correlate strongly with closed-loop success.}
+    \label{conc:correlation}
+    DTW, OT, and cosine distance are positive in every one of the five runs, spanning both
+    architectures (discrete-token and flow-matching) and both training-set sizes
+    (Figure~\ref{fig:crossmodel}, Table~\ref{tab:rankings}). DTW's association is significant (bootstrap
+    $95\%$ CI excluding zero) in four of five runs and is never negative on point estimates, making it
+    the most consistently reliable default success predictor in this study, though
+    \S\ref{sec:results-bootstrap} shows it is not statistically separable from the regression losses
+    $L_1$/$L_2$ or from OT/cosine.
+
+  \item \textbf{The metrics reliably identify the converged (plateau) region and support low-regret
+    early-stop checkpoint selection, though fine-ranking inside an already-converged plateau is
+    harder.} \label{conc:plateau}
+    Every metric's selection regret stays $\le0.26$ across all five runs and $\le0.17$ for DTW
+    specifically (Table~\ref{tab:rankings}), and the coarse decision ``do not stop before the knee'' is
+    supported by $\rho\approx0.8$--$0.9$ over the full descent in every run. Restricted to the converged
+    plateau, $\rho$ weakens for every run (Table~\ref{tab:plateau}) but remains usable
+    ($\rho_{\mathrm{plateau}}\ge0.59$) for four of five; only $\pi_{0.5}$-150 loses most of its
+    plateau-region signal, and this is attributable to a noisy, low success ceiling rather than to a
+    metric failure (\S\ref{sec:results-plateau}).
+
+  \item \textbf{Likelihood- and loss-based surrogates are reliable only for discrete-token
+    architectures.} \label{conc:nll}
+    OpenVLA's NLL is a genuine token log-likelihood and a strong, significant predictor in both of its
+    runs. For the flow-matching policies, the same-named surrogate is the validation flow-matching loss,
+    and it is uniformly weaker, significant only on $\pi_{0.5}$-full, and statistically indistinguishable
+    from zero on the two smaller flow-matching runs (\S\ref{sec:results-bootstrap}). A loss-based early
+    stop is therefore defensible for discrete-token policies but not recommended for flow-matching
+    policies, for which a trajectory-similarity metric should be used instead.
+
+  \item \textbf{Discrete-token architectures expose additional usable offline signals, without any
+    single metric dominating.} \label{conc:signals}
+    OpenVLA additionally exposes cross-entropy loss and token accuracy, both strong predictors on both
+    training-set sizes; on the full-data run, $L_2$ is rank-identical to DTW at zero regret. The paired
+    bootstrap test confirms this is not a point-estimate coincidence: the regression losses are
+    statistically indistinguishable from DTW in every run, so the applicable metric set --- DTW, OT,
+    cosine, $L_1$, $L_2$ --- should be read as a family of comparably valid choices rather than a strict
+    ranking.
+
+  \item \textbf{No catastrophic action-quality overtraining is observed in any run, including the two
+    stress runs.} \label{conc:overtrain}
+    Both $150$-trajectory runs (OpenVLA and SmolVLA) were designed to induce overtraining relative to
+    their full-data counterparts; instead, every run settles into a noisy plateau in both the offline
+    metrics and $Q(k)$ with no monotone late decline. $\pi_{0.5}$-150, trained with an aggressive
+    learning rate specifically to stress-test this claim, initially appeared to be the exception at a
+    $20$k-step horizon, but extending training to $40$k steps shows the apparent decline was a
+    restriction-of-range artifact, not genuine overtraining (\S\ref{sec:results-plateau}). In-distribution
+    validation together with LoRA's limited parameter budget appears sufficient, in this setting, to
+    suppress action-space overfitting even under reduced data and an aggressive learning rate.
+
+  \item \textbf{At the sample sizes available here, statistical power --- not the identity of the
+    metric --- is usually the binding constraint on what can be claimed.} \label{conc:power}
+    With $11$--$33$ simulator evaluations per run, most within-run \emph{orderings} among the
+    trajectory and regression metrics are not statistically resolved (\S\ref{sec:results-bootstrap});
+    only the architecture split of conclusion~\ref{conc:nll} and the positive-vs.-uninformative
+    distinction of the likelihood surrogate survive the confidence intervals. Conclusions~\ref{conc:correlation}--\ref{conc:overtrain}
+    should therefore be read at the level of metric \emph{families} (trajectory/regression vs.\
+    likelihood-based) rather than as a strict ranking of individual metrics, and denser or lower-variance
+    simulator evaluation would be required to resolve finer distinctions.
+\end{enumerate}
+
+\begin{equation}
+  \boxed{\ \text{trajectory similarity (DTW/OT/cosine)} \;\succsim\; \text{regression loss}\;
+  (L_1/L_2) \;\succ\; \text{flow-matching likelihood surrogate (NLL/FM)}\ }
+  \label{eq:conclusion-box}
+\end{equation}
+
+\section{Summary}
+\label{sec:summary}
+
+\paragraph{Motivation and research question.} Robot foundation models are expensive to fine-tune and
+expensive to evaluate online, yet training loss alone does not reliably indicate when a checkpoint has
+reached its best closed-loop performance (\S\ref{sec:intro}). This chapter asked which \emph{offline}
+validation metric --- computed cheaply from held-out demonstrations at every checkpoint, without any
+robot or simulator rollout --- best predicts the closed-loop success rate that would otherwise require
+one.
+
+\paragraph{Method and implementation.} \S\ref{sec:method} formalized four candidate metrics (DTW, OT,
+cosine distance, and an architecture-appropriate likelihood or loss surrogate), established
+task-discriminative validity as a precondition for trusting any of them, and defined the early-stopping
+rule, rank-correlation/regret scoring, a plateau/knee diagnostic for restriction-of-range effects, and a
+bootstrap procedure for quantifying statistical confidence. \S\ref{sec:implementation} instantiated this
+protocol --- following, and where noted extending, the \texttt{wenyan}/\texttt{refined}
+\texttt{\_experiment\_instruction.tex} source protocol (Table~\ref{tab:impl-steps}) --- across five LoRA
+fine-tuning runs spanning three architectures (discrete-token OpenVLA; flow-matching SmolVLA and
+$\pi_{0.5}$), two training-set sizes, and one deliberate overtraining stress run, evaluated on the
+LIBERO-goal benchmark.
+
+\paragraph{Results.} \S\ref{sec:results} found that trajectory-similarity metrics --- DTW above all ---
+correlate positively with closed-loop success in every run, regardless of architecture or training-set
+size, and are not statistically distinguishable from the regression losses $L_1$/$L_2$ at the sample
+sizes available (conclusions~\ref{conc:correlation}, \ref{conc:signals}). These metrics support a coarse
+but robust early-stopping decision --- avoid stopping before the descent knee --- and, for four of the
+five runs, retain usable discriminative power even inside the converged plateau
+(conclusion~\ref{conc:plateau}). The one run where plateau-region signal collapses, $\pi_{0.5}$-150, does
+so because of a noisy, low success ceiling rather than because the metric fails, a distinction only the
+plateau diagnostic and the extended-horizon re-evaluation of \S\ref{sec:results-plateau} could establish.
+Likelihood- and loss-based surrogates track success only for the discrete-token architecture
+(conclusion~\ref{conc:nll}); none of the five runs, including the two designed to stress-test it, shows
+catastrophic action-quality overtraining (conclusion~\ref{conc:overtrain}); and bootstrap resampling
+showed that statistical power, not the identity of the metric, is usually what limits how finely two
+metrics can be ordered against each other (conclusion~\ref{conc:power}).
+
+\paragraph{Limitations and directions for future chapters.} Three scope limitations, already flagged
+where they arise, bound how far these conclusions generalize. First, Mode~B of the source protocol ---
+closed-loop rollout evaluation against a learned world model --- was never implemented
+(\S\ref{sec:implementation-deviations}), so every result in this chapter is an open-loop comparison; a
+world-model-based closed-loop study is the most direct way to test whether the metrics ranked here also
+predict compounding rollout error, not only single-chunk action quality. Second, every metric was
+evaluated on the validation split $\mathcal D_{\mathrm{val}}$ used to select checkpoints; a held-out
+$\mathcal D_{\mathrm{test}}$ split already exists in the data pipeline (\S\ref{sec:implementation-data})
+but was not used to confirm these rankings replicate out of sample. Third, closed-loop success itself was
+measured sparsely (11--33 simulator evaluations per run) and, for both $\pi_{0.5}$ runs, at a confounded
+action-execution horizon (Table~\ref{tab:runs}); denser, lower-variance evaluation at a matched horizon
+across architectures would sharpen the bootstrap intervals of \S\ref{sec:results-bootstrap} and could
+resolve orderings --- such as DTW vs.\ $L_1$/$L_2$ --- that the present sample sizes leave statistically
+open. None of these limitations changes the chapter's central claim: an offline trajectory-similarity
+metric, computed once per checkpoint from held-out demonstrations, is a practical and
+architecture-agnostic signal for deciding when to stop fine-tuning a robot foundation model.
+
+\begin{thebibliography}{99}
+
+\bibitem{sakoe1978dtw}
+H.~Sakoe and S.~Chiba, ``Dynamic programming algorithm optimization for spoken word recognition,''
+\emph{IEEE Transactions on Acoustics, Speech, and Signal Processing}, vol.~26, no.~1, pp.~43--49, 1978.
+
+\bibitem{cuturi2013sinkhorn}
+M.~Cuturi, ``Sinkhorn distances: Lightspeed computation of optimal transport,'' in \emph{Advances in
+Neural Information Processing Systems (NeurIPS)}, 2013.
+
+\bibitem{spearman1904}
+C.~Spearman, ``The proof and measurement of association between two things,'' \emph{American Journal of
+Psychology}, vol.~15, no.~1, pp.~72--101, 1904.
+
+\bibitem{efron1979bootstrap}
+B.~Efron, ``Bootstrap methods: Another look at the jackknife,'' \emph{The Annals of Statistics}, vol.~7,
+no.~1, pp.~1--26, 1979.
+
+\bibitem{efron1993bootstrap}
+B.~Efron and R.~J.~Tibshirani, \emph{An Introduction to the Bootstrap}. Chapman \& Hall/CRC, 1993.
+
+\bibitem{goodfellow2016deep}
+I.~Goodfellow, Y.~Bengio, and A.~Courville, \emph{Deep Learning}. MIT Press, 2016.
+
+\bibitem{ying2019overview}
+X.~Ying, ``An overview of overfitting and its solutions,'' \emph{Journal of Physics: Conference Series},
+vol.~1168, article 022022, 2019.
+
+\bibitem{hu2021lora}
+E.~J.~Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and W.~Chen, ``LoRA: Low-rank
+adaptation of large language models,'' \emph{arXiv preprint arXiv:2106.09685}, 2021.
+
+\bibitem{vlasurvey}
+M.~Ud~Din, W.~Akram, L.~Saad~Saoud, J.~Rosell, and I.~Hussain, ``Vision language action models in robotic
+manipulation: A systematic review,'' \emph{arXiv preprint arXiv:2507.10672}, 2025.
+
+\bibitem{kim2024openvla}
+M.~J.~Kim, K.~Pertsch, S.~Karamcheti, T.~Xiao, A.~Balakrishna, S.~Nair, R.~Rafailov, E.~Foster, G.~Lam,
+P.~Sanketi, Q.~Vuong, T.~Kollar, B.~Burchfiel, R.~Tedrake, D.~Sadigh, S.~Levine, P.~Liang, and C.~Finn,
+``OpenVLA: An open-source vision-language-action model,'' \emph{arXiv preprint arXiv:2406.09246}, 2024.
+
+\bibitem{shukor2025smolvla}
+M.~Shukor, D.~Aubakirova, F.~Capuano, et al., ``SmolVLA: A vision-language-action model for affordable
+and efficient robotics,'' \emph{arXiv preprint arXiv:2506.01844}, 2025.
+
+\bibitem{black2024pi0}
+K.~Black, N.~Brown, D.~Driess, A.~Esmail, M.~Equi, C.~Finn, N.~Fusai, L.~Groom, K.~Hausman, B.~Ichter,
+S.~Jakubczak, T.~Jones, L.~Ke, S.~Levine, A.~Li-Bell, M.~Mothukuri, S.~Nair, K.~Pertsch, L.~X.~Shi,
+J.~Tanner, Q.~Vuong, A.~Walling, H.~Wang, and U.~Zhilinsky, ``$\pi_0$: A vision-language-action flow model
+for general robot control,'' \emph{arXiv preprint arXiv:2410.24164}, 2024.
+
+\bibitem{black2025pi05}
+K.~Black, N.~Brown, D.~Driess, C.~Finn, S.~Levine, et al., ``$\pi_{0.5}$: A vision-language-action model
+with open-world generalization,'' \emph{arXiv preprint arXiv:2504.16054}, 2025.
+
+\bibitem{liu2023libero}
+B.~Liu, Y.~Zhu, C.~Gao, Y.~Feng, Q.~Liu, Y.~Zhu, and P.~Stone, ``LIBERO: Benchmarking knowledge transfer
+for lifelong robot learning,'' in \emph{Advances in Neural Information Processing Systems (NeurIPS),
+Datasets and Benchmarks Track}, 2023. arXiv:2306.03310.
+
+\bibitem{il}
+A.~Hussein, M.~M.~Gaber, E.~Elyan, and C.~Jayne, ``Imitation learning: A survey of learning methods,''
+\emph{ACM Computing Surveys}, vol.~50, no.~2, article 21, 2017.
+
+\bibitem{dtw_il}
+L.~Gong, B.~Chen, W.~Xu, C.~Liu, X.~Li, Z.~Zhao, and L.~Zhao, ``Motion similarity evaluation between
+human and a Tri-Co robot during real-time imitation with a trajectory dynamic time warping model,''
+\emph{Sensors}, vol.~22, no.~5, p.~1968, 2022.
+
+\bibitem{ot_il}
+R.~Dadashi, L.~Hussenot, M.~Geist, and O.~Pietquin, ``Primal Wasserstein imitation learning,'' in
+\emph{International Conference on Learning Representations (ICLR)}, 2021. arXiv:2006.04678.
+
+\bibitem{smoothness_il}
+S.~Kulkarni, R.~Dhar, and Y.~Cui, ``Learning from the best: Smoothness-driven metrics for data quality in
+imitation learning,'' \emph{arXiv preprint arXiv:2604.23000}, 2026.
+
+\end{thebibliography}
+
+\end{document}

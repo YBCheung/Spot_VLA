@@ -1,0 +1,292 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2em, topsep=0.2em}
+
+\title{Can the Replan Step Be Chosen Offline?\\
+Selecting the Open-Loop Action Horizon $h$ from Validation Metrics}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+The early-stopping study asks whether an offline validation metric $\bar m(k)$ can stand in for
+closed-loop success $Q(k)$ when choosing a \emph{checkpoint} $\theta_k$. This note asks the same
+question for a \emph{deployment} hyper-parameter: the open-loop action horizon $h$
+(\texttt{n\_action\_steps}), i.e.\ how many actions of a predicted chunk the policy executes before
+re-observing and re-planning. Notation follows \texttt{wenyan\_experiment\_instruction.tex}; $Q(h)$
+is LIBERO success at horizon $h$ and $\bar m(h)$ the aggregated validation value of an offline
+predictor at that horizon.
+
+The knob is worth the trouble. Pooled over five checkpoints of one SmolVLA run, moving $h$ alone
+spans $34.4\%$ to $51.0\%$ success with the weights frozen; on the run's best checkpoint it spans
+$36\%$ to $68\%$. It is currently tuned by a simulator sweep --- exactly the cost offline metrics
+were introduced to remove for $k$.
+
+\section{Setup}
+
+\textbf{Policy.} SmolVLA, LoRA $r{=}32$, \texttt{libero\_goal}, from the 100k overtrain run.
+\textbf{Five checkpoints} spanning the run's quality range, so that "the metric picks $h$ well'' can
+be distinguished from "$h$ happened to be good at one $\theta_k$'':
+\[
+\theta_{3000},\ \theta_{8000},\ \theta_{22000},\ \theta_{40500},\ \theta_{75500}
+\]
+with peak success $30, 48, 58, 63, 68\%$ respectively. $\theta_{22000}$ is the checkpoint
+\texttt{val\_dtw\_distance} selects in the early-stopping study; $\theta_{75500}$ is the run's online
+peak. Chunk size $H=50$.
+
+\textbf{Horizon grid.} A \emph{core} grid $h\in\{1,3,5,10,15,25,50\}$ at all five checkpoints, plus a
+\emph{dense} $h\in\{1,2,3,5,8,10,15,20,25,35,50\}$ at $\theta_{22000}$ and $\theta_{75500}$.
+$59$ LIBERO evaluations, $100$ episodes each ($10$ trials $\times$ $10$ tasks, \texttt{batch\_size}
+$5$, \texttt{seed} $7$). The protocol is byte-identical at every cell, so episodes are \emph{paired}:
+trial $i$ of task $j$ starts from the same state at every $h$ and every $\theta_k$.
+
+\textbf{Offline data.} For every frame of all $44$ validation episodes ($5016$ frames), the predicted
+chunk was sampled and cached at each checkpoint, with \emph{two independent} sampler draws so that
+flow-matching sampling noise can be measured and separated from genuine plan revision. Caching costs
+$6.5$ min of GPU per checkpoint and makes the $27$ predictors a CPU-only computation. Re-deriving the
+existing AC-Chunk protocol from the cache at $h=H$ reproduces the published
+\texttt{metrics\_history.json} values to within $0.7$--$1.7\%$ (sampler noise).
+
+\section{What an offline predictor can and cannot see}
+\label{sec:caveat}
+
+Offline, observations are always the \emph{recorded} ones, hence always on the expert state
+distribution. Online, a long horizon hurts partly because execution error carries the robot
+\emph{off} that distribution, and nothing computed on recorded observations can see that. The
+predictors are proxies, not rollout simulations, and their $h$-dependence can only come from two
+effects that are visible offline:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Accuracy vs.\ lookahead.} The action proposed for $t+k$ has error
+        $e_k = \mathbb{E}_t \lVert P[t,k]-a_{t+k}\rVert^2$; larger $h$ forces execution of later
+        chunk positions.
+  \item \textbf{Switching cost.} Each replan re-samples the sampler noise and re-conditions on a new
+        observation, so the executed sequence is \emph{discontinuous} at every boundary; smaller $h$
+        means more boundaries.
+\end{enumerate}
+
+\section{Ground truth}
+
+\begin{center}
+\begin{tabular}{lccccccccccc|cc}
+\toprule
+$h$ & 1 & 2 & 3 & 5 & 8 & 10 & 15 & 20 & 25 & 35 & 50 & argmax & peak\\
+\midrule
+$\theta_{3000}$  & 21 & -- & 18 & 21 & -- & \textbf{30} & 23 & -- & 22 & -- & 22 & 10 & 30\\
+$\theta_{8000}$  & 37 & -- & 41 & \textbf{48} & -- & 41 & 43 & -- & 37 & -- & 37 & 5 & 48\\
+$\theta_{22000}$ & 45 & 45 & 54 & 43 & 51 & 51 & \textbf{58} & 50 & 51 & 44 & 36 & 15 & 58\\
+$\theta_{40500}$ & 49 & -- & 50 & 51 & -- & 61 & \textbf{63} & -- & 56 & -- & 41 & 15 & 63\\
+$\theta_{75500}$ & 36 & 52 & 42 & 48 & 55 & \textbf{68} & \textbf{68} & 57 & 51 & 37 & 36 & 10 & 68\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Pooled $Q(h)$.} Because the core grid, task set, seed and episode count are identical at
+every checkpoint, per-episode successes pool at fixed $h$ --- $500$ episodes per horizon, binomial
+SE $2.2$ instead of $5.0$. Pooling averages over $\theta_k$, which is the right unit when the
+question is "what single $h$ should this model/task use''.
+
+\begin{center}
+\begin{tabular}{lccccccc}
+\toprule
+$h$ & 1 & 3 & 5 & 10 & \textbf{15} & 25 & 50\\
+\midrule
+pooled $Q(h)$ [\%]  & 37.6 & 41.0 & 42.2 & 50.2 & \textbf{51.0} & 43.4 & 34.4\\
+SE                  & 2.2 & 2.2 & 2.2 & 2.2 & 2.2 & 2.2 & 2.1\\
+paired $p$ vs $h{=}15$ & $<10^{-4}$ & $10^{-4}$ & $8\!\times\!10^{-4}$ & $0.81$ & --- & $0.005$ & $<10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every horizon except $h=10$ is significantly worse than $h=15$ under an exact paired binomial test on
+discordant pairs. \textbf{This is the payoff of the denser grid plus pooling.} The first pass of this
+experiment used $5$ horizons at one checkpoint and could establish only that $h=50$ was bad --- so
+$14$ of $25$ predictors tied at exactly zero regret and the comparison could not rank them. The
+curve is now fully resolved: the optimum is $h\in\{10,15\}$ and every alternative is measurably
+inferior.
+
+\section{Results}
+
+Predictors are scored per checkpoint against that checkpoint's own $Q(h)$, then aggregated. Regret is
+in success-rate points; the null is an $h$-independent metric, which expresses no preference and is
+therefore charged the regret of a uniform random pick.
+
+\begin{center}
+\begin{tabular}{llccccc}
+\toprule
+predictor & selects $h$ at the 5 $\theta_k$ & mean reg. & worst & \#zero & Wilcoxon $p$\\
+\midrule
+\texttt{stitchE\_cos} & $15,15,15,15,15$ & \textbf{2.4} & 7.0 & 3 & 0.062\\
+\texttt{stitchE\_l2}  & $15,15,15,15,15$ & \textbf{2.4} & 7.0 & 3 & 0.062\\
+\texttt{stitchW\_cos} & $25,15,15,15,15$ & 2.6 & 8.0 & 3 & 0.125\\
+\texttt{stitchE\_ot}  & $10,15,35,15,15$ & 3.8 & 14.0 & 3 & 0.188\\
+\texttt{stitchW\_ot}  & $25,25,15,15,15$ & 3.8 & 11.0 & 3 & 0.312\\
+\texttt{l2\_plus\_excess/switch} & $15,15,20,15,15$ & 4.0 & 8.0 & 2 & 0.062\\
+\texttt{prefix\_cos} & $15,15,15,15,8$ & 5.0 & 13.0 & 2 & 0.062\\
+\texttt{prefix\_dtw}, \texttt{stitchW\_l1/l2} & $25,25,25,15,15$ & 5.2 & 11.0 & 2 & 0.438\\
+\texttt{stitchE\_dtw} & $25,15,25,25,15$ & 5.4 & 8.0 & 1 & 0.125\\
+\texttt{stitchW\_dtw} & $25,25,25,25,15$ & 6.6 & 11.0 & 1 & 0.625\\
+\midrule
+\texttt{drift\_l2} (GT-free) & $10,5,5,3,2$ & 8.8 & 16.0 & 2 & 0.625\\
+\texttt{prefix\_ot} & $15,15,15,5,5$ & 8.8 & 20.0 & 1 & 0.625\\
+\texttt{prefix\_l1} & $10,10,8,5,5$ & 9.2 & 20.0 & 1 & 0.625\\
+\textbf{(null) random pick} & --- & \textbf{10.6} & 18.0 & 0 & ---\\
+\texttt{gtfree\_score} (GT-free) & $15,10,8,5,5$ & 10.6 & 20.0 & 0 & 1.000\\
+\texttt{prefix\_l2} & $10,10,5,5,5$ & 10.8 & 20.0 & 1 & 0.750\\
+\texttt{switch\_jump} & $3,3,2,3,2$ & 12.2 & 16.0 & 0 & 0.250\\
+\texttt{switch\_excess} & $3,3,1,1,1$ & 15.6 & 32.0 & 0 & 0.125\\
+\texttt{plan\_instability} & $1,1,1,1,1$ & 15.8 & 32.0 & 0 & 0.062\\
+\texttt{tv\_ratio}, \texttt{jerk\_ratio} & $50,50,50,50,50$ & \textbf{19.0} & 32.0 & 0 & 0.062\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/replan_horizon_multi.png}
+\caption{(a) $Q(h)$ per checkpoint. (b) pooled $Q(h)$, $n{=}500$/point; $*$ marks horizons
+significantly worse than $h{=}15$. (c) mean and worst-case regret. (d--f) checkpoint-averaged offline
+curves against pooled $Q(h)$: the fixed-window stitched predictors bottom out exactly at the online
+peak, the truncated-prefix ones bottom out too early, and the smoothness-only ones run the wrong way
+entirely.}
+\end{figure}
+
+\section{Findings}
+
+\textbf{1. Yes, with a specific construction.} \texttt{stitchE\_cos} and \texttt{stitchE\_l2} select
+$h=15$ at \emph{every one} of the five checkpoints --- the pooled optimum --- for a mean regret of
+$2.4$ points against the random-pick null's $10.6$, and a worst case of $7.0$ against $18.0$. All
+five checkpoints favour these predictors over the null, giving Wilcoxon $p=0.062$; note that
+$2/2^5=0.0625$ is the \emph{smallest attainable} two-sided $p$ with five paired samples, so this is
+maximal consistency rather than a near-miss of $\alpha=0.05$. Establishing significance would need
+more checkpoints, not more episodes.
+
+\textbf{2. The construction that matters is the fixed comparison window.} The six best predictors are
+all \texttt{stitch*} variants: the window is held at $H$ and only the \emph{replan schedule} varies
+inside it. Truncating the chunk to $h$ steps instead (\texttt{prefix\_*}) compares different-length
+sequences across $h$ --- one action at $h{=}1$ against a $50$-step trajectory at $h{=}50$ --- so
+$\bar m(h)$ is not on a common scale, and the penalty is severe: \texttt{prefix\_l2} at $10.8$ is
+\emph{no better than a random pick}, while \texttt{stitchW\_l2} on the same distance scores $5.2$ and
+\texttt{stitchE\_l2} $2.4$. Same metric, same data; only the windowing differs.
+
+\textbf{3. DTW is the wrong distance here, and this dissociates from checkpoint selection.} Every
+DTW variant lands mid-pack ($5.2$--$6.6$) and \texttt{stitchW\_dtw} is the weakest of the stitched
+family. DTW is the \emph{best} metric for choosing $k$ in the early-stopping study ($\rho=0.72$); for
+choosing $h$ it is beaten by cosine and $L_2$ on the identical windows. The reason is structural:
+DTW is invariant to time warping, and the whole question in choosing $h$ is \emph{when} actions are
+issued. The metric that best ranks checkpoints is not automatically the metric that best ranks
+deployment parameters.
+
+\textbf{4. Smoothness-only criteria are actively harmful.} \texttt{tv\_ratio} and
+\texttt{jerk\_ratio} select $h=50$ at every checkpoint --- the worst horizon in the pooled curve ---
+for a mean regret of $19.0$, nearly \emph{twice} the null. Minimising executed-action jerk is the
+wrong objective even though effect (ii) is real: it belongs inside a composite, weighted against
+accuracy. The same holds for the switching terms alone ($12.2$--$15.8$), which by construction are
+minimised by never switching. The $\lambda$-free composites that do combine both
+(\texttt{l2\_plus\_excess}, $4.0$) work well.
+
+\textbf{5. GT-free variants do not work.} \texttt{drift\_l2} ($8.8$) and \texttt{gtfree\_score}
+($10.6$) are at or below the null. Their pseudo-label is the policy's own fresh prediction, so the
+surrogate is floored at the sampler noise and cannot resolve the shallow part of the profile that
+decides the optimum. Choosing $h$ needs held-out \emph{labels}, not just held-out observations.
+
+\textbf{6. The optimum does not measurably move with policy quality, and that is the practical
+answer.} Per-checkpoint argmaxima are $10,5,15,15,10$ --- scattered with no trend, and the
+within-checkpoint gaps among $h\in\{5,10,15\}$ are inside binomial noise. No predictor tracks that
+scatter (all \texttt{rho\_shift} are near zero or negative), and it should not: the scatter is noise.
+The offline profile \emph{did} predict a monotone shift ($\arg\min_h$ of the running mean of $e_k$
+moves $21\to15\to13\to11\to11$ as quality rises), which the online data does not confirm. The correct
+reading is that one horizon serves the whole run, $h\in\{10,15\}$, and the offline metric's job is to
+find that single value without rollouts --- which \texttt{stitchE\_cos} does. Its per-checkpoint
+behaviour is identical to the policy "always pick $h=15$''; the content of the result is that this
+value was identified from validation chunks alone.
+
+\section{Mechanism}
+
+Since $\texttt{prefix\_l2}(h)=\frac1h\sum_{k<h}e_k$, its shape in $h$ is fixed by the profile $e_k$.
+The design assumption was $e_k$ monotonically increasing, which would force every accuracy-only
+predictor to select $h=1$. Measured, $e_k$ is instead \textbf{U-shaped at every checkpoint}, with a
+minimum at $k\approx5$--$9$: the chunk's \emph{first} action is harder to predict than the one a few
+steps out. The effect appears in all seven action dimensions and in direction-only cosine, so it is
+neither a gripper nor a magnitude artifact.
+
+\begin{center}
+\begin{tabular}{lccccccc}
+\toprule
+$\theta_k$ & peak $Q$ & $e_0$ & $\arg\min_k e_k$ & $e_0/e_{\min}$ & $e_{49}/e_{\min}$ & noise floor & $Q(10)-Q(50)$\\
+\midrule
+$3000$  & 30 & 0.689 & 9 & 1.60 & 1.51 & 0.596 & $-8$\\
+$8000$  & 48 & 0.507 & 6 & 1.39 & 1.52 & 0.392 & $-4$\\
+$22000$ & 58 & 0.433 & 6 & 1.25 & 1.57 & 0.260 & $-15$\\
+$40500$ & 63 & 0.391 & 5 & 1.20 & 1.70 & 0.187 & $-20$\\
+$75500$ & 68 & 0.366 & 6 & 1.15 & 1.75 & 0.135 & $-32$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The sampler noise floor (two independent draws at the same observation) \textbf{collapses
+monotonically with training}, $0.596\to0.135$. At $\theta_{3000}$ it is $86\%$ of $e_0$: the early
+policy's one-step prediction is almost entirely resampling noise, which is why its $Q(h)$ is nearly
+flat --- replanning cannot help a policy whose plan is noise. As training removes that noise the
+genuine lookahead decay is exposed, $e_{49}/e_{\min}$ \emph{grows} ($1.51\to1.75$), and the online
+open-loop penalty grows with it ($-8,-4,-15,-20,-32$; Spearman $0.90$ against $e_{49}/e_{\min}$, the
+one inversion being between the two checkpoints whose offline ratios differ by $0.01$).
+
+So a purely offline quantity predicts \emph{how much a given checkpoint will be hurt by running
+open-loop}, and the direction is counterintuitive: \textbf{better policies are more damaged by a long
+horizon, not less}. At $h=50$ the $68\%$ checkpoint and the $58\%$ checkpoint both collapse to
+$36\%$ --- full open-loop execution erases the entire quality advantage. A practitioner who tunes
+$h$ once on an early checkpoint would both mis-set it and badly understate how much it matters.
+
+\section{Threats to validity}
+
+\begin{itemize}
+  \item \textbf{One model, one task suite.} Five checkpoints of one SmolVLA run on
+        \texttt{libero\_goal}. $\pi_{0.5}$ puts its optimum lower ($h\approx6$--$12$), so the
+        \emph{value} of $h$ does not transfer across architectures even if the \emph{method} does.
+        $\pi_{0.5}$ already has eight online $Q(h)$ points at \texttt{step\_48499}/\texttt{step\_73499};
+        caching those and testing whether \texttt{stitchE\_cos} reproduces that ranking is the
+        natural next step.
+  \item \textbf{Five checkpoints caps the significance test} at $p=0.062$ (\S Findings 1). The
+        binding constraint is checkpoints, not episodes.
+  \item \textbf{Off-distribution drift is invisible offline} (\S\ref{sec:caveat}). The predictors
+        work because $e_k$ rises with lookahead for the same underlying reason open-loop execution
+        degrades; that coupling is empirical, not guaranteed.
+  \item \textbf{Two earlier conclusions from this experiment were sparse-grid artifacts} and are
+        superseded here: the coarse $5$-point grid awarded zero regret to $14$ predictors including
+        every DTW variant, and a dense read of $\theta_{22000}$ \emph{alone} put
+        \texttt{prefix\_cos}/\texttt{prefix\_ot} on top. Only the five-checkpoint aggregate separates
+        the families reliably --- a caution about drawing predictor rankings from a single $\theta_k$.
+\end{itemize}
+
+\section*{Artifacts}
+
+\begin{itemize}
+  \item \texttt{lerobot/vla-scripts/replan\_horizon\_cache.py} --- GPU: caches the predicted chunk at
+        every val frame, two independent draws. Resumable.
+  \item \texttt{lerobot/vla-scripts/replan\_horizon\_offline.py} --- CPU: $27$ predictors, scoring,
+        bootstrap, per-checkpoint figure. Self-tests its fast exact DTW against
+        \texttt{metrics\_utils.compute\_exact\_dtw}.
+  \item \texttt{lerobot/vla-scripts/replan\_horizon\_multi.py} --- CPU: pooled $Q(h)$, paired tests,
+        per-checkpoint regret, Wilcoxon vs.\ null, optimum-shift correlation.
+  \item \texttt{lerobot/vla-scripts/replan\_position\_profile.py} --- CPU: the $e_k$ profile,
+        single-checkpoint or overlaid across checkpoints.
+  \item \texttt{lerobot/sbatch/replan\_horizon\_\{smolvla,dense,multi\}.sh} --- GPU drivers (caches +
+        rollouts); \texttt{replan\_horizon\_analyze.sh} --- CPU-partition analysis, no GPU requested.
+  \item Reports: \texttt{runs/.../replan\_horizon\_multi\_report.json},
+        \texttt{replan\_horizon\_report\_step\{3000,8000,22000,40500,75500\}.json},
+        \texttt{replan\_position\_profile\_multi.json}. Figures:
+        \texttt{figures/replan\_horizon\_multi.png},
+        \texttt{replan\_position\_profile\_multi.png}, \texttt{replan\_horizon\_step*.png}.
+\end{itemize}
+
+\end{document}

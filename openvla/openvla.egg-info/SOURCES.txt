@@ -3,11 +3,28 @@ README.md
 pyproject.toml
 experiments/robot/openvla_utils.py
 experiments/robot/robot_utils.py
-experiments/robot/Spot/data_utils.py
-experiments/robot/Spot/run_spot_eval.py
 experiments/robot/bridge/bridgev2_utils.py
 experiments/robot/bridge/run_bridgev2_eval.py
 experiments/robot/bridge/widowx_env.py
+experiments/robot/libero/libero_utils.py
+experiments/robot/libero/read_dataset.py
+experiments/robot/libero/regenerate_libero_dataset.py
+experiments/robot/libero/run_demo.py
+experiments/robot/libero/run_libero_eval copy only_suc_rate.py
+experiments/robot/libero/run_libero_eval.py
+experiments/robot_old/openvla_utils.py
+experiments/robot_old/robot_utils.py
+experiments/robot_old/Spot/data_utils.py
+experiments/robot_old/Spot/run_spot_eval.py
+experiments/robot_old/bridge/bridgev2_utils.py
+experiments/robot_old/bridge/run_bridgev2_eval.py
+experiments/robot_old/bridge/widowx_env.py
+experiments/robot_old/libero/libero_utils.py
+experiments/robot_old/libero/read_dataset.py
+experiments/robot_old/libero/regenerate_libero_dataset.py
+experiments/robot_old/libero/run_demo.py
+experiments/robot_old/libero/run_libero_eval copy.py
+experiments/robot_old/libero/run_libero_eval.py
 openvla.egg-info/PKG-INFO
 openvla.egg-info/SOURCES.txt
 openvla.egg-info/dependency_links.txt
@@ -100,6 +117,7 @@ scripts/extern/convert_prismatic_weights_to_hf.py
 scripts/extern/verify_prismatic.py
 vla-scripts/deploy.py
 vla-scripts/finetune_early_stop.py
+vla-scripts/finetune_new_metrics.py
 vla-scripts/finetune_server.py
 vla-scripts/train.py
 vla-scripts/extern/convert_openvla_weights_to_hf.py

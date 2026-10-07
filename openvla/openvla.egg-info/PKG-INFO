@@ -65,7 +65,7 @@ Requires-Dist: wandb
 Requires-Dist: tensorflow==2.15.0
 Requires-Dist: tensorflow_datasets==4.9.3
 Requires-Dist: tensorflow_graphics==2021.12.3
-Requires-Dist: dlimp@ git+https://github.com/moojink/dlimp_openvla
+Requires-Dist: dlimp @ git+https://github.com/moojink/dlimp_openvla
 Provides-Extra: dev
 Requires-Dist: black>=24.2.0; extra == "dev"
 Requires-Dist: gpustat; extra == "dev"

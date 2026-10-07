@@ -1,0 +1,18 @@
+{"time":"2026-07-09T03:57:39.857655854+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-09T03:57:39.857781439+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260709_035739-iwhn4zqj/logs/debug-core.log"}
+{"time":"2026-07-09T03:57:39.965283735+03:00","level":"INFO","msg":"created new stream","id":"iwhn4zqj"}
+{"time":"2026-07-09T03:57:39.965341472+03:00","level":"INFO","msg":"stream: started","id":"iwhn4zqj"}
+{"time":"2026-07-09T03:57:39.965377637+03:00","level":"INFO","msg":"sender: started","stream_id":"iwhn4zqj"}
+{"time":"2026-07-09T03:57:39.965376919+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"iwhn4zqj"}}
+{"time":"2026-07-09T03:57:39.965386627+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"iwhn4zqj"}}
+{"time":"2026-07-09T03:57:40.401958227+03:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2026-07-09T10:03:00.339685213+03:00","level":"INFO","msg":"stream: closing","id":"iwhn4zqj"}
+{"time":"2026-07-09T10:03:00.339956401+03:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2026-07-09T10:03:00.533127958+03:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2026-07-09T10:03:00.645607206+03:00","level":"ERROR","msg":"sender: failed to upload run summary: open /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260709_035739-iwhn4zqj/files/wandb-summary.json: disk quota exceeded"}
+{"time":"2026-07-09T10:03:01.17602896+03:00","level":"ERROR","msg":"sender: failed to upload run config: open /scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260709_035739-iwhn4zqj/files/config.yaml: disk quota exceeded"}
+{"time":"2026-07-09T10:03:02.348461809+03:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-07-09T10:03:02.745961279+03:00","level":"INFO","msg":"sender: closed","stream_id":"iwhn4zqj"}
+{"time":"2026-07-09T10:03:02.745890527+03:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"iwhn4zqj"}}
+{"time":"2026-07-09T10:03:02.745958093+03:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"iwhn4zqj"}}
+{"time":"2026-07-09T10:03:02.746315048+03:00","level":"INFO","msg":"stream: closed","id":"iwhn4zqj"}

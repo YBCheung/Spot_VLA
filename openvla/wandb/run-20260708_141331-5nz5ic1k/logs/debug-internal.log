@@ -1,0 +1,8 @@
+{"time":"2026-07-08T14:13:31.935077385+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-08T14:13:31.93530035+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260708_141331-5nz5ic1k/logs/debug-core.log"}
+{"time":"2026-07-08T14:13:32.049288858+03:00","level":"INFO","msg":"created new stream","id":"5nz5ic1k"}
+{"time":"2026-07-08T14:13:32.049331894+03:00","level":"INFO","msg":"stream: started","id":"5nz5ic1k"}
+{"time":"2026-07-08T14:13:32.049369241+03:00","level":"INFO","msg":"sender: started","stream_id":"5nz5ic1k"}
+{"time":"2026-07-08T14:13:32.049370626+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"5nz5ic1k"}}
+{"time":"2026-07-08T14:13:32.049370627+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"5nz5ic1k"}}
+{"time":"2026-07-08T14:13:32.495346586+03:00","level":"INFO","msg":"Starting system monitor"}

@@ -1,0 +1,55 @@
+
+Traceback (most recent call last):
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 760, in <module>
+    finetune()
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/draccus/argparsing.py", line 203, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+  File "/scratch/work/zhangy50/RL/Spot_VLA/openvla/vla-scripts/finetune_early_stop.py", line 462, in finetune
+    output: CausalLMOutputWithPast = vla(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1523, in forward
+    else self._run_ddp_forward(*inputs, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/parallel/distributed.py", line 1359, in _run_ddp_forward
+    return self.module(*inputs, **kwargs)  # type: ignore[index]
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/peft/peft_model.py", line 642, in forward
+    return self.get_base_model()(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/huggingface/modules/transformers_modules/openvla/openvla-7b/31f090d05236101ebfc381b61c674dd4746d4ce0/modeling_prismatic.py", line 404, in forward
+    language_model_output = self.language_model(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1208, in forward
+    outputs = self.model(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 1018, in forward
+    layer_outputs = decoder_layer(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 741, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 645, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
+  File "/scratch/work/zhangy50/.conda_envs/openvla/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py", line 207, in apply_rotary_pos_emb
+    k_embed = (k * cos) + (rotate_half(k) * sin)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 454.00 MiB. GPU 0 has a total capacity of 139.81 GiB of which 347.31 MiB is free. Including non-PyTorch memory, this process has 137.46 GiB memory in use. Process 2685404 has 678.00 MiB memory in use. Process 2685403 has 678.00 MiB memory in use. Process 2685402 has 678.00 MiB memory in use. Of the allocated memory 130.72 GiB is allocated by PyTorch, and 4.47 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

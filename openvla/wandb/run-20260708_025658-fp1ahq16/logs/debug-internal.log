@@ -1,0 +1,14 @@
+{"time":"2026-07-08T02:56:58.867490009+03:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2026-07-08T02:56:58.867607149+03:00","level":"INFO","msg":"created symlink","path":"/scratch/work/zhangy50/RL/Spot_VLA/openvla/wandb/run-20260708_025658-fp1ahq16/logs/debug-core.log"}
+{"time":"2026-07-08T02:56:58.975873975+03:00","level":"INFO","msg":"created new stream","id":"fp1ahq16"}
+{"time":"2026-07-08T02:56:58.975923867+03:00","level":"INFO","msg":"stream: started","id":"fp1ahq16"}
+{"time":"2026-07-08T02:56:58.975963508+03:00","level":"INFO","msg":"sender: started","stream_id":"fp1ahq16"}
+{"time":"2026-07-08T02:56:58.975954344+03:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"fp1ahq16"}}
+{"time":"2026-07-08T02:56:58.975959695+03:00","level":"INFO","msg":"handler: started","stream_id":{"value":"fp1ahq16"}}
+{"time":"2026-07-08T02:56:59.631424723+03:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2026-07-08T09:24:51.398303037+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
+{"time":"2026-07-08T09:26:21.296538052+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
+{"time":"2026-07-08T09:26:29.488644544+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
+{"time":"2026-07-08T09:26:35.190928723+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
+{"time":"2026-07-08T09:26:44.042532461+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
+{"time":"2026-07-08T09:27:02.460054068+03:00","level":"INFO","msg":"api: retrying HTTP error","status":429,"url":"https://api.wandb.ai/files/yibo-zhang/openvla_spot/fp1ahq16/file_stream"}
