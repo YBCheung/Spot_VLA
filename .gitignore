@@ -13,3 +13,4 @@ dataset/libero_goal_staging/
 *__pycache__/*
 *checkpoint*
 openvla/trajectory_logs/
+LIBERO/libero/
